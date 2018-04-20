@@ -10,7 +10,7 @@ var db = require('../../lib/database')();
 
 router1.get('/', function(req, res, next) {
   // replace an HTTP posted body property with the sanitized string
-  req.body.sanitized = req.sanitize('1=1 <h1>hello trello');
+  req.body.sanitized = req.sanitize('<script>1 asds');
   // send the response
   res.send('Your value was sanitized to: ' + req.body.sanitized);
 });

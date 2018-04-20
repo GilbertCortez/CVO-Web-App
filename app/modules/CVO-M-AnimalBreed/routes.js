@@ -6,18 +6,7 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 router.get('/',  (req,res)=>{
-	db.query(`SELECT * FROM Breed`,(err, results, fields) => {
-		if(err){
-			console.log(err);
-		}
-		else {
-			render(results);
-		}
-	});
-	
-	function render(breed) {
-		res.render('CVO-M-AnimalBreed/views/view', {breed: breed} );
-	} 
+		res.render('CVO-M-AnimalBreed/views/view');
 });
 
 router.post('/', (req, res)=>{
@@ -30,7 +19,7 @@ router.post('/', (req, res)=>{
 		}
 		else {
 			res.render('CVO-M-AnimalBreed/views/view');
-		}	
+		}
 	});
 });
 

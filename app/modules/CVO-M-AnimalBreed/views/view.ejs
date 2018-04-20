@@ -42,26 +42,26 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>ID</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                        </tr> 
+                                                        </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                                                        <% each breed in breed %>
+
                                                         <tr>
-                                                            <td><%= breed.int_BreedId %></td>
-                                                            <td><%= breed.str_BreedName %></td>
-															<td><%= breed.int_AnimalSpecies %></td>
-															 
+                                                            <td></td>
+                                                            <td></td>
+															<td></td>
+
                                                             <td>
                                                                 <div align="center">
-                                                                
-                                                                   
+
+
                                                                      <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -77,7 +77,7 @@ document.getElementById("maintenance_list").className="active";
             </div>
         </div>
     </div>
-   
+
       <div class="modal fade" id="edit" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -100,10 +100,10 @@ document.getElementById("maintenance_list").className="active";
                                          <option>select</option>
                                         <option>Dog</option>
                                         <option>Cat</option>
-                                      
+
                                     </select>
                                  </tr>
-                               
+
                                 <tr>
                                   <td><strong>LAST MODIFIED BY:</strong></td>
                                   <td>Manuel Carlos</td>
@@ -122,5 +122,3 @@ document.getElementById("maintenance_list").className="active";
                 </div>
             </div>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-    
