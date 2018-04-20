@@ -5,7 +5,11 @@ var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
-
+router.get('/',  (req,res)=>{
+  
+	res.render('CVO-M-TransactionRequirements/views/view.ejs');
+          
+});
 router.get('/',  (req,res)=>{
   
 	res.render('CVO-M-TransactionRequirements/views/view.ejs');
