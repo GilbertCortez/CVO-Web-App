@@ -1,0 +1,154 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("vaccination_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <section >
+            
+            <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>VACCINATION</h2>
+                        </div>
+                        <div class="body">
+                      
+                                         <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Pet ID</th>
+                                                            <th>Pet Name</th>
+                                                            <th>Breed</th>
+                                                            <th>Pet Owner Name</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>MingMing</td>
+                                                            <td>Pusakal</td>
+                                                            <td>Mary Justine Espin</td>
+                                                            <td>
+                                                                <div align="center">
+                                                                  <!---  <a ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                            <i class="material-icons">remove_red_eye</i>&nbsp;
+                                                                    </button>
+                                                                   </a> !-->
+                                                                   <a data-toggle="modal" data-target="#schedule"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Schedule Vaccination">
+                                                                            <i class="material-icons">add</i>Schedule
+                                                                    </button>
+                                                                   </a>
+                                                                   <a data-toggle="modal" data-target="#recording"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
+                                                                            <i class="material-icons">add</i>Record
+                                                                    </button>
+                                                                   </a>
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+       <div class="modal fade" id="schedule" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">VACCINATION REQUIREMENTS</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Before proceeding, please check if the owner is able to bring the following:</h3>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#1</label>
+                                </span>
+                            </div>
+                             <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#2</label>
+                                </span>
+                            </div>
+                              <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#3</label>
+                                </span>
+                            </div>
+               
+                        </div>
+                        <div class="modal-footer">
+                        <a  href="/CVO_VaccinationScheduling" class="btn btn-link waves-effect">PROCEED</a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+
+       <div class="modal fade" id="recording" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">RECORDING OF VACCINATION REQUIREMENTS</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Before proceeding, please check if the owner is able to bring the following:</h3>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#1</label>
+                                </span>
+                            </div>
+                             <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#2</label>
+                                </span>
+                            </div>
+                              <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#3</label>
+                                </span>
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                    <label for="ig_checkbox">Requirements#4</label>
+                                </span>
+                            </div>
+               
+                        </div>
+                        <div class="modal-footer">
+                       <a  href="/CVO_VaccinationRecording" class="btn btn-link waves-effect">PROCEED</a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    </section>
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

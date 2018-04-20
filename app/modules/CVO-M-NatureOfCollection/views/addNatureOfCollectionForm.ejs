@@ -1,0 +1,49 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>ADD NEW NATURE OF COLLECTION</h2>
+                        </div>
+                        <div class="body">
+                            <form id="form_validation" action="/CVO_NatureOfCollection" method="POST" >
+								<label class="form-label">Description</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="description" required="" aria-required="true">
+                                        <label class="form-label">Description</label>
+                                    </div>
+                                </div>
+								<label class="form-label">Initial Price</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="price" required="" aria-required="true">
+                                        <label class="form-label">Price</label>
+                                    </div>
+                                </div>
+                                 <label class="form-label">Status</label>
+                                         <div class="switch">
+											 <input type="hidden" id="status" name="status" />
+                                             <label><input type="checkbox" checked onChange="statIndicate(); "><span class="lever switch-col-blue"></span></label>
+                                             <span id="StatusIndication">Active</span>
+                                         </div>
+                                       
+                                
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+				<script>
+				document.getElementById('status').value=1;
+				function statIndicate(){
+					if(document.getElementById('StatusIndication').innerHTML=='Active'){
+						document.getElementById('StatusIndication').innerHTML='Inactive';
+						document.getElementById('status').value=0;
+					}
+					else{
+						document.getElementById('StatusIndication').innerHTML='Active';
+						document.getElementById('status').value=1;
+					}
+				}
+				</script>

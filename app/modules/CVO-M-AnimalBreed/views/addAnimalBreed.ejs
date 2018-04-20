@@ -1,0 +1,41 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>ADD NEW ANIMAL BREED</h2>
+                        </div>
+                        <div class="body">
+                            <form id="form_validation" method="POST" novalidate="novalidate">
+								<label class="form-label">Breed Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+							
+								<label class="form-label">Animal Species</label>
+							
+								  <select name="animal" class="form-control show-tick" data-live-search="true">
+                                        <option value=0>Dog</option>
+                                        <option value=1>Cat</option>
+                                    </select>
+                      
+                                
+                                <br><br>
+                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+				
+				<script>
+				function statIndicate(){
+					if(document.getElementById('StatusIndication').innerHTML=='Active'){
+						document.getElementById('StatusIndication').innerHTML='Inactive';
+					}
+					else{
+						document.getElementById('StatusIndication').innerHTML='Active';
+					}
+                }
+                
+				</script>

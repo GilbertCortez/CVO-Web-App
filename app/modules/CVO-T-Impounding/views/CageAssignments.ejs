@@ -1,0 +1,144 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("impounding_list").className="active";
+document.getElementById("timpounding").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header bg-blue" >
+                <h2>
+                CAGE ASSIGNMENTS(APPREHENSION #1)
+                </h2>
+            
+            </div>
+            <div class="body"  >
+            <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ALIAS</th>
+                                        <th>ANIMAL BREED</th>
+                                        <th>ANIMAL SPECIES</th>
+                                        <th>SEX</th>
+                                        <th>COLOR PATTERN</th>
+                                        <th>PET TAG</th>
+                                        <th>Impounding Site</th>
+                                        <th>CAGE CLASSIFICATION</th>
+                                        <th>CAGE NUMBER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>MingMing</td>
+                                        <td>Puspin</td>
+                                        <td>Cat</td>
+                                        <td>Female</td>
+                                        <td>All White</td>
+                                        <td>CAL 2205</td>
+                                        <td>Concepcion(Site ID:1)</td>
+                                        <td>Monday</td>
+                                        <td>19</td>
+                                    </tr>
+
+                                         <tr>
+                                        <td>Doglas</td>
+                                        <td>Aspin</td>
+                                        <td>Dog</td>
+                                        <td>Male</td>
+                                        <td>Chocolate</td>
+                                        <td>CAL 2205</td>
+                                        <td>Concepcion(Site ID:1)</td>
+                                        <td>Monday</td>
+                                        <td>2</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                            <br><br>
+                           <center> <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >BACK</a></center>
+                        </div>
+            </div>
+          </div>
+          </div>
+
+
+             <div class="modal fade" id="actionsCage" tabindex="-1" role="dialog" >
+                <div class="modal-dialog" role="document" style="width:70%;">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">Cage Classification-Cage Number</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div  id="datatable">
+                       
+                   
+                     
+                          <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Alias</th>
+                                                            <th>Apprehended in</th>
+                                                            <th>Apprehended Date</th>
+                                                            <th>Species</th>
+                                                            <th>Breed</th>
+                                                            <th>Color</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Jingjing</td>
+                                                            <td>Concepcion</td>
+                                                            <td>01/23/2018</td>
+                                                            <td>Species</td>
+                                                            <td>Breed</td>
+                                                            <td>Color</td>
+                                                            <td>
+                                                                <div align="center">
+                                                                    <a data-target="#PetInfo" data-toggle="modal"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                            <i class="material-icons">remove_red_eye</i>&nbsp;
+                                                                    </button>
+                                                                   </a>
+                                                                  
+                                                                   <a  ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adopt Me">
+                                                                            <i class="material-icons">add</i>Adopt
+                                                                    </button>
+                                                                   </a>
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+             
+                
+                        
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

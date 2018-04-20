@@ -1,0 +1,77 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("query_list").className="active";
+
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header bg-blue" >
+                <h2>
+                REPORTS
+                </h2>
+                
+            </div>
+            <div class="body">
+                <!-- Exportable Table -->
+                <label class="form-label">Type of Report</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Impounded Animal</option>
+                                        <option>Adopted Animals Report</option>
+                                        <option>Claimed Animals Report</option>
+                                        <option>Payment Transactions Report</option>
+                                        <option>Animals Report</option>
+                                        <option>Forecast Number of Registration</option>
+                                    </select><br><br>
+
+                                    <label class="form-label">Generate & Export</label>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <thead>
+                                        <tr>
+                                            <th>Attrb#1</th>
+                                            <th>Attrb#2</th>
+                                            <th>Attrb#3</th>
+                                            <th>Attrb#4</th>
+                                            <th>Attrb#5</th>
+                                            <th>Attrb#6</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td>Data1-1</td>
+                                            <td>Data1-2</td>
+                                            <td>Data1-3</td>
+                                            <td>Data1-4</td>
+                                            <td>Data1-5</td>
+                                            <td>Data1-6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Data2-1</td>
+                                            <td>Data2-2</td>
+                                            <td>Data2-3</td>
+                                            <td>Data2-4</td>
+                                            <td>Data2-5</td>
+                                            <td>Data2-6</td>
+                                        </tr>
+                              
+                                   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
+            <!-- #END# Exportable Table -->
+                     
+            </div>
+        </div>
+    </div>
+   
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+    

@@ -1,0 +1,70 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("adoption_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                        
+                            <h2>ADOPTION APPLICATION FORM</h2>
+                           
+                        </div>
+                        <div class="body">
+                      
+                          <label class="form-label">First Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                   
+                            <label class="form-label">Middle Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                              <label class="form-label">Last Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                <center> 
+                                <a type="button" class="btn btn-primary waves-effect" data-toggle="modal" data-target="#interview">PROCEED</a>
+                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-primary waves-effect">CANCEL</a></center>
+                </div>
+            </div>
+            </div>
+            </div>
+
+       
+
+         <div class="modal fade" id="interview" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">INTERVIEW</h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                        
+                             
+                            <h4>Conduct an interview.</h4>
+                                   
+                        <div class="modal-footer">
+                           <a href="CVO_ApprovedAdoptionApplication"><button type="button" class="btn btn-primary waves-effect">APPROVE</button></a>
+                           <a href="CVO_Adoption"><button type="button" class="btn btn-primary waves-effect">FOR CUSTOMER INTELLIGENCE</button></a>
+                           <a href="CVO_Adoption"><button type="button" class="btn btn-primary waves-effect">DISAPPROVE</button></a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

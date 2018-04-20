@@ -1,0 +1,58 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("registration_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>ORDER OF PAYMENT</h2>
+                        </div>
+                        <div class="body">
+                         <div class="card" align="center">
+                         <div class="body">
+                          <table style="padding:5px;">
+                                <tr>
+                                <td><strong>PAYMENT ID:</strong></td>
+                                <td>#1</td>
+                              </tr>
+                                <tr>
+                                <td><strong>PAYOR NAME:</strong></td>
+                                <td>Payor's Name</td>
+                                </tr>
+                                <tr>
+                                <td><strong>NATURE OF COLLECTION:</strong></td>
+                               <td>Things to pay</td>
+                               </tr>
+                                <tr>
+                                <td><strong>AMOUNT:</strong></td>
+                                <td>Price</td>
+                                </tr>
+                               
+                              </table>
+                               </div>
+                                </div>
+                                <center>
+                                <a  onclick="window.frames['pact'].print();" ><button class="btn btn-primary waves-effect" type="button" >PRINT ORDER OF PAYMENT</button></a>&nbsp;
+                                <a href="/CVO_RecordCollection"><button class="btn btn-primary waves-effect" type="button">PROCEED</button></a>
+                                <iframe name="pact" src="ORDEROFPAYMENT.pdf" width="0" height="0" frameborder="0"></iframe>
+                                </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+
+ <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+   

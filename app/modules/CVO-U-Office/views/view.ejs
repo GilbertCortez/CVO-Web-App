@@ -1,0 +1,98 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("utilities_list").className="active";
+document.getElementById("office_list").className="active";
+</script>
+
+
+
+               
+              
+                 <div >
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>OFFICE INFORMATION</h2>
+                        </div>
+                        <div class="body">
+                                <div class="form-group form-float">
+                                    <div class="alert bg-grey alert-dismissable" id="officeinfoalert">
+                                        <button type="button" class="close" onclick="document.getElementById('officeinfoalert').hidden=true;"><span aria-hidden="true">×</span></button>Last modified by <u>Mary Justine Espin</u>.
+                                    </div>
+                                    
+                                    <label class="form-label">Office Name</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='City Veterinary Office-Marikina'>
+                                    </div><br>
+                                    <label class="form-label">Email</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='cityveterinaryoffice@govt.com'>
+                                    </div><br>
+                                    <label class="form-label">Telephone Number</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='(02)475-4719'>
+                                    </div><br>
+                                     <label class="form-label">Address</label>
+                                    <div class="form-line">
+                                        <textarea class="form-control" name="name"   >2nd Floor of Engineering Bldg., Agora Complex, Paliparan Sto. Ñino, Marikina City</textarea>
+                                    </div><br>
+                                     <label class="form-label">Office Hours</label>
+                                    <div class="form-line">
+                                    <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Time</label>
+
+                                       <input type="time" class="form-control"  value="08:00"/>
+                                       </div><br>
+                                         <div class="form-line">
+                                       <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Time</label>
+                                       <input type="time" class="form-control" value="17:00" />
+                                    </div><br>
+                                     <label class="form-label">Office Days</label>
+                                  
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="mo">
+                                            <label for="ig_checkbox">Mo</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="tu">
+                                            <label for="ig_checkbox">Tu</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="we">
+                                            <label for="ig_checkbox">We</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="th">
+                                            <label for="ig_checkbox">Th</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="fr">
+                                            <label for="ig_checkbox">Fr</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="sa">
+                                            <label for="ig_checkbox">Sa</label>
+                                        </span>
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="su">
+                                            <label for="ig_checkbox">Su</label>
+                                        </span>
+                                        
+                                    </div>
+                              
+                                    </div><br>
+                              
+                            
+
+                                  
+                                <center><button class="btn btn-primary waves-effect" type="submit" >UPDATE</button>
+                                  </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+    

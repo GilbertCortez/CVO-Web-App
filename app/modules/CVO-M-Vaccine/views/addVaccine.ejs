@@ -1,0 +1,51 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>ADD NEW VACCINE</h2>
+                        </div>
+                        <div class="body">
+                            <form id="form_validation" method="POST" novalidate="novalidate">
+								<label class="form-label">Vaccine Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Manufacturer</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="manu_name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								
+								<label class="form-label">Vaccine Classification</label>
+								<div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input name="vaccineClassification" type="radio" value=0 id="ig_radio">
+                                            <label for="ig_radio">Government</label>
+                                        </span>
+
+                                        <span class="input-group-addon">
+                                            <input name="vaccineClassification" type="radio" value=1 id="ig_radio2">
+                                            <label for="ig_radio2">Private</label>
+                                        </span>
+                                </div>
+                                       
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+				
+				<script>
+				function statIndicate(){
+					if(document.getElementById('StatusIndication').innerHTML=='Active'){
+						document.getElementById('StatusIndication').innerHTML='Inactive';
+					}
+					else{
+						document.getElementById('StatusIndication').innerHTML='Active';
+					}
+				}
+				</script>

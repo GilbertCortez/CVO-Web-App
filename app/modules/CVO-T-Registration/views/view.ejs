@@ -1,0 +1,570 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("registration_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>REGISTRATION</h2>
+                        </div>
+                        <div class="body">
+                           <button type="button" class="btn btn-block btn-lg btn-primary waves-effect" data-toggle="modal" data-target="#requirements" ><i class="material-icons">add</i>PET OWNER REGISTRATION</button><br><br>
+                             <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Date Registered</th>
+                                                            <th>Barangay</th>
+                                                            <th>Phone Number</th>
+                                                            <th>Email</th>
+                                                            <th>Status</th>
+															                               <th style="width:20%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Mary Justine Espin</td>
+															<td>01/23/2017</td>
+															<td>Concepcion</td>
+														
+															<td>09332560780</td>
+															<td>mj230709@gmail.com</td>
+															<td>Registered</td>
+                                                            <td>
+                                                                <div class="row"align="center">
+                                                                    <a data-toggle="modal" data-target="#view"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                            <i class="material-icons">remove_red_eye</i>
+                                                                    </button></a>
+                                                                   
+                                                                    <a data-toggle="modal" data-target="#edit"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                            <i class="material-icons">mode_edit</i>
+                                                                    </button></a>
+                                                                     <a data-toggle="modal" data-target="#requirementsPetReg"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">
+                                                                            <i class="material-icons">add</i>
+                                                                           
+                                                                    </button>
+                                                                    </a>
+                                                                    <a data-toggle="modal" data-target="#petlist"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet List">
+                                                                            <i class="material-icons">list</i>
+                                                                           
+                                                                    </button>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+     <div class="modal fade" id="requirements" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">Requirements</h4>
+                        </div>
+                        <div class="modal-body">
+                              <h4>Does the Registrant brings the following?</h4>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#1</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#2</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#3</label>
+                                        </span>
+                                        <label class="form-label"></label>
+                                    </div>
+                                     <h5>After the Owner Registration Process, will the Pet Owner register a Pet?</h5>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">YES</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">NO</label>
+                                        </span>
+                                        
+                                        <label class="form-label"></label>
+                                    </div>
+                                      <h5>Does the Pet to be registered have undergo Vaccination?</h5>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">YES</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">NO</label>
+                                        </span>
+                                        
+                                        <label class="form-label"></label>
+                                    </div>
+                                     <h5>Does the Pet Owner brings the Certificate of Vaccination?</h5>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">YES</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">NO</label>
+                                        </span>
+                                        
+                                        <label class="form-label"></label>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/CVO_OwnerRegistration"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="view" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">VIEW REGISTERED PET OWNER PROFILE</h4>
+                        </div>
+                        <div class="modal-body">
+                        <table>
+                        <tr>
+                             <td><img src="../../images/samplePetOwner.JPG" width="200"  alt="User" /></td>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td><table class="table table-striped">
+                              	<tr>
+	                              <td><strong>ID NUMBER:</strong></td>
+	                              <td>#1</td>
+	                            </tr>
+                              	<tr>
+	                              <td><strong>NAME:</strong></td>
+	                              <td>Mary Justine Espin</td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>HOME ADDRESS:</strong></td>
+	                             <td>  1605 Sesame Street, Barangay Concepcion, Marikina City</td>
+	                             </tr>
+                              	<tr>
+	                              <td><strong>PHONE NUMBER:</strong></td>
+	                              <td>0933 256 0780</td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>EMAIL ADDRESS:</strong></td>
+	                              <td> mj230709@gmail.com</td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>DATE REGISTERED:</strong></td>
+	                              <td> 01/23/2017</td>
+	                              </tr>
+                              </table></td>
+                             </tr>
+                             </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">EDIT REGISTERED PET OWNER PROFILE</h4>
+                        </div>
+                        <div class="modal-body">
+                        <table>
+                        <tr>
+                             <td><img src="../../images/samplePetOwner.JPG" width="200"  alt="User" /></td>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td><table class="table table-striped">
+                              	<tr>
+	                              <td><strong>ID NUMBER:</strong></td>
+	                              <td>#1</td>
+	                            </tr>
+                              	<tr>
+	                              <td><strong>NAME:</strong></td>
+	                              <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='Mary Justine Espin'></td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>HOME ADDRESS:</strong></td>
+	                             <td>  <input type="textarea" class="form-control" name="name" required="" aria-required="true" value='1605 Sesame Street, Barangay Concepcion, Marikina City'></td>
+	                             </tr>
+                              	<tr>
+	                              <td><strong>PHONE NUMBER:</strong></td>
+	                              <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='0933 256 0780'></td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>EMAIL ADDRESS:</strong></td>
+	                              <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='mj230709@gmail.com'> </td>
+	                              </tr>
+                              	<tr>
+	                              <td><strong>DATE REGISTERED:</strong></td>
+	                              <td> 01/23/2017</td>
+	                              </tr>
+                              </table></td>
+                             </tr>
+                             </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="modal fade" id="requirementsPetReg" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">Pet Registration Requirements</h4>
+                        </div>
+                        <div class="modal-body">
+                              <h4>Does the Pet Owner brings the following?</h4>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#1</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#2</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">Requirement#3</label>
+                                        </span>
+                                        <label class="form-label"></label>
+                                    </div>
+                                     <h5>Does the Pet to be registered have undergo Vaccination?</h5>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">YES</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">NO</label>
+                                        </span>
+                                        
+                                        <label class="form-label"></label>
+                                    </div>
+                                     <h5>Does the Pet Owner brings the Certificate of Vaccination?</h5>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">YES</label>
+                                        </span>
+                                         <span class="input-group-addon">
+                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">NO</label>
+                                        </span>
+                                        
+                                        <label class="form-label"></label>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/CVO_PetRegistration"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+             <div class="modal fade" id="petlist" tabindex="-1" role="dialog" >
+                <div class="modal-dialog" role="document" style="width:70%">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">PET LIST</h4>
+                        </div>
+                        <div class="modal-body">
+                                 <div >
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Animal ID</th>
+                                                            <th>Animal Name</th>
+                                                            <th>Breed</th>
+                                                            <th>Sex</th>
+                                                            <th>Color Pattern</th>
+                                                            
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>MingMing</td>
+                                                            <td>Pusakal</td>
+                                                            <td>Male</td>
+                                                            <td>Full White</td>
+                                                           
+                                                       
+                                                            <td>
+                                                                <div align="center">
+                                                                   
+                                                                  
+                                                                   <a data-toggle="modal" data-target="#pethistory"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet History">
+                                                                            <i class="material-icons">history</i>
+                                                                           
+                                                                    </button>
+                                                                    </a>
+                                                                   
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                           
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+             <div class="modal fade" id="pethistory" tabindex="-1" role="dialog" >
+                <div class="modal-dialog" role="document" style="width:70%;height:400px;outflow:scroll">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">PET HISTORY</h4>
+                        </div>
+                        <div class="modal-body">
+                                     <div class="row clearfix">
+                    <div >
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_1" data-toggle="tab" aria-expanded="false">VACCINATION</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_1" data-toggle="tab" aria-expanded="false">MEDICAL</a></li>
+                            <li role="presentation" class=""><a href="#home_animation_2" data-toggle="tab" aria-expanded="false">REDEMPTION</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false">IMPOUNDING</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_3" data-toggle="tab" aria-expanded="false">ADOPTION</a></li>
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_1">
+                                    <div class="body">
+                                            <div>
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Date</th>
+                                                            <th>Vaccine Name</th>
+                                                            <th>Classification</th>
+                                                            <th>Manufacturer</th>
+                                                             <th>Lot Number</th>
+                                                            <th>Expiry Date</th>
+                                                            <th>Employee Incharge</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>01/12/2018</td>
+                                                            <td>Vaccine#1</td>
+                                                             <td>Government</td>
+                                                            <td>TGP</td>
+                                                            <td>3298</td>
+                                                            <td>01/29/2019</td>
+                                                            <td>Dr. Manuel Carlos</td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_1">
+                              <div>
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                             <th>Description</th>
+                                                            <th>Date of Occurence</th>
+                                                            <th>Employee Incharge</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Biogesic</td>
+                                                            <td>01/23/2018</td>
+                                                    
+                                                            
+                                                            <td>Dr. Manuel Carlos</td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                           
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="home_animation_2">
+                                         <div>
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                             <th>Description</th>
+                                                            <th>Date of Occurence</th>
+                                                             <th>Status</th>
+                                                             <th>Collection Amount</th>
+                                                            <th>Employee Incharge</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Redemption with Penalty 2</td>
+                                                            <td>01/23/2018</td>
+                                                    <td>Approved</td>
+                                                    <td>250</td>
+                                                            
+                                                            <td>Dr. Manuel Carlos</td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                           
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                              <div>
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                             <th>Description</th>
+                                                            <th>Date of Occurence</th>
+                                                            
+                                                           
+                                                            <th>Employee Incharge</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Redemption with Penalty 2</td>
+                                                            <td>01/23/2018</td>
+                                                    
+                                                    
+                                                            
+                                                            <td>Dr. Manuel Carlos</td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                      
+                            </div>
+                             <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_3">
+                              <div>
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                             <th>Description</th>
+                                                            <th>Date of Occurence</th>
+                                                             <th>Status</th>
+                                                             <th>Collection Amount</th>
+                                                            <th>Employee Incharge</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Redemption with Penalty 2</td>
+                                                            <td>01/23/2018</td>
+                                                    <td>Approved</td>
+                                                    <td>250</td>
+                                                            
+                                                            <td>Dr. Manuel Carlos</td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+                        <div class="modal-footer">
+                           
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+   

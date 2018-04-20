@@ -1,0 +1,49 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>ADD NEW TRANSACTION REQUIREMENTS</h2>
+                        </div>
+                        <div class="body">
+                            <form id="form_validation" method="POST" novalidate="novalidate">
+								<label class="form-label">Requirement Description</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="req_desc" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Purpose</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="req_purpose" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Transaction</label>
+                                <select name="transaction" class="form-control show-tick" data-live-search="true">
+                                         <option>select</option>
+                                        <option value=0>Pet Owner Registration</option>
+                                        <option value=1>Pet Registration</option>
+                                        <option value=2>Adoption Process</option>
+                                        <option value=3>Redemption Process</option>
+                                        <option value=4>Vaccination Process</option>
+                                    </select>
+								
+							<br>
+                                
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+				
+				<script>
+				function statIndicate(){
+					if(document.getElementById('StatusIndication').innerHTML=='Active'){
+						document.getElementById('StatusIndication').innerHTML='Inactive';
+					}
+					else{
+						document.getElementById('StatusIndication').innerHTML='Active';
+					}
+				}
+				</script>

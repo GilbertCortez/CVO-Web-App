@@ -1,0 +1,149 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("vaccination_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>Schedule Vaccination</h2>
+                        </div>
+                        <div class="body">
+                        
+                       
+                                    <form id="form_validation" method="POST" novalidate="novalidate">
+                                <label class="form-label">Vaccination Date Schedule</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="date" class="form-control" name="name" required="" aria-required="true" onChange="$('#timechoose').modal('toggle');
+                                        " >
+                                    </div>
+                                </div>
+                                 <label class="form-label">Vaccination Time Schedule</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="time" class="form-control" name="name" required="" aria-required="true" disabled>
+                                    </div>
+                                </div>
+                                  
+                                <label class="form-label">Vaccine</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Vaccine#1</option>
+                                        <option>Vaccine#2</option>
+                                        <option>Vaccine#3</option>
+                                        <option>Vaccine#4</option>
+                                        <option>Vaccine#5</option>
+                                    </select><br><br>
+                                 <label class="form-label">Vaccine Classification</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true" disabled>
+                                    </div>
+                                </div>
+                                 <label class="form-label">Vaccine Manufacturer</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true" disabled>
+                                    </div>
+                                </div>
+
+                                
+                                <label class="form-label">Vaccine Lot Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Vaccine Expiry Date</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="date" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+
+                                <br>
+
+                                <center>
+                                <a href="/CVO_OrderOfPayment"><button class="btn btn-primary waves-effect" type="button">PROCEED TO ORDER OF PAYMENT GENERATION</button></a>&nbsp;
+                                <a href="/CVO_PetRegistration"><button class="btn btn-primary waves-effect" type="button">BACK</button></a></center>
+                                 </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+    <div class="modal fade" id="timechoose" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">VACCINATION TIME</h4>
+                        </div>
+                        <div class="modal-body">
+                        <div class="input-group input-group-lg">
+                                        <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">8:00 am(10 Slots)</label>
+                                        </span>
+                                        </div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">9:00 am(6 Slots)</label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">10:00 am(12 Slots)</label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox" disabled>
+                                            <label for="ig_checkbox"><strike>11:00 am(No Slot)</strike></label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">12:00 nn(13 Slots)</label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">1:00 pm(9 Slots)</label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">2:00 pm(2 Slots)</label>
+                                        </span></div>
+                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox">
+                                            <label for="ig_checkbox">3:00 pm(8 Slots)</label>
+                                        </span></div>
+                                         <div class="input-group input-group-lg"><span class="input-group-addon">
+                                            <input type="radio" class="filled-in" id="ig_checkbox" disabled>
+                                            <label for="ig_checkbox"><strike>4:00 pm(No Slot)</strike></label>
+                                        </span></div>
+                                       
+                                   
+                                 
+               
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CHOOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+ <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+   

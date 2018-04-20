@@ -1,0 +1,37 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("adoption_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                        
+                            <h2>APPROVED ADOPTION APPLICATION</h2>
+                           
+                        </div>
+                        <div class="body">
+
+                        <h3>Instruction:</h3>
+                        1. Adopter should pay at the Office of the Treasurer(ORDER OF PAYMENT)<br>
+                        2. Collection Recording<br>
+                        3. Release & Signing of Kasunduan Letter(KASUNDUAN LETTER)<br>
+                        4. Release of the Adopted Dog/Cat(ORDER OF RELEASE)<br><br>
+                      <center>
+                            <a  onclick="window.frames['pacts'].print();" ><button class="btn btn-primary waves-effect" type="button" > <i class="material-icons">description</i>Order of Payment</button></a>
+                         <iframe name="pacts" src="ORDEROFPAYMENT.pdf" width="0" height="0" frameborder="0"></iframe>
+                                    <a  onclick="window.frames['pac'].print();" ><button class="btn btn-primary waves-effect" type="button" > <i class="material-icons">description</i>Kasunduan Letter</button></a>
+                         <iframe name="pac" src="Kasunduan.pdf" width="0" height="0" frameborder="0"></iframe>
+                         <a  onclick="window.frames['pact'].print();" ><button class="btn btn-primary waves-effect" type="button" > <i class="material-icons">description</i>Order of Release</button></a>
+                         <iframe name="pact" src="ORDEROFRELEASE.pdf" width="0" height="0" frameborder="0"></iframe>
+               
+                         </center>
+                </div>
+            </div>
+            </div>
+            </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

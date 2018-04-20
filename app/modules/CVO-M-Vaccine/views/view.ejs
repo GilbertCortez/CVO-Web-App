@@ -1,0 +1,129 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("vaccine_list").className="active";
+document.getElementById("maintenance_list").className="active";
+
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header bg-blue" >
+                <h2>
+                VACCINE
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div >
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                                    <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Vaccine Name</th>
+                                                            <th>Classification</th>
+                                                            <th>Manufacturer</th>
+															<th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Vaccine for Dogs</td>
+															<td>Government</td>
+															 <td>Generic Pharmacy</td>
+                                                            <td>
+                                                                <div align="center">
+                                                                   
+                                                                   <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                            <i class="material-icons">mode_edit</i>
+                                                                    </button></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                               <%- include('./addVaccine.ejs') -%>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+     <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">EDIT VACCINE DETAILS</h4>
+                        </div>
+                        <div class="modal-body">
+                        <table class="table table-striped">
+                                <tr>
+                                  <td><strong>ID NUMBER:</strong></td>
+                                  <td>#1</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>VACCINE NAME:</strong></td>
+                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
+                                  </tr>
+                                <tr>
+                                  <td><strong>CLASSIFICATION:</strong></td>
+                                 <td>  <select class="form-control show-tick" data-live-search="true">
+                                         <option>select</option>
+                                        <option>Government</option>
+                                        <option>Private</option>
+                                       
+                                     
+                                    </select></td>
+                                 </tr>
+                                <tr>
+                                  <td><strong>MANUFACTURER:</strong></td>
+                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='Generic Pharmacy'></td>
+                                  </tr>
+                                <tr>
+                                  <td><strong>LAST MODIFIED BY:</strong></td>
+                                  <td>Manuel Carlos</td>
+                                  </tr>
+                                <tr>
+                                  <td><strong>LAST DATE MODIFIED:</strong></td>
+                                  <td> 01/23/2017</td>
+                                  </tr>
+                              </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+    

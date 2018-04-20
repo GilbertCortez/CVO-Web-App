@@ -1,0 +1,143 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("record_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <section >
+            
+            <div class="row clearfix">
+                <div >
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>ACCOUNTS</h2>
+                        </div>
+                        <div class="body">
+                         <div >
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>UNPAID</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">check</i>PAID</a></li>
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                                    <%- include('./unpaid.ejs') -%>
+                            </div>
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                              <%- include('./paid.ejs') -%>
+                            </div>
+
+                        </div>
+                    </div>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+    <div class="modal fade" id="RecordCollection" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">Record Collection</h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                        
+                              
+                              <table class="table table-striped">
+                                <tr>
+                                  <td><strong>PAYMENT ID:</strong></td>
+                                  <td>#1</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>PAYOR NAME:</strong></td>
+                                  <td>Mary Justine Espin</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>NATURE OF COLLECTION:</strong></td>
+                                  <td>Registration & Vaccination</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>OR NUMBER:</strong></td>
+                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>DATE OF PAYMENT:</strong></td>
+                                  <td><input type="date" class="form-control" name="name" required="" aria-required="true" ></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>AMOUNT:</strong></td>
+                                  <td><input type="number" class="form-control" name="name" required="" aria-required="true" ></td>
+                                </tr>
+                                
+
+                                
+                                
+                              </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">RECORD</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ViewCollection" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">View Collection</h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                        
+                              
+                              <table class="table table-striped">
+                                <tr>
+                                  <td><strong>PAYMENT ID:</strong></td>
+                                  <td>#1</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>PAYOR NAME:</strong></td>
+                                  <td>Mary Justine Espin</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>NATURE OF COLLECTION:</strong></td>
+                                  <td>Registration & Vaccination</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>OR NUMBER:</strong></td>
+                                  <td>30009</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>DATE OF PAYMENT:</strong></td>
+                                  <td>01/27/2018</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>AMOUNT:</strong></td>
+                                  <td>350</td>
+                                </tr>
+                                
+
+                                
+                                
+                              </table>
+
+                        </div>
+                        <div class="modal-footer">
+                           
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

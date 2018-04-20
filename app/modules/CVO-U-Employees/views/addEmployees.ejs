@@ -1,0 +1,73 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header bg-blue">
+                            <h2>ADD NEW EMPLOYEES</h2>
+                        </div>
+                        <div class="body">
+                            <form id="form_validation" method="POST" novalidate="novalidate">
+								<label class="form-label">First Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Middle Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Last Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								
+								<label class="form-label">ID Picture</label>
+                                <div >
+                                    <div class="form-line">
+                                        <input type="file"/>
+                                    </div>
+                                </div>
+								<br>
+								
+								<label class="form-label">Email</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+								<label class="form-label">Employee Type</label>
+								
+
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Office Staff</option>
+                                        <option>Apprehension Team</option>
+                                        <option>Secretary</option>
+                                        <option>Management</option>
+                                        <option></option>
+                                    </select>
+								<br><br>
+                            
+                                       
+                                
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+				
+				<script>
+				function statIndicate(){
+					if(document.getElementById('StatusIndication').innerHTML=='Active'){
+						document.getElementById('StatusIndication').innerHTML='Inactive';
+					}
+					else{
+						document.getElementById('StatusIndication').innerHTML='Active';
+					}
+				}
+				</script>

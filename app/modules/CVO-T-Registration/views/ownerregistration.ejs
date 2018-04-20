@@ -1,0 +1,103 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("registration_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                <h3>Owner Registration</h3><hr>
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>Pet Owner Registration Form</h2>
+                        </div>
+                        <div class="body">
+                         
+                       
+                                    <form id="form_validation" method="POST" novalidate="novalidate">
+                                <label class="form-label">First Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                <label class="form-label">Middle Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                <label class="form-label">Last Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                
+                            
+                                <label class="form-label">Cellphone Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Email</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Barangay</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Barangay#1</option>
+                                        <option>Barangay#2</option>
+                                        <option>Barangay#3</option>
+                                        <option>Barangay#4</option>
+                                        <option>Barangay#5</option>
+                                    </select>
+                                <br><br>
+                              <label class="form-label">Complete Address</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Start Year of Stay in the City</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                    <label class="form-label">Pet Owner Picture</label>
+                                <div >
+                                    <div class="form-line">
+                                        <input type="file"/>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <center>
+                                <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">REGISTER</button></a>&nbsp;
+                                <a href="/CVO_PetRegistration"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO PET REGISTRATION</button></a>&nbsp;
+                                <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
+                                 </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+ <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+   

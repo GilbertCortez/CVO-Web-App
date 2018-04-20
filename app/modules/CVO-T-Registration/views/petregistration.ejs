@@ -1,0 +1,100 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("registration_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                <h3>Pet Registration</h3><hr>
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>Pet Registration Form</h2>
+                        </div>
+                        <div class="body">
+                         
+                       
+                                    <form id="form_validation" method="POST" novalidate="novalidate">
+                                <label class="form-label">Pet Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Sex</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select><br><br>
+
+                                 <label class="form-label">Breed</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Breed#1</option>
+                                        <option>Breed#2</option>
+                                        <option>Breed#3</option>
+                                        <option>Breed#4</option>
+                                        <option>Breed#5</option>
+                                    </select><br><br>
+
+                                     <label class="form-label">Color Pattern</label>
+                             <select class="form-control show-tick" data-live-search="true">
+                                        <option>select</option>
+                                        <option>Color Pattern #1</option>
+                                        <option>Color Pattern #2</option>
+                                        <option>Color Pattern #3</option>
+                                        <option>Color Pattern #4</option>
+                                        <option>Color Pattern #5</option>
+                                    </select><br><br>
+
+                                <label class="form-label">Birthday</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="date" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                <label class="form-label">Pet Tag Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                
+                                    <label class="form-label">Pet Side View Picture</label>
+                                <div >
+                                    <div class="form-line">
+                                        <input type="file"/>
+                                    </div>
+                                </div>
+                                <br>
+                                
+
+                             
+                     
+                                
+                               
+                           
+                                  
+
+                                <center><a href="/CVO_ScheduleVaccination"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO VACCINATION</button></a>&nbsp;
+                                <a href="/CVO_RecordVaccination"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO RECORDING OF VACCINATION</button></a>&nbsp;
+                                <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
+                                 </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+ <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+   
