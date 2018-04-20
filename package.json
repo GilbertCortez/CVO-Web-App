@@ -28,6 +28,7 @@
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "express": "^4.15.3",
+    "express-sanitizer": "^1.0.4",
     "express-session": "^1.15.5",
     "fibers": "^2.0.0",
     "html": "^1.0.0",

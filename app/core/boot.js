@@ -8,13 +8,20 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-
+//For Sanitation of Data
+var expressSanitizer = require('express-sanitizer');
 
 var serveStatic = require('serve-static');
 
 
 module.exports = app => {
-   
+    //For Sanitation of data
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(expressSanitizer()); // this line follows bodyParser() instantiations
+ 
+
+
     app.set('port', process.argv[2] || process.env.PORT || 3000);
     
     app.engine('html', require('ejs').renderFile);

@@ -1,9 +1,20 @@
 
 var express = require('express');
 var router = express.Router();
+var router1 = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
+
+
+
+router1.get('/', function(req, res, next) {
+  // replace an HTTP posted body property with the sanitized string
+  req.body.sanitized = req.sanitize('1=1 <h1>hello trello');
+  // send the response
+  res.send('Your value was sanitized to: ' + req.body.sanitized);
+});
+
 
 
 router.get('/',  (req,res)=>{
@@ -31,3 +42,4 @@ router.post('/', (req, res) => {
 
 
 exports.CVO_Vaccine= router;
+exports.CVO_TryLangValidation= router1;
