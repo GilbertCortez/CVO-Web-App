@@ -10,7 +10,7 @@ var db = require('../../lib/database')();
 
 router1.get('/', function(req, res, next) {
   // replace an HTTP posted body property with the sanitized string
-  req.body.sanitized = req.sanitize('<script>1 asds');
+  req.body.sanitized = req.sanitize('Justine Espin');
   // send the response
   res.send('Your value was sanitized to: ' + req.body.sanitized);
 });
@@ -18,9 +18,10 @@ router1.get('/', function(req, res, next) {
 
 
 router.get('/',  (req,res)=>{
-  
-	res.render('CVO-M-Vaccine/views/view.ejs');
-          
+
+  db.query(`SELECT * FROM vaccine`,(err, results, field) => {
+      res.render('CVO-M-Vaccine/views/view',{re:results});
+});
 });
 
 router.post('/', (req, res) => {
