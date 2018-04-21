@@ -110,6 +110,7 @@ document.getElementById("maintenance_list").className="active";
                                   <input type="hidden">
                                   <td><strong>CLASSIFICATION:</strong></td>
                                  <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification" tabindex=1>
+                                 <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification">
 
 
                                         <option value="0">Government</option>
@@ -148,7 +149,7 @@ $('.editButton').on('click',function(){
 
     $('#modal_ID').val($(this).data('vd1'))
     $('#modal_VaccineName').val($(this).data('vd2'))
-    $('#modal_Classification').val($(this).data('vd3'))
+    $('select#modal_Classification')[0].selectedIndex($(this).data('vd3'))
     $('#modal_Manufacturer').val($(this).data('vd4'))
 
   })
