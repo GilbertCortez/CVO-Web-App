@@ -1,3 +1,4 @@
-localhost:3009/login/tempLog
-same DB
-"# CVOSystem" 
+System: City Veterinary Office Pet & Owner Registration, Impounding, Adoption, and Pet Redemption System
+
+Installation Procedure:
+*Will be updated soon...
