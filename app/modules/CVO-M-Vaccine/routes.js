@@ -19,7 +19,7 @@ router1.get('/', function(req, res, next) {
 
 router.get('/',  (req,res)=>{
 
-  db.query(`SELECT * FROM vaccine`,(err, results, field) => {
+  db.query(`SELECT * FROM vaccine`,(err, results, fields) => {
       res.render('CVO-M-Vaccine/views/view',{re:results});
 });
 });
@@ -34,13 +34,10 @@ router.post('/', (req, res) => {
 			res.redirect('/CVO_Vaccine');
 		}
 		else {
-			res.render('CVO-M-Vaccine/views/view');
+			res.redirect('/CVO_Vaccine');
 		}
 	})
 });
-
-
-
 
 exports.CVO_Vaccine= router;
 exports.CVO_TryLangValidation= router1;
