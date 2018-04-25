@@ -57,7 +57,7 @@ document.getElementById("maintenance_list").className="active";
                                                             <td>Government</td>
                                                             <% } %>
 
-															<td><%= i.str_Manufacturer %></td>
+															                              <td><%= i.str_Manufacturer %></td>
                                                             <td>
                                                                 <div align="center">
 
@@ -107,8 +107,12 @@ document.getElementById("maintenance_list").className="active";
                                   <td><input type="text" id="modal_VaccineName" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
                                   </tr>
                                 <tr>
+                                  <input type="hidden">
                                   <td><strong>CLASSIFICATION:</strong></td>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
                                  <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification" tabindex=1>
                                  <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification">
 
@@ -118,6 +122,7 @@ document.getElementById("maintenance_list").className="active";
 
 
                                     </select></td>
+<<<<<<< HEAD
 =======
                                  <td><select id="modal_Classification" class="form-control show-tick" data-live-search="true" tabindex=1>
                                      <option value=0>Government</option>
@@ -125,6 +130,8 @@ document.getElementById("maintenance_list").className="active";
                                        </select>   
                                 </td>
 >>>>>>> ec46fd00b7479b9e4793337f27aa02ca1bc2bb66
+=======
+>>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
                                  </tr>
                                 <tr>
                                   <td><strong>MANUFACTURER:</strong></td>
@@ -151,11 +158,12 @@ document.getElementById("maintenance_list").className="active";
 
 
 <script>
-    $(function(){
-    $('.editButton').on('click',function(){
+
+$('.editButton').on('click',function(){
 
     $('#modal_ID').val($(this).data('vd1'))
     $('#modal_VaccineName').val($(this).data('vd2'))
+<<<<<<< HEAD
 <<<<<<< HEAD
     $('select#modal_Classification')[0].selectedIndex($(this).data('vd3'))
 =======
@@ -169,8 +177,11 @@ document.getElementById("maintenance_list").className="active";
         $("#modal_Classification").val(1).change();
     }
 >>>>>>> ec46fd00b7479b9e4793337f27aa02ca1bc2bb66
+=======
+    $('select#modal_Classification')[0].selectedIndex($(this).data('vd3'))
+>>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
     $('#modal_Manufacturer').val($(this).data('vd4'))
 
-    })
-    });
+  })
+
 </script>

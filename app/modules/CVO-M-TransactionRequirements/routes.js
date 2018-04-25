@@ -5,8 +5,8 @@ var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
-
 router.get('/',  (req,res)=>{
+<<<<<<< HEAD
 	db.query(`SELECT * FROM requirements JOIN requirementspertransaction 
 	WHERE requirements.int_RequirementsId = requirementspertransaction.int_RequirementsId`, (err, results, fields) => {
 		if(err){
@@ -22,6 +22,15 @@ router.get('/',  (req,res)=>{
 	function render(req){
 		res.render('CVO-M-TransactionRequirements/views/view',{req:req});
 	}
+=======
+  
+	res.render('CVO-M-TransactionRequirements/views/view.ejs');
+          
+});
+router.get('/',  (req,res)=>{
+  
+	res.render('CVO-M-TransactionRequirements/views/view.ejs');
+>>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
           
 });
 
@@ -32,7 +41,6 @@ router.post('/',  (req,res)=>{
 	db.query(`INSERT INTO requirements(str_Description,str_Purpose,int_EmployeeNo) VALUES ("${reqDescription}","${reqPurpose}",1)`, (err, results, fields) => {
 		if (err){
 			console.log(err);
-			res.redirect('/CVO_TransactionRequirements')
 		}
 		else {
 			db.query(`SELECT int_RequirementsId FROM requirements order by 1 desc limit 1`,(err,currentReqId, fields)=>{
@@ -41,7 +49,7 @@ router.post('/',  (req,res)=>{
 				}
 				else {
 					db.query(`INSERT INTO requirementspertransaction(int_RequirementsId,int_Transaction,int_EmployeeNo) VALUES("${currentReqId[0].int_RequirementsId}","${reqTransaction}",1)`,(err,results,fields)=>{
-						res.redirect('/CVO_TransactionRequirements')
+						res.render('CVO-M-TransactionRequirements/views/view');
 					});
 				}
 			})

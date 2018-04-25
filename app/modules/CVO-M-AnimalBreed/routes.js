@@ -16,7 +16,7 @@ router.get('/',  (req,res)=>{
 	});
 
 	function render(breed) {
-		res.render('CVO-M-AnimalBreed/views/view', {breed: breed});
+		res.render('CVO-M-AnimalBreed/views/view', {breed: breed} );
 	}
 });
 
@@ -26,10 +26,10 @@ router.post('/', (req, res)=>{
 	db.query (`INSERT INTO breed(str_BreedName,	int_AnimalSpecies) VALUES ("${breed}","${animalspecies}")`, (err, results, fields)=>{
 		if (err){
 			console.log(err);
-			res.redirect('/CVO_AnimalBreed');
+			return res.redirect('/CVO_AnimalBreed');
 		}
 		else {
-			res.redirect('/CVO_AnimalBreed');
+			res.render('CVO-M-AnimalBreed/views/view');
 		}
 	});
 });
