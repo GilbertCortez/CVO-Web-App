@@ -18,7 +18,7 @@ router.get('/',  (req,res)=>{
 		}
 
 	});
-
+  
 	function render(req){
 		res.render('CVO-M-TransactionRequirements/views/view',{req:req});
 	}

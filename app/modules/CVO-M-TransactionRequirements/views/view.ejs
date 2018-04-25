@@ -18,11 +18,11 @@ document.getElementById("maintenance_list").className="active";
                 <div class="row clearfix">
                     <div >
                     <center>
-                    <a data-target="#requirements" data-toggle="modal" ><button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Owner Registration"  data-tname="Pet Owner Registration" data-transaction=0>Pet Owner Registration</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration" data-tname="Pet Registration" data-transaction=1>Pet Registration</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Vaccination" data-tname="Vaccination" data-transaction=2>Vaccination</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adoption" data-tname="Adoption" data-transaction=3>Adoption</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Redemption" data-tname="Redemption" data-transaction=4>Redemption</button></a>
+                    <a data-target="#requirements" data-toggle="modal" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Owner Registration" >Pet Owner Registration</button>
+                    <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">Pet Registration</button>
+                    <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Vaccination">Vaccination</button>
+                    <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adoption">Adoption</button>
+                    <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Redemption">Redemption</button></a>
                     </center>
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs tab-nav-right" role="tablist" >
@@ -91,12 +91,15 @@ document.getElementById("maintenance_list").className="active";
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="ModalLabel"></h4>
+                            <h4 class="modal-title" id="defaultModalLabel">Transaction Name</h4>
                         </div>
                         <div class="modal-body">
                               <h4>Requirements:</h4>
                                    <ul>
-                                   <li><label for="ig_checkbox">REQUIREMENT#1</label></li>
+                                   <li> <label for="ig_checkbox">Requirement#1</label></li>
+                                    <li>    <label for="ig_checkbox">Requirement#2</label></li>
+                                     <li>   <label for="ig_checkbox">Requirement#3</label></li>
+ 
                                  </ul>
                         </div>
                         <div class="modal-footer">
@@ -184,12 +187,14 @@ $(function (){
             $('#modal_ReqTransaction').val(4).change()
         }
     });
-    $('.req_modal').on('click', function() {
-       $('#ModalLabel').text($(this).data('tname'))
-    });
 });
 </script>
+<<<<<<< HEAD
 =======
 
     
 >>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
+=======
+
+    
+>>>>>>> parent of ec46fd0... 04/25/2018
