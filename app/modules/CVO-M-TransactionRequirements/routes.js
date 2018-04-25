@@ -6,8 +6,7 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 router.get('/',  (req,res)=>{
-<<<<<<< HEAD
-	db.query(`SELECT * FROM requirements JOIN requirementspertransaction 
+	db.query(`SELECT * FROM requirements JOIN requirementspertransaction
 	WHERE requirements.int_RequirementsId = requirementspertransaction.int_RequirementsId`, (err, results, fields) => {
 		if(err){
 			console.log(err)
@@ -18,20 +17,19 @@ router.get('/',  (req,res)=>{
 		}
 
 	});
-  
+
 	function render(req){
 		res.render('CVO-M-TransactionRequirements/views/view',{req:req});
 	}
-=======
-  
+
+
 	res.render('CVO-M-TransactionRequirements/views/view.ejs');
-          
+
 });
 router.get('/',  (req,res)=>{
-  
+
 	res.render('CVO-M-TransactionRequirements/views/view.ejs');
->>>>>>> parent of 1114cd0... Update nalang sa breed, colorpattern tas sa vaccine, yung sa requirements, wala pang laman yung mga button sa taas
-          
+
 });
 
 router.post('/',  (req,res)=>{
@@ -55,7 +53,7 @@ router.post('/',  (req,res)=>{
 			})
 		}
 	});
-			
+
   });
 
 
