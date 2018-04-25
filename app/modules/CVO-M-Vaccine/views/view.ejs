@@ -57,7 +57,7 @@ document.getElementById("maintenance_list").className="active";
                                                             <td>Government</td>
                                                             <% } %>
 
-															                              <td><%= i.str_Manufacturer %></td>
+															<td><%= i.str_Manufacturer %></td>
                                                             <td>
                                                                 <div align="center">
 
@@ -107,8 +107,8 @@ document.getElementById("maintenance_list").className="active";
                                   <td><input type="text" id="modal_VaccineName" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
                                   </tr>
                                 <tr>
-                                  <input type="hidden">
                                   <td><strong>CLASSIFICATION:</strong></td>
+<<<<<<< HEAD
                                  <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification" tabindex=1>
                                  <td>  <select class="form-control show-tick" data-live-search="true" id="modal_Classification">
 
@@ -118,6 +118,13 @@ document.getElementById("maintenance_list").className="active";
 
 
                                     </select></td>
+=======
+                                 <td><select id="modal_Classification" class="form-control show-tick" data-live-search="true" tabindex=1>
+                                     <option value=0>Government</option>
+                                     <option value=1>Private</option>
+                                       </select>   
+                                </td>
+>>>>>>> ec46fd00b7479b9e4793337f27aa02ca1bc2bb66
                                  </tr>
                                 <tr>
                                   <td><strong>MANUFACTURER:</strong></td>
@@ -144,14 +151,26 @@ document.getElementById("maintenance_list").className="active";
 
 
 <script>
-
-$('.editButton').on('click',function(){
+    $(function(){
+    $('.editButton').on('click',function(){
 
     $('#modal_ID').val($(this).data('vd1'))
     $('#modal_VaccineName').val($(this).data('vd2'))
+<<<<<<< HEAD
     $('select#modal_Classification')[0].selectedIndex($(this).data('vd3'))
+=======
+    $classification = $(this).data('vd3')
+
+    if ($classification == 0)
+    {
+        $("#modal_Classification").val(0).change();
+    }
+    else {
+        $("#modal_Classification").val(1).change();
+    }
+>>>>>>> ec46fd00b7479b9e4793337f27aa02ca1bc2bb66
     $('#modal_Manufacturer').val($(this).data('vd4'))
 
-  })
-
+    })
+    });
 </script>
