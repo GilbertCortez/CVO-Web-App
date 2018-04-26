@@ -34,7 +34,7 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>ID</th>
                                                             <th>Barangay Name</th>
                                                             <th>Resettlement Area?</th>
-                                                            <th>Last Date Edited</th>
+                                                      
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -46,17 +46,24 @@ document.getElementById("maintenance_list").className="active";
                                                         </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                                                      <% re.forEach(function(i){ %>
+                                                      <% re.forEach(function (i) { %>
                                                         <tr>
                                                             <td><%= i.int_BarangayId %></td>
                                                             <td><%= i.str_BarangayName %></td>
 															                               <td>
+                                                               <% if(i.int_ResettlementArea==1){ %>
                                                                <div class="switch" align="center">
                                                                     <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
                                                                     <span>Active</span>
                                                                 </div>
+                                                                <% } else{ %>
+                                                                  <div class="switch" align="center">
+                                                                       <label><input type="checkbox" unchecked ><span class="lever switch-col-blue"></span></label>
+                                                                       <span>Inactive</span>
+                                                                   </div>
+                                                                  <% } %>
                                                             </td>
-                                                            <td>01/23/2018</td>
+
 
                                                             <td>
                                                                 <div align="center">
