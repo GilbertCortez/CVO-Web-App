@@ -7,130 +7,58 @@ document.getElementById("maintenance_list").className="active";
         <div class="card">
             <div class="header bg-blue" >
                 <h2>
-                NATURE OF COLLECTION 
+                NATURE OF COLLECTION
                 </h2>
-               
+
             </div>
             <div class="body">
-                <div class="row clearfix">
-                    <div >
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
-                          </ul>
+              <div class="form-group form-float" >
+                  <form id="form_validation" action="/CVO_NatureOfCollection" method="POST" >
 
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <div class="body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Initial Price</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-												
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Adoption Fee</td>
-                                                            <td>200</td>
-                                                            <td>
-														
-                                                               <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div>
-														
-                                                            </td>
-                                                            <td>
-                                                                <div align="center">
-                                                                 
-                                                                   
-                                                                     <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                            <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-													
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addNatureOfCollectionForm.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
+                                  <label class="form-label">Pet Owner Registration Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="owner" required="" aria-required="true" value=<%= re[0].dec_OwnerRegistrationFee %>>
+                                      </div>
+                                  </div>
+                                  <label class="form-label">Pet Registration Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="pet" required="" aria-required="true" value=<%= re[0].dec_PetRegistrationFee %>>
+                                      </div>
+                                  </div>
+                                  <label class="form-label">Adoption Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="adoption" required="" aria-required="true" value=<%= re[0].dec_AdoptionFee %>>
+                                      </div>
+                                  </div>
+                                  <label class="form-label">Redemption First Penalty Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="redemption1" required="" aria-required="true" value=<%= re[0].dec_RedemptionFirstPenalty %>>
+                                      </div>
+                                  </div>
+                                  <label class="form-label">Redemption Second Penalty Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="redemption2" required="" aria-required="true" value=<%= re[0].dec_RedemptionSecondPenalty %>>
+                                      </div>
+                                  </div>
+                                  <label class="form-label">Redemption Third Penalty Fee</label>
+                                  <div class="form-group form-float">
+                                      <div class="form-line">
+                                          <input type="text" class="form-control" name="redemption3" required="" aria-required="true" value=<%= re[0].dec_RedemptionThirdPenalty %>>
+                                      </div>
+                                  </div>
+                                  <br>
+                                  <center><button class="btn btn-primary waves-effect" type="submit">UPDATE</button></center>
+                                </form>
                 </div>
             </div>
         </div>
     </div>
-   
 
-       <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">EDIT NATURE OF COLLECTION DETAILS</h4>
-                        </div>
-                        <div class="modal-body">
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td>#1</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DESCRIPTION:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='Adoption Fee'></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>PRICE:</strong></td>
-                                 <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='200'></td>
-                                 </tr>
-                                <tr>
-                                  <td><strong>STATUS:</strong></td>
-                                  <td>  <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
-                              </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-
-
-    

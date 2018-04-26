@@ -5,16 +5,11 @@ var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
-/*
-router.get('/',  (req,res)=>{
-	db.query("SELECT * FROM NatureOfCollection",(err,results,fields)=>{
-		res.render('CVO-M-NatureOfCollection/views/view.ejs', {i:results});
-	});
-});
+
 
 router.post('/',  (req,res)=>{
-	console.log(`${req.body.description}`);
-	db.query(`INSERT INTO natureofcollection(str_Description, dec_InitialPrice, int_Status) VALUES ("${req.body.description}","${req.body.price}","${req.body.status}")`,(err,results,fields)=>{
+
+	db.query(`UPDATE  natureofcollection  SET  dec_OwnerRegistrationFee =${req.body.owner}, dec_PetRegistrationFee =${req.body.pet}, dec_RedemptionFirstPenalty =${req.body.redemption1}, dec_RedemptionSecondPenalty =${req.body.redemption2}, dec_RedemptionThirdPenalty =${req.body.redemption3}, dec_AdoptionFee =${req.body.adoption} WHERE int_NatureOfCollectionID=1`,(err,results,fields)=>{
 		if(err){
 			console.log(err);
 		}
@@ -22,12 +17,15 @@ router.post('/',  (req,res)=>{
 	});
 });
 
-*/
+
 
 router.get('/',  (req,res)=>{
-	
-		res.render('CVO-M-NatureOfCollection/views/view.ejs');
-	
+
+	db.query("SELECT * FROM NatureOfCollection",(err,results,fields)=>{
+		console.log(results[0].dec_OwnerRegistrationFee);
+		res.render('CVO-M-NatureOfCollection/views/view.ejs', {re:results});
+	});
+
 });
 
 
