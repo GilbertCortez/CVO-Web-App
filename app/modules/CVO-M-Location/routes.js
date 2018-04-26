@@ -7,11 +7,16 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-  
-	res.render('CVO-M-Location/views/view.ejs');
-          
+  db.query(`SELECT * FROM barangay`,(err, fields, results) => {
+    console.log(results);
+	res.render('CVO-M-Location/views/view.ejs',{re:results});
 });
-
+});
+router.post('/',  (req,res)=>{
+  db.query(`INSERT INTO barangay(str_BarangayName, int_ResettlementArea) VALUES ('${req.body.BarangayName}',${req.body.Resettlement})`,(err, fields, results) => {
+	res.redirect('/CVO_Location');
+});
+});
 
 
 

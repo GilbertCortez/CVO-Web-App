@@ -3,7 +3,6 @@
 document.getElementById("animal_list").className="active";
 document.getElementById("animalbreed_list").className="active";
 document.getElementById("maintenance_list").className="active";
-
 </script>
 
 
@@ -45,22 +44,29 @@ document.getElementById("maintenance_list").className="active";
                                                         </tr>
                                                     </tfoot> -->
                                                     <tbody>
-
+                                                         <% breed.forEach(function (i) { %>
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
-															<td></td>
-
+                                                            <td><%= i.int_BreedId%></td>
+                                                            <td><%= i.str_BreedName%></td>
+                                                            <% if (i.int_AnimalSpecies == 0) { %>
+															<td>Dog</td>
+                                                            <% } else {  %>
+                                                                <td>Cat</td>
+                                                            <% } %>
                                                             <td>
                                                                 <div align="center">
-
-
-                                                                     <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                     <a data-toggle="modal" data-target="#edit" >
+                                                                         <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip"
+                                                                          data-placement="top" title="Edit"
+                                                                          data-vd1="<%=i.int_BreedId%>"
+                                                                          data-vd2="<%=i.str_BreedName%>"
+                                                                          data-vd3="<%=i.int_AnimalSpecies%>">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <% }); %>
 
                                                     </tbody>
                                                 </table>
@@ -88,19 +94,17 @@ document.getElementById("maintenance_list").className="active";
                         <table class="table table-striped">
                                 <tr>
                                   <td><strong>ID NUMBER:</strong></td>
-                                  <td>#1</td>
+                                  <td><input type="text" class="form-control" id="modal_BreedId" name="name" required="" aria-required="true" disabled></td>
                                 </tr>
                                 <tr>
                                   <td><strong>BREED NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value='Aspin'></td>
+                                  <td><input type="text" class="form-control" id="modal_BreedName" name="name" required="" aria-required="true"></td>
                                   </tr>
                                 <tr>
                                   <td><strong>ANIMAL SPECIES:</strong></td>
-                                 <td>  <select class="form-control show-tick" data-live-search="true">
-                                         <option>select</option>
-                                        <option>Dog</option>
-                                        <option>Cat</option>
-
+                                 <td>  <select id="modal_AnimalSpecies" class="form-control show-tick" data-live-search="true">
+                                        <option value=0>Dog</option>
+                                        <option value=1>Cat</option>
                                     </select>
                                  </tr>
 
@@ -122,3 +126,18 @@ document.getElementById("maintenance_list").className="active";
                 </div>
             </div>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+<script>
+$(function (){
+    $('.edit').on('click', function (){
+        $('#modal_BreedId').val($(this).data('vd1'))
+        $('#modal_BreedName').val($(this).data('vd2'))
+        $animalSpecies = $(this).data('vd3')
+        if($animalSpecies == 0) {
+            $("#modal_AnimalSpecies").val(0).change()
+        }
+        else {
+            $("#modal_AnimalSpecies").val(1).change()
+        }
+    });
+});
+</script>

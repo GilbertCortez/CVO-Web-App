@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var authMiddleware = require('../../core/auth');
@@ -7,9 +6,20 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-  
-	res.render('CVO-M-AnimalColorPattern/views/view.ejs');
-          
+	db.query(`SELECT * from colorpattern`, (err, results, fields) => {
+		if(err){
+			console.log(error);
+			res.redirect('/CVO_AnimalColorPattern');
+		}
+		else {
+			render(results);
+		}
+	});
+
+	function render(color) {
+		res.render('CVO-M-AnimalColorPattern/views/view', {color: color});
+	}
+
 });
 
 router.post('/',  (req,res)=>{
@@ -20,7 +30,7 @@ router.post('/',  (req,res)=>{
 			res.redirect('/CVO_AnimalColorPattern');
 		}
 		else {
-			res.render('CVO-M-AnimalColorPattern/views/view');
+			res.redirect('/CVO_AnimalColorPattern');
 		}
 	});
 });

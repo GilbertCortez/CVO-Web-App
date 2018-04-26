@@ -12,7 +12,7 @@ document.getElementById("maintenance_list").className="active";
                 <h2>
                 LOCATION(BARANGAY)
                 </h2>
-                
+
             </div>
             <div class="body">
                 <div class="row clearfix">
@@ -43,32 +43,32 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>ID</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                        </tr> 
+                                                        </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                        
+                                                      <% re.forEach(function(i){ %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Concepcion</td>
-															 <td>
+                                                            <td><%= i.int_BarangayId %></td>
+                                                            <td><%= i.str_BarangayName %></td>
+															                               <td>
                                                                <div class="switch" align="center">
                                                                     <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
                                                                     <span>Active</span>
                                                                 </div>
                                                             </td>
                                                             <td>01/23/2018</td>
-                                                           
+
                                                             <td>
                                                                 <div align="center">
-                                                                   
-                                                                   
+
+
                                                                       <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                             <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -108,7 +108,7 @@ document.getElementById("maintenance_list").className="active";
                                                                     <span>Active</span>
                                                                 </div></td>
                                  </tr>
-                               
+
                                 <tr>
                                   <td><strong>LAST MODIFIED BY:</strong></td>
                                   <td>Manuel Carlos</td>
@@ -126,7 +126,5 @@ document.getElementById("maintenance_list").className="active";
                     </div>
                 </div>
             </div>
-   
-<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
-    
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
