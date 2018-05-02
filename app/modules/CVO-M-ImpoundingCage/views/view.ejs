@@ -11,7 +11,7 @@ document.getElementById("maintenance_list").className="active";
         <div class="card">
             <div class="header bg-blue" >
                 <h2>
-                CAGES IN IMPOUNDING AREA(BARANGAY: STO. NINO 1)
+                CAGES IN IMPOUNDING AREA
                 </h2>
                 <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -21,7 +21,7 @@ document.getElementById("maintenance_list").className="active";
                                      <ul class="dropdown-menu pull-right">
                                         <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=false;document.getElementById('datatable').hidden=true;">Tiled </a></li>
                                         <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=true;document.getElementById('datatable').hidden=false;">Data Table</a></li>
-                                       
+
                                     </ul>
                                 </li>
                             </ul>
@@ -44,10 +44,10 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>ID</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                        </tr> 
+                                                        </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                        
+
                                                         <tr>
                                                             <td>1</td>
                                                             <td>Monday</td>
@@ -59,15 +59,15 @@ document.getElementById("maintenance_list").className="active";
                                                                 </div></td>
                                                             <td>
                                                                 <div align="center">
-                                                              
-                                                                   
+
+
                                                                      <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -191,7 +191,7 @@ document.getElementById("maintenance_list").className="active";
             </div>
         </div>
     </div>
-   
+
    <div class="modal fade" id="addCage" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -199,7 +199,7 @@ document.getElementById("maintenance_list").className="active";
                             <h4 class="modal-title" id="defaultModalLabel">Transaction Name</h4>
                         </div>
                         <div class="modal-body">
-                             
+
                                 <table class="table table-striped">
                                 <tr>
                                     <td>CAGE CLASSIFICATION</td>
@@ -208,36 +208,36 @@ document.getElementById("maintenance_list").className="active";
                                     <tr>
                                       <td><strong>Monday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Tuesday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Wednesday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Thursday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Friday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>  
+                                    </tr>
                                     <tr>
                                       <td><strong>Saturday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Sunday:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                       <td><strong>Under Observation:</strong></td>
                                       <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>   
-                                </table>          
+                                    </tr>
+                                </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">ADD CAGE/S</button>
@@ -264,8 +264,6 @@ document.getElementById("maintenance_list").className="active";
                     </div>
                 </div>
             </div>
-   
+
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-    

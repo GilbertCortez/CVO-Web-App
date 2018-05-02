@@ -35,40 +35,48 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>Barangay Located</th>
                                                             <th>Number Of Cages</th>
                                                             <th>Status</th>
-															<th>Action</th>
+                                                            <th>QR Code</th>
+															                              <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
+
                                                     <tbody>
-                        
+                                                      <% re.forEach(function(i){ %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Concepcion</td>
-															<td>175</td>
-															 <td>
+                                                            <td><%= i.int_ImpoundingSiteId %></td>
+                                                            <td><%= i.str_BarangayName %></td>
+															                              <td><%= i.numberofcages %></td>
+															                              <td>
+                                                              <% if(i.int_Status==1){ %>
                                                                <div class="switch" align="center">
                                                                     <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
                                                                     <span>Active</span>
                                                                 </div>
+                                                                <% }else{ %>
+                                                                  <div class="switch" align="center">
+                                                                       <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                                                       <span>Inactive</span>
+                                                                   </div>
+                                                                   <% } %>
+                                                            </td>
+                                                            <td>
+                                                              <div align="center">
+                                                                  <a data-target="#modal_qr" data-toggle="modal" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="QR Code">
+                                                                        QR CODE
+                                                                  </button></a>
+                                                              </div>
                                                             </td>
                                                             <td>
                                                                 <div align="center">
-                                                                
-                                                                   
-                                                                    <a href="CVO_ImpoundingCage"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
-                                                                            <i class="material-icons">apps</i>
-                                                                    </button></a>
-
+                                                                    <form method="POST" action="/CVO_ImpoundingCage">
+                                                                        <button type="submit" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
+                                                                                <i class="material-icons">apps</i>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                                      <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -84,7 +92,28 @@ document.getElementById("maintenance_list").className="active";
             </div>
         </div>
     </div>
-   
-<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
-    
+    <div class="modal fade" id="modal_qr" tabindex="-1" role="dialog">
+                 <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header bg-blue">
+                             <h4 class="modal-title" id="defaultModalLabel">QR CODE</h4>
+                         </div>
+                         <div class="modal-body">
+                           <center>
+                             <img src="../../images/qrcodeexample.jpg" width="50%"/>
+                             <h4>Impounding Site ID: 2</h4>
+                           </center>
+                         </div>
+                         <div class="modal-footer">
+                           <center>
+                             <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">PRINT</button>
+                             <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">DOWNLOAD</button>
+                             <button type="button" class="btn btn-gray waves-effect" data-dismiss="modal">CLOSE</button>
+                           </center>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
