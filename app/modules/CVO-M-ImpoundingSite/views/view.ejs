@@ -61,7 +61,7 @@ document.getElementById("maintenance_list").className="active";
                                                             </td>
                                                             <td>
                                                               <div align="center">
-                                                                  <a data-target="#modal_qr" data-toggle="modal" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="QR Code">
+                                                                  <a data-target="#modal_qr" data-toggle="modal"  ><button type="button" class="qr btn btn-primary waves-effect"  data-toggle="tooltip" data-placement="top" title="QR Code" data-qr1="<%= i.int_ImpoundingSiteId %>" onclick="generateqr(<%= i.int_ImpoundingSiteId %>);">
                                                                         QR CODE
                                                                   </button></a>
                                                               </div>
@@ -101,14 +101,44 @@ document.getElementById("maintenance_list").className="active";
                          </div>
                          <div class="modal-body">
                            <center>
-                             <img src="../../images/qrcodeexample.jpg" width="50%"/>
-                             <h4>Impounding Site ID: 2</h4>
+                             <script type="text/javascript" src="QR-Code/jquery.min.js"></script>
+                              <script type="text/javascript" src="QR-Code/qrcode.js"></script>
+                              <div id="printqr">
+                              <div id="qrcode"></div>
+                              <h4 id="modal_qr1" ></h4>
+                            </div>
+                              <script type="text/javascript">
+                              function generateqr(x){
+                            document.getElementById("qrcode").innerHTML="";
+                              var qrcode = new QRCode(document.getElementById("qrcode"), {
+                              	text: x+"",
+                              	width: 200,
+                              	height: 200,
+                              	colorDark : "#3498DB",
+                              	colorLight : "#ffffff",
+                              	correctLevel : QRCode.CorrectLevel.H
+                              });
+                            }
+                              </script>
+
+
                            </center>
                          </div>
                          <div class="modal-footer">
                            <center>
-                             <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">PRINT</button>
-                             <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">DOWNLOAD</button>
+
+                             <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal" onclick="printDiv('printqr');">DOWNLOAD</button>
+
+                             <!--- NOTE: THIS PART IS PANG SAVE SANA AS PNG NG GENERATED QR CODE KASO SADLY EPIC FAIL PA SIYA.-sean
+                             <script>
+                                function printDiv(divName) {
+                                     var printContents = document.getElementById(divName).innerHTML;
+                                     var bodyoriginalContents = document.body.innerHTML;
+                                     document.body.innerHTML = printContents;
+                                     window.print();
+                                     document.body.innerHTML = bodyoriginalContents;
+                                  }
+                            </script> --->
                              <button type="button" class="btn btn-gray waves-effect" data-dismiss="modal">CLOSE</button>
                            </center>
                          </div>
@@ -117,3 +147,11 @@ document.getElementById("maintenance_list").className="active";
              </div>
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+<script>
+$(function (){
+    $('.qr').on('click', function (){
+        $('#modal_qr1').text("Impounding Site ID: "+$(this).data('qr1'))
+
+    });
+});
+</script>
