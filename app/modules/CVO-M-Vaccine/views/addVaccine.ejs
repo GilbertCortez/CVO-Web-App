@@ -4,20 +4,21 @@
                             <h2>ADD NEW VACCINE</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" novalidate="novalidate">
+                            <form id="vaccine_form" method="POST" action="/CVO_Vaccine" >
 								<label class="form-label">Vaccine Name</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                    <div class="form-line" id="line_vaccine_name">
+                                        <input type="text" class="form-control" name="name"  id="vaccine_name" aria-required="true" onkeypress="vaccine_name_typing();">
                                     </div>
+                                      <label id="required-vaccine_name" class="error" style="display: block;">This field is required.</label>
                                 </div>
 								<label class="form-label">Manufacturer</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="manu_name" required="" aria-required="true">
+                                        <input type="text" class="form-control" name="manu_name"  aria-required="true">
                                     </div>
                                 </div>
-								
+
 								<label class="form-label">Vaccine Classification</label>
 								<div class="input-group input-group-lg">
                                         <span class="input-group-addon">
@@ -30,16 +31,17 @@
                                             <label for="ig_radio2">Private</label>
                                         </span>
                                 </div>
-                                       
+
                                 <br>
-                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation();">ADD</button></center>
                             </form>
                         </div>
                     </div>
                 </div>
-				
-				
+
+
 				<script>
+
 				function statIndicate(){
 					if(document.getElementById('StatusIndication').innerHTML=='Active'){
 						document.getElementById('StatusIndication').innerHTML='Inactive';
@@ -48,4 +50,42 @@
 						document.getElementById('StatusIndication').innerHTML='Active';
 					}
 				}
+
+        //ETO YUNG DAPAT NA MANGYARE KAPAG NAGLOAD YUNG WEB PAGE
+        document.getElementById('required-vaccine_name').style.display='none';
+
+        function validation(){
+          if(document.getElementById('vaccine_name').value.trim()==""){
+            toSubmit=false;
+            $('#line_vaccine_name').addClass("error");
+            document.getElementById('required-vaccine_name').style.display='block';
+            return false;
+          }
+          else{
+            swal({
+              title: "Are you sure you want to add new Vaccine?",
+              icon: "/images/alert_question.png",
+              buttons: true,
+
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+
+                    document.getElementById('vaccine_form').submit();
+              }
+            });
+          }
+
+        }
+
+/*
+    setTimeout(function () {
+        location.reload()
+    }, 3000);
+    */
+
+        function vaccine_name_typing(){
+          $('#line_vaccine_name').removeClass("error");
+            document.getElementById('required-vaccine_name').style.display='none';
+        }
 				</script>
