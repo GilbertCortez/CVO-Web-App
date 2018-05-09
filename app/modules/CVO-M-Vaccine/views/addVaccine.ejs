@@ -14,15 +14,16 @@
                                 </div>
 								<label class="form-label">Manufacturer</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="manu_name"  aria-required="true">
+                                    <div class="form-line" id="line_manufacturer">
+                                        <input type="text" class="form-control" name="manu_name"  id="manufacturer" aria-required="true" onkeypress="manufacturer_typing();">
                                     </div>
+                                      <label id="required-manufacturer" class="error" style="display: block;">This field is required.</label>
                                 </div>
 
 								<label class="form-label">Vaccine Classification</label>
 								<div class="input-group input-group-lg">
                                         <span class="input-group-addon">
-                                            <input name="vaccineClassification" type="radio" value=0 id="ig_radio">
+                                            <input name="vaccineClassification" type="radio" value=0 id="ig_radio" checked>
                                             <label for="ig_radio">Government</label>
                                         </span>
 
@@ -39,9 +40,8 @@
                     </div>
                 </div>
 
-
+<script type="text/javascript" src="/validator/validator.min.js"></script>
 				<script>
-
 				function statIndicate(){
 					if(document.getElementById('StatusIndication').innerHTML=='Active'){
 						document.getElementById('StatusIndication').innerHTML='Inactive';
@@ -53,15 +53,23 @@
 
         //ETO YUNG DAPAT NA MANGYARE KAPAG NAGLOAD YUNG WEB PAGE
         document.getElementById('required-vaccine_name').style.display='none';
+        document.getElementById('required-manufacturer').style.display='none';
 
         function validation(){
+          var toSubmit=true;
           if(document.getElementById('vaccine_name').value.trim()==""){
             toSubmit=false;
             $('#line_vaccine_name').addClass("error");
             document.getElementById('required-vaccine_name').style.display='block';
-            return false;
           }
-          else{
+
+          if(document.getElementById('manufacturer').value.trim()==""){
+            toSubmit=false;
+            $('#line_manufacturer').addClass("error");
+            document.getElementById('required-manufacturer').style.display='block';
+          }
+
+          if(toSubmit==true){
             swal({
               title: "Are you sure you want to add new Vaccine?",
               icon: "/images/alert_question.png",
@@ -87,5 +95,9 @@
         function vaccine_name_typing(){
           $('#line_vaccine_name').removeClass("error");
             document.getElementById('required-vaccine_name').style.display='none';
+        }
+        function manufacturer_typing(){
+          $('#line_manufacturer').removeClass("error");
+            document.getElementById('required-manufacturer').style.display='none';
         }
 				</script>

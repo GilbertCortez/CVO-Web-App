@@ -10,253 +10,79 @@ document.getElementById("maintenance_list").className="active";
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="header bg-blue" >
+
                 <h2>
                 CAGES IN IMPOUNDING AREA
                 </h2>
+
                 <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" onclick="changeView();" role="button" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">remove_red_eye</i>
                                     </a>
-                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=false;document.getElementById('datatable').hidden=true;">Tiled </a></li>
-                                        <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=true;document.getElementById('datatable').hidden=false;">Data Table</a></li>
-
-                                    </ul>
+                                    <script>
+                                    var currentview= "datatable";
+                                    function changeView(){
+                                      if(currentview=="datatable"){
+                                        document.getElementById('tiledpicture').hidden=false;
+                                        document.getElementById('datatable').hidden=true;
+                                        currentview="tiled";
+                                      }
+                                      else{
+                                        document.getElementById('tiledpicture').hidden=true;
+                                        document.getElementById('datatable').hidden=false;
+                                        currentview="datatable";
+                                      }
+                                    }
+                                    </script>
                                 </li>
                             </ul>
             </div>
             <div class="body" id="datatable">
-             <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Cage Classification</th>
-                                                            <th>Impounding Site</th>
-                                                            <th>Number of Cages</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr>
-                                                    </tfoot> -->
-                                                    <tbody>
-
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Monday</td>
-                                                            <td>Sto. Nino 1</td>
-                                                             <td>40</td>
-                                                             <td><div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div></td>
-                                                            <td>
-                                                                <div align="center">
-
-
-                                                                     <a data-toggle="modal" data-target="#edit" ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                            <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+             <%- include('./view_datatable.ejs') -%>
             </div>
             <div class="body" hidden id="tiledpicture">
-             <button type="button" class="btn btn-block btn-lg btn-primary waves-effect" data-toggle="modal" data-target="#addCage" ><i class="material-icons">add</i>ADD CAGES</button><br><br>
-            <h2>Monday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-               <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-                 <h2>Tuesday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-               <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-                     <h2>Wednesday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-                <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-
-                 <h2>Thursday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-                <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-
-                 <h2>Friday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-                <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-                 <h2>Saturday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-               <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-                 <h2>Sunday</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-                <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
-                <h2>Under Observation</h2>
-                <table border="1px" style="width:100%">
-                <tr>
-                <% for(var x=1; x<21; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');" style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-
-                </tr>
-                <tr>
-                 <% for(var x=21; x<41; x++){ %>
-                    <td onclick="$('#actionsCage').modal('toggle');"  style="cursor: pointer" width="15px"><div><small><%= x %></small></div>&nbsp;</td>
-                    <% } %>
-                    </tr;>
-                </table>
+             <%- include('./view_tiled.ejs') -%>
             </div>
         </div>
     </div>
 
-   <div class="modal fade" id="addCage" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">Transaction Name</h4>
-                        </div>
-                        <div class="modal-body">
 
-                                <table class="table table-striped">
-                                <tr>
-                                    <td>CAGE CLASSIFICATION</td>
-                                    <td>NUMBER OF CAGE TO ADD</td>
-                                </tr>
-                                    <tr>
-                                      <td><strong>Monday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Tuesday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Wednesday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Thursday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Friday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Saturday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Sunday:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                    <tr>
-                                      <td><strong>Under Observation:</strong></td>
-                                      <td><input type="number" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                    </tr>
-                                </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">ADD CAGE/S</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
              <div class="modal fade" id="actionsCage" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">Classification-Transaction</h4>
+                            <h4 class="modal-title" id="defaultModalLabel">Cage Details</h4>
                         </div>
                         <div class="modal-body">
-                              <h4>ACTIONS:</h4>
-                                <button type="button" class="btn btn-block btn-lg btn-primary waves-effect"><i class="material-icons">remove_red_eye</i><span>VIEW ANIMAL IN THE CAGE</span></button>
-                                 <button type="button" class="btn btn-block btn-lg btn-primary waves-effect"><i class="material-icons">cancel</i><span>REMOVE CAGE</span></button>
+                        <table class="table table-striped">
+                                <tr>
+                                  <td><strong>ID NUMBER:</strong></td>
+                                  <td ><input type="text" id="modal_ID" class="form-control" name="name" required="" aria-required="true" disabled></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>CAGE NUMBER:</strong></td>
+                                  <td><input type="text" id="modal_CageNumber" class="form-control" name="name" required="" aria-required="true" disabled></td>
+                                  </tr>
+                                <tr>
+                                  <td><strong>CAGE TYPE:</strong></td>
+                                  <td><input type="text" id="modal_CageType" class="form-control" name="name" required="" aria-required="true" ></td>
+                                  </tr>
+                                <tr>
+                                  <td><strong>STATUS:</strong></td>
+                                 <td>
+                                   <div class="switch" align="center">
+                                          <label><input id="modal_status" type="checkbox"><span class="lever switch-col-blue"></span></label>
+                                          <span id="modal_statusIndicator">Inactive</span>
+                                      </div></td>
+
+                                </td>
+                                 </tr>
+
+
+                              </table>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
@@ -265,5 +91,26 @@ document.getElementById("maintenance_list").className="active";
                 </div>
             </div>
 
+<script>
+function iteratingCage(cageDetails){
+  document.getElementById('modal_ID').value= "CAGE-"+JSON.parse(cageDetails).int_CageId;
+  document.getElementById('modal_CageNumber').value= "#" +JSON.parse(cageDetails).int_CageNumber;
+  if(JSON.parse(cageDetails).int_CageType==0){
+    document.getElementById('modal_CageType').value="For Impounding Animal";
+  }
+  else{
+    document.getElementById('modal_CageType').value="For Animal Observation"
+  }
+  if(JSON.parse(cageDetails).int_Status==1){
+    document.getElementById('modal_status').checked="checked";
+    document.getElementById('modal_statusIndicator').innerHTML="Active";
+  }
+  else{
+      document.getElementById('modal_status').checked="";
+      document.getElementById('modal_statusIndicator').innerHTML="Inactive";
+  }
 
+  $('#actionsCage').modal('toggle');
+}
+</script>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

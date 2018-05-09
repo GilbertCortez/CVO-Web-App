@@ -26,20 +26,34 @@ router.post('/',  (req,res)=>{
 
   function b(){
     db.query(`SELECT int_ImpoundingSiteId FROM ImpoundingSite ORDER BY 1 DESC LIMIT 1`, (err, currentImpoundingSite, fields) => {
-    var numberofcages= req.body.numberofcages;
+    var forImpoundedAnimals= parseInt(req.body.forImpoundedAnimals);
+    var forAnimalObservation= parseInt(req.body.forAnimalObservation);
+    var numberofcages=forImpoundedAnimals+forAnimalObservation;
     for(var ctr=1;ctr<=numberofcages;ctr++){
-        if(ctr<=numberofcages){
+        if(ctr<=forImpoundedAnimals){
+          console.log(ctr+" "+currentImpoundingSite[0].int_ImpoundingSiteId);
           c(ctr,currentImpoundingSite[0].int_ImpoundingSiteId);
+        }
+        else{
+          console.log(ctr+" "+currentImpoundingSite[0].int_ImpoundingSiteId);
+          d(ctr,currentImpoundingSite[0].int_ImpoundingSiteId);
         }
         if(ctr==numberofcages){
           res.redirect("/CVO_ImpoundingSite");
         }
       }
-    });}
+    });
+
+  }
 
   function c(x,y){
-    db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber, int_Status) VALUES (${y},${x},1)`, (err, results, fields) => {
+    db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (${y},${x},0,1)`, (err, results, fields) => {
   });}
+
+  function d(x,y){
+    db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (${y},${x},1,1)`, (err, results, fields) => {
+  });}
+
 });
 
 /*
