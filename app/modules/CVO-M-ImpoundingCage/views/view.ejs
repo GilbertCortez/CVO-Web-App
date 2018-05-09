@@ -56,6 +56,39 @@ document.getElementById("maintenance_list").className="active";
                             <h4 class="modal-title" id="defaultModalLabel">Cage Details</h4>
                         </div>
                         <div class="modal-body">
+                          <script type="text/javascript" src="QR-Code/jquery.min.js"></script>
+                           <script type="text/javascript" src="QR-Code/qrcode.js"></script>
+                           <div id="printqr">
+                             <table>
+                               <tr>
+
+
+                               <td width="30%">
+                           <div id="qrcode"></div>
+                           </td>
+
+                           <td width="70%">
+                             <button type="button" class="btn btn-block btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    DOWNLOAD QR CODE
+                            </button>
+                           </td>
+                           </tr>
+                         </table>
+                          </div>
+                           <script type="text/javascript">
+                           function generateqr(x){
+                             document.getElementById("qrcode").innerHTML="";
+                             var qrcode = new QRCode(document.getElementById("qrcode"), {
+                             text: x+"",
+                             width: 175,
+                             height: 175  ,
+                             colorDark : "#3498DB",
+                             colorLight : "#ffffff",
+                             correctLevel : QRCode.CorrectLevel.H
+                           });
+                         }
+                         </script>
+
                         <table class="table table-striped">
                                 <tr>
                                   <td><strong>ID NUMBER:</strong></td>
@@ -93,6 +126,7 @@ document.getElementById("maintenance_list").className="active";
 
 <script>
 function iteratingCage(cageDetails){
+  generateqr( JSON.parse(cageDetails).int_CageId);
   document.getElementById('modal_ID').value= "CAGE-"+JSON.parse(cageDetails).int_CageId;
   document.getElementById('modal_CageNumber').value= "#" +JSON.parse(cageDetails).int_CageNumber;
   if(JSON.parse(cageDetails).int_CageType==0){
