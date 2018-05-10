@@ -42,33 +42,58 @@ document.getElementById("utilities_list").className="active";
                                                             <th>ID</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                        </tr> 
+                                                        </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                        
+                                                      <% re.forEach(function(i){ %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Sean Critica Cortez</td>
-															<td>Head Management</td>
-															 <td>
+                                                            <td><%= i.int_EmployeeId %></td>
+                                                            <td><%= i.str_FirstName+" "+i.str_MiddleName+" "+i.str_LastName %> </td>
+
+                                                            <%
+                                                            var EmployeeType="manager";
+                                                            if(i.int_EmployeeType==0){
+                                                              EmployeeType="Office Staff";
+                                                            }
+                                                            else if(i.int_EmployeeType==1){
+                                                              EmployeeType="Apprehension Team";
+                                                            }
+                                                            else if(i.int_EmployeeType==2){
+                                                              EmployeeType="Secretary";
+                                                            }
+                                                            else if(i.int_EmployeeType==3){
+                                                              EmployeeType="Management";
+                                                            }
+                                                            %>
+                                                            <td><%= EmployeeType %></td>
+                                                            <% if(i.int_Status==1){ %>
+                                                            <td>
                                                                <div class="switch" align="center">
                                                                     <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
                                                                     <span>Active</span>
                                                                 </div>
                                                             </td>
+                                                            <% } else { %>
+                                                              <td>
+                                                                 <div class="switch" align="center">
+                                                                      <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                                                      <span>Inactive</span>
+                                                                  </div>
+                                                              </td>
+                                                            <% } %>
                                                             <td>
                                                                 <div align="center">
                                                                    <a data-toggle="modal" data-target="#view"> <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
                                                                             <i class="material-icons">remove_red_eye</i>
                                                                     </button></a>
-                                                                   
+
                                                                     <a data-toggle="modal" data-target="#edit"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -84,7 +109,7 @@ document.getElementById("utilities_list").className="active";
             </div>
         </div>
     </div>
-   
+
       <div class="modal fade" id="edit" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -127,14 +152,8 @@ document.getElementById("utilities_list").className="active";
                                                                     <span>Active</span>
                                                                 </div></td>
                                   </tr>
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
+
+
                               </table>
                         </div>
                         <div class="modal-footer">
@@ -166,10 +185,10 @@ document.getElementById("utilities_list").className="active";
                                   <td><strong>NAME</strong></td>
                                   <td>Sean Critica Cortez</td>
                                   </tr>
-                               
+
                                 <tr>
                                   <td><strong>EMPLOYEE PRIVILEGE:</strong></td>
-                                 <td>     
+                                 <td>
                                  Head Management
                                  </tr>
                                <tr>
@@ -200,5 +219,3 @@ document.getElementById("utilities_list").className="active";
                 </div>
             </div>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-    

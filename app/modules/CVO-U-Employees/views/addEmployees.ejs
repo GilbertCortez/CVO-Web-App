@@ -4,63 +4,83 @@
                             <h2>ADD NEW EMPLOYEES</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" novalidate="novalidate">
+                            <form id="form_validation" method="POST" action="/CVO_Employees" enctype="multipart/form-data">
+                            <center>  <img id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                              <script type="text/javascript">
+                                  function readURL(input) {
+                                  if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                      $('#blah')
+                                        .attr('src', e.target.result)
+                                        .width(200)
+                                        .height(200);
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                  }
+                                  }
+                              </script>
+                                              <div >
+
+                                                  <div class="form-line">
+                                                    <label class="form-label">ID Picture</label>
+                                                      <input type="file" name="myimage" onchange="readURL(this);" />
+                                                  </div>
+                                              </div>
+                              <br></center>
 								<label class="form-label">First Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control" name="FName">
                                     </div>
                                 </div>
 								<label class="form-label">Middle Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control" name="MName" >
                                     </div>
                                 </div>
 								<label class="form-label">Last Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control" name="LName">
                                     </div>
                                 </div>
-								
-								<label class="form-label">ID Picture</label>
-                                <div >
-                                    <div class="form-line">
-                                        <input type="file"/>
-                                    </div>
-                                </div>
-								<br>
-								
+
+
+
 								<label class="form-label">Email</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="email" class="form-control" name="Email">
                                     </div>
                                 </div>
 								<label class="form-label">Employee Type</label>
-								
 
-                             <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Office Staff</option>
-                                        <option>Apprehension Team</option>
-                                        <option>Secretary</option>
-                                        <option>Management</option>
-                                        <option></option>
+
+                             <select class="form-control show-tick" data-live-search="true" name="EmployeeType">
+                                        <option value="select">select</option>
+                                        <option value=0>Office Staff</option>
+                                        <option value=1>Apprehension Team</option>
+                                        <option value=2>Secretary</option>
+                                        <option value=3>Management</option>
+
                                     </select>
 								<br><br>
-                            
-                                       
-                                
+
+
+
                                 <br>
-                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                                <center><button class="btn btn-primary waves-effect" name="submit" type="submit">ADD</button></center>
                             </form>
+
+
+
                         </div>
                     </div>
                 </div>
-				
-				
+
+
 				<script>
 				function statIndicate(){
 					if(document.getElementById('StatusIndication').innerHTML=='Active'){
