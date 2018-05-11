@@ -15,8 +15,6 @@ router1.get('/', function(req, res, next) {
   res.send('Your value was sanitized to: ' + req.body.sanitized);
 });
 
-
-
 router.get('/',  (req,res)=>{
 
   db.query(`SELECT * FROM vaccine`,(err, results, field) => {
@@ -34,7 +32,7 @@ router.post('/', (req, res) => {
 			res.redirect('/CVO_Vaccine');
 		}
 		else {
-			res.render('CVO-M-Vaccine/views/view');
+			res.redirect('/CVO_Vaccine');
 		}
 	})
 });
