@@ -1,0 +1,24 @@
+<h2>For Impounding Animal</h2>
+   <table border="1px" style="width:100%">
+   <tr>
+  <% ForImpoundingAnimals.forEach(function(i){ %>
+       <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+       <% }); %>
+
+   </tr>
+</table>
+   <h2>For Animal Observation</h2>
+      <table border="1px" style="width:100%">
+      <tr>
+     <% ForAnimalObservation.forEach(function(i,ctr){ %>
+          <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+          <% }); %>
+
+      </tr>
+    </table>
+<!--
+
+  TO DO:
+  DAPAT KAPAG 10 NA YUNG NASA ROW, MAGKAKAROON NG BAGONG ROW FOR THE NEXT 10 CAGES AND THEN BABA ULIT AND SO ON AND SO FORTH!
+
+  -->

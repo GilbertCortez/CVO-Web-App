@@ -1,80 +1,60 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header bg-blue">
-                            <h2>ADD NEW EMPLOYEES</h2>
+                            <h2>ADD IMPOUNDING SITE</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" novalidate="novalidate">
-								<label class="form-label">First Name</label>
+                            <form  action="/CVO_ImpoundingSite" method="POST" novalidate="novalidate">
+
+                                <label class="form-label">Impounding Site Location(Barangay)</label>
+                                <select name="barangayId" class="form-control show-tick" data-live-search="true">
+                                         <option>select</option>
+                                        <% ba.forEach(function(b){ %>
+                                        <option value=<%= b.int_BarangayId %>> <%= b.str_BarangayName %> </option>
+                                          <% }); %>
+                                      </select>
+                            <br>
+                              <br>
+								                 <label class="form-label">Number Of Cages</label>
+
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="Number" class="form-control" name="forImpoundedAnimals" required="" aria-required="true" >
+                                        <label class="form-label">For Impounded Animals</label>
                                     </div>
+
                                 </div>
-								<label class="form-label">Middle Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-								<label class="form-label">Last Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-								
-								<label class="form-label">ID Picture</label>
-                                <div >
-                                    <div class="form-line">
-                                        <input type="file"/>
-                                    </div>
-                                </div>
-								<br>
-								
-								<label class="form-label">Email</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-								<label class="form-label">Employee Type</label>
-								 <div class="form-group form-float">
-                                   <div class="dropdown">
-									  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">select
-									  <span class="caret"></span></button>
-									  <ul class="dropdown-menu">
-										<li><a>Office Staff</a></li>
-										<li><a>Apprehension Team</a></li>
-										<li><a>Management</a></li>
-										<li><a>Secretary</a></li>
-									  </ul>
-									</div>
-								</div>
-								
-								
-                                 <label class="form-label">Resettlement Area?</label>
+
+                                                <div class="form-group form-float">
+                                                    <div class="form-line">
+                                                        <input type="Number" class="form-control" name="forAnimalObservation" required="" aria-required="true">
+                                                        <label class="form-label">For Animal Observation</label>
+                                                    </div>
+                                                </div>
+
+                                <input type="hidden" name="status" id="status" value=1 ><span class="lever switch-col-blue">
+                                 <label class="form-label">Active/Inactive</label>
                                          <div class="switch">
                                              <label><input type="checkbox" checked onChange="statIndicate(); "><span class="lever switch-col-blue"></span></label>
                                              <span id="StatusIndication">Active</span>
                                          </div>
-                                       
-                                
                                 <br>
                                 <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
                             </form>
                         </div>
                     </div>
                 </div>
-				
-				
+
+
 				<script>
 				function statIndicate(){
 					if(document.getElementById('StatusIndication').innerHTML=='Active'){
 						document.getElementById('StatusIndication').innerHTML='Inactive';
+            document.getElementById('status').value=0;
 					}
 					else{
 						document.getElementById('StatusIndication').innerHTML='Active';
+            document.getElementById('status').value=1;
 					}
 				}
 				</script>

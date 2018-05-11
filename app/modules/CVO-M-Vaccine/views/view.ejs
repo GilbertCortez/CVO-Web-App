@@ -55,15 +55,12 @@ document.getElementById("maintenance_list").className="active";
                                                             <% } else { %>
                                                             <td>Government</td>
                                                             <% } %>
-															<td><%= i.str_Manufacturer %></td>
+															                              <td><%= i.str_Manufacturer %></td>
                                                             <td>
                                                                 <div align="center">
-                                                                   <a data-toggle="modal" data-target="#edit" >
+
+                                                                   <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
                                                                      <button type="button" class="editButton btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                                     data-vd1="<%=i.int_VaccineId%>"
-                                                                     data-vd2="<%=i.str_VaccineName%>"
-                                                                     data-vd3="<%=i.int_VaccineClassification%>"
-                                                                     data-vd4="<%=i.str_Manufacturer%>">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button>
                                                                   </a>
@@ -113,16 +110,9 @@ document.getElementById("maintenance_list").className="active";
                                  </tr>
                                 <tr>
                                   <td><strong>MANUFACTURER:</strong></td>
-                                  <td><input type="text" id="modal_Manufacturer" class="form-control" name="name" required="" aria-required="true" value='Generic Pharmacy'></td>
+                                  <td><input type="text" id="modal_Manufacturer" class="form-control" name="name" required="" aria-required="true"></td>
                                   </tr>
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
+
                               </table>
                         </div>
                         <div class="modal-footer">
@@ -136,6 +126,19 @@ document.getElementById("maintenance_list").className="active";
 
 
 <script>
+//PUTTING ALL THE DETAILS IN THE MODAL
+function modal_iteration(vaccineDetails){
+document.getElementById('modal_ID').value=JSON.parse(vaccineDetails).int_VaccineId;
+document.getElementById('modal_VaccineName').value=JSON.parse(vaccineDetails).str_VaccineName;
+if(JSON.parse(vaccineDetails).int_VaccineClassification == 1){
+    $("#modal_Classification").val(1).change();
+}
+else{
+  $("#modal_Classification").val(0).change();
+}
+document.getElementById('modal_Manufacturer').value=JSON.parse(vaccineDetails).str_Manufacturer;
+}
+/*
     $(function(){
     $('.editButton').on('click',function(){
     $('#modal_ID').val($(this).data('vd1'))
@@ -150,5 +153,5 @@ document.getElementById("maintenance_list").className="active";
     }
     $('#modal_Manufacturer').val($(this).data('vd4'))
     })
-    });
+  }); */
 </script>

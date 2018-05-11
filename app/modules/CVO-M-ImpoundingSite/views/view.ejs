@@ -35,40 +35,49 @@ document.getElementById("maintenance_list").className="active";
                                                             <th>Barangay Located</th>
                                                             <th>Number Of Cages</th>
                                                             <th>Status</th>
-															<th>Action</th>
+                                                            <th>QR Code</th>
+															                              <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
+
                                                     <tbody>
-                        
+                                                      <% re.forEach(function(i){ %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Concepcion</td>
-															<td>175</td>
-															 <td>
+                                                            <td><%= i.int_ImpoundingSiteId %></td>
+                                                            <td><%= i.str_BarangayName %></td>
+															                              <td><%= i.numberofcages %></td>
+															                              <td>
+                                                              <% if(i.int_Status==1){ %>
                                                                <div class="switch" align="center">
                                                                     <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
                                                                     <span>Active</span>
                                                                 </div>
+                                                                <% }else{ %>
+                                                                  <div class="switch" align="center">
+                                                                       <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                                                       <span>Inactive</span>
+                                                                   </div>
+                                                                   <% } %>
+                                                            </td>
+                                                            <td>
+                                                              <div align="center">
+                                                                  <a data-target="#modal_qr" data-toggle="modal"  ><button type="button" class="qr btn btn-primary waves-effect"  data-toggle="tooltip" data-placement="top" title="QR Code" data-qr1="<%= i.int_ImpoundingSiteId %>" onclick="generateqr(<%= i.int_ImpoundingSiteId %>);">
+                                                                        QR CODE
+                                                                  </button></a>
+                                                              </div>
                                                             </td>
                                                             <td>
                                                                 <div align="center">
-                                                                
-                                                                   
-                                                                    <a href="CVO_ImpoundingCage"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
-                                                                            <i class="material-icons">apps</i>
-                                                                    </button></a>
-
+                                                                    <form method="POST" action="/CVO_ImpoundingCage">
+                                                                      <input type="hidden" name="impoundingsite" value="<%= i.int_ImpoundingSiteId %>">
+                                                                        <button type="submit" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
+                                                                                <i class="material-icons">apps</i>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                                      <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -84,7 +93,15 @@ document.getElementById("maintenance_list").className="active";
             </div>
         </div>
     </div>
-   
-<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
-    
+
+<%- include('./modal_qrcode.ejs') -%>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+<script>
+$(function (){
+    $('.qr').on('click', function (){
+        $('#modal_qr1').text("Impounding Site ID: "+$(this).data('qr1'))
+
+    });
+});
+</script>

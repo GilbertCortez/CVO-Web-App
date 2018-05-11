@@ -1,0 +1,54 @@
+<div class="table-responsive">
+                                   <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                       <thead>
+                                           <tr>
+                                               <th>ID</th>
+                                               <th>Cage Classification</th>
+                                               <th>Status</th>
+                                               <th>Action</th>
+                                           </tr>
+                                       </thead>
+                                    <!--   <tfoot>
+                                           <tr>
+                                               <th>ID</th>
+                                               <th>Description</th>
+                                               <th>Price</th>
+                                           </tr>
+                                       </tfoot> -->
+                                       <tbody>
+                                         <% AllCages.forEach(function(i){ %>
+                                           <tr>
+                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');"><%= i.int_CageId %></td>
+                                               <% if(i.int_CageType == 0){ %>
+                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');">For Animal Impounding</td>
+                                               <% } else { %>
+                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');">For Animal Observation</td>
+                                               <% } %>
+
+                                               <% if(i.int_Status == 1){ %>
+                                                 <td><div class="switch" align="center">
+                                                        <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                        <span>Active</span>
+                                                    </div></td>
+                                                <td>
+                                               <% } else { %>
+                                                 <td><div class="switch" align="center">
+                                                        <label><input type="checkbox"><span class="lever switch-col-blue"></span></label>
+                                                        <span>Inactive</span>
+                                                    </div></td>
+                                                <td>
+                                               <% } %>
+
+                                                   <div align="center">
+
+
+                                                        <a onclick="iteratingCage('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                               <i class="material-icons">mode_edit</i>
+                                                       </button></a>
+                                                   </div>
+                                               </td>
+                                           </tr>
+                                           <% }); %>
+                                       </tbody>
+                                   </table>
+                               </div>

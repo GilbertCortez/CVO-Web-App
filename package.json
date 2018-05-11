@@ -36,11 +36,13 @@
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
     "mysql": "^2.13.0",
+    "nodemailer": "^4.6.4",
     "nodemon": "^1.14.8",
     "pug": "^2.0.0-rc.2",
     "sanitize": "^2.0.1",
     "sanitizer": "^0.1.3",
     "serve-static": "^1.12.3",
+    "sweetalert": "^2.1.0",
     "sweetalert2": "^6.10.2",
     "swig": "^1.4.2"
   }
