@@ -4,9 +4,9 @@ var router = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
+
+//FOR SENDING EMAIL USING NODEMAILER
 var nodemailer = require('nodemailer');
-
-
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   secure: false,
@@ -20,23 +20,22 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-
+//FOR IMAGE UPLOAD USING MULTER
 var multer  = require('multer');
-
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../images' )
+    cb(null, '/' )
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now()+".jpg")
   }
 })
-
 var upload = multer({ storage: storage })
 
 
 
 router.get('/',  (req,res)=>{
+
   db.query(`SELECT * FROM employee`,(err,result,fields)=> {
      res.render('CVO-U-Employees/views/view.ejs',{re: result});
   });
@@ -53,7 +52,7 @@ router.post('/', upload.any(),  (req,res)=>{
 
   db.query(`INSERT INTO employee
   (str_FirstName, str_MiddleName, str_LastName, int_EmployeeType, str_Email, str_Password, str_IdPicturePath, int_Status, dat_DateAdded)
-   VALUES ( '${FirstName}','${MiddleName}','${LastName}','${EmployeeType}','${Email}', '${Password}','${IdPicturePath}',1,now() )`,(err,result,fields) =>{
+   VALUES ( '${FirstName}','${MiddleName}','${LastName}','${EmployeeType}','${Email}', '${Password}','${IdPicturePath}','1',now() )`,(err,result,fields) =>{
      if(err){
        console.log(err);
      }
@@ -68,9 +67,8 @@ router.post('/', upload.any(),  (req,res)=>{
        if(err){
          return console.log(err);
        }
-       res.redirect("/CVO_Employees");
      });
-
+     res.redirect("/CVO_Employees");
 });
 });
 

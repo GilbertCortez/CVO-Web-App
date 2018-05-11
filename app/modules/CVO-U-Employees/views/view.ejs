@@ -83,9 +83,9 @@ document.getElementById("utilities_list").className="active";
                                                             <% } %>
                                                             <td>
                                                                 <div align="center">
-                                                                   <a data-toggle="modal" data-target="#view"> <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                   <button type="button" class="btn btn-primary waves-effect" onclick="employeeDetails_iterate('<%= JSON.stringify(i) %>');" data-toggle="tooltip" data-placement="top" title="View">
                                                                             <i class="material-icons">remove_red_eye</i>
-                                                                    </button></a>
+                                                                    </button>
 
                                                                     <a data-toggle="modal" data-target="#edit"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                             <i class="material-icons">mode_edit</i>
@@ -170,10 +170,11 @@ document.getElementById("utilities_list").className="active";
                         <div class="modal-header bg-blue">
                             <h4 class="modal-title" id="defaultModalLabel">VIEW EMPLOYEE DETAILS</h4>
                         </div>
+                        <div class="table-responsive">
                         <div class="modal-body">
                         <table>
                         <tr>
-                             <td><img src="../../images/sampleEmployee.JPG" width="200"  alt="User" /></td>
+                             <td><img width="200" id="modal_IdPic" /></td>
                               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                               <td>
                         <table class="table table-striped">
@@ -198,19 +199,13 @@ document.getElementById("utilities_list").className="active";
                                                                     <span>Active</span>
                                                                 </div></td>
                                   </tr>
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
+
                               </table>
                               </td>
                               </tr>
                               </table>
                         </div>
+                      </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
@@ -218,4 +213,20 @@ document.getElementById("utilities_list").className="active";
                     </div>
                 </div>
             </div>
+
+<script type="text/javascript">
+function employeeDetails_iterate(employeeDetails){
+  if(JSON.parse(employeeDetails).str_IdPicturePath==""){
+    $('#modal_IdPic').attr('src',"../../images/noIdPicture.jpg");
+  }
+  else
+  {
+    $('#modal_IdPic').attr('src',JSON.parse(employeeDetails).str_IdPicturePath);
+  }
+  $('#view').modal('toggle');
+}
+</script>
+
+
+
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
