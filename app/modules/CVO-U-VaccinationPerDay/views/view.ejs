@@ -5,9 +5,6 @@ document.getElementById("utilities_list").className="active";
 document.getElementById("vaccinationperday_list").className="active";
 
 </script>
-
-
-
                
                 <div >
                     <div class="card">
@@ -19,19 +16,55 @@ document.getElementById("vaccinationperday_list").className="active";
                                     <div class="alert bg-grey alert-dismissable"  id="vaccinealert">
                                         <button type="button" class="close" onclick="document.getElementById('vaccinealert').hidden=true;"><span aria-hidden="true">×</span></button>Last modified by <u>Mary Justine Espin</u>.
                                     </div>
+                                    <form method="POST" action="/CVO_VaccinationPerDay" id="form_vaccinationperday">
                                     <label class="form-label">Number of Vaccination per Day</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value=150>
+                                    <div class="form-group form-float">
+                                    <div class="form-line" id="line_vaccinationperday">
+                                        <% results.forEach(function (index) { %>
+                                        <input type="text" id="vaccination_number" class="form-control" name="vaccination_number" required="" aria-required="true" data-vaccination="<%=index.int_NumberOfVaccination%>">
+                                        <% }) %>
                                     </div>
+                                    <label id="required-vaccinationperday" class="error" style="display: block;">This field is required.</label>
+                                 </div>
                                 </div>
                                 <br>
-                                <center><button class="btn btn-primary waves-effect" type="submit" >UPDATE</button> 
+                                <center><button class="btn btn-primary waves-effect" type="submit" onclick="validation()">UPDATE</button> 
+                                </form>
                         </div>
                     </div>
                 </div>
-                
-
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+<script>
+
+document.getElementById('required-vaccinationperday').style.display='none';
+
+function validation(){
+  var toSubmit = true;
+  if(document.getElementById('vaccination_number').value.trim()==""){
+    toSubmit = false;
+    $('#line_vaccinationperday').addClass("error");
+    document.getElementById('required-vaccinationperday').style.display='block';
+  }
+
+  if(toSubmit == true){
+    swal({
+      title: "Are you sure you want to update number of vaccination per day?",
+      icon: "/images/alert_question.png",
+      buttons:true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+            document.getElementById('form_vaccinationperday').submit();
+      }
+    });
+  }
+}
+
+$(window).load(function (){
+    $('#vaccination_number').val(data('vaccination'));
+})
+</script>
 
     
