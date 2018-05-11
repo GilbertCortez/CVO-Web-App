@@ -16,7 +16,9 @@ document.getElementById("maintenance_list").className="active";
                 <div class="row clearfix">
                     <div >
                     <center>
-                    <a data-target="#requirements" data-toggle="modal" ><button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Owner Registration"  data-tname="Pet Owner Registration" data-transaction=0>Pet Owner Registration</button>
+                    <a data-target="#requirements" data-toggle="modal" ><button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Owner Registration"  data-tname="Pet Owner Registration" data-transaction=0 
+                        <%req.forEach(function (index) {  
+                        })%>>Pet Owner Registration</button>
                     <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration" data-tname="Pet Registration" data-transaction=1>Pet Registration</button>
                     <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Vaccination" data-tname="Vaccination" data-transaction=2>Vaccination</button>
                     <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adoption" data-tname="Adoption" data-transaction=3>Adoption</button>
@@ -110,7 +112,7 @@ document.getElementById("maintenance_list").className="active";
                         <div class="modal-body">
                               <h4>Requirements:</h4>
                                    <ul>
-                                   <li><label for="ig_checkbox">REQUIREMENT#1</label></li>
+                                   <li id="reqList"><label for="ig_checkbox"></label></li>
                                  </ul>
                         </div>
                         <div class="modal-footer">
