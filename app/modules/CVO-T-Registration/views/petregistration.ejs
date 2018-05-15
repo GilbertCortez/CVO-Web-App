@@ -9,92 +9,135 @@ document.getElementById("transaction_list").className="active";
 
 
     <section >
-            
+
             <div class="row clearfix">
                 <div >
-                <h3>Pet Registration</h3><hr>
                     <div class="card">
                         <div class="header  bg-blue">
                             <h2>Pet Registration Form</h2>
                         </div>
                         <div class="body">
-                         
-                       
-                                    <form id="form_validation" method="POST" novalidate="novalidate">
-                                <label class="form-label">Pet Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+
+
+                                    <form id="form_validation" method="POST">
+                                      <center>  <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                                        <script type="text/javascript">
+
+                                            function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                              var reader = new FileReader();
+                                              reader.onload = function (e) {
+                                                $('#blah').attr('src', e.target.result);
+                                              };
+                                              reader.readAsDataURL(input.files[0]);
+                                            }
+                                            else{
+                                              $('#blah').attr('src',"../../images/animalPicture.jpg");
+                                            }
+                                            }
+                                        </script>
+                                        <div>
+                                            <div class="form-line">
+                                              <label class="form-label">Pet Picture</label>
+                                              <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                                            </div>
+                                        </div>
+                                        <br></center>
+                                <label class="form-label">Pet Name <p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="To generate a pet name, just click the 'cached' icon on the right part of the Pet Name Field." >&#9432;</p></label>
+
+
+
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="name" id="petName" aria-required="true">
+                                        </div>
+                                        <span class="input-group-addon"><i class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="Generate a Pet Name" onclick="document.getElementById('petName').value= generateAnimalName();">cached</i></span>
                                     </div>
-                                </div>
+
+
+                                <script type="text/javascript" src="PetNameGenerator/petNameGenerator.js"></script>
+
+
+
 
                                 <label class="form-label">Sex</label>
-                             <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                    </select><br><br>
+                                <div class="demo-radio-button" align="center">
+
+                                    <input name="group1" type="radio" class="with-gap" id="radio_3">
+                                    <label for="radio_3">Male</label>
+                                    <input name="group1" type="radio" id="radio_4" class="with-gap">
+                                    <label for="radio_4">Female</label>
+
+                                </div><br><br>
 
                                  <label class="form-label">Breed</label>
                              <select class="form-control show-tick" data-live-search="true">
                                         <option>select</option>
-                                        <option>Breed#1</option>
-                                        <option>Breed#2</option>
-                                        <option>Breed#3</option>
-                                        <option>Breed#4</option>
-                                        <option>Breed#5</option>
+                                        <% br.forEach(function (i) { %>
+                                        <option value='<%= i.int_BreedId %>'><%= i.str_BreedName %></option>
+                                        <% }); %>
                                     </select><br><br>
 
                                      <label class="form-label">Color Pattern</label>
                              <select class="form-control show-tick" data-live-search="true">
                                         <option>select</option>
-                                        <option>Color Pattern #1</option>
-                                        <option>Color Pattern #2</option>
-                                        <option>Color Pattern #3</option>
-                                        <option>Color Pattern #4</option>
-                                        <option>Color Pattern #5</option>
+                                        <% co.forEach(function (i) { %>
+                                        <option value='<%= i.int_ColorPatternId %>'><%= i.str_Description %></option>
+                                        <% }); %>
                                     </select><br><br>
+                                <% var curryear= (new Date()).getFullYear();
+                                   var currmonth=(new Date()).getMonth()+1;
+                                   var currdate=(new Date()).getDate();
+                                   var yyyymmdd=curryear+"";
+                                   if(currmonth<=9){
+                                     yyyymmdd=yyyymmdd+"-0"+currmonth;
+                                   }
+                                   else{
+                                     yyyymmdd=yyyymmdd+"-"+currmonth;
+                                   }
+                                   if(currdate<=9){
+                                     yyyymmdd=yyyymmdd+"-0"+currdate;
+                                   }
+                                   else{
+                                     yyyymmdd=yyyymmdd+"-"+currdate;
+                                   }
 
+                                %>
                                 <label class="form-label">Birthday</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="date" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday"  aria-required="true">
                                     </div>
                                 </div>
+
                                 <label class="form-label">Pet Tag Number</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control"  name="name" required="" aria-required="true">
                                     </div>
                                 </div>
-                                
-                                    <label class="form-label">Pet Side View Picture</label>
-                                <div >
-                                    <div class="form-line">
-                                        <input type="file"/>
-                                    </div>
-                                </div>
+
+
                                 <br>
-                                
 
-                             
-                     
-                                
-                               
-                           
-                                  
 
-                                <center><a href="/CVO_ScheduleVaccination"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO VACCINATION</button></a>&nbsp;
-                                <a href="/CVO_RecordVaccination"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO RECORDING OF VACCINATION</button></a>&nbsp;
+
+
+
+
+
+
+
+                                <center><a href="/CVO_VaccinationScheduling"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO VACCINATION</button></a>&nbsp;
+                                <a href="/CVO_VaccinationRecording"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO RECORDING OF VACCINATION</button></a>&nbsp;
                                 <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
                                  </form>
                         </div>
                     </div>
                 </div>
             </div>
-       
-       
+
+
     </section>
 
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-   
