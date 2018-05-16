@@ -1,91 +1,93 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-
 document.getElementById("utilities_list").className="active";
 document.getElementById("office_list").className="active";
 </script>
-
-
-
-               
-              
                  <div >
                     <div class="card">
                         <div class="header bg-blue">
                             <h2>OFFICE INFORMATION</h2>
                         </div>
                         <div class="body">
+                                <form action="/CVO_Office" method="POST" id="office_form">
                                 <div class="form-group form-float">
                                     <div class="alert bg-grey alert-dismissable" id="officeinfoalert">
                                         <button type="button" class="close" onclick="document.getElementById('officeinfoalert').hidden=true;"><span aria-hidden="true">×</span></button>Last modified by <u>Mary Justine Espin</u>.
                                     </div>
                                     
+                                    <div class="form-group form-float">
                                     <label class="form-label">Office Name</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='City Veterinary Office-Marikina'>
+                                    <div class="form-line" id="officename_line">
+                                        <textarea class="form-control" name="office_name" id="office_name" onkeypress="officename_typing()"><%=office[0].str_OfficeName%></textarea>
                                     </div><br>
+                                    <label id="required-office_name" class="error" style="display:block;">This field is required.</label>
+                                    </div>
+                                    <div class="form-group form-float">
                                     <label class="form-label">Email</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='cityveterinaryoffice@govt.com'>
+                                    <div class="form-line" id="officeemail_line">
+                                        <input type="text" class="form-control" name="office_email" id="office_email" onkeypress="officeemail_typing()" required="" aria-required="true" value=<%=office[0].str_Email%>>
                                     </div><br>
+                                    <label id="required-office_email" class="error" style="display:block;">This field is required.</label>
+                                    </div>
+                                    <div class="form-group form-float">
                                     <label class="form-label">Telephone Number</label>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true" value='(02)475-4719'>
+                                    <div class="form-line" id="officenumber_line">
+                                        <input type="text" class="form-control" name="office_number" id="office_number" required="" onkeypress="officenumber_typing()" aria-required="true" value=<%=office[0].str_ContactNo%>>
                                     </div><br>
-                                     <label class="form-label">Address</label>
-                                    <div class="form-line">
-                                        <textarea class="form-control" name="name"   >2nd Floor of Engineering Bldg., Agora Complex, Paliparan Sto. Ñino, Marikina City</textarea>
+                                    <label id="required-office_number" class="error" style="display:block;">This field is required.</label>
+                                    </div>
+                                    <div class="form-group form-float">
+                                    <label class="form-label">Address</label>
+                                    <div class="form-line" id="officeaddress_line">
+                                        <textarea class="form-control" name="office_address" id="office_address" onkeypress="officeaddress_typing()"><%=office[0].str_Address%></textarea>
                                     </div><br>
+                                    <label id="required-office_address" class="error" style="display:block;">This field is required.</label>
+                                    </div>
+                                    <div class="form-group form-float">
                                      <label class="form-label">Office Hours</label>
                                     <div class="form-line">
                                     <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Time</label>
-
-                                       <input type="time" class="form-control"  value="08:00"/>
+                                       <input type="time" class="form-control" name="office_OpenHour" value=<%=office[0].dtm_OpenHour%>>
                                        </div><br>
                                          <div class="form-line">
                                        <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Time</label>
-                                       <input type="time" class="form-control" value="17:00" />
+                                       <input type="time" class="form-control" name="office_CloseHour" value=<%=office[0].dtm_CloseHour%>>
                                     </div><br>
+                                    </div>
                                      <label class="form-label">Office Days</label>
-                                  
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="mo">
-                                            <label for="ig_checkbox">Mo</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="mo">
+                                            <label for="mo">Mo</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="tu">
-                                            <label for="ig_checkbox">Tu</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="tu">
+                                            <label for="tu">Tu</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="we">
-                                            <label for="ig_checkbox">We</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="we">
+                                            <label for="we">We</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="th">
-                                            <label for="ig_checkbox">Th</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="th">
+                                            <label for="th">Th</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="fr">
-                                            <label for="ig_checkbox">Fr</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="fri">
+                                            <label for="fri">Fr</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="sa">
-                                            <label for="ig_checkbox">Sa</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="sa">
+                                            <label for="sa">Sa</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="su">
-                                            <label for="ig_checkbox">Su</label>
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="su">
+                                            <label for="su">Su</label>
                                         </span>
-                                        
-                                    </div>
-                              
-                                    </div><br>
-                              
-                            
-
-                                  
-                                <center><button class="btn btn-primary waves-effect" type="submit" >UPDATE</button>
+                                    </div>        
+                                    </div><br>                                  
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()" >UPDATE</button>
+                                </form>
                                   </div>
                         </div>
                     </div>
@@ -94,5 +96,79 @@ document.getElementById("office_list").className="active";
 
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+<script>
+
+document.getElementById('required-office_name').style.display='none';
+document.getElementById('required-office_address').style.display='none';
+document.getElementById('required-office_email').style.display='none';
+document.getElementById('required-office_number').style.display='none';
+
+function officename_typing(){
+    $("#officename_line").removeClass("error") 
+    $("#required-office_name").style.display = 'none';
+}
+function officeemail_typing(){
+    $("#officeemail_line").removeClass("error") 
+    $("#required-office_email").style.display = 'none';
+}
+function officeaddress_typing(){
+    $("#officeaddress_line").removeClass("error") 
+    $("#required-office_address").style.display = 'none';
+}
+function officenumber_typing(){
+    $("#officenumber_line").removeClass("error") 
+    $("#required-office_number").style.display = 'none';
+}
+
+function validation(){
+          var toSubmit=true;
+          if(document.getElementById('office_name').value.trim()==""){
+            toSubmit=false;
+            $('#officename_line').addClass("error");
+            document.getElementById('required-office_name').style.display='block';
+          }
+
+          if(document.getElementById('office_email').value.trim()==""){
+            toSubmit=false;
+            $('#officeemail_line').addClass("error");
+            document.getElementById('required-office_email').style.display='block';
+          }
+
+          if(document.getElementById('office_address').value.trim()==""){
+            toSubmit=false;
+            $('#officeaddress_line').addClass("error");
+            document.getElementById('required-office_address').style.display='block';
+          }
+
+          if(document.getElementById('office_number').value.trim()==""){
+            toSubmit=false;
+            $('#officenumber_line').addClass("error");
+            document.getElementById('required-office_number').style.display='block';
+          }
+
+          if(toSubmit==true){
+            swal({
+              title: "Are you sure you want to update office information?",
+              icon: "/images/alert_question.png",
+              buttons: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                    document.getElementById('office_form').submit();
+              }
+            });
+          }
+        }
+$(function (){
+    $('#mo').prop('checked',true);
+    $('#tu').prop('checked',true);
+    $('#we').prop('checked',true);
+    $('#th').prop('checked',true);
+    $('#fri').prop('checked',true);
+    $('#sa').prop('checked',true);
+    $('#su').prop('checked',true);
+});
+</script>
 
     

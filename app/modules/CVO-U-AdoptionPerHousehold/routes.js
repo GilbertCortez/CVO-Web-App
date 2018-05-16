@@ -7,13 +7,31 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-  
-	res.render('CVO-U-AdoptionperHousehold/views/view.ejs');
-          
+
+	db.query(`SELECT * FROM adoptionperhousehold WHERE int_APHId = 1`, (err,results,fields)=>{
+		if(err){
+			console.log(err)
+			res.redirect('/CVO_AdoptionPerHousehold')
+		}
+		else {
+			res.render('CVO-U-AdoptionperHousehold/views/view',{adoption:results});
+		}
+	});        
 });
 
+router.post('/', (req, res) =>{
 
+	var adoptionPerHousehold = req.sanitize(`${req.body.adoptionperhousehold}`.trim());
 
+	db.query(`UPDATE adoptionperhousehold SET int_NumberOfAdoption = "${adoptionPerHousehold}" WHERE int_APHId = 1`,(err, results, fields) => {
+		if(err){
+			console.log(err)
+			res.redirect('/CVO_AdoptionPerHousehold')
+		}
+		else{
+			res.redirect('/CVO_AdoptionPerHousehold')
+		}
+	});
 
-
+});
 exports.CVO_AdoptionperHousehold= router;
