@@ -34,7 +34,7 @@ module.exports = app => {
     //app.use(morgan('dev'));
 
     app.use(serveStatic(path.join(path.dirname(path.dirname(__dirname)), 'public')));
-
+   app.use(serveStatic(path.join(path.dirname(path.dirname(__dirname)), '../images')));
     app.use(session({
         resave: false,
         saveUninitialized: true,

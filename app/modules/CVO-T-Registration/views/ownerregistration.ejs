@@ -9,42 +9,75 @@ document.getElementById("transaction_list").className="active";
 
 
     <section >
-            
+
             <div class="row clearfix">
                 <div >
-                <h3>Owner Registration</h3><hr>
+
                     <div class="card">
                         <div class="header  bg-blue">
                             <h2>Pet Owner Registration Form</h2>
                         </div>
                         <div class="body">
-                         
-                       
+
+
                                     <form id="form_validation" method="POST" novalidate="novalidate">
-                                <label class="form-label">First Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-                                <label class="form-label">Middle Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-                                <label class="form-label">Last Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-                                
-                            
+                                      <center>  <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                                        <script type="text/javascript">
+
+                                            function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                              var reader = new FileReader();
+                                              reader.onload = function (e) {
+                                                $('#blah').attr('src', e.target.result);
+                                              };
+                                              reader.readAsDataURL(input.files[0]);
+                                            }
+                                            else{
+                                              $('#blah').attr('src',"../../images/noIdPicture.jpg");
+                                            }
+                                            }
+                                        </script>
+                                        <div>
+                                            <div class="form-line">
+                                              <label class="form-label">Pet Owner Picture</label>
+                                              <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                                            </div>
+                                        </div>
+                                        <br></center>
+                                <!---- NAME OF THE PET OWNER  ---->
+                                        <label class="form-label">Name</label>
+                                        <br>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" >
+                                                      <label class="form-label">First Name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" >
+                                                      <label class="form-label">Middle Name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" >
+                                                      <label class="form-label">Last Name</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                <br>
                                 <label class="form-label">Cellphone Number</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control" id="CellphoneNumber" aria-required="true">
                                     </div>
                                 </div>
 
@@ -58,11 +91,9 @@ document.getElementById("transaction_list").className="active";
                                 <label class="form-label">Barangay</label>
                              <select class="form-control show-tick" data-live-search="true">
                                         <option>select</option>
-                                        <option>Barangay#1</option>
-                                        <option>Barangay#2</option>
-                                        <option>Barangay#3</option>
-                                        <option>Barangay#4</option>
-                                        <option>Barangay#5</option>
+                                        <% ba.forEach(function(i){ %>
+                                        <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
+                                        <% }); %>
                                     </select>
                                 <br><br>
                               <label class="form-label">Complete Address</label>
@@ -73,31 +104,25 @@ document.getElementById("transaction_list").className="active";
                                 </div>
 
                                 <label class="form-label">Start Year of Stay in the City</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="email" class="form-control" name="name" required="" aria-required="true">
-                                    </div>
-                                </div>
-                                    <label class="form-label">Pet Owner Picture</label>
-                                <div >
-                                    <div class="form-line">
-                                        <input type="file"/>
-                                    </div>
-                                </div>
-                                <br>
+                                <select class="form-control show-tick" data-live-search="true">
+                                           <option>select</option>
+                                          <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
+                                            <option value='<%= x %>'><%= curryear %></option>
+                                          <% curryear--; } %>
+                                       </select>
+
+                                <br><br>
 
                                 <center>
                                 <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">REGISTER</button></a>&nbsp;
-                                <a href="/CVO_PetRegistration"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO PET REGISTRATION</button></a>&nbsp;
                                 <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
                                  </form>
                         </div>
                     </div>
                 </div>
             </div>
-       
-       
+
+
     </section>
 
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-   
