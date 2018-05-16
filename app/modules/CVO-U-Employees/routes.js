@@ -24,7 +24,7 @@ let transporter = nodemailer.createTransport({
 var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/' )
+    cb(null, '../images/' )
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now()+".jpg")
@@ -48,7 +48,7 @@ router.post('/', upload.any(),  (req,res)=>{
   var EmployeeType= req.body.EmployeeType;
   var Email= req.body.Email;
   var Password= "EMP"+EmployeeType+FirstName[0]+LastName[1]+FirstName[1]+LastName[0];
-  var IdPicturePath= "../images/"+req.files[0].filename;
+  var IdPicturePath= "/"+req.files[0].filename;
 
   db.query(`INSERT INTO employee
   (str_FirstName, str_MiddleName, str_LastName, int_EmployeeType, str_Email, str_Password, str_IdPicturePath, int_Status, dat_DateAdded)

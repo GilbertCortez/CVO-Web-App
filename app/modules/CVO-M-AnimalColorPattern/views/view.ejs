@@ -45,14 +45,14 @@ document.getElementById("maintenance_list").className="active";
                                                     <tbody>
                                                         <% color.forEach(function (i) { %>
                                                         <tr>
-                                                            <td><%= i.int_ColorPatterId%></td>
+                                                            <td><%= i.int_ColorPatternId%></td>
                                                             <td><%= i.str_Description%></td>
                                                             <td>
                                                                 <div align="center">
 
 
                                                                   <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                                    data-vd1="<%=i.int_ColorPatterId%>"
+                                                                    data-vd1="<%=i.int_ColorPatternId%>"
                                                                     data-vd2="<%=i.str_Description%>">
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
@@ -121,5 +121,3 @@ $(function(){
     });
 });
 </script>
-
-    

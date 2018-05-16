@@ -19,21 +19,24 @@ document.getElementById("transaction_list").className="active";
                         <div class="body">
 
 
-                                    <form id="form_validation" method="POST">
+                                    <form id="petForm" method="POST" action="/CVO_PetRegistration" enctype="multipart/form-data">
+                                      <input type="hidden" value='<%= currentPetOwner %>' name="currentPetOwner">
+                                      <input type="hidden" value='Pet Registration' name="cameFrom">
                                       <center>  <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                                         <script type="text/javascript">
 
                                             function readURL(input) {
-                                            if (input.files && input.files[0]) {
-                                              var reader = new FileReader();
-                                              reader.onload = function (e) {
-                                                $('#blah').attr('src', e.target.result);
-                                              };
-                                              reader.readAsDataURL(input.files[0]);
-                                            }
-                                            else{
-                                              $('#blah').attr('src',"../../images/animalPicture.jpg");
-                                            }
+                                                if (input.files && input.files[0]) {
+                                                  var reader = new FileReader();
+                                                  reader.onload = function (e) {
+                                                    $('#blah').attr('src', e.target.result);
+                                                      $('#modal_petPicture').attr('src', e.target.result);
+                                                  };
+                                                  reader.readAsDataURL(input.files[0]);
+                                                }
+                                                else{
+                                                  $('#blah').attr('src',"../../images/animalPicture.jpg");
+                                                }
                                             }
                                         </script>
                                         <div>
@@ -43,15 +46,13 @@ document.getElementById("transaction_list").className="active";
                                             </div>
                                         </div>
                                         <br></center>
-                                <label class="form-label">Pet Name <p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="To generate a pet name, just click the 'cached' icon on the right part of the Pet Name Field." >&#9432;</p></label>
 
-
-
+                                    <label class="form-label">Pet Name <p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="To generate a pet name, just click the 'cached' icon on the right part of the Pet Name Field." >&#9432;</p></label>
                                     <div class="input-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name="name" id="petName" aria-required="true">
+                                            <input type="text" class="form-control" name="petName" id="petName" onchange="document.getElementById('modal_petName').value=this.value;">
                                         </div>
-                                        <span class="input-group-addon"><i class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="Generate a Pet Name" onclick="document.getElementById('petName').value= generateAnimalName();">cached</i></span>
+                                        <span class="input-group-addon"><i class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="Generate a Pet Name" onclick="document.getElementById('petName').value= generateAnimalName();document.getElementById('modal_petName').value=document.getElementById('petName').value;">cached</i></span>
                                     </div>
 
 
@@ -59,19 +60,20 @@ document.getElementById("transaction_list").className="active";
 
 
 
-
+                                <input type="hidden" value="0" id="sex" name="sex">
                                 <label class="form-label">Sex</label>
                                 <div class="demo-radio-button" align="center">
 
-                                    <input name="group1" type="radio" class="with-gap" id="radio_3">
-                                    <label for="radio_3">Male</label>
-                                    <input name="group1" type="radio" id="radio_4" class="with-gap">
-                                    <label for="radio_4">Female</label>
+                                    <input type="radio" class="with-gap" checked id="male" name="radio_3" onclick="document.getElementById('sex').value='0';document.getElementById('modal_Sex').value='Male';">
+                                    <label for="male">Male</label>
+                                    <input type="radio" id="female" class="with-gap" name="radio_3"  onclick="document.getElementById('sex').value='1';document.getElementById('modal_Sex').value='Female';">
+                                    <label for="female">Female</label>
 
                                 </div><br><br>
 
+
                                  <label class="form-label">Breed</label>
-                             <select class="form-control show-tick" data-live-search="true">
+                             <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text();'>
                                         <option>select</option>
                                         <% br.forEach(function (i) { %>
                                         <option value='<%= i.int_BreedId %>'><%= i.str_BreedName %></option>
@@ -79,7 +81,7 @@ document.getElementById("transaction_list").className="active";
                                     </select><br><br>
 
                                      <label class="form-label">Color Pattern</label>
-                             <select class="form-control show-tick" data-live-search="true">
+                             <select class="form-control show-tick" id="ColorPattern" name="ColorPattern" data-live-search="true" onchange='document.getElementById("modal_colorPattern").value=$("#ColorPattern option[value="+this.value+"]").text();'>
                                         <option>select</option>
                                         <% co.forEach(function (i) { %>
                                         <option value='<%= i.int_ColorPatternId %>'><%= i.str_Description %></option>
@@ -106,14 +108,14 @@ document.getElementById("transaction_list").className="active";
                                 <label class="form-label">Birthday</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday"  aria-required="true">
+                                        <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday" name="birthday"  aria-required="true" onchange="document.getElementById('modal_Birthday').value=this.value;">
                                     </div>
                                 </div>
 
                                 <label class="form-label">Pet Tag Number</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control"  name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control"  name="pettag"  aria-required="true" onchange="document.getElementById('modal_petTag').value=this.value;">
                                     </div>
                                 </div>
 
@@ -128,9 +130,8 @@ document.getElementById("transaction_list").className="active";
 
 
 
-                                <center><a href="/CVO_VaccinationScheduling"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO VACCINATION</button></a>&nbsp;
-                                <a href="/CVO_VaccinationRecording"><button class="btn btn-primary waves-effect" type="button">REGISTER & PROCEED TO RECORDING OF VACCINATION</button></a>&nbsp;
-                                <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
+                                <center><a data-toggle="modal" data-target="#summary"><button class="btn btn-primary waves-effect" type="button">REGISTER</button></a>&nbsp;
+                                <a ><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
                                  </form>
                         </div>
                     </div>
@@ -138,6 +139,93 @@ document.getElementById("transaction_list").className="active";
             </div>
 
 
-    </section>
 
+            <div class="modal fade" id="summary" tabindex="-1" role="dialog" >
+               <div class="modal-dialog modal-lg" role="document">
+                   <div class="modal-content">
+                       <div class="modal-header bg-blue">
+                           <h4 class="modal-title" id="defaultModalLabel">SUMMARY OF PET REGISTRATION</h4>
+                       </div>
+                       <div class="modal-body">
+                       <table>
+                       <tr>
+                            <td><img id="modal_petPicture" src="../../images/noIdPicture.jpg" style="border:4px;border-style:solid;border-color:#2196f3" width="350" height="350"  alt="User" /></td>
+                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                             <td><table class="table table-striped">
+                               <tr>
+                               <td><strong>PET NAME:</strong></td>
+                               <td><input type="text" id="modal_petName" class="form-control" disabled></td>
+                               </tr>
+                               <tr>
+                               <td><strong>SEX:</strong></td>
+                              <td>  <input type="text" id="modal_Sex" class="form-control" value="Male" disabled></td>
+                              </tr>
+                               <tr>
+                               <td><strong>BREED:</strong></td>
+                               <td><input type="text" id="modal_Breed" class="form-control" disabled></td>
+                               </tr>
+                               <tr>
+                               <td><strong>COLOR PATTERN:</strong></td>
+                               <td><input type="text" id="modal_colorPattern" class="form-control" disabled> </td>
+                               </tr>
+                               <tr>
+                               <td><strong>BIRTHDAY:</strong></td>
+                               <td><input type="text" id="modal_Birthday" class="form-control" disabled></td>
+                               </tr>
+                               <tr>
+                               <td><strong>PET TAG:</strong></td>
+                               <td><input type="text" id="modal_petTag" class="form-control" disabled></td>
+                               </tr>
+                             </table></td>
+                            </tr>
+                            </table>
+
+                       </div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" onclick="$('#petForm').submit();">PROCEED</button>
+                           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">EDIT</button>
+                       </div>
+                   </div>
+               </div>
+            </div>
+
+    </section>
+    <% if(pageStatus==1){ %>
+
+    <script>
+
+              swal({
+                title: "Pet Registered!",
+                text: "Pet's Profile is successfully registered",
+                icon: "success",
+                button: true,
+                closeOnClickOutside: false,
+              }).then((willDelete) => {
+                        if (willDelete) {
+                          swal({
+                            title: "What type of Vaccination?",
+                            icon: "/images/alert_question.png",
+                            buttons: {
+                              Conduct: "CONDUCT",
+                              Schedule: "SCHEDULE",
+                              Record: "RECORD",
+                            },
+                            closeOnClickOutside: false,
+                          })
+                          .then((decision) => {
+                            if (decision==="Conduct") {
+                              $('#yesProceed').submit();
+                            }
+                            else if(decision==="Schedule"){
+                              $('#noProceed').submit();
+                            }
+                            else if(decision==="Record"){
+                              $('#noProceed').submit();
+                            }
+                          })
+                          }
+              });
+
+    </script>
+    <% } %>
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

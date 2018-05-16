@@ -7,12 +7,6 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 
-
-<<<<<<< HEAD
-// HEAD
-=======
-
->>>>>>> d67119d5513952727acc745d8a6be4ab0057cc6b
 router1.get('/', function(req, res, next) {
   // replace an HTTP posted body property with the sanitized string
   req.body.sanitized = req.sanitize('Justine Espin');
@@ -42,18 +36,12 @@ router.post('/', (req, res) => {
 	db.query(`INSERT INTO vaccine(str_VaccineName,int_VaccineClassification,str_Manufacturer) VALUES ("${vaccineName}","${vaccineClass}","${vaccineManu}")`,(err, fields, results) => {
 		if (err){
 			console.log(err);
-<<<<<<< HEAD
-=======
 
->>>>>>> d67119d5513952727acc745d8a6be4ab0057cc6b
 			res.redirect('/CVO_Vaccine');
 		}
 		else {
 			res.redirect('/CVO_Vaccine');
-<<<<<<< HEAD
-=======
 
->>>>>>> d67119d5513952727acc745d8a6be4ab0057cc6b
 		}
 	})
 }
