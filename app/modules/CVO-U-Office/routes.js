@@ -24,11 +24,17 @@ router.post('/', (req, res) => {
 	var officeEmail = req.sanitize(`${req.body.office_email}`.trim());
 	var officeAddress = req.sanitize(`${req.body.office_address}`.trim());
 	var officeNumber = req.sanitize(`${req.body.office_number}`.trim());
-	var officeOpen = req.sanitize(`${req.body.office_OpenHour}`);
-	var officeClose = req.sanitize(`${req.body.office_CloseHour}`);
+	var officeOpen = `${req.body.office_OpenHour}`;
+	var officeClose = `${req.body.office_CloseHour}`;
+	var daysAvailable = req.sanitize(`${req.body.ig_checkbox}`);
+
+	if ((officeName == " ") || (officeEmail == " ") || (officeAddress == " ") || (officeNumber == " ")){
+		res.send("There's error")
+	}
+
 	db.query(`UPDATE office SET str_OfficeName = "${officeName}", str_Email = "${officeEmail}",
 	 str_ContactNo = "${officeNumber}", str_Address = "${officeAddress}", dtm_OpenHour = "${officeOpen}", 
-	 dtm_CloseHour = "${officeClose}" WHERE int_OfficeId=1`, (err, results, fields)=>{
+	 dtm_CloseHour = "${officeClose}", str_DayAvailability = "${daysAvailable}" WHERE int_OfficeId=1`, (err, results, fields)=>{
 		if (err){
 			console.log('err')
 			res.redirect('/CVO_Office')

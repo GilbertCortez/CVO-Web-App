@@ -23,7 +23,12 @@ router.get('/',  (req,res)=>{
 });
 
 router.post('/',  (req,res)=>{
-	var colorDesc = `${req.body.name}`.trim();
+	var colorDesc = req.sanitize(`${req.body.name}`.trim());
+
+	if (colorDesc == " "){
+		res.send("Error")
+		res.redirect('/CVO_AnimalColorPattern');
+	}
 	db.query(`INSERT INTO colorpattern(str_Description) VALUES("${colorDesc}")`, (err, results, fields) =>{
 		if (err){
 			console.log(err);

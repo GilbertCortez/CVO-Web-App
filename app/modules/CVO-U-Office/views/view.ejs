@@ -57,31 +57,31 @@ document.getElementById("office_list").className="active";
                                      <label class="form-label">Office Days</label>
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="mo">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="mo" value="Mon">
                                             <label for="mo">Mo</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="tu">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="tu" value="Tue">
                                             <label for="tu">Tu</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="we">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="we" value="Wed">
                                             <label for="we">We</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="th">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="th" value="Thu">
                                             <label for="th">Th</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="fri">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="fri" value="Fri">
                                             <label for="fri">Fr</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="sa">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="sa" value="Sat">
                                             <label for="sa">Sa</label>
                                         </span>
                                         <span class="input-group-addon">
-                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="su">
+                                            <input type="checkbox" name="ig_checkbox" class="filled-in" id="su" value="Sun">
                                             <label for="su">Su</label>
                                         </span>
                                     </div>        
@@ -97,6 +97,25 @@ document.getElementById("office_list").className="active";
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
+
+<% var days = office[0].str_DayAvailability.split(",") %>
+<% days.forEach(function (index){ %>
+<% if (index == 'Mon') { %>
+    <script>$('#mo').prop('checked',true)</script>
+<% } else if (index == 'Tue') { %>
+    <script>$('#tu').prop('checked',true)</script>
+<% } else if (index == 'Wed') { %>
+    <script>$('#we').prop('checked',true)</script>
+<% } else if (index == 'Thu') { %>
+    <script>$('#th').prop('checked',true)</script>
+<% } else if (index == 'Fri') { %>
+    <script>$('#fri').prop('checked',true)</script>
+<% } else if (index == 'Sat') { %>
+    <script>$('#sa').prop('checked',true)</script>
+<% } else if (index == 'Sun') { %>
+    <script>$('#su').prop('checked',true)</script>
+<% } %>
+<% }) %>
 <script>
 
 document.getElementById('required-office_name').style.display='none';
@@ -160,15 +179,6 @@ function validation(){
             });
           }
         }
-$(function (){
-    $('#mo').prop('checked',true);
-    $('#tu').prop('checked',true);
-    $('#we').prop('checked',true);
-    $('#th').prop('checked',true);
-    $('#fri').prop('checked',true);
-    $('#sa').prop('checked',true);
-    $('#su').prop('checked',true);
-});
 </script>
 
     

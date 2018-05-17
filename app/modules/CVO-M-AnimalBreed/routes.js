@@ -20,8 +20,13 @@ router.get('/',  (req,res)=>{
 });
 
 router.post('/', (req, res)=>{
-	var breed = `${req.body.name}`.trim();
+	var breed = req.sanitize(`${req.body.name}`.trim());
 	var animalspecies = `${req.body.animal}`;
+
+	if (breed == ""){
+		res.send("There's error")
+	}
+
 	db.query (`INSERT INTO breed(str_BreedName,	int_AnimalSpecies) VALUES ("${breed}","${animalspecies}")`, (err, results, fields)=>{
 		if (err){
 			console.log(err);

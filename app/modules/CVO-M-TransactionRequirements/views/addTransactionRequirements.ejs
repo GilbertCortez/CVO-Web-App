@@ -4,22 +4,23 @@
                             <h2>ADD NEW TRANSACTION REQUIREMENTS</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" novalidate="novalidate">
+                            <form id="form_requirements" method="POST" novalidate="novalidate">
                                 <label class="form-label">Requirement Description</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="req_desc" required="" aria-required="true">
+                                    <div class="form-line" id="requirements_line">
+                                        <input type="text" class="form-control" id="req_desc" name="req_desc" onkeypress="requirements_typing()" required="" aria-required="true">
                                     </div>
+                                    <label id="required-requirements" class="error" style="display: block;">This field is required.</label>
                                 </div>
                                 <label class="form-label">Purpose</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="req_purpose" required="" aria-required="true">
+                                    <div class="form-line" id="purpose_line">
+                                        <input type="text" class="form-control" id="req_purpose" name="req_purpose" onkeypress="purpose_typing()" required="" aria-required="true">
                                     </div>
+                                    <label id="required-purpose" class="error" style="display: block;">This field is required.</label>
                                 </div>
                                 <label class="form-label">Transaction</label>
-                                <select name="transaction" class="form-control show-tick" data-live-search="true">
-                                         <option>select</option>
+                                <select id="transaction" name="transaction" class="form-control show-tick" data-live-search="true">
                                         <option value=0>Pet Owner Registration</option>
                                         <option value=1>Pet Registration</option>
                                         <option value=2>Adoption Process</option>
@@ -27,9 +28,8 @@
                                         <option value=4>Vaccination Process</option>
                                     </select>   
                             <br>
-                                
                                 <br>
-                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()">ADD</button></center>
                             </form>
                         </div>
                     </div>
@@ -37,12 +37,42 @@
                 
                 
                 <script>
-                function statIndicate(){
-                    if(document.getElementById('StatusIndication').innerHTML=='Active'){
-                        document.getElementById('StatusIndication').innerHTML='Inactive';
+                    document.getElementById("required-requirements").style.display = 'none';
+                    document.getElementById("required-purpose").style.display = 'none';
+
+                    function requirements_typing(){
+                        $("#requirements_line").removeClass("error")
+                        document.getElementById("required-requirements").style.display = 'none';
                     }
-                    else{
-                        document.getElementById('StatusIndication').innerHTML='Active';
+
+                    function purpose_typing(){
+                        $("#purpose_line").removeClass("error")
+                        document.getElementById("required-purpose").style.display = 'none';
                     }
-                }
+
+                    function validation(){
+                        var toSubmit=true;
+                        if(document.getElementById('req_desc').value.trim()==""){
+                            toSubmit=false;
+                            $("#requirements_line").addClass("error");
+                            document.getElementById("required-requirements").style.display='block';
+                        }
+                        if(document.getElementById('req_purpose').value.trim()==""){
+                            toSubmit=false;
+                            $("#purpose_line").addClass("error");
+                            document.getElementById("required-purpose").style.display='block';
+                        }
+                        if(toSubmit==true){
+                            swal({
+                            title: "Are you sure you want to add new transaction requirement?",
+                            icon: "/images/alert_question.png",
+                            buttons: true,
+                            })
+                            .then((willDelete) => {
+                            if (willDelete) {
+                                    document.getElementById('form_requirements').submit();
+                            }
+                            });
+                        }   
+                    }
                 </script>
