@@ -9,9 +9,43 @@ document.getElementById("transaction_list").className="active";
 
 
     <section >
+      <% if(pageStatus==3){ %>
+      <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+              <div class="header col-sm-12">
+
+               <div class="col-sm-4" align="center">
+                      <img src="/PetOwners<%= currentPetOwner.str_PetOwnerPicturePath %>"  style="border:4px;border-style:solid;border-color:#2196f3" src="#" alt="your image" width="200" height="200" />
+               </div>
+               <div class="col-sm-8">
+                   <h1>Gilbert Critica Cortez<p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="ID: #<%= currentPetOwner.int_PetOwnerId %>" >&nbsp;&#9432;</p></h1>
+                   <h2><%= currentPetOwner.str_CompleteAddress %>(<%= currentPetOwner.str_BarangayName %>)</h2>
+                   <h2><%= currentPetOwner.str_Email %></h2>
+                   <h2><%= currentPetOwner.str_Phone %></h2>
+                   <i><h5>Stayed in Marikina since <%= currentPetOwner.dat_StartedYearOfStay %></h5></i>
+
+                   <%
+                   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                   var now = new Date(currentPetOwner.dat_DateRegistered);
+                     %>
+                     <i><h5>Registered Pet Owner since <%=  months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() %></h5></i>
+
+
+            </div>
+
+              </div>
+                <div class="body">
+                &nbsp;
+                </div>
+              </div>
+          </div>
+      </div>
+      <% } %>
 
             <div class="row clearfix">
-                <div >
+                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header  bg-blue">
                             <h2>Pet Registration Form</h2>
@@ -20,8 +54,14 @@ document.getElementById("transaction_list").className="active";
 
 
                                     <form id="petForm" method="POST" action="/CVO_PetRegistration" enctype="multipart/form-data">
-                                      <input type="hidden" value='<%= currentPetOwner %>' name="currentPetOwner">
+                                      <input type="hidden" value='<%= JSON.stringify(currentPetOwner) %>' name="currentPetOwner">
+                                        <% if(pageStatus==3){ %>
+                                            <input type="hidden" value='NONE' name="lastPayment">
+                                            <% } else { %>
+                                      <input type="hidden" value='<%= lastPayment %>' name="lastPayment">
+                                      <% } %>
                                       <input type="hidden" value='Pet Registration' name="cameFrom">
+
                                       <center>  <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                                         <script type="text/javascript">
 

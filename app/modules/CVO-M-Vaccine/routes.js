@@ -34,7 +34,8 @@ router.post('/', (req, res) => {
   }
   else{
 	db.query(`INSERT INTO vaccine(str_VaccineName,int_VaccineClassification,str_Manufacturer) VALUES ("${vaccineName}","${vaccineClass}","${vaccineManu}")`,(err, fields, results) => {
-		if (err){
+    console.log(fields);
+  	if (err){
 			console.log(err);
 
 			res.redirect('/CVO_Vaccine');

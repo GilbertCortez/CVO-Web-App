@@ -5,9 +5,9 @@
                                                         <tr>
                                                             <th>Payment ID</th>
                                                             <th>Payor Name</th>
-                                                            <th>Nature of Collection</th>
-                                                            <th>Amount</th>
-															<th>Action</th>
+
+                                                            <th>Total Amount</th>
+															                              <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                  <!--   <tfoot>
@@ -15,32 +15,56 @@
                                                             <th>ID</th>
                                                             <th>Description</th>
                                                             <th>Price</th>
-                                                        </tr> 
+                                                        </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                        
+                                                        <% un.forEach(function(i){ %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Mary Justine Espin</td>
-															<td>Registration & Vaccination</td>
-															<td>350</td>
+                                                            <td><%= i.int_PaymentId %></td>
+                                                            <td><%= i.str_PayorName %></td>
+
+															                              <td>350</td>
                                                             <td>
                                                                 <div align="center">
-                                                                   
-                                                                   
-                                                                   
-                                                                     <a data-toggle="modal" data-target="#RecordCollection"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Collection">
+
+
+
+                                                                     <a data-toggle="modal" data-target="#RecordCollection" onclick="getBreakdown(<%= i.int_PaymentId %>)"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Collection">
                                                                             <i class="material-icons">add</i> RECORD COLLECTION
-                                                                           
+
                                                                     </button>
                                                                     </a>
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
 
-                                         
+                                        </div>
+                                        <script>
+                                        function getBreakdown(paymentId){
+                                            var totalAmount=0.0;
+                                        $.ajax({
+                                              type: 'POST',
+                                              dataType: "json",
+                                              data: { id: paymentId },
+                                                          url: '/CVO_PaymentBreakdown',
+                                                          success: function(data) {
+                                                                //alert(JSON.stringify(data));
+
+                                                              $('#modal_PaymentId').text("#"+paymentId);
+                                                              $('#modal_PayorName').text(data[0].str_PayorName);
+                                                              $('#breakdownTable').empty();
+                                                              $('#breakdownTable').append('<tr><th>Nature Of Collection</th><th>Amount</th></tr>');
+
+                                                              data.forEach(function(i){
+                                                                  $('#breakdownTable').append('<tr><td>'+i.str_Description+'</td><td>'+parseFloat(i.dec_Amount).toFixed(2)+'</td></tr>');
+                                                                  totalAmount+=parseFloat(i.dec_Amount);
+                                                              });
+                                                              $('#breakdownTable').append('<tr><th>TOTAL</th><th>'+totalAmount+'</th></tr>');
+                                                          }
+                                                      });
+                                                    }
+                                        </script>

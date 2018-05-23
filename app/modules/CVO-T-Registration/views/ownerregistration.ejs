@@ -180,7 +180,8 @@ document.getElementById("transaction_list").className="active";
     <% if(pageStatus==1){ %>
       <form action="/CVO_Registration" method="GET" id="noProceed"></form>
       <form action="/CVO_PetRegistration" method="POST" id="yesProceed">
-        <input type="hidden" value='<%= currentPetOwner %>' name="currentPetOwner">
+        <input type="hidden" value='<%= JSON.stringify(currentPetOwner[0]) %>' name="currentPetOwner">
+        <input type="hidden" value='<%= lastPayment %>' name="lastPayment">
         <input type="hidden" value='Pet Owner Registration' name="cameFrom">
       </form>
     <script>

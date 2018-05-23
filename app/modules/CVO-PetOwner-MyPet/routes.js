@@ -7,13 +7,13 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-  
+
 	res.render('CVO-PetOwner-MyPet/views/view.ejs');
-          
+
 });
 
 
 
 
 
-exports.CVO_PetOwner_MyPets= router;
+exports.PetOwner_MyPets= router;

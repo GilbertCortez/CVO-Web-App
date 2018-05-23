@@ -9,22 +9,34 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-  
 	res.render('CVO-T-Vaccination/views/view.ejs');
-          
+});
+
+
+//RECORDING
+router1.get('/',  (req,res)=>{
+  db.query(`SELECT * FROM vaccine`,(req,vaccines)=>{
+	   res.render('CVO-T-Vaccination/views/recordvaccination.ejs',{va:vaccines});
+  });
 });
 
 router1.get('/',  (req,res)=>{
-  
-	res.render('CVO-T-Vaccination/views/recordvaccination.ejs');
-          
+  db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_VaccineId, str_LotNo, int_Status, int_EmployeeId) VALUES (1,${},${},${},3,1)`,(req,vaccines)=>{
+	   res.redirect('/CVO_Vaccination');
+  });
 });
 
+router1.post('/getVaccineDetails',  (req,res)=>{
+
+  db.query(`SELECT * FROM vaccine WHERE int_VaccineId=${req.body.id}`,(err,vaccineDetails)=>{
+    console.log(err);
+	   res.json(vaccineDetails);
+  });
+
+});
 
 router2.get('/',  (req,res)=>{
-  
 	res.render('CVO-T-Vaccination/views/schedulevaccination.ejs');
-          
 });
 
 

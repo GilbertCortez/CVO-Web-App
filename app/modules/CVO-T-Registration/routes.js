@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var router1 = express.Router();
 var router2 = express.Router();
+var router3 = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
@@ -45,8 +46,11 @@ var storagePet = multer.diskStorage({
 })
 var uploadPet = multer({ storage: storagePet })
 
+
 router.get('/',  (req,res)=>{
-	res.render('CVO-T-Registration/views/view.ejs');
+  db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_status = 1`,(err,petowners)=>{
+	res.render('CVO-T-Registration/views/view.ejs',{po:petowners});
+  });
 });
 
 //OWNER REGISTRATION
@@ -57,6 +61,7 @@ router1.get('/',  (req,res)=>{
 });
 
 router1.post('/',uploadOwner.any(),  (req,res)=>{
+
 	var FirstName=req.body.FName;
 	var MiddleName=req.body.MName;
 	var LastName=req.body.LName;
@@ -76,15 +81,16 @@ router1.post('/',uploadOwner.any(),  (req,res)=>{
     }
     return retVal;
 	}
-	db.query(`INSERT INTO petowner(str_PetOwnerFirstName, str_PetOwnerMiddleName, str_PetOwnerLastName, dat_DateRegistered, int_BarangayId, str_CompleteAddress, dat_StartedYearOfStay, str_PhoneNo, str_PetOwnerPicturePath, str_Email, str_Password, int_Status)
-	VALUES ('${FirstName}','${MiddleName}','${LastName}',now(),${BarangayId},'${CompleteAddress}','${StartedYear}','${PhoneNumber}','${PetOwnerPicturePath}','${Email}','${Password}',1)`,(err,result)=>{
-			db.query('SELECT * FROM petowner ORDER BY 1 desc LIMIT 1',(err,currentPetOwnerId)=>{
-				db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_NatureOfCollectionId, int_Status) VALUES (${currentPetOwnerId[0].int_PetOwnerId},0,1,0)`,(err,results)=>{
-					db.query('SELECT * FROM barangay',(err,barangay)=>{
-							res.render('CVO-T-Registration/views/ownerregistration.ejs',{ba:barangay,currentPetOwner: currentPetOwnerId[0].int_PetOwnerId, pageStatus:1});
-					});
-				});
-			});
+
+	db.query(`INSERT INTO petowner(str_PetOwnerFirstName, str_PetOwnerMiddleName, str_PetOwnerLastName, dat_DateRegistered, int_BarangayId, str_CompleteAddress, dat_StartedYearOfStay, str_PhoneNo, str_PetOwnerPicturePath, str_Email, str_Password, int_Status) VALUES ('${FirstName}','${MiddleName}','${LastName}',now(),${BarangayId},'${CompleteAddress}','${StartedYear}','${PhoneNumber}','${PetOwnerPicturePath}','${Email}','${Password}',1)`,(err,currentPetOwnerId)=>{
+				  db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${currentPetOwnerId.insertId},0,0)`,(err,lastPayment)=>{
+            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},1 )`,(err,results)=>{});
+  					db.query('SELECT * FROM barangay',(err,barangay)=>{
+              db.query(`SELECT * FROM petowner WHERE int_PetOwnerId=${currentPetOwnerId.insertId} `,(err,currentPetOwner)=> { console.log(currentPetOwner);
+  							res.render('CVO-T-Registration/views/ownerregistration.ejs',{ba:barangay,currentPetOwner: currentPetOwner, lastPayment: lastPayment.insertId ,pageStatus:1});
+              });
+            });
+          });
 	});
 	let HelperOptions = {
 		from: '"City Veterenary Office-Marikina" <gilbert230709@gmail.com',
@@ -106,36 +112,52 @@ router2.post('/',uploadPet.any(),  (req,res)=>{
   db.query('SELECT * FROM breed',(err,breed) =>{
     db.query('SELECT * FROM colorpattern',(err,colorpattern)=>{
 			if(req.body.cameFrom=="Pet Owner Registration"){
-        res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner, pageStatus:0});
+        res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: JSON.parse(req.body.currentPetOwner), lastPayment: req.body.lastPayment, pageStatus:0});
 			}
+      else if(req.body.cameFrom=="Registration"){
+        res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: JSON.parse(req.body.currentPetOwner), pageStatus:3});
+      }
 			else if(req.body.cameFrom=="Pet Registration"){
+
 				var BreedId=req.body.breed;
 				var Sex=req.body.sex;
 				var ColorPatternId=req.body.ColorPattern;
-				//var AnimalPicturePath="/"+req.files[0].filename;
-				var AnimalPicturePath="/";
+				var AnimalPicturePath="/"+req.files[0].filename;
+			//	var AnimalPicturePath="/";
 				var PetName=req.body.petName;
 				var Birthday=req.body.birthday;
 				var PetTagNo=req.body.pettag;
 
-				db.query(`INSERT INTO animal(int_BreedId, int_Sex, int_ColorPatternId, str_AnimalPicturePath, int_AnimalStatus)
-									VALUES (${BreedId},${Sex},${ColorPatternId},'${AnimalPicturePath}',6)`,(err,result)=>{
-						db.query(`SELECT * FROM animal ORDER BY 1 desc LIMIT 1`,(err,currentAnimalRecord)=>{
-						db.query(`INSERT INTO pet( int_AnimalId, int_PetOwnerId, str_PetName, dat_DateRegistered, dat_Birthday, str_PetTagNo)
-						 			VALUES (${currentAnimalRecord[0].int_AnimalId},${req.body.currentPetOwner},'${PetName}',now(),'${Birthday}','${PetTagNo}')`,(err,result)=>{
-										db.query(`SELECT * FROM pet ORDER BY 1 desc LIMIT 1`,(err,currentPetRecord)=>{
-        												res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner,currentPet: currentPetRecord, pageStatus:1});
-								});
-						});
-					});
-				});
-			}
+				db.query(`INSERT INTO animal(int_BreedId, int_Sex, int_ColorPatternId, str_AnimalPicturePath, int_AnimalStatus) VALUES (${BreedId},${Sex},${ColorPatternId},'${AnimalPicturePath}',6)`,(err,result)=>{
+    						db.query(`SELECT * FROM animal WHERE int_AnimalId=${result.insertId}`,(err,currentAnimalRecord)=>{ console.log(JSON.parse(req.body.currentPetOwner).int_PetOwnerId);
+          						db.query(`INSERT INTO pet( int_AnimalId, int_PetOwnerId, str_PetName, dat_DateRegistered, dat_Birthday, str_PetTagNo) VALUES (${currentAnimalRecord[0].int_AnimalId},${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},'${PetName}',now(),'${Birthday}','${PetTagNo}')`,(err,result)=>{ console.log(err);
+                  										db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`,(err,currentPetRecord)=>{
+                          												res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner,currentPet: currentPetRecord,lastPayment: req.body.lastPayment, pageStatus:1});
+                                      });
+                                      if(req.body.lastPayment=='NONE'){
+                                        db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},0,0)`,(err,lastPayment)=>{
+                                            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},2,${currentAnimalRecord[0].int_AnimalId} )`,(err,results)=>{});
+                                        });
+                                      }
+                                      else{
+                                      db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},2,${currentAnimalRecord[0].int_AnimalId} )`,(err,results)=>{});
+                                    }
+
+          						});
+    					  });
+			  });
+			}//end of else if
     });
   });
 });
 
-
+router3.post('/',  (req,res)=>{
+  db.query(`SELECT *  FROM pet p JOIN animal a on p.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_PetOwnerId=${JSON.parse(req.body.currentpetowner).int_PetOwnerId}`,(err,pets)=>{
+	   res.render('CVO-T-Registration/views/petownerprofile.ejs',{ currentPetOwner: JSON.parse(req.body.currentpetowner), pe:pets});
+  });
+});
 
 exports.CVO_Registration= router;
 exports.CVO_OwnerRegistration= router1;
 exports.CVO_PetRegistration= router2;
+exports.CVO_PetOwnerProfile= router3;
