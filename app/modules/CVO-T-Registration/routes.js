@@ -156,6 +156,11 @@ router3.post('/',  (req,res)=>{
 	   res.render('CVO-T-Registration/views/petownerprofile.ejs',{ currentPetOwner: JSON.parse(req.body.currentpetowner), pe:pets});
   });
 });
+router3.post('/getVaccinationHistory',  (req,res)=>{
+  db.query(`SELECT * FROM vaccination v JOIN vaccine va ON v.int_VaccineId=va.int_VaccineId JOIN employee e ON v.int_EmployeeId=e.int_EmployeeId WHERE v.int_PetId=${req.body.id}`,(err,vaccinationHistory)=>{
+    res.json(vaccinationHistory);
+  });
+});
 
 exports.CVO_Registration= router;
 exports.CVO_OwnerRegistration= router1;

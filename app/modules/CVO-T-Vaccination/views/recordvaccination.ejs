@@ -20,51 +20,30 @@ document.getElementById("transaction_list").className="active";
                         <div class="body">
 
 
-                                    <form id="vaccinationRecordingForm" method="POST"  action="/CVO_VaccinationRecording">
+                            <form id="vaccinationRecordingForm" method="POST"  action="/CVO_VaccinationRecording">
 
 
                                 <label class="form-label">Vaccine</label>
-                             <select class="form-control show-tick" id="vaccine" name="vaccine" data-live-search="true" onchange="getVaccineDetails();">
+                             	  <select class="form-control show-tick" id="vaccine" name="vaccine" data-live-search="true" onchange="getVaccineDetails();">
                                         <option>select</option>
                                         <% va.forEach(function(i){ %>
                                         <option value='<%= i.int_VaccineId %>' ><%= i.str_VaccineName %></option>
                                         <% }); %>
+                                </select><br><br>
 
-                                    </select><br><br>
-                                 <label class="form-label">Vaccine Classification</label>
+                                <label class="form-label">Vaccine Classification</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" id="VaccineClassification" disabled>
                                     </div>
                                 </div>
-                                 <label class="form-label">Vaccine Manufacturer</label>
+
+                                <label class="form-label">Vaccine Manufacturer</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" id="VaccineManufacturer" disabled>
                                     </div>
                                 </div>
-
-                                <script>
-                                function getVaccineDetails(){
-                                $.ajax({
-                                      type: 'POST',
-                                      dataType: "json",
-                                      data: { id: document.getElementById('vaccine').value },
-                                                  url: '/CVO_VaccinationRecording/getVaccineDetails',
-                                                  success: function(data) {
-
-                                                    if(data[0].int_VaccineClassification==0){
-                                                      $('#VaccineClassification').val("Government");
-                                                    }else{
-                                                      $('#VaccineClassification').val("Private");
-                                                    }
-
-                                                    $('#VaccineManufacturer').val(data[0].str_Manufacturer);
-
-                                                  }
-                                              });
-                                            }
-                                </script>
 
                                 <label class="form-label">Vaccine Lot Number</label>
                                 <div class="form-group form-float">
@@ -89,34 +68,43 @@ document.getElementById("transaction_list").className="active";
                     </div>
                 </div>
             </div>
-            <script src="jsPDF/dist/jspdf.min.js">
-
-            </script>
-            <script>
-            var doc = new jsPDF();
-var elementHandler = {
-  '#ignorePDF': function (element, renderer) {
-    return true;
-  }
-};
-var source = window.document.getElementsByTagName("body")[0];
-doc.fromHTML(
-    source,
-    15,
-    15,
-    {
-      'width': 180,'elementHandlers': elementHandler
-    });
-
-doc.output("dataurlnewwindow");
-            </script>
+            
 
     </section>
-      <script>
-      function submitVaccinationRecordingForm(){
-        swal("Confirmation Alert Here!");
-      }
 
+      <script src="jsPDF/dist/jspdf.min.js"></script>
+      <script>
+      //Generate a Vaccination Certificate here
+      </script>
+
+      <script>
+        function submitVaccinationRecordingForm(){
+            document.getElementById('vaccinationRecordingForm').submit();
+          swal("Confirmation Alert Here!");
+        }
+      </script>
+
+      <script>
+        function getVaccineDetails(){
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: { id: document.getElementById('vaccine').value },
+                url: '/CVO_VaccinationRecording/getVaccineDetails',
+                success: function(data) {
+
+                        if(data[0].int_VaccineClassification==0){
+                            $('#VaccineClassification').val("Government");
+                        }
+                        else{
+                            $('#VaccineClassification').val("Private");
+                        }
+
+                        $('#VaccineManufacturer').val(data[0].str_Manufacturer);
+
+                }
+            });
+        }
       </script>
 
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

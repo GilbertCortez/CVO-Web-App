@@ -67,7 +67,7 @@ document.getElementById("transaction_list").className="active";
                                    <div class="tab-content">
                                        <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
                                          <div >
-                                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                        <table class="table table-striped table-hover js-basic-example dataTable">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Animal ID</th>
@@ -100,7 +100,7 @@ document.getElementById("transaction_list").className="active";
                                                                         <div align="center">
 
 
-                                                                           <a data-toggle="modal" data-target="#pethistory" onclick="iteratePet('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet History">
+                                                                           <a data-toggle="modal" data-target="#pethistory" onclick="iteratePet('<%= JSON.stringify(i) %>'); history('<%= i.int_PetId %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet History">
                                                                                     <i class="material-icons">history</i>
 
                                                                             </button>
@@ -169,7 +169,7 @@ document.getElementById("transaction_list").className="active";
                              <div class="col-sm-8">
                                  <h1 id="modal_petName">Gilbert Critica Cortez</h1>
                                  <h3 id="modal_Birthday"></h3>
-                                 <i><h4 id="modal_DateRegistered"></h4><i>
+                                 <i><h4 id="modal_DateRegistered"></h4></i>
 
                           </div>
 
@@ -188,40 +188,8 @@ document.getElementById("transaction_list").className="active";
 
                               <!-- Tab panes -->
                               <div class="tab-content">
-                                  <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_1">
-                                          <div class="body">
-                                                  <div>
-                                                      <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                          <thead>
-                                                              <tr>
-                                                                  <th>ID</th>
-                                                                  <th>Date</th>
-                                                                  <th>Vaccine Name</th>
-                                                                  <th>Classification</th>
-                                                                  <th>Manufacturer</th>
-                                                                   <th>Lot Number</th>
-                                                                  <th>Expiry Date</th>
-                                                                  <th>Employee Incharge</th>
-
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody>
-
-                                                              <tr>
-                                                                  <td>1</td>
-                                                                  <td>01/12/2018</td>
-                                                                  <td>Vaccine#1</td>
-                                                                   <td>Government</td>
-                                                                  <td>TGP</td>
-                                                                  <td>3298</td>
-                                                                  <td>01/29/2019</td>
-                                                                  <td>Dr. Manuel Carlos</td>
-                                                              </tr>
-
-                                                          </tbody>
-                                                      </table>
-                                                  </div>
-                                              </div>
+                                  <div role="tabpanel" class="tab-pane animated zoomInDown active" id="home_animation_1">
+                                          <%- include('./vaccinationhistory.ejs') -%>
                                   </div>
                                   <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_1">
                                     <div>
@@ -405,4 +373,40 @@ document.getElementById("transaction_list").className="active";
                                   </div>
                               </div>
 </section>
+<script src="PrettifyDate/PrettifyDate.js"></script>
+<script>
+  function history(PetId) {
+
+       $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: { id: PetId},
+                url: '/CVO_PetOwnerProfile/getVaccinationHistory',
+                success: function(data) {
+                
+            
+                   data.forEach(function(i){
+                    var classification="";
+                    if(i.int_VaccineClassification==0){ classification="Government" }else{ classification="Private" }
+                     $('#vaccinationHistoryTableBody').append(`
+                      <tr>
+                          <td>`+i.int_VaccinationId+`</td>
+                          <td>`+MMMMDDYYYY(i.dtm_DateTimeOfVaccination)+`</td>
+                          <td>`+i.str_VaccineName+`</td>
+                          <td>`+classification+`</td>
+                          <td>`+i.str_Manufacturer+`</td>
+                          <td>`+i.str_LotNo+`</td>
+                          <td>`+i.str_LastName+`, `+i.str_FirstName+` `+i.str_MiddleName+`</td>
+                      </tr>
+
+                      `);
+
+               
+                      });
+
+                }
+            });
+  }
+
+</script>
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
