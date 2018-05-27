@@ -230,8 +230,18 @@ document.getElementById("transaction_list").className="active";
             </div>
 
     </section>
-    <% if(pageStatus==1){ %>
 
+    <% if(pageStatus==1){ %>
+    <form method="POST" action="/CVO_VaccinationConducting" id="vaccinationConducting">
+    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />
+    <input type="hidden" value="<%= lastPayment %>" name="lastPaymentId" />
+    </form>
+    <form method="POST" action="/CVO_VaccinationScheduling" id="vaccinationScheduling">
+    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />
+    </form>
+    <form method="POST" action="/CVO_VaccinationRecording" id="vaccinationRecording">
+    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />
+    </form>
     <script>
 
               swal({
@@ -254,13 +264,13 @@ document.getElementById("transaction_list").className="active";
                           })
                           .then((decision) => {
                             if (decision==="Conduct") {
-                              $('#yesProceed').submit();
+                              $('#vaccinationConducting').submit();
                             }
                             else if(decision==="Schedule"){
-                              $('#noProceed').submit();
+                              $('#vaccinationScheduling').submit();
                             }
                             else if(decision==="Record"){
-                              $('#noProceed').submit();
+                              $('#vaccinationRecording').submit();
                             }
                           })
                           }

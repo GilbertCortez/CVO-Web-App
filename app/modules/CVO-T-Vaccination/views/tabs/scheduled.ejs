@@ -1,0 +1,53 @@
+ <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                         
+                                                            <th>Time</th>
+                                                            <th>Pet Id</th>
+                                                            <th>Pet Name</th>
+                                                            <th>Pet Owner Id</th>
+                                                            <th>Pet Owner Name</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                    <% sv.forEach(function(i){ %>
+                                                        <tr>
+                                                      
+                                                            <td><%= i.Time %></td>
+                                                            <td><%= i.int_PetId %></td>
+                                                            <td><%= i.str_PetName%></td>
+
+                                                            <td><%= i.int_PetOwnerId %></td>
+                                                            <td><%= i.str_PetOwnerLastName+', '+i.str_PetOwnerFirstName+' '+i.str_PetOwnerMiddleName %></td>
+                                                            <td>
+                                                                <div align="center">
+                                                                
+                                                                    <a data-toggle="modal" data-target="#recording"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
+                                                                            <i class="material-icons">add</i>Conduct
+                                                                    </button>
+                                                                   </a>
+                                                                   <a data-toggle="modal" data-target="#schedule"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Schedule Vaccination">
+                                                                            <i class="material-icons">add</i>Resched
+                                                                    </button>
+                                                                   </a>
+                                                                   <a data-toggle="modal" data-target="#recording"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
+                                                                            <i class="material-icons">add</i>Cancel
+                                                                    </button>
+                                                                   </a>
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                    </tbody>
+                                                </table>
+                                            </div>

@@ -130,17 +130,22 @@ router2.post('/',uploadPet.any(),  (req,res)=>{
 
 				db.query(`INSERT INTO animal(int_BreedId, int_Sex, int_ColorPatternId, str_AnimalPicturePath, int_AnimalStatus) VALUES (${BreedId},${Sex},${ColorPatternId},'${AnimalPicturePath}',6)`,(err,result)=>{
     						db.query(`SELECT * FROM animal WHERE int_AnimalId=${result.insertId}`,(err,currentAnimalRecord)=>{ console.log(JSON.parse(req.body.currentPetOwner).int_PetOwnerId);
-          						db.query(`INSERT INTO pet( int_AnimalId, int_PetOwnerId, str_PetName, dat_DateRegistered, dat_Birthday, str_PetTagNo) VALUES (${currentAnimalRecord[0].int_AnimalId},${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},'${PetName}',now(),'${Birthday}','${PetTagNo}')`,(err,result)=>{ console.log(err);
-                  										db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`,(err,currentPetRecord)=>{
-                          												res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner,currentPet: currentPetRecord,lastPayment: req.body.lastPayment, pageStatus:1});
-                                      });
+          						db.query(`INSERT INTO pet( int_AnimalId, int_PetOwnerId, str_PetName, dat_DateRegistered, dat_Birthday, str_PetTagNo) VALUES (${currentAnimalRecord[0].int_AnimalId},${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},'${PetName}',now(),'${Birthday}','${PetTagNo}')`,(err,result)=>{ 
+                  										
                                       if(req.body.lastPayment=='NONE'){
                                         db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},0,0)`,(err,lastPayment)=>{
                                             db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},2,${currentAnimalRecord[0].int_AnimalId} )`,(err,results)=>{});
+                                              db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`,(err,currentPetRecord)=>{
+                                                  res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner,currentPet: currentPetRecord[0].int_PetId,lastPayment: lastPayment.insertId, pageStatus:1});
+                                      });
                                         });
                                       }
                                       else{
-                                      db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},2,${currentAnimalRecord[0].int_AnimalId} )`,(err,results)=>{});
+                                      db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},2,${currentAnimalRecord[0].int_AnimalId} )`,(err,results)=>{
+                                        db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`,(err,currentPetRecord)=>{
+                                                  res.render('CVO-T-Registration/views/petregistration.ejs', { br: breed, co: colorpattern,currentPetOwner: req.body.currentPetOwner,currentPet: currentPetRecord[0].int_PetId,lastPayment: req.body.lastPayment, pageStatus:1});
+                                      });
+                                      });
                                     }
 
           						});

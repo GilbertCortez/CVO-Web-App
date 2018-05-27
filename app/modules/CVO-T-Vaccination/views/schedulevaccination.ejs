@@ -1,4 +1,4 @@
-
+  
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 
 <script>
@@ -27,6 +27,7 @@ document.getElementById("transaction_list").className="active";
 <div id='calendar' class="col-sm-6"></div>
 <div id='appointmentTime' class="col-sm-6">
     <h2>Appointment Time</h2>
+    <center><p id="choosenDate">please select a date on the calendar..</p></center>
 
 </div>
 </div>
@@ -36,30 +37,38 @@ document.getElementById("transaction_list").className="active";
 <script src='/fullcalendar/fullcalendar.js'></script>
 <script >
 swal("Please select a date of appointment in the calendar!");
+
     $(function() {
 
   // page is now ready, initialize the calendar...
 
   $('#calendar').fullCalendar({
-    weekends: false,
+   
      height: 400,
      contentHeight: 450,
      dayClick: function(date) {
-        
+     
           $.ajax({
                                               type: 'POST',
                                               dataType: "json",
                                               data: { id: date.format() },
                                                           url: '/CVO_VaccinationScheduling/getSlots',
                                                           success: function(data) {
+                                                          
                                                                //alert(JSON.stringify(data));
                                                                $('#appointmentTime').empty();
                                                                 $('#appointmentTime').append(`<h2>Appointment Time</h2>`);
+                                                               $('#appointmentTime').append( `<center><h4 id="choosenDate">`+MMMMDDYYYY(date.format())+`</h4></center><hr>`);
                                                                data.forEach(function(i,x){
+                                                               
+                                                                
                                                               if(i.totalSlots-i.takenSlots==0){
                                                                 $('#appointmentTime').append(`<button class="btn btn-danger btn-lg btn-block waves-effect" type="button"  disabled>`+i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+0+` Slots)</button>`);
                                                               }else{
-                                                                $('#appointmentTime').append(`<button class="btn btn-primary btn-lg btn-block waves-effect" type="button">`+i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+(i.totalSlots-i.takenSlots)+` Slots)</button>`);
+                                                                $('#appointmentTime').append(`<a class="btn btn-primary btn-lg btn-block waves-effect" 
+                                                                                            onclick='summaryOfAppointment(`+JSON.stringify(i)+`,"`+date.format()+`");'>`
+                                                                                            +i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+(i.totalSlots-i.takenSlots)+
+                                                                                            ` Slots)</a>`);
                                                             }
 
                                                             });
@@ -83,9 +92,9 @@ swal("Please select a date of appointment in the calendar!");
                                 <br>
 
                                 <center>
-                                <a href="/CVO_OrderOfPayment"><button class="btn btn-primary waves-effect" type="button">PROCEED TO ORDER OF PAYMENT GENERATION</button></a>&nbsp;
-                                <a href="/CVO_PetRegistration"><button class="btn btn-primary waves-effect" type="button">BACK</button></a></center>
-                                 </form>
+                            
+                                <a ><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
+                              
                         </div>
                     </div>
                 </div>
@@ -94,63 +103,35 @@ swal("Please select a date of appointment in the calendar!");
        
     </section>
 
-    <div class="modal fade" id="timechoose" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">VACCINATION TIME</h4>
-                        </div>
-                        <div class="modal-body">
-                        <div class="input-group input-group-lg">
-                                        <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">8:00 am(10 Slots)</label>
-                                        </span>
-                                        </div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">9:00 am(6 Slots)</label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">10:00 am(12 Slots)</label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox" disabled>
-                                            <label for="ig_checkbox"><strike>11:00 am(No Slot)</strike></label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">12:00 nn(13 Slots)</label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">1:00 pm(9 Slots)</label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">2:00 pm(2 Slots)</label>
-                                        </span></div>
-                                        <div class="input-group input-group-lg"> <span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">3:00 pm(8 Slots)</label>
-                                        </span></div>
-                                         <div class="input-group input-group-lg"><span class="input-group-addon">
-                                            <input type="radio" class="filled-in" id="ig_checkbox" disabled>
-                                            <label for="ig_checkbox"><strike>4:00 pm(No Slot)</strike></label>
-                                        </span></div>
-                                       
-                                   
-                                 
-               
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CHOOSE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<form action="/CVO_VaccinationScheduling/recording" method="POST" id="schedulingForm">
+  <input type="hidden" name="selectedDate" id="selectedDate">
+  <input type="hidden" name="currentPetId" value="<%= currentPetId[0] %>" >
+</form>
+<script>
+function summaryOfAppointment(i,dateSelected){
+
+        swal({
+          title: "Book this schedule?",
+          text: MMMMDDYYYY(dateSelected)+" "+i.hour,
+          icon: "info",
+          buttons: ["NO","YES"],
+ 
+        })
+        .then((Proceed) => {
+          if (Proceed) {
+          document.getElementById('selectedDate').value=dateSelected+" "+i.hour+":00";
+            document.getElementById('schedulingForm').submit();
+          } else {
+            
+          }
+        });
+}
+</script>
+
+
+
+<!-- FOOTER -->
+   
  </div>
     </section>
 

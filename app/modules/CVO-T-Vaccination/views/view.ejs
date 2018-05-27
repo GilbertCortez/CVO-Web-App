@@ -10,62 +10,60 @@ document.getElementById("transaction_list").className="active";
             <div class="row clearfix">
                 <div >
                     <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>VACCINATION</h2>
-                        </div>
-                        <div class="body">
                       
-                                         <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Pet ID</th>
-                                                            <th>Pet Name</th>
-                                                            <th>Breed</th>
-                                                            <th>Pet Owner Name</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>MingMing</td>
-                                                            <td>Pusakal</td>
-                                                            <td>Mary Justine Espin</td>
-                                                            <td>
-                                                                <div align="center">
-                                                                  <!---  <a ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                            <i class="material-icons">remove_red_eye</i>&nbsp;
-                                                                    </button>
-                                                                   </a> !-->
-                                                                   <a data-toggle="modal" data-target="#schedule"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Schedule Vaccination">
-                                                                            <i class="material-icons">add</i>Schedule
-                                                                    </button>
-                                                                   </a>
-                                                                   <a data-toggle="modal" data-target="#recording"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
-                                                                            <i class="material-icons">add</i>Record
-                                                                    </button>
-                                                                   </a>
-                                                              
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                        <div class="body">
+ 
+              
+                            
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab1" data-toggle="tab">
+                                        <i class="material-icons">home</i> WALK-IN VACCINATION
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#tab2" data-toggle="tab">
+                                        <i class="material-icons">face</i> SCHEDULED
+                                    </a>
+                                </li>
+                                 <li role="presentation">
+                                    <a href="#tab3" data-toggle="tab">
+                                        <i class="material-icons">face</i> REQUESTS
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#tab4" data-toggle="tab">
+                                        <i class="material-icons">face</i> DONE
+                                    </a>
+                                </li>
+                            </ul>
+
+                          
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="tab1">
+                                        <%- include('./tabs/walkin.ejs') -%>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab2">
+                                        <%- include('./tabs/scheduled.ejs') -%>
+                                </div>
+                                 <div role="tabpanel" class="tab-pane fade" id="tab3">
+                                        <%- include('./tabs/requests.ejs') -%>
+                                </div>
+
+                                 <div role="tabpanel" class="tab-pane fade" id="tab4">
+                                        <%- include('./tabs/done.ejs') -%>
+                                </div>
+
+                              
+                            </div>
+                        </div>
+           
+                                 
                     </div>
                 </div>
-            </div>
+
+            
+    
        
 
        <div class="modal fade" id="schedule" tabindex="-1" role="dialog">
@@ -102,6 +100,7 @@ document.getElementById("transaction_list").className="active";
                         </div>
                     </div>
                 </div>
+
             </div>
        
 

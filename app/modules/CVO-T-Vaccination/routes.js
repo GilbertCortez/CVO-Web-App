@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var router1 = express.Router();
 var router2 = express.Router();
+var router3 = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 var sortJsonArray = require('sort-json-array');
@@ -10,20 +11,24 @@ var sortJsonArray = require('sort-json-array');
 
 
 router.get('/',  (req,res)=>{
-	res.render('CVO-T-Vaccination/views/view.ejs');
+  db.query(`SELECT *, TIME(v.dtm_DateTimeOfVaccination) as Time, DATE(v.dtm_DateTimeOfVaccination) as Date FROM vaccination v JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId WHERE v.int_Status=0 ORDER BY Date, Time;`,(err,scheduledVaccination)=>{
+       db.query(`SELECT * FROM pet p JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId `,(err,pets)=>{
+            res.render('CVO-T-Vaccination/views/view.ejs',{pe:pets, sv:scheduledVaccination});
+       });
+   });
 });
 
 
 //RECORDING
-router1.get('/',  (req,res)=>{
-  db.query(`SELECT * FROM vaccine`,(req,vaccines)=>{
-	   res.render('CVO-T-Vaccination/views/recordvaccination.ejs',{va:vaccines});
+router1.post('/',  (req,res)=>{
+  db.query(`SELECT * FROM vaccine`,(err,vaccines)=>{
+	   res.render('CVO-T-Vaccination/views/recordvaccination.ejs',{va:vaccines,currentPetId:req.body.currentPetId});
   });
 });
 
-router1.post('/',  (req,res)=>{
-  console.log(req.body.vaccinationDate);
-  db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_VaccineId, str_LotNo, int_Status, int_EmployeeId) VALUES (1,'${req.body.vaccinationDate}',${req.body.vaccine},${req.body.lotNumber},3,1)`,(req,vaccines)=>{
+router1.post('/recording',  (req,res)=>{
+  
+  db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_VaccineId, str_LotNo, int_Status, int_EmployeeId) VALUES (${req.body.currentPetId},'${req.body.vaccinationDate}',${req.body.vaccine},${req.body.lotNumber},3,1)`,(req,vaccines)=>{
 	   res.redirect('/CVO_Vaccination');
   });
 });
@@ -31,16 +36,15 @@ router1.post('/',  (req,res)=>{
 router1.post('/getVaccineDetails',  (req,res)=>{
 
   db.query(`SELECT * FROM vaccine WHERE int_VaccineId=${req.body.id}`,(err,vaccineDetails)=>{
-    console.log(err);
 	   res.json(vaccineDetails);
   });
 
 });
 
 
+router2.post('/',  (req,res)=>{
 
-router2.get('/',  (req,res)=>{
-	res.render('CVO-T-Vaccination/views/schedulevaccination.ejs');
+	res.render('CVO-T-Vaccination/views/schedulevaccination.ejs',{currentPetId:req.body.currentPetId});
 });
 
 router2.post('/getSlots',  (req,res)=>{
@@ -75,7 +79,7 @@ router2.post('/getSlots',  (req,res)=>{
           'totalSlots': numberOfVaccinationPerHour,
           'takenSlots': 0
         }]);
-      console.log(ctr+'=='+parseInt(officeHoursInMinutes/60))
+    
        if(ctr==parseInt(officeHoursInMinutes/60)){
           callback1();
         }
@@ -90,9 +94,9 @@ router2.post('/getSlots',  (req,res)=>{
         scheduleDetails.forEach(function(i,x){
             db.query(`SELECT COUNT(*) as num FROM vaccination WHERE (dtm_DateTimeOfVaccination BETWEEN  '`+dateClicked+` `+i.hour+`:00' AND  DATE_ADD('`+dateClicked+` `+i.hour+`:00', INTERVAL 59 MINUTE) ) AND int_Status=0`,(err,numberOfTaken)=>{
                   scheduleDetails[x].takenSlots=numberOfTaken[0].num;
-                console.log(`SELECT COUNT(*) as num FROM vaccination WHERE (dtm_DateTimeOfVaccination BETWEEN  '`+dateClicked+` `+i.hour+`:00' AND  DATE_ADD('`+dateClicked+` `+i.hour+`:00', INTERVAL 59 MINUTE) ) AND int_Status=0`);
+               
                 if(parseInt(officeHoursInMinutes/60)===(parseInt(x)+1)){
-                  console.log(parseInt(officeHoursInMinutes/60)+'=='+(parseInt(x)+1))
+        
                 callback2();
             }
             });
@@ -108,10 +112,41 @@ router2.post('/getSlots',  (req,res)=>{
   
 });
 
+router2.post('/recording',(req,res)=>{
+  db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_Status) VALUES (${req.body.currentPetId},'${req.body.selectedDate}',0)`,(err,result)=>{
+      console.log(err);
+  });
+});
+//INSERT INTO `vaccination`( `int_PetId`, `dtm_DateTimeOfVaccination`, `int_Status`) VALUES (1,'2018-05-25 08:00:00',0)
 
-//INSERT INTO `vaccination`( `int_PetId`, `dtm_DateTimeOfVaccination`, `int_Status`) VALUES (1,'2018-05-25 08:00;00',0)
+//CONDUCTING
+router3.post('/',  (req,res)=>{
+  var currentPetId=req.body.currentPetId;
+  console.log(currentPetId);
+  db.query(`SELECT * FROM vaccine`,(err,vaccines)=>{
+     res.render('CVO-T-Vaccination/views/conduct.ejs',{va:vaccines, currentPetId: currentPetId, lastPayment:req.body.lastPaymentId});
+  });
+});
+
+router3.post('/recording',  (req,res)=>{
+  db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_VaccineId, str_LotNo, int_Status, int_EmployeeId) VALUES (${req.body.currentPetId},now(),${req.body.vaccine},${req.body.lotNumber},1,1)`,(err,result)=>{
+     db.query(`SELECT * FROM pet p JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId WHERE p.int_PetId=${req.body.currentPetId}`,(err, result)=>{
+       res.redirect('/CVO_Vaccination');
+                                    if(req.body.lastPayment=='NONE'){
+                                        db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${result[0].int_PetOwnerId},0,0)`,(err,lastPayment)=>{
+                                            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},3,${req.body.currentPetId} )`,(err,results)=>{});
+                                        });
+                                      }
+                                      else{
+                                      db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},3,${req.body.currentPetId} )`,(err,results)=>{ console.log(err);});
+                                    }
+     });
+    
+  });
+ });
 
 
 exports.CVO_Vaccination= router;
 exports.CVO_VaccinationRecording= router1;
 exports.CVO_VaccinationScheduling= router2;
+exports.CVO_VaccinationConducting= router3;
