@@ -1,0 +1,42 @@
+<%- include('../../../templates/CVO-PetOwner-Head.ejs') -%>
+ <div class="row clearfix">
+                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header  bg-blue">
+                            <h2>Upload Vaccination Certificate</h2>
+                        </div>
+                        <div class="body">
+                        	<div class="col-sm-6">
+ 								<img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="400" /><br><br><br>
+                                        <script type="text/javascript">
+
+                                            function readURL(input) {
+                                                if (input.files && input.files[0]) {
+                                                  var reader = new FileReader();
+                                                  reader.onload = function (e) {
+                                                    $('#blah').attr('src', e.target.result);
+                                                      $('#modal_petPicture').attr('src', e.target.result);
+                                                  };
+                                                  reader.readAsDataURL(input.files[0]);
+                                                }
+                                                else{
+                                                  $('#blah').attr('src',"../../images/animalPicture.jpg");
+                                                }
+                                            }
+                                        </script>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-line">
+                                              <label class="form-label">Vaccination Certificate</label>
+                                              <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                                            </div>
+                                        </div>
+                                        <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<%- include('../../../templates/CVO-PetOwner-Footer.ejs') -%>
+

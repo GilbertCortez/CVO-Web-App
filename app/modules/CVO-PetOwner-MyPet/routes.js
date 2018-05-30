@@ -6,14 +6,21 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 
+
+
+
 router.get('/',  (req,res)=>{
-
-	res.render('CVO-PetOwner-MyPet/views/view.ejs');
-
+  db.query(`SELECT *  FROM pet p JOIN animal a on p.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_PetOwnerId=${1}`,(err,pets)=>{
+	   	db.query(`SELECT * FROM petowner WHERE int_PetOwnerId=${1}`,(err,petOwnerDetails)=>{
+	   res.render('CVO-PetOwner-MyPet/views/view.ejs',{ currentPetOwner: petOwnerDetails[0], pe:pets});
+  });
+	 });
 });
-
-
-
+router.post('/getVaccinationHistory',  (req,res)=>{
+  db.query(`SELECT * FROM vaccination v JOIN vaccine va ON v.int_VaccineId=va.int_VaccineId JOIN employee e ON v.int_EmployeeId=e.int_EmployeeId WHERE v.int_PetId=${req.body.id}`,(err,vaccinationHistory)=>{
+    res.json(vaccinationHistory);
+  });
+});
 
 
 exports.PetOwner_MyPets= router;

@@ -13,7 +13,9 @@ var sortJsonArray = require('sort-json-array');
 router.get('/',  (req,res)=>{
   db.query(`SELECT *, TIME(v.dtm_DateTimeOfVaccination) as Time, DATE(v.dtm_DateTimeOfVaccination) as Date FROM vaccination v JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId WHERE v.int_Status=0 ORDER BY Date, Time;`,(err,scheduledVaccination)=>{
        db.query(`SELECT * FROM pet p JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId `,(err,pets)=>{
-            res.render('CVO-T-Vaccination/views/view.ejs',{pe:pets, sv:scheduledVaccination});
+            db.query(`SELECT *,p.dat_DateRegistered as PetDateReg, po.dat_DateRegistered as PetOwnerDateReg FROM vaccinationcertificateupload vcu JOIN vaccination v ON vcu.int_VaccinationId=v.int_VaccinationId JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId JOIN barangay ba ON po.int_BarangayId=ba.int_BarangayId JOIN animal a ON p.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_colorPatternId=c.int_colorPatternId WHERE v.int_Status=0 ORDER BY vcu.int_VaccinationCertificateUploadId DESC `,(err,requests)=>{console.log(requests);
+              res.render('CVO-T-Vaccination/views/view.ejs',{pe:pets, sv:scheduledVaccination,re:requests});
+            });
        });
    });
 });
