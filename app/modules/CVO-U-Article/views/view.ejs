@@ -1,0 +1,86 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("utilities_list").className="active";
+document.getElementById("Article_list").className="active";
+
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header bg-blue" >
+                <h2>
+                Articles for Learn Section
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div >
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
+                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                                    <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Topic</th>
+                                                            <th>Date Posted</th>
+                              <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr>
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                       
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>My Exs and Whys</td>
+                                                            <td>February 14, 2017</td>
+                                                            <td>
+                                                                <div align="center">
+
+
+                                                                  <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                        <i class="material-icons">remove_red_eye</i>
+                                                                    </button></a>
+                                                                    <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                        <i class="material-icons">mode_edit</i>
+                                                                    </button></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                               <%- include('./addArticle.ejs') -%>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
