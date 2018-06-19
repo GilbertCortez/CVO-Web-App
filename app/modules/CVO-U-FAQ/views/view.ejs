@@ -45,23 +45,21 @@ document.getElementById("FAQ_list").className="active";
                                                         </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                                                       
+                                                       <% faqs.forEach(function (i) { %>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Kapalit palit ba ko?</td>
-                                                            <td>Oo.</td>
+                                                            <td><%= i.int_FAQId%></td>
+                                                            <td><%= i.str_Question%></td>
+                                                            <td><%= i.str_Answer%></td>
                                                             <td>
-                                                                <div align="center">
-
-
-                                                                  <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                        <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
+                                                                    <div align="center">
+                                                                            <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
+                                                                                <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                                   <i class="material-icons">mode_edit</i>
+                                                                           </button></a>
+                                                                       </div>
                                                             </td>
-                                                        </tr>
-                                                        
-
+                                                        </tr>          
+                                                    <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -70,14 +68,51 @@ document.getElementById("FAQ_list").className="active";
                             <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
                                <%- include('./addFAQ.ejs') -%>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-blue">
+                        <h4 class="modal-title" id="defaultModalLabel">EDIT FAQ DETAILS</h4>
+                    </div>
+                    <div class="modal-body">
+                    <table class="table table-striped">
+                            <tr>
+                              <td><strong>ID NUMBER:</strong></td>
+                              <td><input type="text" class="form-control" id="modal_ID" name="modal_ID" required="" aria-required="true" disabled></td>
+                            </tr>
+                            <tr>
+                              <td><strong>QUESTION:</strong></td>
+                              <td><input type="text" class="form-control" id="modal_Question" name="modal_Question" required="" aria-required="true"></td>
+                              </tr>
+                            <tr>
+                              <td><strong>ANSWER:</strong></td>
+                             <td><input type="text" class="form-control" id="modal_Answer" name="modal_Answer" required="" aria-required="true"></td>
+                             </tr>
+                          </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
  
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
+<script>
+
+function modal_iteration(Questions){
+document.getElementById("modal_ID").value=JSON.parse(Questions).int_FAQId;
+document.getElementById("modal_Question").value=JSON.parse(Questions).str_Question;
+document.getElementById("modal_Answer").value=JSON.parse(Questions).str_Answer;
+}
+</script>

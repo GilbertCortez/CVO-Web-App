@@ -7,11 +7,38 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-
-			res.render('CVO-U-FAQ/views/view');
-		
+	db.query(`SELECT * FROM faq`,(err, results, fields) => {
+		if (err){
+			console.log(err)
+			res.redirect('/CVO_FAQs')		
+		}
+		else {
+			res.render('CVO-U-FAQ/views/view',{faqs:results});
+		}
+	})	
 });
 
+router.post('/', (req, res)=>{
+	var question = req.sanitize(`${req.body.question}`);
+	var answer = req.sanitize(`${req.body.answer}`);
+
+		if (question == "" || answer == "" ){
+			console.log("error");
+			res.redirect('/CVO_FAQs');
+		}
+		else {
+			db.query(`INSERT INTO faq(str_Question, str_Answer) VALUES ("${question}","${answer}")`,(err,results,fields)=>{
+				if (err) {
+					console.log(err)
+					res.redirect('/CVO_FAQs')
+				}
+				else {
+					res.redirect('/CVO_FAQs')
+				}
+			});
+		}
+	
+});
 
 
 exports.CVO_FAQs= router;
