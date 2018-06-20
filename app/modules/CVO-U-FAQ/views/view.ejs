@@ -59,7 +59,7 @@ document.getElementById("FAQ_list").className="active";
                                                                        </div>
                                                             </td>
                                                         </tr>          
-                                                    <% }); %>
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -89,11 +89,11 @@ document.getElementById("FAQ_list").className="active";
                             </tr>
                             <tr>
                               <td><strong>QUESTION:</strong></td>
-                              <td><input type="text" class="form-control" id="modal_Question" name="modal_Question" required="" aria-required="true"></td>
+                              <td><input type="textarea" class="form-control" id="modal_Question" name="modal_Question" required="" aria-required="true"></td>
                               </tr>
                             <tr>
                               <td><strong>ANSWER:</strong></td>
-                             <td><input type="text" class="form-control" id="modal_Answer" name="modal_Answer" required="" aria-required="true"></td>
+                             <td><input type="textarea" class="form-control" id="modal_Answer" name="modal_Answer" required="" aria-required="true"></td>
                              </tr>
                           </table>
                     </div>
@@ -109,10 +109,11 @@ document.getElementById("FAQ_list").className="active";
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
 
 <script>
+    
+    function modal_iteration(Questions){
+    document.getElementById("modal_ID").value=JSON.parse(Questions).int_FAQId;
+    document.getElementById("modal_Question").value=JSON.parse(Questions).str_Question;
+    document.getElementById("modal_Answer").value=JSON.parse(Questions).str_Answer;
+    }
 
-function modal_iteration(Questions){
-document.getElementById("modal_ID").value=JSON.parse(Questions).int_FAQId;
-document.getElementById("modal_Question").value=JSON.parse(Questions).str_Question;
-document.getElementById("modal_Answer").value=JSON.parse(Questions).str_Answer;
-}
 </script>

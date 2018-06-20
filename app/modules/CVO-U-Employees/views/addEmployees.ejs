@@ -8,19 +8,19 @@
                             <center>  <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                               <script type="text/javascript">
 
-                                  function readURL(input) {
-                                  if (input.files && input.files[0]) {
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
                                     var reader = new FileReader();
                                     reader.onload = function (e) {
-                                      $('#blah').attr('src', e.target.result);
-                                    };
-                                    reader.readAsDataURL(input.files[0]);
-                                  }
-                                  else{
-                                    $('#blah').attr('src',"../../images/noIdPicture.jpg");
-                                  }
-                                  }
-                              </script>
+                                        $('#blah').attr('src', e.target.result);
+                                        };
+                                            reader.readAsDataURL(input.files[0]);
+                                        }
+                                        else{
+                                        $('#blah').attr('src',"../../images/noIdPicture.jpg");
+                                        }
+                                        }
+                                </script>
                               <div>
                                   <div class="form-line">
                                     <label class="form-label">ID Picture</label>

@@ -13,10 +13,20 @@
                                 <label id="required-topic" class="error" style="display: block;">This field is required.</label>
                             </div>
 
+                            <script type="text/javascript">
+                                
+                                function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.readAsDataURL(input.files[0]);
+                                        }
+                                     }
+                            </script>
+
                             <label class="form-label">Image Content<small>(Maximum 1)</small></label>
                                 <div >
                                     <div class="form-line" id="line_image">
-                                        <input type="file" name="imagepath" id="imagepath"/>
+                                        <input type="file" name="imagepath" id="imagepath" onchange="readURL(this);image_select();"/>
                                     </div>
                                     <label id="required-image" class="error" style="display: block;">This field is required.</label>
                                 </div>
@@ -45,6 +55,11 @@
                 function topic_typing() {
                     $('#line_topic').removeClass("error");
                     document.getElementById('required-topic').style.display="none";
+                }
+
+                function image_select() {
+                    $('#line_image').removeClass("error");
+                    document.getElementById('required-image').style.display="none";
                 }
 
                 function content_typing(){
