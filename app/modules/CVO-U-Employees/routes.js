@@ -72,8 +72,4 @@ router.post('/', upload.any(),  (req,res)=>{
 });
 });
 
-
-
-
-
 exports.CVO_Employees= router;

@@ -4,31 +4,100 @@
                             <h2>ADD ARTICLE TO LEARN SECTION</h2>
                         </div>
                         <div class="body">
+                            <form id="form_article" method="POST" action="/CVO_Article">
                             <div class="form-group form-float">
                                 <label class="form-label">Topic</label>
-                                <div class="form-line">
-                                    <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                <div class="form-line" id="line_topic">
+                                    <input type="text" class="form-control" name="topic" id="topic" required="" aria-required="true" onkeypress="topic_typing()">
                                 </div>
+                                <label id="required-topic" class="error" style="display: block;">This field is required.</label>
                             </div>
+
+                            <script type="text/javascript">
+                                
+                                function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.readAsDataURL(input.files[0]);
+                                        }
+                                     }
+                            </script>
 
                             <label class="form-label">Image Content<small>(Maximum 1)</small></label>
                                 <div >
-                                    <div class="form-line">
-                                        <input type="file"/>
+                                    <div class="form-line" id="line_image">
+                                        <input type="file" name="imagepath" id="imagepath" onchange="readURL(this);image_select();"/>
                                     </div>
+                                    <label id="required-image" class="error" style="display: block;">This field is required.</label>
                                 </div>
                                 <br>
 
                             <label class="form-label">Content</label><br><br>
                              <div class="form-group form-float">
                                
-                                <div class="form-line">
-                                    <textarea class="form-control" name="name" required="" aria-required="true"></textarea>
+                                <div class="form-line" id="line_content">
+                                    <textarea class="form-control" name="content" id="content" required="" aria-required="true" onkeypress="content_typing()"></textarea>
                                 </div>
+                                <label id="required-content" class="error" style="display: block;">This field is required.</label>
                             </div>
                                 <br><br>
-                              <center><button class="btn btn-primary waves-effect" type="submit" >POST</button></center>  
+                              <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()">POST</button></center>  
                         </div>
                     </div>
                 </div>
-			
+            
+                <script>
+                
+                document.getElementById('required-topic').style.display="none";
+                document.getElementById('required-image').style.display="none";
+                document.getElementById('required-content').style.display="none";
+
+                function topic_typing() {
+                    $('#line_topic').removeClass("error");
+                    document.getElementById('required-topic').style.display="none";
+                }
+
+                function image_select() {
+                    $('#line_image').removeClass("error");
+                    document.getElementById('required-image').style.display="none";
+                }
+
+                function content_typing(){
+                    $('#line_content').removeClass("error");
+                    document.getElementById('required-content').style.display="none";
+                }
+
+                function validation(){
+                    var toSubmit=true;
+                    if(document.getElementById('topic').value.trim()==""){
+                        toSubmit=false;
+                        $('#line_topic').addClass("error");
+                        document.getElementById('required-topic').style.display='block';
+                    }
+
+                    if(document.getElementById('imagepath').value.trim()==""){
+                        toSubmit=false;
+                        $('#line_image').addClass("error");
+                        document.getElementById('required-image').style.display='block';
+                    }
+
+                    if(document.getElementById('content').value.trim()==""){
+                        toSubmit=false;
+                        $('#line_content').addClass("error");
+                        document.getElementById('required-content').style.display='block';
+                    }
+
+                    if(toSubmit==true){
+                        swal({
+                        title: "Are you sure you want to add new Article for Learn Section?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                                document.getElementById('form_article').submit();
+                        }
+                        });
+                    }
+                }
+                </script>
