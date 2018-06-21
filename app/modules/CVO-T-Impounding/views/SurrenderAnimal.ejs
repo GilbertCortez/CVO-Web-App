@@ -6,28 +6,112 @@ document.getElementById("transaction_list").className="active";
 
 </script>
 
+
+
+
+
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-             <div class="header  bg-blue">
-                        
-                            <h2>SURRENDER ANIMAL</h2>
-                          
-                        </div>
+        <div class="card" >
+          
             <div class="body">
             <form id="form_validation" method="POST" novalidate="novalidate">
+            <h4 >Surrendering Details</h4><hr>
+            <h4 class="col-sm-12">Concerned Citizen Name</h4>
+            <div class="col-sm-4">
+                                        <label class="form-label">First Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-4">
+                                        <label class="form-label">Middle Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-4">
+                                        <label class="form-label">Last Name</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <h4 class="col-sm-12">Concerned Citizen Contact Details</h4>
+                                  <div class="col-sm-6">
+                                        <label class="form-label">Contact Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                        <label class="form-label">Email Address</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                               
+            
+            <h4>Surrendered Animal Details</h4><hr>
+            <div class="col-sm-4">
+                     <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                     <script type="text/javascript">
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                              var reader = new FileReader();
+                              reader.onload = function (e) {
+                                $('#blah').attr('src', e.target.result);
+                                  $('#modal_petPicture').attr('src', e.target.result);
+                              };
+                              reader.readAsDataURL(input.files[0]);
+                            }
+                            else{
+                              $('#blah').attr('src',"../../images/animalPicture.jpg");
+                            }
+                        }
+                     </script>
+                     <div align="center">
+                        <div class="form-line">
+                           <label class="form-label">Animal Picture</label>
+                           <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                        </div>
+                     </div>
+                     <br>
+                  </div>
+                   <div class="col-sm-4">
+                        <label class="form-label">Pet Tag</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name"  >
+                                    </div>
+                                </div>
+                                </div>
+                  <div class="col-sm-4">
                         <label class="form-label">Animal Alias</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="text" class="form-control" name="name"  >
                                     </div>
                                 </div>
-                                 <label class="form-label">Animal Picture</label>
-                          
-                                        <input type="file" class="form-control" name="name" required="" aria-required="true">
-                                   <br><br>
+                                </div>
+                                 <div class="col-sm-4">
                                 <label class="form-label">Animal Breed</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
+              
                                         <select class="form-control show-tick" data-live-search="true">
                                          <option>select</option>
                                         <option>Breed#1</option>
@@ -38,11 +122,13 @@ document.getElementById("transaction_list").className="active";
                                         
                                      
                                     </select>
-                                    </div>
+                               
                                 </div>
+                                </div>
+ <div class="col-sm-4">
                                         <label class="form-label">Animal Species</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
+                                
                                         <select class="form-control show-tick" data-live-search="true">
                                          <option>select</option>
                                         <option>Dog</option>
@@ -50,11 +136,13 @@ document.getElementById("transaction_list").className="active";
                                         
                                      
                                     </select>
-                                    </div>
+                                    
                                 </div>
+                                </div>
+                                 <div class="col-sm-4">
                                         <label class="form-label">Sex</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
+                             
                                         <select class="form-control show-tick" data-live-search="true">
                                          <option>select</option>
                                         <option>Male</option>
@@ -62,11 +150,13 @@ document.getElementById("transaction_list").className="active";
                                         
                                      
                                     </select>
-                                    </div>
+                                    
                                 </div>
+                                </div>
+                                 <div class="col-sm-4">
                                         <label class="form-label">Color Pattern</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
+                               
                                         <select class="form-control show-tick" data-live-search="true">
                                          <option>select</option>
                                         <option>Color Pattern#1</option>
@@ -79,9 +169,25 @@ document.getElementById("transaction_list").className="active";
                                     </select>
                                     </div>
                                 </div>
-                                        <label class="form-label">Barangay</label>
+                                <div class="col-sm-12">
+                                      <label class="form-label">Health Status</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
+                              
+                                        <select class="form-control show-tick" data-live-search="true">
+                                         <option>select</option>
+                                        <option>Healthy</option>
+                                        <option>Sick</option>
+                                       
+                                        
+                                     
+                                    </select>
+                                     
+                                </div>
+                                </div>
+                                 <div class="col-sm-6">
+                                        <label class="form-label">Barangay Caught</label>
+                                <div class="form-group form-float">
+                                   
                                         <select class="form-control show-tick" data-live-search="true">
                                          <option>select</option>
                                         <option>Barangay#1</option>
@@ -92,13 +198,43 @@ document.getElementById("transaction_list").className="active";
                                         
                                      
                                     </select>
+                                      
+                                </div>
+                                </div>
+                                 <div class="col-sm-3">
+                                        <label class="form-label">Date Caught</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="date" class="form-control" name="name" required="" aria-required="true">
+                                        
                                        </div>
                                 </div>
+                                </div>
+                                <div class="col-sm-3">
+                                        <label class="form-label">Time Caught</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="time" class="form-control" name="name" required="" aria-required="true">
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                 <div class="col-sm-12">
+                                        <label class="form-label">Remarks</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="textarea" class="form-control" name="name" required=""  aria-required="true">
+                                        
+                                       </div>
+                                </div>
+                                </div>
+
                                         <br>
-                                
+                                <br><br><br>
                               
-                                <center><a data-toggle="modal" data-target="#cageAssignment"><button class="btn btn-primary waves-effect" >SUBMIT</button></a></center>
+                                <center><a  class="col-sm-12" data-toggle="modal" data-target="#cageAssignment"><button class="btn btn-primary waves-effect" >SUBMIT</button></a></center>
                                 </form>
+                                <div>&nbsp;</div> <div>&nbsp;</div>
                      
                    
             </div>

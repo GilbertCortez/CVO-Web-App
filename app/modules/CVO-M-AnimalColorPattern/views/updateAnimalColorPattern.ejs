@@ -1,0 +1,122 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">EDIT ANIMAL COLOR PATTERN DETAILS</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table table-striped">
+            <form id="form_colorPattern_update" action="/CVO_AnimalColorPattern/update" method="POST">
+             <input type="hidden" id="modal_ColorId" class="form-control" name="id">
+               <tr>
+                     
+               </tr>
+               <tr>
+                  <td><strong>COLOR PATTERN DESCRIPTION:</strong></td>
+                  <td>
+                        <div class="form-group form-float">
+                        <div class="form-line" id="colorPattern_line_update">
+                  <input type="text" id="modal_ColorDesc" class="form-control" name="desc" autocomplete="off" onkeyup="colorpattern_typing_update(this.value)">
+              </div>
+                        <label id="required-colorPattern_update" class="error" style="display: block;">This field is required.</label>
+                        <label id="exists-colorPattern_update" class="error" style="display: block;">Breed Name exists.</label>
+                     </div>
+                     </td>
+               </tr>
+              </form>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="update_validate()">UPDATE</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+
+document.getElementById('required-colorPattern_update').style.display = 'none';
+document.getElementById('exists-colorPattern_update').style.display = 'none';
+
+
+function modal_iteration(ColorPatternDetails){
+   document.getElementById("modal_ColorId").value=JSON.parse(ColorPatternDetails).int_ColorPatternId;
+   document.getElementById("modal_ColorDesc").value=JSON.parse(ColorPatternDetails).str_Description;
+   }
+
+   function colorpattern_typing_update(i){
+    var okay = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: i
+        },
+        url: '/checkColorPattern',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#colorPattern_line_update').addClass("error");
+                document.getElementById("exists-colorPattern_update").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exists-colorPattern_update").style.display = 'none';
+            }
+        }
+    });
+
+     if(document.getElementById('modal_ColorDesc').value.trim()=="" && okay){
+           $('#colorPattern_line_update').addClass("error");
+           document.getElementById("required-colorPattern_update").style.display='block';
+       }
+       else{
+       $('#colorPattern_line_update').removeClass('error');
+       document.getElementById('required-colorPattern_update').style.display = 'none';
+        document.getElementById("exists-colorPattern_update").style.display = 'none';
+
+     }
+   }
+   
+   function update_validate(){
+         var toSubmit=true;
+if(document.getElementById('modal_ColorDesc').value.trim()==""){
+           toSubmit=false;
+      $('#colorPattern_line_update').addClass("error");
+           document.getElementById("required-colorPattern_update").style.display='block';
+       }
+ 
+ $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('modal_ColorDesc').value.trim()
+        },
+        url: '/checkColorPattern',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#colorPattern_line_update').addClass("error");
+                document.getElementById("exists-colorPattern_update").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exists-colorPattern_update").style.display = 'none';
+                 if(toSubmit==true){
+           swal({
+           title: "Are you sure you want to update this animal color pattern details?",
+           icon: "/images/alert_question.png",
+           buttons: true,
+           })
+           .then((willDelete) => {
+           if (willDelete) {
+                        document.getElementById('form_colorPattern_update').submit();
+           }
+           });
+       }   
+            }
+        }
+    });
+       
+      
+ 
+   }
+</script>

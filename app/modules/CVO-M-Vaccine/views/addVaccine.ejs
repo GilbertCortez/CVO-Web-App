@@ -1,101 +1,166 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD NEW VACCINE</h2>
-                        </div>
-                        <div class="body">
-                            <form id="vaccine_form" method="POST" action="/CVO_Vaccine" >
-								<label class="form-label">Vaccine Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="line_vaccine_name">
-                                        <input type="text" class="form-control" name="name"  id="vaccine_name" aria-required="true" onkeypress="vaccine_name_typing();">
-                                    </div>
-                                      <label id="required-vaccine_name" class="error" style="display: block;">This field is required.</label>
-                                </div>
-								<label class="form-label">Manufacturer</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="line_manufacturer">
-                                        <input type="text" class="form-control" name="manu_name"  id="manufacturer" aria-required="true" onkeypress="manufacturer_typing();">
-                                    </div>
-                                      <label id="required-manufacturer" class="error" style="display: block;">This field is required.</label>
-                                </div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">ADD NEW ANTI RABIES VACCINE</h4>
+         </div>
+         <div class="modal-body">
+            <form id="vaccine_form" method="POST" action="/CVO_Vaccine/add" >
+               <label class="form-label">Anti Rabies Vaccine Name</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="line_vaccine_name">
+                     <input type="text" class="form-control" name="name"  id="vaccine_name" aria-required="true" onkeyup="vaccine_name_typing();" autocomplete="off">
+                  </div>
+                  <label id="required-vaccine_name" class="error" style="display: block;">This field is required.</label>
+                
+               </div>
 
-								<label class="form-label">Vaccine Classification</label>
-								<div class="input-group input-group-lg">
-                                        <span class="input-group-addon">
-                                            <input name="vaccineClassification" type="radio" value=0 id="ig_radio" checked>
-                                            <label for="ig_radio">Government</label>
-                                        </span>
+               <label class="form-label">Manufacturer</label>
+                           <div class="form-group form-float">
+        <div class="form-line" id="line_manufacturer">
+                                <select id="manufacturer" onchange="vaccine_manufacturer_typing()" name="manu_name" class="form-control show-tick" data-live-search="true">
+                                        <option >select</option>
+                                        <% ma.forEach(function(i){ %>
+                                            <option value=<%= i.int_ManufacturerId %>><%= i.str_Manufacturer %></option>
+                                        <% }); %>
+                                    </select>   
+                                     </div>
+                   <label id="required-manufacturer" class="error" style="display: block;">This field is required.</label>        
+                           </div> <br>
 
-                                        <span class="input-group-addon">
-                                            <input name="vaccineClassification" type="radio" value=1 id="ig_radio2">
-                                            <label for="ig_radio2">Private</label>
-                                        </span>
-                                </div>
+                <br>
 
-                                <br>
-                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation();">ADD</button></center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+               <label class="form-label">Anti Rabies Vaccine Classification</label>
 
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="vaccineClassification" type="radio" value=0 id="ig_radio" checked>
+                  <label for="ig_radio">Government</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="vaccineClassification" type="radio" value=1 id="ig_radio2">
+                  <label for="ig_radio2">Private</label>
+                  </span>
+               </div>
+
+                <label class="form-label">Species</label>
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=0 id="forDogs" checked>
+                  <label for="forDogs">For Dogs</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=1 id="forCats">
+                  <label for="forCats">For Cats</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=2 id="forDC">
+                  <label for="forDC">For Dogs & Cats</label>
+                  </span>
+               </div>
+               <label class="form-label">Number of Immunity Years</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="line_years">
+                     <input type="number" class="form-control" min=1 name="yearsOfImmunity" onkeyup="vaccine_years_typing();" id="yearsOfImmunity" autocomplete="off">
+                  </div>
+                   <label id="required-years" class="error" style="display: block;">This field is required.</label>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="validation();">ADD</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
 <script type="text/javascript" src="/validator/validator.min.js"></script>
-				<script>
-				function statIndicate(){
-					if(document.getElementById('StatusIndication').innerHTML=='Active'){
-						document.getElementById('StatusIndication').innerHTML='Inactive';
-					}
-					else{
-						document.getElementById('StatusIndication').innerHTML='Active';
-					}
-				}
+<script>
+   function statIndicate(){
+    if(document.getElementById('StatusIndication').innerHTML=='Active'){
+      document.getElementById('StatusIndication').innerHTML='Inactive';
+    }
+    else{
+      document.getElementById('StatusIndication').innerHTML='Active';
+    }
+   }
+   
+       //ETO YUNG DAPAT NA MANGYARE KAPAG NAGLOAD YUNG WEB PAGE
+       document.getElementById('required-vaccine_name').style.display='none';
+       document.getElementById('required-manufacturer').style.display='none';
+        document.getElementById('required-years').style.display='none';
 
-        //ETO YUNG DAPAT NA MANGYARE KAPAG NAGLOAD YUNG WEB PAGE
-        document.getElementById('required-vaccine_name').style.display='none';
-        document.getElementById('required-manufacturer').style.display='none';
 
-        function validation(){
-          var toSubmit=true;
-          if(document.getElementById('vaccine_name').value.trim()==""){
-            toSubmit=false;
-            $('#line_vaccine_name').addClass("error");
-            document.getElementById('required-vaccine_name').style.display='block';
-          }
+       function validation(){
+         var toSubmit=true;
+         if(document.getElementById('vaccine_name').value.trim()==""){
+           toSubmit=false;
+           $('#line_vaccine_name').addClass("error");
+           document.getElementById('required-vaccine_name').style.display='block';
+         }
+   
+         if(document.getElementById('manufacturer').value=="select"){
+           toSubmit=false;
+           $('#line_manufacturer').addClass("error");
+           document.getElementById('required-manufacturer').style.display='block';
+         }
 
-          if(document.getElementById('manufacturer').value.trim()==""){
-            toSubmit=false;
-            $('#line_manufacturer').addClass("error");
-            document.getElementById('required-manufacturer').style.display='block';
-          }
+           if(document.getElementById('yearsOfImmunity').value.trim()==""){
+           toSubmit=false;
+           $('#line_years').addClass("error");
+           document.getElementById('required-years').style.display='block';
+         }
+   
+         if(toSubmit==true){
+           swal({
+             title: "Are you sure you want to add new Vaccine?",
+             icon: "/images/alert_question.png",
+             buttons: true,
+           })
+           .then((willDelete) => {
+             if (willDelete) {
+                   document.getElementById('vaccine_form').submit();
+             }
+           });
+         }
+   
+       }
+  
+   
+      function vaccine_name_typing(){
+        $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('vaccine_name').value.trim(),
+            id2: document.getElementById('manufacturer').value.trim()
+        },
+        url: '/checkVaccine',
+        success: function(data) {
 
-          if(toSubmit==true){
-            swal({
-              title: "Are you sure you want to add new Vaccine?",
-              icon: "/images/alert_question.png",
-              buttons: true,
-            })
-            .then((willDelete) => {
-              if (willDelete) {
-                    document.getElementById('vaccine_form').submit();
-              }
-            });
-          }
-
+            if (data == 1) {
+                $('#breedname_line').addClass("error");
+                document.getElementById("exist-breed_name").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exist-breed_name").style.display = 'none';
+            }
+        }
+    });
+         $('#line_vaccine_name').removeClass("error");
+           document.getElementById('required-vaccine_name').style.display='none';
+       }
+      function vaccine_years_typing(){
+         $('#line_years').removeClass("error");
+           document.getElementById('required-years').style.display='none';
+       }
+      function vaccine_manufacturer_typing(){
+        if(document.getElementById('manufacturer').value!="select"){
+         $('#line_manufacturer').removeClass("error");
+           document.getElementById('required-manufacturer').style.display='none';
         }
 
-/*
-    setTimeout(function () {
-        location.reload()
-    }, 3000);
-    */
-
-        function vaccine_name_typing(){
-          $('#line_vaccine_name').removeClass("error");
-            document.getElementById('required-vaccine_name').style.display='none';
-        }
-        function manufacturer_typing(){
-          $('#line_manufacturer').removeClass("error");
-            document.getElementById('required-manufacturer').style.display='none';
-        }
-				</script>
+       }
+     
+     
+</script>

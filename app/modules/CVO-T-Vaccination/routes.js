@@ -13,10 +13,19 @@ var sortJsonArray = require('sort-json-array');
 router.get('/',  (req,res)=>{
   db.query(`SELECT *, TIME(v.dtm_DateTimeOfVaccination) as Time, DATE(v.dtm_DateTimeOfVaccination) as Date FROM vaccination v JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId WHERE v.int_Status=0 ORDER BY Date, Time;`,(err,scheduledVaccination)=>{
        db.query(`SELECT * FROM pet p JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId `,(err,pets)=>{
-            db.query(`SELECT *,p.dat_DateRegistered as PetDateReg, po.dat_DateRegistered as PetOwnerDateReg FROM vaccinationcertificateupload vcu JOIN vaccination v ON vcu.int_VaccinationId=v.int_VaccinationId JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId JOIN barangay ba ON po.int_BarangayId=ba.int_BarangayId JOIN animal a ON p.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_colorPatternId=c.int_colorPatternId WHERE v.int_Status=0 ORDER BY vcu.int_VaccinationCertificateUploadId DESC `,(err,requests)=>{console.log(requests);
-              res.render('CVO-T-Vaccination/views/view.ejs',{pe:pets, sv:scheduledVaccination,re:requests});
+            db.query(`SELECT *,p.dat_DateRegistered as PetDateReg, po.dat_DateRegistered as PetOwnerDateReg FROM vaccinationcertificateupload vcu JOIN vaccination v ON vcu.int_VaccinationId=v.int_VaccinationId JOIN pet p ON v.int_PetId=p.int_PetId JOIN petowner po ON p.int_PetOwnerId=po.int_PetOwnerId JOIN barangay ba ON po.int_BarangayId=ba.int_BarangayId JOIN animal a ON p.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_colorPatternId=c.int_colorPatternId WHERE v.int_Status=0 ORDER BY vcu.int_VaccinationCertificateUploadId DESC `,(err,requests)=>{
+            db.query(`SELECT * FROM vaccine`,(err,vaccines)=>{
+              res.render('CVO-T-Vaccination/views/view.ejs',{va:vaccines, pe:pets, sv:scheduledVaccination,re:requests});
+                });
             });
        });
+   });
+});
+router.post('/approve',  (req,res)=>{
+  db.query(`UPDATE vaccinationcertificateupload SET int_Status=1 WHERE int_VaccinationCertificateUploadID=${req.body.currentVaccinationCertificateUploadID}`,(err,results)=>{console.log(err);
+   db.query(`UPDATE vaccination SET dtm_DateTimeOfVaccination='${req.body.vaccinationDate} 00:00:00',int_VaccineId=${req.body.vaccine},str_LotNo='${req.body.lotNumber}',int_Status=4 ,int_EmployeeId= ${1} WHERE int_VaccinationId=${req.body.currentVaccinationId}`,(err,results)=>{console.log(err);
+       res.send(`<html><body><script src="/sweetalert/dist/sweetalert.min.js"></script> <style>body{font-family: "Trebuchet MS";}tr{font-size: 15px;}.swal-overlay{background-color: rgba(66, 134, 244, 0.90);}</style> <script>swal("Approval Successful!" , "The Pet Owner will be notified that the Uploaded Vaccination Certificate is Approved" , "success" ).then(()=>{window.location.href="/CVO_Vaccination";});</script></body></html>`);
+});
    });
 });
 

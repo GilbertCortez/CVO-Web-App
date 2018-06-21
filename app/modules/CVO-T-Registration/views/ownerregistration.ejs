@@ -1,219 +1,222 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-
-document.getElementById("registration_list").className="active";
-document.getElementById("transaction_list").className="active";
-
-
+   document.getElementById("registration_list").className="active";
+   document.getElementById("transaction_list").className="active";
+   
+   
 </script>
-
-
-    <section >
-
-            <div class="row clearfix">
-                <div >
-
-                    <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>Pet Owner Registration Form</h2>
-                        </div>
-                        <div class="body">
-
-
-                                    <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration" enctype="multipart/form-data">
-                                      <center>  <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click');" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
-
-                                        <script type="text/javascript">
-
-                                            function readURL(input) {
-                                            if (input.files && input.files[0]) {
-                                              var reader = new FileReader();
-                                              reader.onload = function (e) {
-                                                $('#blah').attr('src', e.target.result);
-                                                $('#modal_OwnerPicture').attr('src', e.target.result);
-
-                                              };
-                                              reader.readAsDataURL(input.files[0]);
-                                            }
-                                            else{
-                                              $('#blah').attr('src',"../../images/noIdPicture.jpg");
-                                              $('#modal_OwnerPicture').attr('src', "../../images/noIdPicture.jpg");
-                                            }
-                                            }
-                                        </script>
-                                        <div>
-                                            <div class="form-line">
-                                              <label class="form-label">Pet Owner Picture</label>
-                                              <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
-                                            </div>
-                                        </div>
-                                        <br></center>
-                                <!---- NAME OF THE PET OWNER  ---->
-                                        <label class="form-label">Name</label>
-                                        <br>
-                                        <div class="col-md-4">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="FName" name="FName" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
-                                                      <label class="form-label">First Name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="MName" name="MName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();">
-                                                      <label class="form-label">Middle Name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" id="LName" name="LName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
-                                                      <label class="form-label">Last Name</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                <br>
-                                <label class="form-label">Cellphone Number</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber"  onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
-                                    </div>
-                                </div>
-
-                                <label class="form-label">Email Address</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="email" class="form-control" name="emailAddress"  onchange="document.getElementById('modal_EmailAddress').value=this.value;">
-                                    </div>
-                                </div>
-
-                                <label class="form-label">Barangay</label>
-                             <select class="form-control show-tick" id="barangay" name="barangay"  data-live-search="true" onchange='document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
-                                        <option>select</option>
-                                        <% ba.forEach(function(i){ %>
-                                        <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
-                                        <% }); %>
-                                    </select>
-                                <br><br>
-                              <label class="form-label">Complete Address</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="email" class="form-control" name="completeAddress"  onchange="document.getElementById('modal_CompleteAddress').value=this.value;">
-                                    </div>
-                                </div>
-
-                                <label class="form-label">Start Year of Stay in the City</label>
-                                <select class="form-control show-tick" data-live-search="true" name="startYear"  onchange="document.getElementById('modal_StartYear').value=this.value;">
-                                           <option>select</option>
-                                          <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
-                                            <option value='<%= curryear %>'><%= curryear %></option>
-                                          <% curryear--; } %>
-                                       </select>
-
-                                <br><br>
-
-                                <center>
-                                <a ><button class="btn btn-primary waves-effect" type="button" data-toggle="modal" data-target="#summary">REGISTER</button></a>&nbsp;
-                                <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
-                                 </form>
-                        </div>
-                    </div>
-                </div>
+<section >
+   <div class="row clearfix col-md-12">
+      <div >
+         <div class="card">
+            <div class="header  bg-blue">
+               <h2>Pet Owner Registration Form</h2>
             </div>
+            <div class="body">
 
-
-    </section>
-
-    <div class="modal fade" id="summary" tabindex="-1" role="dialog" >
-       <div class="modal-dialog modal-lg" role="document">
-           <div class="modal-content">
-               <div class="modal-header bg-blue">
-                   <h4 class="modal-title" id="defaultModalLabel">SUMMARY OF PET OWNER REGISTRATION</h4>
-               </div>
-               <div class="modal-body">
-               <table>
+              <% if(pageStatus==2){ %>
+                <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration/preregistered/recording" enctype="multipart/form-data">
+                <input type="hidden" name="currentPetOwnerId" value='<%= cp.int_PetOwnerId %>'>
+              <% } else { %>
+               <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration" enctype="multipart/form-data">
+              <% } %> 
+                  <center>
+                     <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click');" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                     <script type="text/javascript">
+                        function readURL(input) {
+                        if (input.files && input.files[0]) {
+                          var reader = new FileReader();
+                          reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                            $('#modal_OwnerPicture').attr('src', e.target.result);
+                        
+                          };
+                          reader.readAsDataURL(input.files[0]);
+                        }
+                        else{
+                          $('#blah').attr('src',"../../images/noIdPicture.jpg");
+                          $('#modal_OwnerPicture').attr('src', "../../images/noIdPicture.jpg");
+                        }
+                        }
+                     </script>
+                     <div>
+                        <div class="form-line">
+                           <label class="form-label">Pet Owner Picture</label>
+                           <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                        </div>
+                     </div>
+                     <br>
+                  </center>
+                  <!---- NAME OF THE PET OWNER  ---->
+                  <label class="form-label">Name</label>
+                  <br>
+                  <div class="col-md-4">
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="text" class="form-control" id="FName" name="FName" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
+                           <label class="form-label">First Name</label>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="text" class="form-control" id="MName" name="MName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();">
+                           <label class="form-label">Middle Name</label>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="text" class="form-control" id="LName" name="LName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
+                           <label class="form-label">Last Name</label>
+                        </div>
+                     </div>
+                  </div>
+                  <br>
+                  <label class="form-label">Cellphone Number</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber"  onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
+                     </div>
+                  </div>
+                  <label class="form-label">Email Address</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <input type="email" class="form-control" id="emailAddress" name="emailAddress"   onchange="document.getElementById('modal_EmailAddress').value=this.value;">
+                     </div>
+                  </div>
+                  <label class="form-label">Barangay</label>
+                  <select class="form-control show-tick" id="barangay" name="barangay"  data-live-search="true" onchange='document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
+                     <option>select</option>
+                     <% ba.forEach(function(i){ %>
+                     <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
+                     <% }); %>
+                  </select>
+                  <br><br>
+                  <label class="form-label">Complete Address</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <input type="email" class="form-control" id="completeAddress" name="completeAddress"  onchange="document.getElementById('modal_CompleteAddress').value=this.value;">
+                     </div>
+                  </div>
+                  <label class="form-label">Start Year of Stay in the City</label>
+                  <select class="form-control show-tick" data-live-search="true" id="startYear" name="startYear"  onchange="document.getElementById('modal_StartYear').value=this.value;">
+                     <option>select</option>
+                     <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
+                     <option value='<%= curryear %>'><%= curryear %></option>
+                     <% curryear--; } %>
+                  </select>
+                  <br><br>
+                  <center>
+                     <a ><button class="btn btn-primary waves-effect" type="button" data-toggle="modal" data-target="#summary">REGISTER</button></a>&nbsp;
+                     <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
+                  </center>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<div class="modal fade" id="summary" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">SUMMARY OF PET OWNER REGISTRATION</h4>
+         </div>
+         <div class="modal-body">
+            <table>
                <tr>
-                    <td><img id="modal_OwnerPicture" src="../../images/noIdPicture.jpg" style="border:4px;border-style:solid;border-color:#2196f3" width="200" height="200"  alt="User" /></td>
-                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                     <td><table class="table table-striped">
-                       <tr>
-                       <td><strong>NAME:</strong></td>
-                       <td><input type="text" id="modal_Name" class="form-control" disabled></td>
-                       </tr>
-                       <tr>
-                       <td><strong>CELLPHONE NUMBER:</strong></td>
-                      <td>  <input type="text" id="modal_CellphoneNumber" class="form-control" disabled></td>
-                      </tr>
-                       <tr>
-                       <td><strong>EMAIL ADDRESS:</strong></td>
-                       <td><input type="text" id="modal_EmailAddress" class="form-control" disabled></td>
-                       </tr>
-                       <tr>
-                       <td><strong>BARANGAY:</strong></td>
-                       <td><input type="text" id="modal_Barangay" class="form-control" disabled> </td>
-                       </tr>
-                       <tr>
-                       <td><strong>COMPLETE ADDRESS:</strong></td>
-                       <td><input type="text" id="modal_CompleteAddress" class="form-control" disabled></td>
-                       </tr>
-                       <tr>
-                       <td><strong>START YEAR OF STAY IN THE CITY:</strong></td>
-                       <td><input type="text" id="modal_StartYear" class="form-control" disabled></td>
-                       </tr>
-                     </table></td>
-                    </tr>
-                    </table>
+                  <td><img id="modal_OwnerPicture" src="../../images/noIdPicture.jpg" style="border:4px;border-style:solid;border-color:#2196f3" width="200" height="200"  alt="User" /></td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>
+                     <table class="table table-striped">
+                        <tr>
+                           <td><strong>NAME:</strong></td>
+                           <td><input type="text" id="modal_Name" class="form-control" disabled></td>
+                        </tr>
+                        <tr>
+                           <td><strong>CELLPHONE NUMBER:</strong></td>
+                           <td>  <input type="text" id="modal_CellphoneNumber" class="form-control" disabled></td>
+                        </tr>
+                        <tr>
+                           <td><strong>EMAIL ADDRESS:</strong></td>
+                           <td><input type="text" id="modal_EmailAddress" class="form-control" disabled></td>
+                        </tr>
+                        <tr>
+                           <td><strong>BARANGAY:</strong></td>
+                           <td><input type="text" id="modal_Barangay" class="form-control" disabled> </td>
+                        </tr>
+                        <tr>
+                           <td><strong>COMPLETE ADDRESS:</strong></td>
+                           <td><input type="text" id="modal_CompleteAddress" class="form-control" disabled></td>
+                        </tr>
+                        <tr>
+                           <td><strong>START YEAR OF STAY IN THE CITY:</strong></td>
+                           <td><input type="text" id="modal_StartYear" class="form-control" disabled></td>
+                        </tr>
+                     </table>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" onclick="$('#petOwnerForm').submit();">PROCEED</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">EDIT</button>
+         </div>
+      </div>
+   </div>
+</div>
+<% if(pageStatus==1){ %>
+<form action="/CVO_Registration" method="GET" id="noProceed"></form>
+<form action="/CVO_PetRegistration" method="POST" id="yesProceed">
+   <input type="hidden" value='<%= JSON.stringify(currentPetOwner[0]) %>' name="currentPetOwner">
+   <input type="hidden" value='<%= lastPayment %>' name="lastPayment">
+   <input type="hidden" value='Pet Owner Registration' name="cameFrom">
+</form>
+<script>
+   swal({
+     title: "Pet Owner Registered!",
+     text: "Pet Owner's Profile is successfully registered",
+     icon: "success",
+     button: true,
+     closeOnClickOutside: false,
+   }).then((willDelete) => {
+             if (willDelete) {
+               swal({
+                 title: "Do you want to proceed on Pet Registration?",
+                 icon: "/images/alert_question.png",
+                 buttons: {
+                   YES: "YES",
+                   NO: "NO",
+                 },
+                 closeOnClickOutside: false,
+               })
+               .then((decision) => {
+                 if (decision==="YES") {
+                   $('#yesProceed').submit();
+                 }
+                 else if(decision==="NO"){
+                   $('#noProceed').submit();
+                 }
+               })
+               }
+   });
+   
+</script>
+<% } %>
+<% if(pageStatus==2){ %>
+  <script >
+    document.getElementById('FName').value= '<%= cp.str_PetOwnerFirstName %>';
+    document.getElementById('MName').value= '<%= cp.str_PetOwnerMiddleName %>';
+    document.getElementById('LName').value= '<%= cp.str_PetOwnerLastName %>';
+    document.getElementById('CellphoneNumber').value='<%= cp.str_PhoneNo %>';
+   document.getElementById('emailAddress').value='<%= cp.str_Email %>';
+   document.getElementById('barangay').value='<%= cp.int_BarangayId %>';
+   document.getElementById('completeAddress').value='<%= cp.str_CompleteAddress %>';
+   document.getElementById('startYear').value='<%= cp.dat_StartedYearOfStay %>';
+  </script>
 
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" onclick="$('#petOwnerForm').submit();">PROCEED</button>
-                   <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">EDIT</button>
-               </div>
-           </div>
-       </div>
-    </div>
-    <% if(pageStatus==1){ %>
-      <form action="/CVO_Registration" method="GET" id="noProceed"></form>
-      <form action="/CVO_PetRegistration" method="POST" id="yesProceed">
-        <input type="hidden" value='<%= JSON.stringify(currentPetOwner[0]) %>' name="currentPetOwner">
-        <input type="hidden" value='<%= lastPayment %>' name="lastPayment">
-        <input type="hidden" value='Pet Owner Registration' name="cameFrom">
-      </form>
-    <script>
-
-              swal({
-                title: "Pet Owner Registered!",
-                text: "Pet Owner's Profile is successfully registered",
-                icon: "success",
-                button: true,
-                closeOnClickOutside: false,
-              }).then((willDelete) => {
-                        if (willDelete) {
-                          swal({
-                            title: "Do you want to proceed on Pet Registration?",
-                            icon: "/images/alert_question.png",
-                            buttons: {
-                              YES: "YES",
-                              NO: "NO",
-                            },
-                            closeOnClickOutside: false,
-                          })
-                          .then((decision) => {
-                            if (decision==="YES") {
-                              $('#yesProceed').submit();
-                            }
-                            else if(decision==="NO"){
-                              $('#noProceed').submit();
-                            }
-                          })
-                          }
-              });
-
-    </script>
-    <% } %>
- <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+<% } %>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

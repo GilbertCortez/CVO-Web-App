@@ -7,49 +7,44 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 
-router1.get('/', function(req, res, next) {
-  // replace an HTTP posted body property with the sanitized string
-  req.body.sanitized = req.sanitize('Justine Espin');
-  // send the response
-  res.send('Your value was sanitized to: ' + req.body.sanitized);
-});
-
-
 router.get('/',  (req,res)=>{
 
-  db.query(`SELECT * FROM vaccine`,(err, results, field) => {
-      res.render('CVO-M-Vaccine/views/view',{re:results});
-});
+  db.query(`SELECT * FROM vaccine v JOIN manufacturer m ON v.int_ManufacturerId=m.int_ManufacturerId`,(err, vaccines, field) => {
+    db.query(`SELECT * FROM manufacturer`,(err, manufacturer, field) => {
+      res.render('CVO-M-Vaccine/views/view',{va:vaccines, ma:manufacturer});
+      });
+  });
 });
 
-router.post('/', (req, res) => {
+router.post('/add', (req, res) => {
   //SANITATION OF DATA
 	var vaccineName = req.sanitize(`${req.body.name}`.trim());
 	var vaccineClass = `${req.body.vaccineClassification}`;
-	var vaccineManu = req.sanitize(`${req.body.manu_name}`.trim());
+	var vaccineManu = req.body.manu_name;
+  var species=req.body.species;
+  var yearsOfImmunity=req.sanitize(`${req.body.yearsOfImmunity}`.trim());
 
-  //VALIDATION OF DATA
-  if(vaccineName==""){
-    res.send("there's error");
-  }
-  else{
-	db.query(`INSERT INTO vaccine(str_VaccineName,int_VaccineClassification,str_Manufacturer) VALUES ("${vaccineName}","${vaccineClass}","${vaccineManu}")`,(err, fields, results) => {
-    console.log(fields);
-  	if (err){
-			console.log(err);
-
+	db.query(`INSERT INTO vaccine(str_VaccineName,int_VaccineClassification,int_ManufacturerId, int_Species,flt_YearsOfImmunity) VALUES ("${vaccineName}","${vaccineClass}","${vaccineManu}",${species},${yearsOfImmunity})`,(err, fields, results) => {
 			res.redirect('/CVO_Vaccine');
-		}
-		else {
-			res.redirect('/CVO_Vaccine');
+	});
 
-		}
-	})
-}
+});
+
+cv.post('/',  (req,res)=>{
+var id=req.sanitize(req.body.id.trim());
+  db.query(`SELECT str_Description FROM colorpattern WHERE str_Description="${id}"`,(err,result)=>{
+    console.log(result);
+    if(result.length==0){
+    res.json(0);
+    }
+    else{
+    res.json(1);  
+    }
+  });
 });
 
 
 
 
 exports.CVO_Vaccine= router;
-exports.CVO_TryLangValidation= router1;
+

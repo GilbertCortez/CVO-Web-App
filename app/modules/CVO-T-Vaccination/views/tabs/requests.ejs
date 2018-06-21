@@ -137,39 +137,54 @@
                <div class="tab-content">
                   <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
                      <div class="col-sm-6">
-                     <div class="form-group" >
-                     <label class="form-label" style="float:left">Date Of Vaccination<font color="red">*</font></label> 
-                        <div class="form-line col-sm-12">
-                           
-                           <input type="date" class="form-control" />
+                     <form method="POST" action="/CVO_Vaccination/approve" id="approved">
+                        <input type="hidden" name="currentVaccinationCertificateUploadID" id="currentVaccinationCertificateUploadID">
+                        <input type="hidden" name="currentVaccinationId" id="currentVaccinationId">
+                          <label class="form-label">Vaccine</label>
+                                <select class="form-control show-tick" id="vaccine" name="vaccine" data-live-search="true" onchange="getVaccineDetails();">
+                                        <option>select</option>
+                                        <% va.forEach(function(i){ %>
+                                        <option value='<%= i.int_VaccineId %>' ><%= i.str_VaccineName %></option>
+                                        <% }); %>
+                                </select><br><br>
+
+                                <label class="form-label">Vaccine Classification</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="VaccineClassification" disabled>
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Vaccine Manufacturer</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="VaccineManufacturer" disabled>
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Vaccine Lot Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="lotNumber" >
+                                    </div>
+                                </div>
+
+                                <label class="form-label">Vaccination Date</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="date" class="form-control" name="vaccinationDate" >
+                                    </div>
+                                </div>
+                           <div class="col-sm-12" align="center">
+                              <a  onclick="document.getElementById('approved').submit();" class="btn btn-primary waves-effect">APPROVE</a>
+                              <a class="btn btn-danger waves-effect" data-dismiss="modal">REJECT</a>
+                              <a class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</a>
+                           </div>
                         </div>
-                        <label class="form-label" style="float:left">Vaccine<font color="red">*</font></label>
-                        <div class="form-line col-sm-4">
-                           
-                           <input type="text" class="form-control"   />
-                        </div>
-                        <div class="form-line col-sm-4">
-                           <label class="form-label">Classification</label>
-                           <input type="text" class="form-control"  disabled />
-                        </div>
-                        <div class="form-line col-sm-4">
-                           <label class="form-label">Manufacturer</label>
-                           <input type="text" class="form-control"  disabled />
-                        </div>
-                         <label class="form-label" style="float:left">LOT Number<font color="red">*</font></label>
-                        <div class="form-line col-sm-12">
-                          
-                           <input type="text" class="form-control" />
-                        </div>
-                        <div class="col-sm-12" align="center">
-                           <a  href="/CVO_VaccinationRecording" class="btn btn-primary waves-effect">APPROVE</a>
-                           <a class="btn btn-danger waves-effect" data-dismiss="modal">REJECT</a>
-                           <a class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</a>
-                        </div>
-                     </div>
+                     </form>
                      </div>
                      <div class="col-sm-6">
-                        <img src="../../images/noIdPicture.jpg" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="eval_VaccineCert" width="100 %" height="50%"  />
+                        <img src="../../images/noIdPicture.jpg" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="eval_VaccineCert" width="100%"  />
                      </div>
                   </div>
                </div>
@@ -203,6 +218,30 @@
       document.getElementById('eval_Email').value=e.str_Email;
 
       //VACCINATION CERTIFICATE
+      document.getElementById('currentVaccinationId').value=e.int_VaccinationId;
+      document.getElementById('currentVaccinationCertificateUploadID').value=e.int_VaccinationCertificateUploadID;
       document.getElementById('eval_VaccineCert').src="VaccinationCertificate"+e.str_VaccinationCertificatePicturePath;
    }
 </script>
+  <script>
+        function getVaccineDetails(){
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: { id: document.getElementById('vaccine').value },
+                url: '/CVO_VaccinationRecording/getVaccineDetails',
+                success: function(data) {
+
+                        if(data[0].int_VaccineClassification==0){
+                            $('#VaccineClassification').val("Government");
+                        }
+                        else{
+                            $('#VaccineClassification').val("Private");
+                        }
+
+                        $('#VaccineManufacturer').val(data[0].str_Manufacturer);
+
+                }
+            });
+        }
+      </script>

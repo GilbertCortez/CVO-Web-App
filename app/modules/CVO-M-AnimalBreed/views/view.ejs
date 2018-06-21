@@ -1,137 +1,145 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("animal_list").className="active";
-document.getElementById("animalbreed_list").className="active";
-document.getElementById("maintenance_list").className="active";
+   document.getElementById("animal_list").className="active";
+   document.getElementById("animalbreed_list").className="active";
+   document.getElementById("maintenance_list").className="active";
 </script>
-
-
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                ANIMAL BREED
-                </h2>
-            </div>
-            <div class="body">
-                <div class="row clearfix">
-                    <div >
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
-                          </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <div class="body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Breed Name</th>
-                                                            <th>Animal Species</th>
-															<th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr>
-                                                    </tfoot> -->
-                                                    <tbody>
-                                                         <% breed.forEach(function (i) { %>
-                                                        <tr>
-                                                            <td><%= i.int_BreedId%></td>
-                                                            <td><%= i.str_BreedName%></td>
-                                                            <% if (i.int_AnimalSpecies == 0) { %>
-															<td>Dog</td>
-                                                            <% } else {  %>
-                                                                <td>Cat</td>
-                                                            <% } %>
-                                                            <td>
-                                                                <div align="center">
-                                                                     <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
-                                                                         <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                            <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <% }); %>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addAnimalBreed.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-      <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">EDIT ANIMAL BREED DETAILS</h4>
-                        </div>
-                        <div class="modal-body">
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td><input type="text" class="form-control" id="modal_BreedId" name="name" required="" aria-required="true" disabled></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BREED NAME:</strong></td>
-                                  <td><input type="text" class="form-control" id="modal_BreedName" name="name" required="" aria-required="true"></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>ANIMAL SPECIES:</strong></td>
-                                 <td>  <select id="modal_AnimalSpecies" class="form-control show-tick" data-live-search="true">
-                                        <option value=0>Dog</option>
-                                        <option value=1>Cat</option>
-                                    </select>
+<div class="col-sm-12">
+   <div class="block-header">
+      <h2>ANIMAL BREED</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+         <div align="center">
+            <a data-toggle="modal" data-target="#add">
+            <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="material-icons">add</i>ADD NEW ANIMAL BREED
+            </button></a>
+         </div>
+         <br>
+         <div class="row clearfix">
+            <div >
+               <!-- Nav tabs -->
+               <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                  <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
+                  <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>DOGS</a></li>
+                  <li role="presentation" class=""><a href="#profile_animation_3" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>CATS</a></li>
+               </ul>
+               <!-- Tab panes -->
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane animated pulse active" id="home_animation_2">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Breed Name</th>
+                                    <th>Animal Species</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                  </tr>
+                              </thead>
+                              <tbody>
+                                 <% breed.forEach(function (i) { %>
+                                 <tr>
+                                    <td><%= i.int_BreedId%></td>
+                                    <td><%= i.str_BreedName%></td>
 
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
-                              </table>
+                                    <% if (i.int_AnimalSpecies == 0) { %>
+                                    <td>Dog</td>
+                                    <% } else {  %>
+                                    <td>Cat</td>
+                                    <% } %>
+                                    <td></td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
+                                          <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% }); %>
+                              </tbody>
+                           </table>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                     </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated pulse" id="profile_animation_2">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Dog Breed Name</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <% breed.forEach(function (i) { %>
+                                 <% if (i.int_AnimalSpecies == 0) { %>
+                                 <tr>
+                                    <td><%= i.int_BreedId%></td>
+                                    <td><%= i.str_BreedName%></td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
+                                          <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% } %>
+                                 <% }); %>
+                              </tbody>
+                           </table>
                         </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated pulse" id="profile_animation_3">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Cat Breed Name</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <% breed.forEach(function (i) { %>
+                                 <% if (i.int_AnimalSpecies == 1) { %>
+                                 <tr>
+                                    <td><%= i.int_BreedId%></td>
+                                    <td><%= i.str_BreedName%></td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
+                                          <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% } %>
+                                 <% }); %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-<script>
+         </div>
+      </div>
+   </div>
+</div>
 
-function modal_iteration(breedDetails){
-document.getElementById("modal_BreedId").value=JSON.parse(breedDetails).int_BreedId;
-document.getElementById("modal_BreedName").value=JSON.parse(breedDetails).str_BreedName;
-if(JSON.parse(breedDetails).int_AnimalSpecies == 0){
-    $("#modal_AnimalSpecies").val(0).change()
-}
-else{
-    $("#modal_AnimalSpecies").val(1).change()
-}
-}
-</script>
+<%- include('./addAnimalBreed.ejs') -%>
+<%- include('./updateAnimalBreed.ejs') -%>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

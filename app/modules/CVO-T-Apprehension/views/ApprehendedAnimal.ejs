@@ -1,0 +1,186 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("impounding_list").className="active";
+    document.getElementById("apprehension").className="active";
+    document.getElementById("transaction_list").className="active";
+
+</script>
+           
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card" >
+          
+            <div class="body">
+            <form id="ApprehendedAnimalForm" method="POST" action="/CVO_ApprehendedAnimal" enctype="multipart/form-data">
+            <center><h3>Apprehended Animal</h3>
+            <hr><br></center>
+            <div class="col-sm-4" align="center">
+                     <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                     <script type="text/javascript">
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                              var reader = new FileReader();
+                              reader.onload = function (e) {
+                                $('#blah').attr('src', e.target.result);
+                                  $('#modal_petPicture').attr('src', e.target.result);
+                              };
+                              reader.readAsDataURL(input.files[0]);
+                            }
+                            else{
+                              $('#blah').attr('src',"../../images/animalPicture.jpg");
+                            }
+                        }
+                     </script>
+                     <div align="center">
+                        <div class="form-line">
+                           <label class="form-label">Animal Picture</label>
+                           <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                        </div>
+                     </div>
+                     <br>
+                  </div>
+                   <div class="col-sm-4">
+                        <label class="form-label">Pet Tag</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="pettag"  >
+                                    </div>
+                                </div>
+                                </div>
+                  <div class="col-sm-4">
+                        <label class="form-label">Animal Alias</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="alias"  >
+                                    </div>
+                                </div>
+                                </div>
+                                 <div class="col-sm-8">
+                                <label class="form-label">Animal Breed</label>
+                                <div class="form-group form-float">
+              
+                                        <select class="form-control show-tick" data-live-search="true" name="breed">
+                                         <option>select</option>
+                                        <% br.forEach(function (i) { %>
+                     <option value='<%= i.int_BreedId %>'><%= i.str_BreedName %></option>
+                     <% }); %>
+                                        
+                                     
+                                    </select>
+                               
+                                </div>
+                                </div>
+
+                                       
+                                 <div class="col-sm-4">
+                                        <label class="form-label">Sex</label>
+                                <div class="form-group form-float">
+                             
+                                        <select class="form-control show-tick" data-live-search="true" name="sex">
+                                         <option>select</option>
+                                        <option value=0>Male</option>
+                                        <option value=1>Female</option>
+                                        
+                                     
+                                    </select>
+                                    
+                                </div>
+                                </div>
+                                 <div class="col-sm-4">
+                                        <label class="form-label">Color Pattern</label>
+                                <div class="form-group form-float">
+                               
+                                        <select class="form-control show-tick" data-live-search="true" name="ColorPattern">
+                                         <option>select</option>
+                                         <% cp.forEach(function (i) { %>
+                     <option value='<%= i.int_ColorPatternId %>'><%= i.str_Description %></option>
+                     <% }); %>
+                                        
+                                     
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                      <label class="form-label">Health Status</label>
+                                <div class="form-group form-float">
+                              
+                                        <select class="form-control show-tick" data-live-search="true" name="healthStatus">
+                                         <option>select</option>
+                                        <option value=0>Healthy</option>
+                                        <option value=1>Sick</option>
+                                       
+                                        
+                                     
+                                    </select>
+                                     
+                                </div>
+                                </div>
+                                 <div class="col-sm-6">
+                                        <label class="form-label">Barangay Caught</label>
+                                <div class="form-group form-float">
+                                   
+                                        <select class="form-control show-tick" data-live-search="true" name="barangay">
+                                         <option>select</option>
+                                         <% ba.forEach(function (i) { %>
+                     <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
+                     <% }); %>
+                                        
+                                     
+                                    </select>
+                                      
+                                </div>
+                                </div>
+                             
+                                <div class="col-sm-6">
+                                        <label class="form-label">Time Caught</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="time" class="form-control" name="timeApprehended">
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                        <label class="form-label">Van Cage Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="vanCageNumber" >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                        <label class="form-label">Enforcer</label>
+                                <div class="form-group form-float">
+                                   <select class="form-control show-tick" data-live-search="true" name="employee">
+                                         <option>select</option>
+                                         <% em.forEach(function (i) { %>
+                     <option value='<%= i.int_EmployeeId %>'><%= i.str_LastName+", "+i.str_FirstName+" "+i.str_MiddleName %></option>
+                     <% }); %>
+                                        
+                                     
+                                    </select>
+                                </div>
+                                </div>
+                                 <div class="col-sm-12">
+                                        <label class="form-label">Remarks</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="textarea" class="form-control" name="remarks"  >
+                                        
+                                       </div>
+                                </div>
+                                </div>
+
+                                        <br>
+                                <br><br><br>
+                              
+                                <center><a  class="col-sm-12" onclick="document.getElementById('ApprehendedAnimalForm').submit();"><button class="btn btn-primary waves-effect" >ADD</button></a></center>
+                                </form>
+                                <div>&nbsp;</div> <div>&nbsp;</div><div>&nbsp;</div>
+                     
+                   
+            </div>
+        </div>
+    </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

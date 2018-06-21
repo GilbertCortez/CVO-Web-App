@@ -17,3 +17,41 @@ function YYYYMMDD() {
 
 						return [year, month, day].join('-');
 }
+
+function PRETTYTIME(i){//HH:SS To HH:SS PM/AM
+						var splitTime=i.split(":");
+						var prettytime="";
+						if(splitTime[0]==12){
+							prettytime=("12"+":"+splitTime[1]+" NN");
+						}
+						else if(splitTime[0]>12 ){
+							prettytime=((splitTime[0]-12)+":"+splitTime[1]+" PM");
+						}
+						else{
+							 prettytime=splitTime[0]+":"+splitTime[1]+" AM";
+						}
+						
+						return prettytime;
+}
+
+function HHSS(i){
+   var now = new Date(i);
+      var hour=now.getHours();
+      var minutes=now.getMinutes();
+      var time="AM";
+
+      if(hour==12 && minutes==0){
+         time="NN";
+      }
+      else if(hour>12 && hour!=0){
+         time="PM";
+         hour-=12;
+      }
+      else if(hour==0){
+         hour=12;
+      }
+
+
+      return hour+":"+(("0"+minutes).slice(-2))+" "+time;
+
+}

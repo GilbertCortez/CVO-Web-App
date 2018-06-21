@@ -1,246 +1,211 @@
-
 <body class="theme-blue">
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper" style="background-image: url('images/preloader.gif');background-repeat: no-repeat;background-size: 300px;background-position: center;">
-
-        <div class="loader">
-
-            <div class="preloader">
-
-                <div class="spinner-layer pl-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-
-                    </div>
-
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
+   <!-- Page Loader -->
+   <div class="page-loader-wrapper" style="background-image: url('images/preloader.gif');background-repeat: no-repeat;background-size: 300px;background-position: center;">
+      <div class="loader">
+         <div class="preloader">
+            <div class="spinner-layer pl-blue">
+               <div class="circle-clipper left">
+                  <div class="circle"></div>
+               </div>
+               <div class="circle-clipper right">
+                  <div class="circle"></div>
+               </div>
             </div>
-            <p>Please wait...</p>
-        </div>
-    </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-  
-    <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">CITY VETERINARY OFFICE</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-					<li class="pull-right"><a href="/CVO_Login" >  <i class="material-icons">input</i></a></li>
-   
-					
-							
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- #Top Bar -->
-    <section>
-        <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar" >
-            <!-- User Info -->
-            <div class="user-info">
-                <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
-                </div>
-                <div class="info-container">
-                   <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="color:white;"><strong> Gilbert Cortez</strong></font></div>
-                    <div class="email"><font style="color:white;"><strong> gilbert@gmail.com</strong></font></div>
-                    <div class="btn-group user-helper-dropdown" style="color:white;">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- #User Info -->
-            <!-- Menu -->
-            <div class="menu">
-                <ul class="list">
-                    <li class="header">Menu</li>
-                    <li id="dashboard_list" >
-                        <a href="/CVO_Dashboard">
-                            <i class="material-icons">dashboard</i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-					<li id="transaction_list">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">description</i>
-                            <span>Transaction</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li id="registration_list" >
-                                <a href="/CVO_Registration">Registration</a>
-                            </li>
-                            <li id="vaccination_list" >
-                                <a href="/CVO_Vaccination">Vaccination</a>
-                            </li>
-                            <li id="impounding_list">
-                                 <a href="javascript:void(0);" class="menu-toggle">
-                                    
-                                  Impounding
-                                </a>
-                                <ul class="ml-menu">
-                                    <li id="timpounding">
-                                        <a href="/CVO_Impounding">Impounding Site</a>
-                                    </li>
-                                    <li id="apprehension">
-                                        <a href="/CVO_Apprehension">Apprehension</a>
-                                    </li>
-                                    <li id="surrenderanimal">
-                                        <a href="/CVO_SurrenderAnimal">SurrenderAnimal</a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                                 </li>
-                            <li id="redemption_list">
-                                <a href="/CVO_Redemption">Redemption</a>
-                            </li>
-                            <li id="adoption_list">
-                                <a href="/CVO_Adoption">Adoption</a>
-                            </li>
-							 <li id="record_list">
-                                <a href="/CVO_RecordCollection">Collection</a>
-                            </li>
-                        </ul>
-                    </li>
-					<li id="maintenance_list">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">build</i>
-                            <span>Maintenance</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li id="animal_list">
-                                 <a href="javascript:void(0);" class="menu-toggle">
-                                    
-                                   Animal
-                                </a>
-                                <ul class="ml-menu">
-                                    <li id="animalbreed_list">
-                                        <a href="/CVO_AnimalBreed">Animal Breed</a>
-                                    </li>
-                                    <li id="animalcolor_list">
-                                        <a href="/CVO_AnimalColorPattern">Animal Color Pattern</a>
-                                    </li>
-                                 
-                                    
-                                </ul>
-                                 </li>
-                            <li id="vaccine_list">
-                                <a href="/CVO_Vaccine">Vaccine</a>
-                            </li>
-                           
-                            <li id="location_list">
-                                <a href="/CVO_Location">Location(Barangay)</a>
-                            </li>
-                            <li id="impoundingsite_list">
-                                <a href="/CVO_ImpoundingSite">Impounding Site</a>
-                            </li>
-                            <li id="requirements_list">
-                                <a href="/CVO_TransactionRequirements">Transaction Requirements</a>
-                            </li>
-							
-							<li id="nature_list">
-                                <a href="/CVO_NatureOfCollection">Nature of Collection</a>
-                            </li>
-							
-							
-                        </ul>
-                    </li>
-					<li id="query_list">
-                        <a href="/CVO_Query" >
-                            <i class="material-icons">list</i>
-                            <span>Query</span>
-                        </a>
-                        
-                    </li>
-                    <li id="utilities_list">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">perm_data_setting</i>
-                            <span>Utilities</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li id="employees_list">
-                                <a href="/CVO_Employees">Employees</a>
-                            </li>
-                            <li id="vaccinationperday_list">
-                                <a href="/CVO_VaccinationPerDay">Vaccination Per Day</a>
-                            </li>
-                            
-                            <li id="office_list">
-                                <a href="/CVO_Office">Office Information</a>
-                            </li>
-                             <li id="impoundedanimalperiods_list">
-                                <a href="/CVO_ImpoundedAnimalPeriods">Impounded Animals Periods</a>
-                            </li>
-                            <li id="adoptionperhousehold_list">
-                                <a href="/CVO_AdoptionPerHousehold">Adoption Per Household</a>
-                            </li>
-                            <li id="FAQ_list">
-                                <a href="/CVO_FAQs">FAQs</a>
-                            </li>
-                            <li id="Article_list">
-                                <a href="/CVO_Article">Articles</a>
-                            </li>
-                        </ul>
-                    </li>
-					
-					<li id="" >
-                        <a href="/CVO_Login">
-                            <i class="material-icons">input</i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-					<li id="" >
-                        
-                    </li>
-                </ul>
-            </div>
-            <!-- #Menu -->
-            <!-- Footer 
-            <div class="legal">
-                <div class="copyright">
-                    &copy; 2019 <a href="javascript:void(0);">CVO Management System</a>.
-                </div>
-                <div class="version">
-                    <b>Version: </b> 1.0.0
-                </div>
-            </div>
-             #Footer -->
-        </aside>
-        <!-- #END# Left Sidebar -->
-        <!-- Right Sidebar -->
-        <aside id="rightsidebar" class="right-sidebar">
-            <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
-                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+         </div>
+         <p>Please wait...</p>
+      </div>
+   </div>
+   <!-- #END# Page Loader -->
+   <!-- Overlay For Sidebars -->
+   <div class="overlay"></div>
+   <!-- #END# Overlay For Sidebars -->
+   <!-- Top Bar -->
+   <nav class="navbar">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+            <a href="javascript:void(0);" class="bars"></a>
+            <a class="navbar-brand" href="index.html">CITY VETERINARY OFFICE</a>
+         </div>
+         <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+               <li class="pull-right"><a href="/CVO_Login" >  <i class="material-icons">input</i></a></li>
             </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-                    
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="settings">
-                    
-                </div>
+         </div>
+      </div>
+   </nav>
+   <!-- #Top Bar -->
+   <section>
+      <!-- Left Sidebar -->
+      <aside id="leftsidebar" class="sidebar" >
+         <!-- User Info -->
+         <div class="user-info">
+            <div class="image">
+               <img src="images/user.png" width="48" height="48" alt="User" />
             </div>
-        </aside>
-        <!-- #END# Right Sidebar -->
-    </section>
-
-    <section class="content">
-        <div class="container-fluid">
+            <div class="info-container">
+               <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="color:white;"><strong> Gilbert Cortez</strong></font></div>
+               <div class="email"><font style="color:white;"><strong> gilbert@gmail.com</strong></font></div>
+               <div class="btn-group user-helper-dropdown" style="color:white;">
+                  <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                  <ul class="dropdown-menu pull-right">
+                     <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                     <li><a href="javascript:void(0);"><i class="material-icons">input</i>Logout</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- #User Info -->
+         <!-- Menu -->
+         <div class="menu">
+            <ul class="list">
+               <li class="header">Menu</li>
+               <li id="dashboard_list" >
+                  <a href="/CVO_Dashboard">
+                  <i class="material-icons">dashboard</i>
+                  <span>Dashboard</span>
+                  </a>
+               </li>
+               <li>
+               <li id="transaction_list">
+                  <a href="javascript:void(0);" class="menu-toggle">
+                  <i class="material-icons">description</i>
+                  <span>Transaction</span>
+                  </a>
+                  <ul class="ml-menu">
+                     <li id="registration_list" >
+                        <a href="/CVO_Registration">Registration</a>
+                     </li>
+                     <li id="vaccination_list" >
+                        <a href="/CVO_Vaccination">Vaccination</a>
+                     </li>
+                     <li id="impounding_list">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Impounding
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="timpounding">
+                              <a href="/CVO_Impounding">Impounding Site</a>
+                           </li>
+                           <li id="apprehension">
+                              <a href="/CVO_Apprehension">Apprehension</a>
+                           </li>
+                           <li id="surrenderanimal">
+                              <a href="/CVO_SurrenderAnimal">SurrenderAnimal</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li id="redemption_list">
+                        <a href="/CVO_Redemption">Redemption</a>
+                     </li>
+                     <li id="adoption_list">
+                        <a href="/CVO_Adoption">Adoption</a>
+                     </li>
+                     <li id="record_list">
+                        <a href="/CVO_RecordCollection">Collection</a>
+                     </li>
+                  </ul>
+               </li>
+               <li id="maintenance_list">
+                  <a href="javascript:void(0);" class="menu-toggle">
+                  <i class="material-icons">build</i>
+                  <span>Maintenance</span>
+                  </a>
+                  <ul class="ml-menu">
+                     <li id="animal_list">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Animal
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="animalbreed_list">
+                              <a href="/CVO_AnimalBreed">Animal Breed</a>
+                           </li>
+                           <li id="animalcolor_list">
+                              <a href="/CVO_AnimalColorPattern">Animal Color Pattern</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li id="antirabies_list">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Anti Rabies Vaccine
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="manufacturer_list">
+                              <a href="/CVO_Manufacturer">Manufacturer</a>
+                           </li>
+                           <li id="vaccine_list">
+                              <a href="/CVO_Vaccine">Vaccine</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li id="location_list">
+                        <a href="/CVO_Location">Location(Barangay)</a>
+                     </li>
+                     <li id="impoundingsite_list">
+                        <a href="/CVO_ImpoundingSite">Impounding Site</a>
+                     </li>
+                     <li id="requirements_list">
+                        <a href="/CVO_TransactionRequirements">Transaction Requirements</a>
+                     </li>
+                     <li id="nature_list">
+                        <a href="/CVO_NatureOfCollection">Nature of Collection</a>
+                     </li>
+                  </ul>
+               </li>
+               <li id="query_list">
+                  <a href="/CVO_Query" >
+                  <i class="material-icons">list</i>
+                  <span>Query</span>
+                  </a>
+               </li>
+               <li id="utilities_list">
+                  <a href="javascript:void(0);" class="menu-toggle">
+                  <i class="material-icons">perm_data_setting</i>
+                  <span>Utilities</span>
+                  </a>
+                  <ul class="ml-menu">
+                     <li id="employees_list">
+                        <a href="/CVO_Employees">Employees</a>
+                     </li>
+                     <li id="vaccinationperday_list">
+                        <a href="/CVO_VaccinationPerDay">Vaccination Per Day</a>
+                     </li>
+                     <li id="office_list">
+                        <a href="/CVO_Office">Office Information</a>
+                     </li>
+                     <li id="impoundedanimalperiods_list">
+                        <a href="/CVO_ImpoundedAnimalPeriods">Impounded Animals Periods</a>
+                     </li>
+                     <li id="adoptionperhousehold_list">
+                        <a href="/CVO_AdoptionPerHousehold">Adoption Per Household</a>
+                     </li>
+                     <li id="FAQ_list">
+                        <a href="/CVO_FAQs">FAQs</a>
+                     </li>
+                     <li id="Article_list">
+                        <a href="/CVO_Article">Articles</a>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+         <!-- #Menu -->
+      </aside>
+      <!-- #END# Left Sidebar -->
+      <!-- Right Sidebar -->
+      <aside id="rightsidebar" class="right-sidebar">
+         <ul class="nav nav-tabs tab-nav-right" role="tablist">
+            <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
+            <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+         </ul>
+         <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="settings">
+            </div>
+         </div>
+      </aside>
+      <!-- #END# Right Sidebar -->
+   </section>
+   <section class="content">
+   <div class="container-fluid">

@@ -18,24 +18,34 @@ router.get('/',  (req,res)=>{
 
 
 router.post('/',  (req,res)=>{
-    db.query(`INSERT INTO ImpoundingSite(int_BarangayId, int_Status) VALUES (${req.body.barangayId},${req.body.status})`, (err, barangay, fields) => {console.log(barangay);
+    db.query(`INSERT INTO ImpoundingSite(int_BarangayId, int_Status) VALUES (${req.body.barangayId},${req.body.status})`, (err, barangay, fields) => {console.log(err);
           db.query(`SELECT int_ImpoundingSiteId FROM ImpoundingSite WHERE int_ImpoundingSiteId=${barangay.insertId}`, (err, currentImpoundingSite, fields) => {console.log(err);
-                var forImpoundedAnimals= parseInt(req.body.forImpoundedAnimals);
+                var forImpoundedDogs= parseInt(req.body.forImpoundedDogs);
+                var forImpoundedCats= parseInt(req.body.forImpoundedCats);
                 var forAnimalObservation= parseInt(req.body.forAnimalObservation);
-                var numberofcages=forImpoundedAnimals+forAnimalObservation;
+                
+                var maxforImpoundedDogs= parseInt(req.body.maxforImpoundedDogs);
+                var maxforImpoundedCats= parseInt(req.body.maxforImpoundedCats);
+                var maxforAnimalObservation= parseInt(req.body.maxforAnimalObservation);
+                
+                var numberofcages=forImpoundedDogs+forImpoundedCats+forAnimalObservation;
                 var toQuery="";
                 for(var ctr=1;ctr<=numberofcages;ctr++){
-                        if(ctr<=forImpoundedAnimals){
-                         toQuery+=`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (`+currentImpoundingSite[0].int_ImpoundingSiteId+`,`+ctr+`,0,1);`;
+                        if(ctr<=forImpoundedDogs){
+                         toQuery+=`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType,int_MaxNumber, int_Status) VALUES (`+currentImpoundingSite[0].int_ImpoundingSiteId+`,`+ctr+`,0,`+ maxforImpoundedDogs+`,1);`;
                             //db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (${currentImpoundingSite[0].int_ImpoundingSiteId},${ctr},0,1)`, (err, results, fields) => {});
                         }
-                        else if(ctr>forImpoundedAnimals){
-                            toQuery+=`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (`+currentImpoundingSite[0].int_ImpoundingSiteId+`,`+ctr+`,1,1);`;
+                        else if(ctr<=forImpoundedCats+forImpoundedDogs){
+                         toQuery+=`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType,int_MaxNumber, int_Status) VALUES (`+currentImpoundingSite[0].int_ImpoundingSiteId+`,`+ctr+`,1,`+ maxforImpoundedCats+`,1);`;
+                            //db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (${currentImpoundingSite[0].int_ImpoundingSiteId},${ctr},0,1)`, (err, results, fields) => {});
+                        }
+                        else if(ctr>forImpoundedCats+forImpoundedDogs){
+                            toQuery+=`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType,int_MaxNumber, int_Status) VALUES (`+currentImpoundingSite[0].int_ImpoundingSiteId+`,`+ctr+`,2,`+ maxforAnimalObservation+`,1);`;
                            // db.query(`INSERT INTO cage(int_ImpoundingSite, int_CageNumber,int_CageType, int_Status) VALUES (${currentImpoundingSite[0].int_ImpoundingSiteId},${ctr},1,1)`, (err, results, fields) => {});
                         }
                         if(ctr==numberofcages){
                           
-                          db.query(toQuery,(err,results)=>{
+                          db.query(toQuery,(err,results)=>{ console.log(err);
                               res.redirect("/CVO_ImpoundingSite");
                           });
                             

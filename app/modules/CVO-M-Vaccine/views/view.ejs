@@ -1,157 +1,108 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("vaccine_list").className="active";
-document.getElementById("maintenance_list").className="active";
+   document.getElementById("vaccine_list").className="active";
+   document.getElementById("antirabies_list").className="active";
+   document.getElementById("maintenance_list").className="active";
 </script>
-
-
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                VACCINE
-                </h2>
-            </div>
-            <div class="body">
-                <div class="row clearfix">
-                    <div >
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
-                          </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <div class="body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Vaccine Name</th>
-                                                            <th>Classification</th>
-                                                            <th>Manufacturer</th>
-															<th>Action</th>
-                                                        </tr>
-
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr>
-                                                    </tfoot> -->
-                                                    <tbody>
-                                                        <% re.forEach(function(i){ %>
-                                                        <tr>
-                                                            <td><%= i.int_VaccineId %></td>
-                                                            <td><%= i.str_VaccineName %></td>
-                                                            <% if(i.int_VaccineClassification==1){ %>
-                                                            <td>Private</td>
-                                                            <% } else { %>
-                                                            <td>Government</td>
-                                                            <% } %>
-															                              <td><%= i.str_Manufacturer %></td>
-                                                            <td>
-                                                                <div align="center">
-
-                                                                   <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
-                                                                     <button type="button" class="editButton btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                     <i class="material-icons">mode_edit</i>
-                                                                    </button>
-                                                                  </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <% }); %>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addVaccine.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-     <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">EDIT VACCINE DETAILS</h4>
-                        </div>
-                        <div class="modal-body">
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td ><input type="text" id="modal_ID" class="form-control" name="name" required="" aria-required="true" disabled></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>VACCINE NAME:</strong></td>
-                                  <td><input type="text" id="modal_VaccineName" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>CLASSIFICATION:</strong></td>
-                                 <td><select id="modal_Classification" class="form-control show-tick" data-live-search="true" tabindex=1>
-                                     <option value=0>Government</option>
-                                     <option value=1>Private</option>
-                                       </select>
-                                </td>
+   <div class="block-header">
+      <h2>ANTI RABIES VACCINE</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+         <div align="center">
+            <a data-toggle="modal" data-target="#add">
+            <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="material-icons">add</i>ADD NEW ANTI RABIES VACCINE
+            </button></a>
+         </div>
+         <br>
+         <div class="row clearfix">
+            <div >
+               <!-- Nav tabs -->
+               <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                  <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
+               </ul>
+               <!-- Tab panes -->
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane animated pulse active" id="home_animation_2">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Anti Rabies Vaccine Name</th>
+                                    <th>Classification</th>
+                                    <th>Manufacturer</th>
+                                    <th>Action</th>
                                  </tr>
-                                <tr>
-                                  <td><strong>MANUFACTURER:</strong></td>
-                                  <td><input type="text" id="modal_Manufacturer" class="form-control" name="name" required="" aria-required="true"></td>
-                                  </tr>
-
-                              </table>
+                              </thead>
+                              <tbody>
+                                 <% va.forEach(function(i){ %>
+                                 <tr>
+                                    <td><%= i.int_VaccineId %></td>
+                                    <td><%= i.str_VaccineName %></td>
+                                    <% if(i.int_VaccineClassification==1){ %>
+                                    <td>Private</td>
+                                    <% } else { %>
+                                    <td>Government</td>
+                                    <% } %>
+                                    <td><%= i.str_Manufacturer %></td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
+                                          <button type="button" class="editButton btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                          <i class="material-icons">mode_edit</i>
+                                          </button>
+                                          </a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% }); %>
+                              </tbody>
+                           </table>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                  </div>
+               </div>
             </div>
+         </div>
+      </div>
+   </div>
+</div>
+<%- include('./addVaccine.ejs') -%>
+<%- include('./updateVaccine.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-
 <script>
-//PUTTING ALL THE DETAILS IN THE MODAL
-function modal_iteration(vaccineDetails){
-document.getElementById('modal_ID').value=JSON.parse(vaccineDetails).int_VaccineId;
-document.getElementById('modal_VaccineName').value=JSON.parse(vaccineDetails).str_VaccineName;
-if(JSON.parse(vaccineDetails).int_VaccineClassification == 1){
-    $("#modal_Classification").val(1).change();
-}
-else{
-  $("#modal_Classification").val(0).change();
-}
-document.getElementById('modal_Manufacturer').value=JSON.parse(vaccineDetails).str_Manufacturer;
-}
-/*
-    $(function(){
-    $('.editButton').on('click',function(){
-    $('#modal_ID').val($(this).data('vd1'))
-    $('#modal_VaccineName').val($(this).data('vd2'))
-    $classification = $(this).data('vd3')
-    if ($classification == 0)
-    {
-        $("#modal_Classification").val(0).change();
-    }
-    else {
-        $("#modal_Classification").val(1).change();
-    }
-    $('#modal_Manufacturer').val($(this).data('vd4'))
-    })
-  }); */
+   //PUTTING ALL THE DETAILS IN THE MODAL
+   function modal_iteration(vaccineDetails){
+   document.getElementById('modal_ID').value=JSON.parse(vaccineDetails).int_VaccineId;
+   document.getElementById('modal_VaccineName').value=JSON.parse(vaccineDetails).str_VaccineName;
+   if(JSON.parse(vaccineDetails).int_VaccineClassification == 1){
+       $("#modal_Classification").val(1).change();
+   }
+   else{
+     $("#modal_Classification").val(0).change();
+   }
+   document.getElementById('modal_Manufacturer').value=JSON.parse(vaccineDetails).str_Manufacturer;
+   }
+   /*
+       $(function(){
+       $('.editButton').on('click',function(){
+       $('#modal_ID').val($(this).data('vd1'))
+       $('#modal_VaccineName').val($(this).data('vd2'))
+       $classification = $(this).data('vd3')
+       if ($classification == 0)
+       {
+           $("#modal_Classification").val(0).change();
+       }
+       else {
+           $("#modal_Classification").val(1).change();
+       }
+       $('#modal_Manufacturer').val($(this).data('vd4'))
+       })
+     }); */
 </script>

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var cb = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
@@ -19,7 +20,7 @@ router.get('/',  (req,res)=>{
 	}
 });
 
-router.post('/', (req, res)=>{
+router.post('/add', (req, res)=>{
 	var breed = req.sanitize(`${req.body.name}`.trim());
 	var animalspecies = `${req.body.animal}`;
 
@@ -38,4 +39,31 @@ router.post('/', (req, res)=>{
 	});
 });
 
+router.post('/update', (req, res)=>{
+	var breed = req.sanitize(`${req.body.update_breedName}`.trim());
+	var animalspecies = req.body.update_animalSpecies;
+	var id= req.body.update_id;
+	db.query(`UPDATE breed SET int_AnimalSpecies=${animalspecies},str_BreedName="${breed}" WHERE int_BreedId=${id}`,(err)=>{
+		res.redirect('/CVO_AnimalBreed');
+	});
+});
+
+
+
+cb.post('/',  (req,res)=>{
+	 var id=req.sanitize(req.body.id.trim());
+	console.log(id);
+	db.query(`SELECT str_BreedName FROM breed WHERE str_BreedName="${id}"`,(err,result)=>{
+		console.log(result);
+		if(result.length==0){
+		res.json(0);
+		}
+		else{
+		res.json(1);	
+		}
+	});
+});
+
+
 exports.CVO_AnimalBreed= router;
+exports.checkBreedName= cb;

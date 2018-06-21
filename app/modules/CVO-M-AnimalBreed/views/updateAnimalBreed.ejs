@@ -1,0 +1,138 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">EDIT ANIMAL BREED DETAILS</h4>
+         </div>
+         <div class="modal-body">
+            <form id="form_breed_update" method="POST"  action="/CVO_AnimalBreed/update">
+               <table class="table table-striped">
+                  <input type="hidden" class="form-control" id="modal_BreedId" name="update_id" aria-required="true" >
+                  <tr></tr>
+                  <td><strong>BREED NAME:</strong></td>
+                  <td>
+                     <div class="form-group form-float">
+                        <div class="form-line" id="breedname_line_update">
+                           <input type="text" class="form-control" id="modal_BreedName" name="update_breedName" onkeyup="breedname_typing_update(this.value);" autocomplete="off">
+                        </div>
+                        <label id="required-breed_name_update" class="error" style="display: block;">This field is required.</label>
+                        <label id="exist-breed_name_update" class="error" style="display: block;">Breed Name exists.</label>
+                     </div>
+                  </td>
+                  </tr>
+                  <tr>
+                     <td><strong>ANIMAL SPECIES:</strong></td>
+                     <td>
+                        <div class="input-group input-group-lg">
+                           <span class="input-group-addon">
+                           <input name="update_animalSpecies" type="radio" value=0 id="modal_AnimalSpecies0" checked>
+                           <label for="modal_AnimalSpecies0">Dog</label>
+                           </span>
+                           <span class="input-group-addon">
+                           <input name="update_animalSpecies" type="radio" value=1 id="modal_AnimalSpecies1">
+                           <label for="modal_AnimalSpecies1">Cat</label>
+                           </span>
+                        </div>
+                     </td>
+                  </tr>
+               </table>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   document.getElementById("required-breed_name_update").style.display = "none";
+document.getElementById("exist-breed_name_update").style.display = "none";
+
+function modal_iteration(breedDetails) {
+    document.getElementById("modal_BreedId").value = JSON.parse(breedDetails).int_BreedId;
+    document.getElementById("modal_BreedName").value = JSON.parse(breedDetails).str_BreedName;
+    if (JSON.parse(breedDetails).int_AnimalSpecies ==   0) {
+        document.getElementById("modal_AnimalSpecies1").checked = false;
+        document.getElementById("modal_AnimalSpecies0").checked = true;
+    } else {
+        document.getElementById("modal_AnimalSpecies0").checked = false;
+        document.getElementById("modal_AnimalSpecies1").checked = true;
+    }
+}
+
+function breedname_typing_update(i) {
+    var okay = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: i
+        },
+        url: '/checkBreedName ',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#breedname_line_update').addClass("error");
+                document.getElementById("exist-breed_name_update").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exist-breed_name_update").style.display = 'none';
+            }
+        }
+    });
+
+    if (document.getElementById('modal_BreedName').value.trim() == "" && okay) {
+        $('#breedname_line_update').addClass("error");
+        document.getElementById("required-breed_name_update").style.display = 'block';
+    } else {
+        $("#breedname_line_update").removeClass("error");
+        document.getElementById("required-breed_name_update").style.display = "none";
+        document.getElementById("exist-breed_name_update").style.display = 'none';
+    }
+
+}
+
+function update_validation() {
+    var toSubmit = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('modal_BreedName').value.trim()
+        },
+        url: '/checkBreedName ',
+        success: function(data) {
+
+            if (data == 1) {
+                toSubmit = false;
+                $('#breedname_line_update').addClass("error");
+                document.getElementById("exist-breed_name_update").style.display = 'block';
+
+            }
+            if (toSubmit == true) {
+                swal({
+                        title: "Are you sure you want to update Animal Breed Details?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            document.getElementById('form_breed_update').submit();
+                        }
+                    });
+            }
+
+
+        }
+    });
+    if (document.getElementById('modal_BreedName').value.trim() == "") {
+
+        toSubmit = false;
+        $('#breedname_line_update').addClass("error");
+        document.getElementById("required-breed_name_update").style.display = 'block';
+    }
+
+
+}
+</script>

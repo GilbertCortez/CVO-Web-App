@@ -22,3 +22,39 @@
                                                       </table>
                                                   </div>
                                               </div>
+
+                                              <script>
+  function history(PetId) {
+
+       $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: { id: PetId},
+                url: '/CVO_PetOwnerProfile/getVaccinationHistory',
+                success: function(data) {
+                
+            $('#vaccinationHistoryTableBody').empty();
+                   data.forEach(function(i){
+                    var classification="";
+                    if(i.int_VaccineClassification==0){ classification="Government" }else{ classification="Private" }
+                     $('#vaccinationHistoryTableBody').append(`
+                      <tr>
+                          <td>`+i.int_VaccinationId+`</td>
+                          <td>`+MMMMDDYYYY(i.dtm_DateTimeOfVaccination)+`</td>
+                          <td>`+i.str_VaccineName+`</td>
+                          <td>`+classification+`</td>
+                          <td>`+i.str_Manufacturer+`</td>
+                          <td>`+i.str_LotNo+`</td>
+                          <td>`+i.str_LastName+`, `+i.str_FirstName+` `+i.str_MiddleName+`</td>
+                      </tr>
+
+                      `);
+
+               
+                      });
+
+                }
+            });
+  }
+
+</script>

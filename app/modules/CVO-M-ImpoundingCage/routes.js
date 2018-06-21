@@ -8,9 +8,11 @@ var db = require('../../lib/database')();
 
 router.post('/',  (req,res)=>{
     db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite}`, (err, allcages, fields) => {
-        db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=0`, (err, forimpoundinganimals, fields) => {
-            db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=1`, (err, foranimalobservation, fields) => {
-	               res.render('CVO-M-ImpoundingCage/views/view.ejs',{ AllCages : allcages,  ForImpoundingAnimals: forimpoundinganimals, ForAnimalObservation: foranimalobservation });
+        db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=0`, (err, forimpoundingdogs, fields) => {
+            db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=1`, (err, forimpoundingcats, fields) => {
+            	db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=2`, (err, foranimalobservation, fields) => {
+	               res.render('CVO-M-ImpoundingCage/views/view.ejs',{ AllCages : allcages,  fid: forimpoundingdogs , fic: forimpoundingcats, fao: foranimalobservation });
+            	 });
             });
           });
         });

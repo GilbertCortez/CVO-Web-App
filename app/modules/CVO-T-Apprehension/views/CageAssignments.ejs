@@ -1,7 +1,7 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
 document.getElementById("impounding_list").className="active";
-document.getElementById("timpounding").className="active";
+document.getElementById("apprehension").className="active";
 document.getElementById("transaction_list").className="active";
 
 </script>
@@ -11,11 +11,12 @@ document.getElementById("transaction_list").className="active";
         <div class="card">
             <div class="header bg-blue" >
                 <h2>
-                CAGE ASSIGNMENTS(APPREHENSION #1)
+                CAGE ASSIGNMENTS
                 </h2>
             
             </div>
             <div class="body"  >
+            
             <div class="body table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -25,42 +26,36 @@ document.getElementById("transaction_list").className="active";
                                         <th>ANIMAL SPECIES</th>
                                         <th>SEX</th>
                                         <th>COLOR PATTERN</th>
+                         
                                         <th>PET TAG</th>
-                                        <th>Impounding Site</th>
+                                        <th>VAN CAGE NUMBER</th>
+                                       
                                         <th>CAGE CLASSIFICATION</th>
                                         <th>CAGE NUMBER</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                     <% ca.forEach(function(i){ %>
                                     <tr>
-                                        <td>MingMing</td>
-                                        <td>Puspin</td>
-                                        <td>Cat</td>
-                                        <td>Female</td>
-                                        <td>All White</td>
-                                        <td>CAL 2205</td>
-                                        <td>Concepcion(Site ID:1)</td>
-                                        <td>Monday</td>
-                                        <td>19</td>
+                                        <td><%= i[1].str_Alias %></td>
+                                        <td><%= i[1].str_BreedName %></td>
+                                        <td><%= i[1].int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                                        <td><%= i[1].int_Sex == 0 ? "Male" : "Female" %></td>
+                                        <td><%= i[1].str_Description %></td>
+                                        <td><%= i[1].str_PetTagNo != null && i[1].str_PetTagNo != ""? i[1].str_PetTagNo  : "NONE"; %></td>
+                                        <td><%= i[1].int_VanCageNumber %></td>
+                                    
+                                        <td><% var c= i[0].cageType; %><%=  c == 0 ?"For Impounded Dogs" :c==1?"For Impounded Cats":c==2? "For Dogs Observation": c==3? "For Cats Observation" : "" ; %></td>
+                                        <td><%= i[0].cage %></td>
                                     </tr>
+                                    <% }); %>
 
-                                         <tr>
-                                        <td>Doglas</td>
-                                        <td>Aspin</td>
-                                        <td>Dog</td>
-                                        <td>Male</td>
-                                        <td>Chocolate</td>
-                                        <td>CAL 2205</td>
-                                        <td>Concepcion(Site ID:1)</td>
-                                        <td>Monday</td>
-                                        <td>2</td>
-                                    </tr>
-                                   
                                 </tbody>
                             </table>
-                            <br><br>
-                           <center> <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >BACK</a></center>
+                          
                         </div>
+                          <br>
+                           <center> <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >PLACE ALL</a>  <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >BACK</a></center>
             </div>
           </div>
           </div>

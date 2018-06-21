@@ -1,0 +1,38 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">EDIT VACCINE DETAILS</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table table-striped">
+               <tr>
+                  <td><strong>ID NUMBER:</strong></td>
+                  <td ><input type="text" id="modal_ID" class="form-control" name="name" required="" aria-required="true" disabled></td>
+               </tr>
+               <tr>
+                  <td><strong>VACCINE NAME:</strong></td>
+                  <td><input type="text" id="modal_VaccineName" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
+               </tr>
+               <tr>
+                  <td><strong>CLASSIFICATION:</strong></td>
+                  <td>
+                     <select id="modal_Classification" class="form-control show-tick" data-live-search="true" tabindex=1>
+                        <option value=0>Government</option>
+                        <option value=1>Private</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td><strong>MANUFACTURER:</strong></td>
+                  <td><input type="text" id="modal_Manufacturer" class="form-control" name="name" required="" aria-required="true"></td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>

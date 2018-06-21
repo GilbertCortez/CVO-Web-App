@@ -6008,28 +6008,28 @@ fieldset[disabled] .form-control {
     border-radius: 5px; }
 
 .wizard > .steps .disabled a {
-  background: #eee;
-  color: #aaa;
+  background: #bdbdbd;
+  color: #ffffff;
   cursor: default; }
   .wizard > .steps .disabled a:hover, .wizard > .steps .disabled a:active {
-    background: #eee;
+    background: #2196f3;
     color: #aaa;
     cursor: default; }
 
 .wizard > .steps .current a {
-  background: #2184be;
+  background: #2196f3;
   color: #fff;
   cursor: default; }
   .wizard > .steps .current a:hover, .wizard > .steps .current a:active {
-    background: #2184be;
+    background: white;
     color: #fff;
     cursor: default; }
 
 .wizard > .steps .done a {
-  background: #9dc8e2;
+  background: #2196f3;
   color: #fff; }
   .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
-    background: #9dc8e2;
+    background: #2196f3;
     color: #fff; }
 
 .wizard > .steps .error a {
@@ -6061,7 +6061,7 @@ fieldset[disabled] .form-control {
     margin: 0 0.5em; }
 
 .wizard > .actions a {
-  background: #009688;
+  background: #2196f3;
   color: #fff;
   display: block;
   padding: 0.5em 1em;
@@ -6071,7 +6071,7 @@ fieldset[disabled] .form-control {
   -ms-border-radius: 0;
   border-radius: 0; }
   .wizard > .actions a:hover, .wizard > .actions a:active {
-    background: #009688;
+    background:#2196f3;
     color: #fff;
     display: block;
     padding: 0.5em 1em;
@@ -6082,7 +6082,7 @@ fieldset[disabled] .form-control {
     border-radius: 0; }
 
 .wizard > .actions .disabled a {
-  background: #eee;
+  background:#eee;
   color: #aaa; }
   .wizard > .actions .disabled a:hover, .wizard > .actions .disabled a:active {
     background: #eee;
@@ -6108,7 +6108,7 @@ fieldset[disabled] .form-control {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px; }
       .tabcontrol > .steps > ul > li:hover {
-        background: #edecec;
+        background: #2196f3;
         border: 1px solid #bbb;
         padding: 0; }
       .tabcontrol > .steps > ul > li.current {
@@ -6174,17 +6174,17 @@ fieldset[disabled] .form-control {
     border-radius: 0; }
 
 .wizard .steps .done a {
-  background-color: rgba(0, 150, 136, 0.6); }
+  background-color: #a7d3f6; }
   .wizard .steps .done a:hover, .wizard .steps .done a:active, .wizard .steps .done a:focus {
-    background-color: rgba(0, 150, 136, 0.5); }
+    background-color:#a7d3f6; }
 
 .wizard .steps .error a {
   background-color: #F44336 !important; }
 
 .wizard .steps .current a {
-  background-color: #009688; }
+  background-color:#2196f3; }
   .wizard .steps .current a:active, .wizard .steps .current a:focus, .wizard .steps .current a:hover {
-    background-color: #009688; }
+    background-color: #2196f3 }
 
 /* Waves ======================================= */
 .waves-effect.waves-red .waves-ripple {

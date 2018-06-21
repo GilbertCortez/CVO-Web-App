@@ -383,10 +383,11 @@ document.getElementById("transaction_list").className="active";
                 data: { id: PetId},
                 url: '/CVO_PetOwnerProfile/getVaccinationHistory',
                 success: function(data) {
-                
+                   $('#vaccinationHistoryTableBody').empty();
             
                    data.forEach(function(i){
                     var classification="";
+                 
                     if(i.int_VaccineClassification==0){ classification="Government" }else{ classification="Private" }
                      $('#vaccinationHistoryTableBody').append(`
                       <tr>

@@ -33,7 +33,34 @@ router1.post('/',  (req,res)=>{
   });
 });
 
+router.get('/hi',  (req,res)=>{
+var preferences = { numberOfFinalists: 2, filters: { species: "cat", breed: "corgi", colorpattern: "tuxido", sex: "male", status: "healthy" } },
+    animals = [
+    { species: "cat", breed: "corgi", colorpattern: "tuxido", sex: "male", status: "healthy" }, 
+    { species: "cat", breed: "aspin", colorpattern: "black", sex: "female", status: "healthy" }, 
+    { species: "dog", breed: "persian", colorpattern: "green", sex: "male", status: "sick" },
+    { species: "dog", breed: "persian", colorpattern: "tuxido", sex: "male", status: "healthy" }
+    ],
+    identifiers = Object.keys(preferences.filters),
+    semifinalist = [],
+    finalist = [];
 
+animals.forEach(function(animal) {
+    var points = identifiers.reduce((p, k) => p + (preferences.filters[k] == animal[k]), 0);
+    if (points > identifiers.length / 2) {
+        semifinalist.push(Object.assign({ points }, animal));
+    }
+});
+
+semifinalist.sort((a, b) => b.points - a.points);
+
+finalist = semifinalist.slice(0, preferences.numberOfFinalists);
+
+console.log("SEMIFINALIST:");
+console.log(semifinalist);
+console.log("FINALIST:");
+console.log(finalist);
+});
 
 exports.CVO_RecordCollection= router;
 exports.CVO_PaymentBreakdown= router1;

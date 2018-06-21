@@ -160,8 +160,8 @@ document.getElementById("MyPets_list").className="active";
                    }
                    </script>
 
-                   <div class="modal fade" id="pethistory" tabindex="-1" role="dialog" >
-                      <div class="modal-dialog" role="document" style="width:70%;height:400px;outflow:scroll">
+                   <div class="modal fade" id="pethistory" tabindex="-1" role="dialog" style="min-height: 200px; outflow:scroll">
+                      <div class="modal-dialog" role="document" style="width:70%;">
                           <div class="modal-content">
                             <div class="modal-header col-sm-12 bg-blue">
 
@@ -176,7 +176,7 @@ document.getElementById("MyPets_list").className="active";
                           </div>
 
                             </div>
-                              <div class="modal-body">
+                              <div class="modal-body" >
                                            <div class="row clearfix">
                           <div >
                               <!-- Nav tabs -->
@@ -321,6 +321,7 @@ document.getElementById("MyPets_list").className="active";
                               <div class="modal-footer">
 
                                   <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                  &nbsp;
                               </div>
                           </div>
                       </div>
@@ -376,41 +377,7 @@ document.getElementById("MyPets_list").className="active";
                               </div>
 
 <script src="PrettifyDate/PrettifyDate.js"></script>
-<script>
-  function history(PetId) {
 
-       $.ajax({
-                type: 'POST',
-                dataType: "json",
-                data: { id: PetId},
-                url: '/CVO_PetOwnerProfile/getVaccinationHistory',
-                success: function(data) {
-                
-            
-                   data.forEach(function(i){
-                    var classification="";
-                    if(i.int_VaccineClassification==0){ classification="Government" }else{ classification="Private" }
-                     $('#vaccinationHistoryTableBody').append(`
-                      <tr>
-                          <td>`+i.int_VaccinationId+`</td>
-                          <td>`+MMMMDDYYYY(i.dtm_DateTimeOfVaccination)+`</td>
-                          <td>`+i.str_VaccineName+`</td>
-                          <td>`+classification+`</td>
-                          <td>`+i.str_Manufacturer+`</td>
-                          <td>`+i.str_LotNo+`</td>
-                          <td>`+i.str_LastName+`, `+i.str_FirstName+` `+i.str_MiddleName+`</td>
-                      </tr>
-
-                      `);
-
-               
-                      });
-
-                }
-            });
-  }
-
-</script>
 </section>
 
 <%- include('../../../templates/CVO-PetOwner-Footer.ejs') -%>

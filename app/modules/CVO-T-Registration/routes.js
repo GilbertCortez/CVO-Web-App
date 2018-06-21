@@ -6,6 +6,7 @@ var router2 = express.Router();
 var router3 = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
+
 // router.use(authMiddleware.noAuthed);
 
 //FOR SENDING EMAIL USING NODEMAILER
@@ -49,15 +50,61 @@ var uploadPet = multer({ storage: storagePet })
 
 router.get('/',  (req,res)=>{
   db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_status = 1`,(err,petowners)=>{
-	res.render('CVO-T-Registration/views/view.ejs',{po:petowners});
+	  db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_status = 0`,(err,prereg)=>{
+   res.render('CVO-T-Registration/views/view.ejs',{po:petowners,pr:prereg});
   });
+    });
 });
 
 //OWNER REGISTRATION
 router1.get('/',  (req,res)=>{
+
   db.query('SELECT * FROM barangay',(err,barangay)=>{
 			res.render('CVO-T-Registration/views/ownerregistration.ejs',{ba:barangay, pageStatus:0});
 	});
+});
+
+router1.post('/preregistered',  (req,res)=>{
+   console.log(req.body.currentpetowner);
+  db.query('SELECT * FROM barangay',(err,barangay)=>{
+      res.render('CVO-T-Registration/views/ownerregistration.ejs',{ba:barangay,cp:JSON.parse(req.body.currentpetowner), pageStatus:2});
+  });
+});
+
+router1.post('/preregistered/recording',uploadOwner.any(),  (req,res)=>{
+  var FirstName=req.body.FName;
+  var MiddleName=req.body.MName;
+  var LastName=req.body.LName;
+  var BarangayId=req.body.barangay;
+  var CompleteAddress=req.body.completeAddress;
+  var StartedYear=req.body.startYear;
+  var PhoneNumber=req.body.CellphoneNumber;
+  var PetOwnerPicturePath="/"+req.files[0].filename;
+  var Email=req.body.emailAddress;
+
+
+
+  db.query(`UPDATE petowner SET str_PetOwnerFirstName="${FirstName}",str_PetOwnerMiddleName="${MiddleName}",str_PetOwnerLastName="${LastName}",dat_DateRegistered=now(),int_BarangayId=${BarangayId},str_CompleteAddress="${CompleteAddress}",dat_StartedYearOfStay="${StartedYear}",str_PhoneNo="${PhoneNumber}",str_PetOwnerPicturePath="${PetOwnerPicturePath}",str_Email="${Email}",int_Status=1 WHERE int_PetOwnerId=${req.body.currentPetOwnerId}`,(err,result)=>{ console.log(err);
+          db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${req.body.currentPetOwnerId},0,0)`,(err,lastPayment)=>{
+            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},1 )`,(err,results)=>{});
+            db.query('SELECT * FROM barangay',(err,barangay)=>{
+              db.query(`SELECT * FROM petowner WHERE int_PetOwnerId=${req.body.currentPetOwnerId} `,(err,currentPetOwner)=> { console.log(currentPetOwner);
+                res.render('CVO-T-Registration/views/ownerregistration.ejs',{ba:barangay,currentPetOwner: currentPetOwner, lastPayment: lastPayment.insertId ,pageStatus:1});
+              });
+            });
+          });
+  });
+  let HelperOptions = {
+    from: '"City Veterenary Office-Marikina" <gilbert230709@gmail.com',
+    to: 'gilbert230709@gmail.com',
+    subject: 'Pet Owner Password for Pet Owner Portal',
+    text:`Good day Sir/Ma'am `+LastName+`, `+FirstName+` `+MiddleName+`! We will just inform you that you're now a Registered Pet Owner. You may now access all Pet Owner Module Features.`
+  };
+  transporter.sendMail(HelperOptions, (err,info)=>{
+    if(err){
+      return console.log(err);
+    }
+  });
 });
 
 router1.post('/',uploadOwner.any(),  (req,res)=>{
@@ -123,7 +170,6 @@ router2.post('/',uploadPet.any(),  (req,res)=>{
 				var Sex=req.body.sex;
 				var ColorPatternId=req.body.ColorPattern;
 				var AnimalPicturePath="/"+req.files[0].filename;
-			//	var AnimalPicturePath="/";
 				var PetName=req.body.petName;
 				var Birthday=req.body.birthday;
 				var PetTagNo=req.body.pettag;

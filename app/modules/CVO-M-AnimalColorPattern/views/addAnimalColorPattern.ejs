@@ -1,50 +1,102 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD NEW COLOR PATTERN</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_colorpattern" method="POST" novalidate="novalidate">
-								<label class="form-label">Color Pattern Description</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="colorpattern_line">
-                                        <input type="text" class="form-control" name="name" id="name" onkeypress="colorpattern_typing()" required="" aria-required="true">
-                                    </div>
-                                    <label id="required-colorpattern" class="error" style="display: block;">This field is required.</label>
-                                </div>
-                                <br>
-                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()" >ADD</button></center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-				<script>
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">ADD ANIMAL COLOR PATTERN</h4>
+         </div>
+         <div class="modal-body">
+            <form id="form_colorpattern" method="POST" action="/CVO_AnimalColorPattern/add">
+               <label class="form-label">Color Pattern Description</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="colorpattern_line">
+                     <input type="text" class="form-control" name="name" id="name" onkeyup="colorpattern_typing(this.value)" required="" aria-required="true" autocomplete="off">
+                  </div>
+                  <label id="required-colorpattern" class="error" style="display: block;">This field is required.</label>
+                  <label id="exists-colorpattern" class="error" style="display: block;">Color Pattern exists.</label>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect"onclick="add_validation()">ADD</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   document.getElementById('required-colorpattern').style.display = 'none';
+   document.getElementById('exists-colorpattern').style.display = 'none';
+   function colorpattern_typing(i){
+    var okay = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: i
+        },
+        url: '/checkColorPattern',
+        success: function(data) {
 
-                    document.getElementById('required-colorpattern').style.display = 'none';
+            if (data == 1) {
+                $('#colorpattern_line').addClass("error");
+                document.getElementById("exists-colorpattern").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exists-colorpattern").style.display = 'none';
+            }
+        }
+    });
 
-                    function colorpattern_typing(){
-                        $('#colorpattern_line').removeClass('error');
-                        document.getElementById('required-colorpattern').style.display = 'none';
-                    }
+     if(document.getElementById('name').value.trim()=="" && okay){
+           $('#colorpattern_line').addClass("error");
+           document.getElementById("required-colorpattern").style.display='block';
+       }
+       else{
+       $('#colorpattern_line').removeClass('error');
+       document.getElementById('required-colorpattern').style.display = 'none';
+        document.getElementById("exists-colorpattern").style.display = 'none';
 
-                    function validation(){
-                        var toSubmit=true;
-                        if(document.getElementById('name').value.trim()==""){
-                            toSubmit=false;
-                            $('#colorpattern_line').addClass("error");
-                            document.getElementById("required-colorpattern").style.display='block';
-                        }
-                        if(toSubmit==true){
-                            swal({
-                            title: "Are you sure you want to add new animal color pattern?",
-                            icon: "/images/alert_question.png",
-                            buttons: true,
-                            })
-                            .then((willDelete) => {
-                            if (willDelete) {
-                                    document.getElementById('form_colorpattern').submit();
-                            }
-                            });
-                        }   
-                    }
-				</script>
+     }
+   }
+   
+   function add_validation(){
+       var toSubmit=true;
+
+    
+       if(document.getElementById('name').value.trim()==""){
+           toSubmit=false;
+           $('#colorpattern_line').addClass("error");
+           document.getElementById("required-colorpattern").style.display='block';
+       }
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('name').value.trim()
+        },
+        url: '/checkColorPattern',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#colorpattern_line').addClass("error");
+                document.getElementById("exists-colorpattern").style.display = 'block';
+                toSubmit= false;
+            } else {
+                document.getElementById("exists-colorpattern").style.display = 'none';
+                   if(toSubmit==true){
+           swal({
+           title: "Are you sure you want to add new animal color pattern?",
+           icon: "/images/alert_question.png",
+           buttons: true,
+           })
+           .then((willDelete) => {
+           if (willDelete) {
+                   document.getElementById('form_colorpattern').submit();
+           }
+           });
+       }   
+            }
+        }
+    });
+   }
+</script>

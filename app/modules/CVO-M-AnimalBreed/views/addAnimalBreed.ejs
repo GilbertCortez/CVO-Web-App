@@ -1,58 +1,109 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD NEW ANIMAL BREED</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_breed" method="POST" novalidate="novalidate" action="/CVO_AnimalBreed">
-								<label class="form-label">Breed Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="breedname_line">
-                                        <input type="text" class="form-control" name="name" required="" onkeypress="breedname_typing()" aria-required="true" id="name">
-                                    </div>
-                                    <label id="required-breed_name" class="error" style="display: block;">This field is required.</label>
-                                </div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">ADD ANIMAL BREED</h4>
+         </div>
+         <div class="modal-body">
+            <form id="form_breed" method="POST"  action="/CVO_AnimalBreed/add" >
+               <label class="form-label">Breed Name</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="breedname_line">
+                     <input type="text" class="form-control" name="name" autocomplete='off' onkeyup="breedname_typing(this.value)" aria-required="true" id="name" >
+                  </div>
+                  <label id="required-breed_name" class="error" style="display: block;">This field is required.</label>
+                   <label id="exist-breed_name" class="error" style="display: block;">Breed Name exists.</label>
+               </div>
+               <label class="form-label">Animal Species</label>
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="animal" type="radio" value=0 id="ig_radio" checked>
+                  <label for="ig_radio">Dog</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="animal" type="radio" value=1 id="ig_radio2">
+                  <label for="ig_radio2">Cat</label>
+                  </span>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="add_validation()" >ADD</button>
+            <button type="button" class="btn btn-link waves-effect" onclick="document.getElementById("form_breed").reset();">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   document.getElementById("required-breed_name").style.display = "none";
+    document.getElementById("exist-breed_name").style.display = "none";
+   function breedname_typing(i){
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: i
+        },
+        url: '/checkBreedName ',
+        success: function(data) {
 
-								<label class="form-label">Animal Species</label>
+            if (data == 1) {
+                $('#breedname_line').addClass("error");
+                document.getElementById("exist-breed_name").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exist-breed_name").style.display = 'none';
+            }
+        }
+    });
+     if(document.getElementById('name').value.trim()==""){
+           $('#breedname_line').addClass("error");
+           document.getElementById("required-breed_name").style.display='block';
+       }
+       else{
+       $("#breedname_line").removeClass("error");
+       document.getElementById("required-breed_name").style.display = "none";
+    }
+      
+   }
+   
+   function add_validation(){
+       var toSubmit=true;
+       if(document.getElementById('name').value.trim()==""){
+           toSubmit=false;
+           $('#breedname_line').addClass("error");
+           document.getElementById("required-breed_name").style.display='block';
+       }
+       $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: trim().document.getElementById('name').value.trim()
+        },
+        url: '/checkBreedName ',
+        success: function(data) {
 
-								  <select name="animal" class="form-control show-tick" data-live-search="true">
-                                        <option value=0>Dog</option>
-                                        <option value=1>Cat</option>
-                                  </select>
-                                <br><br>
-                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()">ADD</button></center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
-				<script>
-                    document.getElementById("required-breed_name").style.display = "none";
-
-                    function breedname_typing(){
-                        $("#breedname_line").removeClass("error");
-                        document.getElementById("required-breed_name").style.display = "none";
-                    }
-
-                    function validation(){
-                        var toSubmit=true;
-                        if(document.getElementById('name').value.trim()==""){
-                            toSubmit=false;
-                            $('#breedname_line').addClass("error");
-                            document.getElementById("required-breed_name").style.display='block';
-                        }
-                        if(toSubmit==true){
-                            swal({
-                            title: "Are you sure you want to add new animal breed?",
-                            icon: "/images/alert_question.png",
-                            buttons: true,
-                            })
-                            .then((willDelete) => {
-                            if (willDelete) {
-                                    document.getElementById('form_breed').submit();
-                            }
-                            });
-                        }   
-                    }
-				</script>
+            if (data == 1) {
+                $('#breedname_line').addClass("error");
+                document.getElementById("exist-breed_name").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exist-breed_name").style.display = 'none';
+                  if(toSubmit==true){
+           swal({
+           title: "Are you sure you want to add new animal breed?",
+           icon: "/images/alert_question.png",
+           buttons: true,
+           }) 
+           .then((willDelete) => {
+           if (willDelete) {
+                   document.getElementById('form_breed').submit();
+           }
+           });
+       }   
+            }
+        }
+    });
+     
+   }
+</script>

@@ -1,20 +1,63 @@
-<h2>For Impounding Animal</h2>
+<h2>For Impounded Dogs</h2>
    <table border="1px" style="width:100%">
-   <tr>
-  <% ForImpoundingAnimals.forEach(function(i){ %>
+
+  <% fid.forEach(function(i,ctr){ %>
+        <% if(ctr+1==0 ){ %>
+        <tr> 
+        <% } %>
+       <% if((ctr+1)%10==0){ %>
+        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+         
+        </tr>
+        <tr>
+       <% } else { %>
        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+       <% } %>
+       
        <% }); %>
 
-   </tr>
+  
+</table>
+<h2>For Impounded Cats</h2>
+   <table border="1px" style="width:100%">
+  
+    <% fic.forEach(function(i,ctr){ %>
+        <% if(ctr+1==0 ){ %>
+        <tr> 
+        <% } %>
+       <% if((ctr+1)%10==0){ %>
+        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+         
+        </tr>
+        <tr>
+       <% } else { %>
+       <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+       <% } %>
+       
+
+       <% }); %>
+
+   
 </table>
    <h2>For Animal Observation</h2>
       <table border="1px" style="width:100%">
-      <tr>
-     <% ForAnimalObservation.forEach(function(i,ctr){ %>
-          <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+  
+     <% fao.forEach(function(i,ctr){ %>
+          <% if(ctr+1==0 ){ %>
+        <tr> 
+        <% } %>
+       <% if((ctr+1)%10==0){ %>
+        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+         
+        </tr>
+        <tr>
+       <% } else { %>
+       <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+       <% } %>
+       
           <% }); %>
 
-      </tr>
+    
     </table>
 <!--
 

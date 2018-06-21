@@ -1,0 +1,114 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">EDIT MANUFACTURER</h4>
+         </div>
+         <div class="modal-body">
+               <form id="form_manufacturer_update" method="POST" action="/CVO_Manufacturer/update" >
+                  <input type="hidden" id="modal_ID" class="form-control" name="update_id">
+           
+           
+               <label class="form-label">Manufacturer</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="line_manufacturer_update">
+                     <input type="text" class="form-control" id="modal_Manufacturer" name="update_manufacturer" onkeyup="manufacturer_typing_update(this.value)" autocomplete="off">
+                  </div>
+                  <label id="required-manufacturer_update" class="error" style="display: block;">This field is required.</label>
+                  <label id="exists-manufacturer_update" class="error" style="display: block;">Manufacturer Exists.</label>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+   document.getElementById('required-manufacturer_update').style.display="none";
+      document.getElementById('exists-manufacturer_update').style.display="none";
+   //PUTTING ALL THE DETAILS IN THE MODAL
+   function modal_iteration(manufacturerDetails){
+      document.getElementById('modal_ID').value=JSON.parse(manufacturerDetails).int_ManufacturerId;
+      document.getElementById('modal_Manufacturer').value=JSON.parse(manufacturerDetails).str_Manufacturer;
+   }
+
+   function manufacturer_typing_update(i) {
+    var okay = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: i
+        },
+        url: '/checkManufacturer ',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#line_manufacturer_update').addClass("error");
+                document.getElementById("exists-manufacturer_update").style.display = 'block';
+                okay = false;
+            } else {
+                document.getElementById("exists-manufacturer_update").style.display = 'none';
+            }
+        }
+    });
+
+    if (document.getElementById('modal_Manufacturer').value.trim() == "" && okay) {
+        $('#line_manufacturer_update').addClass("error");
+        document.getElementById("required-manufacturer_update").style.display = 'block';
+    } else {
+        $("#line_manufacturer_update").removeClass("error");
+        document.getElementById("required-manufacturer_update").style.display = "none";
+        document.getElementById("exists-manufacturer_update").style.display = 'none';
+    }
+
+}
+
+function update_validation() {
+    var toSubmit = true;
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('modal_Manufacturer').value.trim()
+        },
+        url: '/checkManufacturer',
+        success: function(data) {
+
+            if (data == 1) {
+                toSubmit = false;
+                $('#line_manufacturer_update').addClass("error");
+                document.getElementById("exists-manufacturer_update").style.display = 'block';
+
+            }
+            if (toSubmit == true) {
+                swal({
+                        title: "Are you sure you want to update Manufacturer detail?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            document.getElementById('form_manufacturer_update').submit();
+                        }
+                    });
+            }
+
+
+        }
+    });
+    if (document.getElementById('modal_Manufacturer').value.trim() == "") {
+
+        toSubmit = false;
+        $('#line_manufacturer_update').addClass("error");
+        document.getElementById("required-manufacturer_update").style.display = 'block';
+    }
+
+
+}
+   
+</script>
