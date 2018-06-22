@@ -18,8 +18,14 @@ router.get('/',  (req,res)=>{
 
 router1.get('/',  (req,res)=>{
   
-	res.render('CVO-Homepage/views/faq.ejs');
-          
+	db.query(`SELECT * from faq`, (err,results,fields) => {
+		if (err){
+			console.log(err)
+		}
+		else {
+			res.render('CVO-Homepage/views/faq.ejs',{faq:results});
+		}
+	});   
 });
 
 router2.get('/',  (req,res)=>{

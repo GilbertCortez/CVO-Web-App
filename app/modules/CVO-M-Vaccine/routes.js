@@ -30,7 +30,7 @@ router.post('/add', (req, res) => {
 
 });
 
-cv.post('/',  (req,res)=>{
+router1.post('/',  (req,res)=>{
 var id=req.sanitize(req.body.id.trim());
   db.query(`SELECT str_Description FROM colorpattern WHERE str_Description="${id}"`,(err,result)=>{
     console.log(result);
@@ -47,4 +47,4 @@ var id=req.sanitize(req.body.id.trim());
 
 
 exports.CVO_Vaccine= router;
-
+exports.cv = router1;
