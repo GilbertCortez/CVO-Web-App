@@ -12,7 +12,7 @@
                      <input type="text" class="form-control" name="name"  id="vaccine_name" aria-required="true" onkeyup="vaccine_name_typing();" autocomplete="off">
                   </div>
                   <label id="required-vaccine_name" class="error" style="display: block;">This field is required.</label>
-                
+                   <label id="exists-vaccine_name" class="error" style="display: block;">Vaccine Exists.</label>
                </div>
 
                <label class="form-label">Manufacturer</label>
@@ -87,6 +87,7 @@
    
        //ETO YUNG DAPAT NA MANGYARE KAPAG NAGLOAD YUNG WEB PAGE
        document.getElementById('required-vaccine_name').style.display='none';
+        document.getElementById('exists-vaccine_name').style.display='none';
        document.getElementById('required-manufacturer').style.display='none';
         document.getElementById('required-years').style.display='none';
 
@@ -128,39 +129,45 @@
   
    
       function vaccine_name_typing(){
-        $.ajax({
-        type: 'POST',
-        dataType: "json",
-        data: {
-            id: document.getElementById('vaccine_name').value.trim(),
-            id2: document.getElementById('manufacturer').value.trim()
-        },
-        url: '/checkVaccine',
-        success: function(data) {
-
-            if (data == 1) {
-                $('#breedname_line').addClass("error");
-                document.getElementById("exist-breed_name").style.display = 'block';
-                okay = false;
-            } else {
-                document.getElementById("exist-breed_name").style.display = 'none';
-            }
-        }
-    });
-         $('#line_vaccine_name').removeClass("error");
-           document.getElementById('required-vaccine_name').style.display='none';
+          checkVaccine();
+          $('#line_vaccine_name').removeClass("error");
+          document.getElementById('required-vaccine_name').style.display='none';
        }
+
+
       function vaccine_years_typing(){
          $('#line_years').removeClass("error");
-           document.getElementById('required-years').style.display='none';
+         document.getElementById('required-years').style.display='none';
        }
       function vaccine_manufacturer_typing(){
-        if(document.getElementById('manufacturer').value!="select"){
+         if(document.getElementById('manufacturer').value!="select"){
          $('#line_manufacturer').removeClass("error");
-           document.getElementById('required-manufacturer').style.display='none';
+         document.getElementById('required-manufacturer').style.display='none';
         }
-
        }
+
+      function checkVaccine(){
+          $.ajax({
+              type: 'POST',
+              dataType: "json",
+              data: {
+                id: document.getElementById('vaccine_name').value.trim(),
+                id2: document.getElementById('manufacturer').value.trim()
+              },
+              url: '/checkVaccine',
+              success: function(data) {
+                if (data == 1) {
+                   $('#line_vaccine_name').addClass("error");
+                   $('#line_manufacturer').addClass("error");
+                   document.getElementById('exists-vaccine_name').style.display='block';
+
+                } else {
+                    $('#line_vaccine_name').removeClass("error");
+                     document.getElementById('exists-vaccine_name').style.display='none';
+                }
+              }
+          });
+      }
      
      
 </script>

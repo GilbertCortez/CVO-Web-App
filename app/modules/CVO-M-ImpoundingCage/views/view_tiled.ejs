@@ -39,10 +39,31 @@
 
    
 </table>
-   <h2>For Animal Observation</h2>
+   <h2>For Dogs Observation</h2>
       <table border="1px" style="width:100%">
   
-     <% fao.forEach(function(i,ctr){ %>
+     <% fdo.forEach(function(i,ctr){ %>
+          <% if(ctr+1==0 ){ %>
+        <tr> 
+        <% } %>
+       <% if((ctr+1)%10==0){ %>
+        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+         
+        </tr>
+        <tr>
+       <% } else { %>
+       <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
+       <% } %>
+       
+          <% }); %>
+
+    
+    </table>
+
+  <h2>For Cats Observation</h2>
+      <table border="1px" style="width:100%">
+  
+     <% fco.forEach(function(i,ctr){ %>
           <% if(ctr+1==0 ){ %>
         <tr> 
         <% } %>

@@ -12,7 +12,7 @@
                      <input type="text" class="form-control" name="name" autocomplete='off' onkeyup="breedname_typing(this.value)" aria-required="true" id="name" >
                   </div>
                   <label id="required-breed_name" class="error" style="display: block;">This field is required.</label>
-                   <label id="exist-breed_name" class="error" style="display: block;">Breed Name exists.</label>
+                  <label id="exist-breed_name" class="error" style="display: block;">Breed Name exists.</label>
                </div>
                <label class="form-label">Animal Species</label>
                <div class="input-group input-group-lg">
@@ -36,8 +36,9 @@
 </div>
 <script>
    document.getElementById("required-breed_name").style.display = "none";
-    document.getElementById("exist-breed_name").style.display = "none";
-   function breedname_typing(i){
+document.getElementById("exist-breed_name").style.display = "none";
+
+function breedname_typing(i) {
     $.ajax({
         type: 'POST',
         dataType: "json",
@@ -50,31 +51,30 @@
             if (data == 1) {
                 $('#breedname_line').addClass("error");
                 document.getElementById("exist-breed_name").style.display = 'block';
-                okay = false;
+
             } else {
                 document.getElementById("exist-breed_name").style.display = 'none';
             }
         }
     });
-     if(document.getElementById('name').value.trim()==""){
-           $('#breedname_line').addClass("error");
-           document.getElementById("required-breed_name").style.display='block';
-       }
-       else{
-       $("#breedname_line").removeClass("error");
-       document.getElementById("required-breed_name").style.display = "none";
+    if (document.getElementById('name').value.trim() == "") {
+        $('#breedname_line').addClass("error");
+        document.getElementById("required-breed_name").style.display = 'block';
+    } else {
+        $("#breedname_line").removeClass("error");
+        document.getElementById("required-breed_name").style.display = "none";
     }
-      
-   }
-   
-   function add_validation(){
-       var toSubmit=true;
-       if(document.getElementById('name').value.trim()==""){
-           toSubmit=false;
-           $('#breedname_line').addClass("error");
-           document.getElementById("required-breed_name").style.display='block';
-       }
-       $.ajax({
+
+}
+
+function add_validation() {
+    var toSubmit = true;
+    if (document.getElementById('name').value.trim() == "") {
+        toSubmit = false;
+        $('#breedname_line').addClass("error");
+        document.getElementById("required-breed_name").style.display = 'block';
+    }
+    $.ajax({
         type: 'POST',
         dataType: "json",
         data: {
@@ -89,21 +89,21 @@
                 okay = false;
             } else {
                 document.getElementById("exist-breed_name").style.display = 'none';
-                  if(toSubmit==true){
-           swal({
-           title: "Are you sure you want to add new animal breed?",
-           icon: "/images/alert_question.png",
-           buttons: true,
-           }) 
-           .then((willDelete) => {
-           if (willDelete) {
-                   document.getElementById('form_breed').submit();
-           }
-           });
-       }   
+                if (toSubmit == true) {
+                    swal({
+                            title: "Are you sure you want to add new animal breed?",
+                            icon: "/images/alert_question.png",
+                            buttons: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                document.getElementById('form_breed').submit();
+                            }
+                        });
+                }
             }
         }
     });
-     
-   }
+
+}
 </script>

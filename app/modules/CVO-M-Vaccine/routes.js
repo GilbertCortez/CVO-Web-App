@@ -1,7 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
-var router1 = express.Router();
+var cv = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
@@ -32,7 +32,7 @@ router.post('/add', (req, res) => {
 
 cv.post('/',  (req,res)=>{
 var id=req.sanitize(req.body.id.trim());
-  db.query(`SELECT str_Description FROM colorpattern WHERE str_Description="${id}"`,(err,result)=>{
+  db.query(`SELECT * FROM vaccine WHERE str_VaccineName = "${id}" AND int_ManufacturerId="${req.body.id2}"`,(err,result)=>{
     console.log(result);
     if(result.length==0){
     res.json(0);
@@ -47,4 +47,5 @@ var id=req.sanitize(req.body.id.trim());
 
 
 exports.CVO_Vaccine= router;
+exports.checkVaccine= cv;
 

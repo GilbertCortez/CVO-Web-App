@@ -1,0 +1,120 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">EDIT LOCATION(Barangay) DETAILS</h4>
+         </div>
+         <div class="modal-body">
+            
+            <form id="form_location_update" method="POST"  action="/CVO_Location/update">
+            <input type='hidden' class="form-control"  id="modal_BarangayId" name="modal_BarangayId">
+             <input type='hidden' class="form-control"  id="modal_resettlementarea_submit" name="modal_resettlementarea_submit">
+               <label class="form-label">Barangay Name</label>
+               <div class="form-group form-float">
+                  <div class="form-line"  id="location_line_update">
+                     <input type="text" class="form-control" name="name" id="modal_BarangayName" onkeyup="typing_location()" autocomplete="off">
+                  </div>
+                  <label id="required-location_update" class="error" style="display: none;">This field is required.</label>
+                  <label id="exist-location_update" class="error" style="display: none;">Location Exists.</label>
+               </div>
+          
+               <label class="form-label">Resettlement Area?</label>
+               <div class="switch">
+                  <label><input type="checkbox" onChange="modal_statIndicate();" name="modal_resettlementarea" id="modal_resettlementarea"><span class="lever switch-col-blue"></span></label>
+                  <span id="modal_StatusIndication">No</span>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+
+       function location_iterate(x){
+         document.getElementById('modal_BarangayId').value= x.int_BarangayId;
+         document.getElementById('modal_BarangayName').value= x.str_BarangayName;
+         document.getElementById('modal_StatusIndication').innerHTML=x.int_ResettlementArea==0? "No" : "Yes";
+         document.getElementById('modal_resettlementarea').checked=x.int_ResettlementArea==0? "" : "checked";
+         document.getElementById('modal_resettlementarea_submit').value=x.int_ResettlementArea==0? 0 : 1 ;
+       }
+       function modal_statIndicate() {
+         if (document.getElementById('modal_StatusIndication').innerHTML == 'Yes') {
+             document.getElementById('modal_StatusIndication').innerHTML = 'No';
+             document.getElementById('modal_resettlementarea_submit').value= 0;
+            
+         } else {
+             document.getElementById('modal_StatusIndication').innerHTML = 'Yes';
+             document.getElementById('modal_resettlementarea_submit').value= 1;
+            
+         }
+     }
+
+     function typing_location() {
+     $.ajax({
+         type: 'POST',
+         dataType: "json",
+         data: {
+             id: document.getElementById('modal_BarangayName').value.trim()
+         },
+         url: '/checkLocation',
+         success: function(data) {
+             if (data == 1) {
+                 $('#location_line_update').addClass("error");
+                 document.getElementById("exist-location_update").style.display = 'block';
+             } else {
+                 document.getElementById("exist-location_update").style.display = 'none';
+             }
+         }
+     });
+    if (document.getElementById('modal_BarangayName').value.trim() == "") {
+         $('#location_line_update').addClass("error");
+         document.getElementById("required-location_update").style.display = 'block';
+     } 
+     else {
+         $('#location_line_update').removeClass("error");
+         document.getElementById("required-location_update").style.display = 'none';
+     }
+ } 
+
+         function update_validation(){
+            var toSubmit=true;
+             if (document.getElementById('modal_BarangayName').value.trim() == "") {
+         toSubmit=false
+         $('#location_line_update').addClass("error");
+         document.getElementById("required-location_update").style.display = 'block';
+     } 
+     else {
+         $('#location_line_update').removeClass("error");
+         document.getElementById("required-location_update").style.display = 'none';
+     }
+            $.ajax({
+         type: 'POST',
+         dataType: "json",
+         data: {
+             id: document.getElementById('modal_BarangayName').value.trim()
+         },
+         url: '/checkLocation',
+         success: function(data) {
+             if (data == 1) {
+               toSubmit=false;
+                 $('#location_line_update').addClass("error");
+                 document.getElementById("exist-location_update").style.display = 'block';
+             } else {
+                 if(toSubmit){
+               
+            document.getElementById('form_location_update').submit();
+         }
+             }
+         }
+     });
+   
+
+         }
+
+  
+</script>
