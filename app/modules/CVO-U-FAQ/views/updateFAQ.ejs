@@ -1,0 +1,31 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h4 class="modal-title" id="defaultModalLabel">EDIT FAQ DETAILS</h4>
+            </div>
+            <div class="modal-body">
+            <form id="form_faq" method="POST" action="/CVO_FAQs/update">
+            <table class="table table-striped">
+                    <tr>
+                      <td><strong>ID NUMBER:</strong></td>
+                      <td><input type="text" class="form-control" id="modal_ID" name="modal_ID" required="" aria-required="true" disabled></td>
+                    </tr>
+                    <tr>
+                      <td><strong>QUESTION:</strong></td>
+                      <td><input type="textarea" class="form-control" id="modal_Question" name="modal_Question" required="" aria-required="true"></td>
+                      </tr>
+                    <tr>
+                      <td><strong>ANSWER:</strong></td>
+                     <td><input type="textarea" class="form-control" id="modal_Answer" name="modal_Answer" required="" aria-required="true"></td>
+                     </tr>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

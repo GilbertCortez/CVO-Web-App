@@ -30,7 +30,7 @@ router.post('/add', (req, res) => {
 
 });
 
-cv.post('/',  (req,res)=>{
+router1.post('/',  (req,res)=>{
 var id=req.sanitize(req.body.id.trim());
   db.query(`SELECT * FROM vaccine WHERE str_VaccineName = "${id}" AND int_ManufacturerId="${req.body.id2}"`,(err,result)=>{
     console.log(result);
@@ -48,4 +48,5 @@ var id=req.sanitize(req.body.id.trim());
 
 exports.CVO_Vaccine= router;
 exports.checkVaccine= cv;
+exports.cv = router1;
 

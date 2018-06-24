@@ -40,5 +40,22 @@ router.post('/', (req, res)=>{
 	
 });
 
+router.post('/update', (req, res) => {
+
+	var id = req.body.modal_ID.trim();
+	var question = req.sanitize(req.body.modal_Question);
+	var answer = req.sanitize(req.body.modal_Answer);
+
+	db.query(`UPDATE faq SET str_Question = "${question}", str_Answer = ${answer} 
+	   WHERE int_FAQId = ${id}`, (err) => {
+		   if (err){
+			   console.log(err);
+		   }
+		   else {
+			   res.redirect('/CVO_FAQs');
+		   }
+	   });
+});
 
 exports.CVO_FAQs= router;
+
