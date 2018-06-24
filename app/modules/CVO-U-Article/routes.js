@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 			console.log(err)
 		}
 		else {
-			res.render('CVO-U-Article/views/view', {results:results});
+			res.render('CVO-U-Article/views/view', {re:results});
 		}
 	});
 });
@@ -33,8 +33,7 @@ router.post('/', upload.any(), (req, res) => {
 	var content = req.sanitize(req.body.content);
 	var imagepath = "/"+req.files[0].filename;
 
-	db.query(`INSERT INTO learn(str_Topic, str_Content, str_ImagePath, 
-		str_ImagePath, dtm_DateTimePosted, int_Status) VALUES ('${topic}', '${content}', '${imagepath}', now(), '1')`, (err, results, fields) => {
+	db.query(`INSERT INTO learn(str_Topic, str_Content, str_ImagePath, dtm_DateTimePosted, int_Status) VALUES ('${topic}', '${content}', '${imagepath}', now(), '1')`, (err, results, fields) => {
 			if (err) {
 				console.log(err)	
 			}
