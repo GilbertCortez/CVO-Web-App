@@ -28,12 +28,20 @@
                                                     </a>
                                                 </h4>
                                             </div>
+                                            <% if (i.int_FAQId == 1) { %>
                                             <div id="<%= i.int_FAQId%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>">
                                                 <div class="panel-body">
                                                     <%= i.str_Answer %>
                                                 </div>
                                             </div>
-                                        </div>   
+                                            <% } else { %>
+                                                <div id="<%= i.int_FAQId%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>">
+                                                    <div class="panel-body">
+                                                        <%= i.str_Answer %>
+                                                    </div>
+                                                </div>
+                                            <% } %>
+                                        </div>
                                      <% }); %>
                                     </div>
                                 </div>
