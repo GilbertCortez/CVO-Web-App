@@ -1,158 +1,191 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("location_list").className="active";
-document.getElementById("maintenance_list").className="active";
-
+   document.getElementById("location_list").className="active";
+   document.getElementById("maintenance_list").className="active";
+   
 </script>
-
-
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                LOCATION(BARANGAY)
-                </h2>
-
-            </div>
-            <div class="body">
-                <div class="row clearfix">
-                    <div >
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
-                          </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <div class="body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Barangay Name</th>
-                                                            <th>Resettlement Area?</th>
-
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr>
-                                                    </tfoot> -->
-                                                    <tbody>
-                                                      <% re.forEach(function (i) { %>
-                                                        <tr>
-                                                            <td><%= i.int_BarangayId %></td>
-                                                            <td><%= i.str_BarangayName %></td>
-															                               <td>
-                                                               <% if(i.int_ResettlementArea==1){ %>
-                                                               <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div>
-                                                                <% } else{ %>
-                                                                  <div class="switch" align="center">
-                                                                       <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
-                                                                       <span>Inactive</span>
-                                                                   </div>
-                                                                  <% } %>
-                                                            </td>
-
-
-                                                            <td>
-                                                                <div align="center">
-
-
-                                                                      <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit"
-                                                                        data-vd1="<%=i.int_BarangayId%>"
-                                                                        data-vd2="<%=i.str_BarangayName%>"
-                                                                        data-vd3="<%=i.int_ResettlementArea%>"
-
-                                                                        >
-                                                                            <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             <% }); %>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addLocation.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-     <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">EDIT LOCATION(Barangay) DETAILS</h4>
-                        </div>
-                        <div class="modal-body">
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td><input type='text' class="form-control"  id="modal_BarangayId" disabled></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BARANGAY NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" id="modal_BrangayName" aria-required="true" ></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>RESSETLEMENT AREA?:</strong></td>
-                                 <td>  <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked id="modal_resettlementarea" disabled><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div></td>
+   <div class="block-header">
+      <h2>LOCATION(BARANGAY)</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+         <div align="center">
+            <a data-toggle="modal" data-target="#add">
+            <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="material-icons">add</i>ADD NEW LOCATION(BARANGAY)
+            </button></a>
+         </div>
+         <br>
+         <div class="row clearfix">
+            <div >
+               <!-- Nav tabs -->
+               <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                  <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
+                  <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">home</i>NON-RESETTLEMENT AREA</a></li>
+                  <li role="presentation" class=""><a href="#profile_animation_3" data-toggle="tab" aria-expanded="false"><i class="material-icons">highlight_off</i>RESETTLEMENT AREA</a></li>
+               </ul>
+               <!-- Tab panes -->
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Barangay Name</th>
+                                    <th>Resettlement Area?</th>
+                                    <th>Action</th>
                                  </tr>
-
-                                <tr>
-                                  <td><strong>LAST MODIFIED BY:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
-                              </table>
+                              </thead>
+                              <!--   <tfoot>
+                                 <tr>
+                                     <th>ID</th>
+                                     <th>Description</th>
+                                     <th>Price</th>
+                                 </tr>
+                                 </tfoot> -->
+                              <tbody>
+                                 <% re.forEach(function (i) { %>
+                                 <tr>
+                                    <td><%= i.int_BarangayId %></td>
+                                    <td><%= i.str_BarangayName %></td>
+                                    <td>
+                                       <% if(i.int_ResettlementArea==1){ %>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                          <span>Yes</span>
+                                       </div>
+                                       <% } else{ %>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                          <span>No</span>
+                                       </div>
+                                       <% } %>
+                                    </td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" onclick="location_iterate(<%= JSON.stringify(i) %>);">
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% }); %>
+                              </tbody>
+                           </table>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                     </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Barangay Name</th>
+                                    <th>Resettlement Area?</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <!--   <tfoot>
+                                 <tr>
+                                     <th>ID</th>
+                                     <th>Description</th>
+                                     <th>Price</th>
+                                 </tr>
+                                 </tfoot> -->
+                              <tbody>
+                                 <% re.forEach(function (i) {   if(i.int_ResettlementArea==0) {%>
+                                 <tr>
+                                    <td><%= i.int_BarangayId %></td>
+                                    <td><%= i.str_BarangayName %></td>
+                                    <td>
+                                       <% if(i.int_ResettlementArea==1){%>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                          <span>Yes</span>
+                                       </div>
+                                       <% } else{ %>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                          <span>No</span>
+                                       </div>
+                                       <% } %>
+                                    </td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" onclick="location_iterate(<%= JSON.stringify(i) %>);"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" >
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% }  }); %>
+                              </tbody>
+                           </table>
                         </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_3">
+                     <div class="body">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                              <thead>
+                                 <tr>
+                                    <th>ID</th>
+                                    <th>Barangay Name</th>
+                                    <th>Resettlement Area?</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <!--   <tfoot>
+                                 <tr>
+                                     <th>ID</th>
+                                     <th>Description</th>
+                                     <th>Price</th>
+                                 </tr>
+                                 </tfoot> -->
+                              <tbody>
+                                 <% re.forEach(function (i) {   if(i.int_ResettlementArea==1) {%>
+                                 <tr>
+                                    <td><%= i.int_BarangayId %></td>
+                                    <td><%= i.str_BarangayName %></td>
+                                    <td>
+                                       <% if(i.int_ResettlementArea==1){%>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                          <span>Yes</span>
+                                       </div>
+                                       <% } else{ %>
+                                       <div class="switch" align="center">
+                                          <label><input type="checkbox" ><span class="lever switch-col-blue"></span></label>
+                                          <span>No</span>
+                                       </div>
+                                       <% } %>
+                                    </td>
+                                    <td>
+                                       <div align="center">
+                                          <a data-toggle="modal" data-target="#edit" onclick="location_iterate(<%= JSON.stringify(i) %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
+                                          <i class="material-icons">mode_edit</i>
+                                          </button></a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <% }  }); %>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-
+         </div>
+      </div>
+   </div>
+</div>
+<%- include('./addLocation.ejs') -%>
+<%- include('./updateLocation.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-<script>
-$(function (){
-    $('.edit').on('click', function (){
-        $('#modal_BarangayId').val($(this).data('vd1'))
-        $('#modal_BrangayName').val($(this).data('vd2'))
-
-        if( parseInt($(this).data('vd3')) == 0) {
-            $("#modal_resettlementarea").removeAttr("checked");
-        }
-        else{
-          $("#modal_resettlementarea").attr("checked");
-        }
-
-    });
-});
-</script>

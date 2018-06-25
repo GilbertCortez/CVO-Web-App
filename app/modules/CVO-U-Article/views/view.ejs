@@ -45,10 +45,11 @@ document.getElementById("Article_list").className="active";
                                                         </tr>
                                                     </tfoot> -->
                                                     <tbody>
+                                                    <% re.forEach(function(i){ %>
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td><%= i.int_Learn %> </td>
+                                                            <td><%= i.str_Topic %></td>
+                                                            <td><%= i.str_Content %></td>
                                                             <td>
                                                                 <div align="center">
                                                                   <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -60,6 +61,7 @@ document.getElementById("Article_list").className="active";
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
                                             </div>

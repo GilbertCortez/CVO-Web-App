@@ -18,18 +18,22 @@
                             <div class="row clearfix">
                                 <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
                                     <b></b>
-                                    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="true">
+                                    <div class="panel-group" id="accordion_1" role="tablist" aria-multiselectable="false">
                                         <% faq.forEach(function (i) { %>
                                         <div class="panel panel-primary">
                                             <div class="panel-heading" role="tab" id="heading<%=i.int_FAQId%>">
                                                 <h4 class="panel-title">
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#<%= i.int_FAQId%>" aria-expanded="true" aria-controls="collapse<%=i.int_FAQId%>">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#<%= i.int_FAQId%>" aria-expanded="false" aria-controls="collapse<%=i.int_FAQId%>"  class="collapsed">
                                                         <%= i.str_Question%>
                                                     </a>
                                                 </h4>
                                             </div>
+<<<<<<< HEAD
                                             <% if (i.int_FAQId == 1) { %>
                                             <div id="<%= i.int_FAQId%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>">
+=======
+                                            <div id="<%= i.int_FAQId%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>" style="height: 0px;">
+>>>>>>> 2da86965b59ff729c6b13d491a030dd4c39c4a81
                                                 <div class="panel-body">
                                                     <%= i.str_Answer %>
                                                 </div>
@@ -50,3 +54,5 @@
                             </div>
                 <!-- #END# Basic Examples -->
                 <%- include('../../../templates/CVO-Homepage-Footer.ejs') -%>
+
+

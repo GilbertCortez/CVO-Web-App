@@ -1,64 +1,152 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("nature_list").className="active";
-document.getElementById("maintenance_list").className="active";
-
+   document.getElementById("nature_list").className="active";
+   document.getElementById("maintenance_list").className="active";
+   
 </script>
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                NATURE OF COLLECTION
-                </h2>
+<div class="block-header" >
+   <h2>
+      NATURE OF COLLECTION
+   </h2>
+</div>
+<script>
+   function format(el) {
 
+     el.value =  el.value.replace(/[^\d]/g,'').replace(/(\d\d?)$/,'.$1');
+     if(el.value.trim()===""){
+          $('#'+el.name+'_line').addClass("error");
+          document.getElementById('required-'+el.name).style.display="block"
+     }
+     else{
+         $('#'+el.name+'_line').removeClass("error");
+          document.getElementById('required-'+el.name).style.display="none"
+     }
+   }
+</script>
+<div class="card">
+   <div class="body" style="min-height: 550px;">
+      <div class="form-group form-float">
+         <form id="update_validation" action="/CVO_NatureOfCollection" method="POST" >
+            <div class="col-sm-6">
+               <label class="form-label">Pet Owner Registration Fee</label>
+               <div class="form-group form-float" >
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc0_line">
+                        <input type="text" class="form-control" name="noc0" onkeyup="format(this);" autocomplete="off"  style="text-align:right;" value=<%= re[0].dec_Amount % 1==0? re[0].dec_Amount+".00" : re[0].dec_Amount; %> >
+
+                     </div>
+                  </div>
+                    <label id="required-noc0" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
             </div>
-            <div class="body">
-              <div class="form-group form-float" >
-                  <form id="form_validation" action="/CVO_NatureOfCollection" method="POST" >
-
-                                  <label class="form-label">Pet Owner Registration Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="owner" required="" aria-required="true" value=<%= re[0].dec_OwnerRegistrationFee %>>
-                                      </div>
-                                  </div>
-                                  <label class="form-label">Pet Registration Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="pet" required="" aria-required="true" value=<%= re[0].dec_PetRegistrationFee %>>
-                                      </div>
-                                  </div>
-                                  <label class="form-label">Adoption Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="adoption" required="" aria-required="true" value=<%= re[0].dec_AdoptionFee %>>
-                                      </div>
-                                  </div>
-                                  <label class="form-label">Redemption First Penalty Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="redemption1" required="" aria-required="true" value=<%= re[0].dec_RedemptionFirstPenalty %>>
-                                      </div>
-                                  </div>
-                                  <label class="form-label">Redemption Second Penalty Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="redemption2" required="" aria-required="true" value=<%= re[0].dec_RedemptionSecondPenalty %>>
-                                      </div>
-                                  </div>
-                                  <label class="form-label">Redemption Third Penalty Fee</label>
-                                  <div class="form-group form-float">
-                                      <div class="form-line">
-                                          <input type="text" class="form-control" name="redemption3" required="" aria-required="true" value=<%= re[0].dec_RedemptionThirdPenalty %>>
-                                      </div>
-                                  </div>
-                                  <br>
-                                  <center><button class="btn btn-primary waves-effect" type="submit">UPDATE</button></center>
-                                </form>
-                </div>
+            <div class="col-sm-6">
+               <label class="form-label">Pet Registration Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc1_line">
+                        <input type="text" class="form-control" name="noc1" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[1].dec_Amount % 1==0? re[1].dec_Amount+".00" : re[1].dec_Amount; %> >
+                     </div>
+                  </div>
+                  <label id="required-noc1" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
             </div>
-        </div>
-    </div>
+            <div class="col-sm-12">
+               <label class="form-label">Vaccination Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc2_line">
+                        <input type="text" class="form-control" name="noc2" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[2].dec_Amount % 1==0? re[2].dec_Amount+".00" : re[2].dec_Amount; %> >
+                     </div>
+                  </div>
+                  <label id="required-noc2" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <label class="form-label">Redemption First Penalty Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc3_line">
+                        <input type="text" class="form-control" name="noc3" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[3].dec_Amount % 1==0? re[3].dec_Amount+".00" : re[3].dec_Amount; %> >
+                     </div>
+                  </div>
+                  <label id="required-noc3" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <label class="form-label">Redemption Second Penalty Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc4_line">
+                        <input type="text" class="form-control" name="noc4" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[4].dec_Amount % 1==0? re[4].dec_Amount+".00" : re[4].dec_Amount; %> >
+                     </div>
+                  </div>
+                  <label id="required-noc4" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <label class="form-label">Redemption Third Penalty Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc5_line">
+                        <input type="text" class="form-control" name="noc5" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[5].dec_Amount % 1==0? re[5].dec_Amount+".00" : re[5].dec_Amount; %> >
+                     </div>
+                     <label id="required-noc5" class="error" style="display: none; text-align:right">This field is required.</label>
+                  </div>
 
+               </div>
+            </div>
+            <div class="col-sm-12">
+               <label class="form-label">Adoption Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc6_line">
+                        <input type="text" class="form-control" name="noc6" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[6].dec_Amount % 1==0? re[6].dec_Amount+".00" : re[6].dec_Amount; %> >
+                     </div>
+                    
+                  </div>
+                   <label id="required-noc6" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
+            </div>
+            <br>
+            <div class="col-sm-12">
+               <center><button class="btn btn-primary waves-effect" type="button" onclick="validate();">UPDATE</button></center>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+</div>
+<script>
+   function validate(){
+      var toSubmit=true;
+      [0,1,2,3,4,5,6].forEach(function(i){
+         var currname=("noc").concat(i);
+         document.getElementsByName(currname)[0].value=="" ? toSubmit=false : "" ;
+      });
 
+      toSubmit==true? document.getElementById('update_validation').submit() : "";
 
+   }
+</script>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
