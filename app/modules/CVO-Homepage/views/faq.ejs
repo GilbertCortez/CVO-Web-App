@@ -28,12 +28,24 @@
                                                     </a>
                                                 </h4>
                                             </div>
+<<<<<<< HEAD
+                                            <% if (i.int_FAQId == 1) { %>
+                                            <div id="<%= i.int_FAQId%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>">
+=======
                                             <div id="<%= i.int_FAQId%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>" style="height: 0px;">
+>>>>>>> 2da86965b59ff729c6b13d491a030dd4c39c4a81
                                                 <div class="panel-body">
                                                     <%= i.str_Answer %>
                                                 </div>
                                             </div>
-                                        </div>   
+                                            <% } else { %>
+                                                <div id="<%= i.int_FAQId%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%=i.int_FAQId%>">
+                                                    <div class="panel-body">
+                                                        <%= i.str_Answer %>
+                                                    </div>
+                                                </div>
+                                            <% } %>
+                                        </div>
                                      <% }); %>
                                     </div>
                                 </div>
