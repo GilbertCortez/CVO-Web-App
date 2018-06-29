@@ -1,195 +1,102 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("requirements_list").className="active";
-document.getElementById("maintenance_list").className="active";
+   document.getElementById("transrequirements_list").className="active";
+   document.getElementById("maintenance_list").className="active";
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header" >
+      <h2>
+         TRANSACTION REQUIREMENTS
+      </h2>
+   </div>
+   <div class="card">
+      <div class="body">
+         <div class="row clearfix">
+            <div >
+               <!-- Nav tabs -->
+               <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                  <li role="presentation" class="active"><a href="#home_animation_3" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>PET OWNER REGISTRATION</a></li>
+                  <li role="presentation" class=""><a href="#home_animation_4" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>PET REGISTRATION</a></li>
+                  <li role="presentation" class=""><a href="#home_animation_5" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>VACCINATION</a></li>
+                  <li role="presentation" class=""><a href="#home_animation_6" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ADOPTION</a></li>
+                  <li role="presentation" class=""><a href="#home_animation_7" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>REDEMPTION</a></li>
+               </ul>
+               <!-- Tab panes -->
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane animated fadeIn active" id="home_animation_3">
+                     <%- include('./por.ejs') -%> 
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeIn  " id="home_animation_4">
+                     <%- include('./pr.ejs') -%> 
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeIn  " id="home_animation_5">
+                   <%- include('./vac.ejs') -%> 
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeIn  " id="home_animation_6">
+                  <%- include('./ado.ejs') -%> 
+                  </div>
+                  <div role="tabpanel" class="tab-pane animated fadeIn  " id="home_animation_7">
+                  <%- include('./red.ejs') -%> 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+    function add(i,x) {
+
+    if ( JSON.parse(i) == null) {
+        swal("Error", 'Please select requirement/s to add.', "error")
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            data: {
+                id: i,
+                trans: x
+            },
+            url: '/CVO_TransactionRequirements/add',
+            success: function(data) {
+                swal("Added", 'You successfully added Requirement/s.', "success").then((value) => {
+                    location.reload();
+                });
+            }
+        });
+    }
+
+}
+
+function remove(i,x) {
+    swal({
+            title: "Are you sure you want to remove this requirement?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        id: i,
+                        trans: x
+                    },
+                    url: '/CVO_TransactionRequirements/remove',
+                    success: function(data) {
+                        swal("Removed", 'You successfully removed the requirement.', "success").then((value) => {
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        });
+
+}
 </script>
 
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                TRANSACTION REQUIREMENTS
-                </h2>
-            </div>
-            <div class="body">
-                <div class="row clearfix">
-                    <div >
-                    <center>
-                    <a data-target="#requirements" data-toggle="modal" ><button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Owner Registration"  data-tname="Pet Owner Registration" data-transaction=0 
-                        <%req.forEach(function (index) {  
-                        })%>>Pet Owner Registration</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration" data-tname="Pet Registration" data-transaction=1>Pet Registration</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Vaccination" data-tname="Vaccination" data-transaction=2>Vaccination</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adoption" data-tname="Adoption" data-transaction=3>Adoption</button>
-                    <button type="button" class="req_modal btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Redemption" data-tname="Redemption" data-transaction=4>Redemption</button></a>
-                    </center>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
-                          </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <div class="body">
-                                    
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Purpose</th>
-                                                            <th>Transaction</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                                                        <% req.forEach(function (i) { %>
-                                                        <tr>
-                                                            <td><%= i.int_RequirementsId %></td>
-                                                            <td><%= i.str_Description %></td>
-                                                            <td><%= i.str_Purpose %></td>
-                                                            <% if (i.int_Transaction == 0) { %>     
-                                                            <td>Pet Owner Registration</td>
-                                                            <% } else if (i.int_Transaction == 1) { %>
-                                                            <td>Pet Registration</td>
-                                                            <% } else if (i.int_Transaction == 2) { %>
-                                                            <td>Adoption</td>
-                                                            <% } else if (i.int_Transaction == 3) { %>
-                                                            <td>Redemption</td>
-                                                            <% } else if (i.int_Transaction == 4) { %>
-                                                            <td>Vaccination</td>
-                                                            <% } %>
-                                                            <td>
-                                                                <div align="center">
-                                                                   
-                                                                   
-                                                                     <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
-                                                                            <i class="material-icons">mode_edit</i>
-                                                                    </button></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <% }); %>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addTransactionRequirements.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-     <div class="modal fade" id="requirements" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="ModalLabel"></h4>
-                        </div>
-                        <div class="modal-body">
-                              <h4>Requirements:</h4>
-                                   <ul>
-                                   <li id="reqList"><label for="ig_checkbox"></label></li>
-                                 </ul>
-                        </div>
-                        <div class="modal-footer">
-                            
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-   
-   <div class="modal fade" id="edit" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">EDIT TRANSACTION REQUIREMENT</h4>
-                        </div>
-                        <div class="modal-body">
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td><input type="text" class="form-control" id="modal_ReqId" name="Req_Id" required="" aria-required="true" disabled></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DESCRIPTION:</strong></td>
-                                  <td><input type="text" class="form-control" id="modal_ReqDesc" name="Req_Desc" required="" aria-required="true"></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>PURPOSE:</strong></td>
-                                 <td>  <input type="textarea" class="form-control" id="modal_ReqPurpose" name="Req_Purpose" required="" aria-required="true"></td>
-                                 </tr>
-                                <tr>
-                                  <td><strong>TRANSACTION:</strong></td>
-                                  <td> <select id="modal_ReqTransaction" class="form-control show-tick" data-live-search="true">
-                                        <option value=0>Pet Owner Registration</option>
-                                        <option value=1>Pet Registration</option>
-                                        <option value=2>Adoption</option>
-                                        <option value=3>Redemption</option>
-                                        <option value=4>Vaccination</option>
-                                    </select></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>LAST EMPLOYEE MODIFIED:</strong></td>
-                                  <td>Manuel Carlos</td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>DATE MODIFIED:</strong></td>
-                                  <td> 01/23/2017</td>
-                                  </tr>
-                              </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-<script>
-function modal_iteration(requirementsDetails){
-document.getElementById('modal_ReqId').value=JSON.parse(requirementsDetails).int_RequirementsId;
-document.getElementById('modal_ReqDesc').value=JSON.parse(requirementsDetails).str_Description;
-document.getElementById('modal_ReqPurpose').value=JSON.parse(requirementsDetails).str_Purpose;
-
-if(JSON.parse(requirementsDetails).int_Transaction == 0){
-    $('#modal_ReqTransaction').val(0).change()
-}
-else if(JSON.parse(requirementsDetails).int_Transaction == 1){
-    $('#modal_ReqTransaction').val(1).change()
-}
-else if(JSON.parse(requirementsDetails).int_Transaction == 2){
-    $('#modal_ReqTransaction').val(2).change()
-}
-else if(JSON.parse(requirementsDetails).int_Transaction == 3){
-    $('#modal_ReqTransaction').val(3).change()
-}
-else if(JSON.parse(requirementsDetails).int_Transaction == 4){
-    $('#modal_ReqTransaction').val(4).change()
-}
-}
-    $('.req_modal').on('click', function() {
-       $('#ModalLabel').text($(this).data('tname'))
-    });
-</script>

@@ -1,0 +1,78 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("requirements_list").className="active";
+document.getElementById("maintenance_list").className="active";
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="block-header" >
+                <h2>
+                REQUIREMENTS
+                </h2>
+            </div>
+        <div class="card">
+
+          
+            <div class="body">
+             <div align="center">
+            <a data-toggle="modal" data-target="#add">
+            <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="material-icons">add</i>ADD NEW REQUIREMENT
+            </button></a>
+         </div>
+                <div class="row clearfix">
+                    <div >
+                  
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                            <%- include('./all.ejs') -%> 
+                            </div>
+                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                              
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <%- include('./addRequirement.ejs') -%>
+  
+ <%- include('./update.ejs') -%>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+<script>
+function modal_iteration(requirementsDetails){
+document.getElementById('modal_ReqId').value=JSON.parse(requirementsDetails).int_RequirementsId;
+document.getElementById('modal_ReqDesc').value=JSON.parse(requirementsDetails).str_Description;
+document.getElementById('modal_ReqPurpose').value=JSON.parse(requirementsDetails).str_Purpose;
+
+if(JSON.parse(requirementsDetails).int_Transaction == 0){
+    $('#modal_ReqTransaction').val(0).change()
+}
+else if(JSON.parse(requirementsDetails).int_Transaction == 1){
+    $('#modal_ReqTransaction').val(1).change()
+}
+else if(JSON.parse(requirementsDetails).int_Transaction == 2){
+    $('#modal_ReqTransaction').val(2).change()
+}
+else if(JSON.parse(requirementsDetails).int_Transaction == 3){
+    $('#modal_ReqTransaction').val(3).change()
+}
+else if(JSON.parse(requirementsDetails).int_Transaction == 4){
+    $('#modal_ReqTransaction').val(4).change()
+}
+}
+    $('.req_modal').on('click', function() {
+       $('#ModalLabel').text($(this).data('tname'))
+    });
+</script>
