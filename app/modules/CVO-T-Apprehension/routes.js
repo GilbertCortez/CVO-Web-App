@@ -77,10 +77,10 @@ router2.post('/',upload.any(),  (req,res)=>{
 //CAGE ASSIGNMENTS
 //TO DO, CONSIDER THE CAGE ASSIGNED NA. KELANGAN RESERVE NA SA KANILA YUNG SLOT
 router3.get('/',  (req,res)=>{
-	var preferredImpoundingSite=2;
+		var preferredImpoundingSite=2;
   	var cageAssignment=[];
 	  
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN barangay ba ON ba.int_BarangayId=aa.int_BarangayId JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId`,(err,apprehended)=>{console.log(err);
+	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId`,(err,apprehended)=>{console.log(err);
 	  	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} GROUP BY c.int_CageId`,(err,impoundingsite)=>{console.log(err);
 		  	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite})`,(err,impounded)=>{ console.log(err);
 				apprehended.forEach(function(a){ 
@@ -90,49 +90,44 @@ router3.get('/',  (req,res)=>{
 					  				var animalAssignedOnCurrentCage;
 					  				if(i.AvailableSlots != 0){
 					  						[{a:0,b:0,c:0},{a:1,b:1,c:0},{a:2,b:0,c:1},{a:3,b:1,c:1}].forEach(function(x){
-						  						if (i.int_CageType == x.a && a.int_AnimalSpecies==x.b && a.int_HealthStatus==x.c){
-						  							animalsOnCurrentCage=search(impounded,i.CageId,true)
-						  							
-						  							animalAssignedOnCurrentCage=search(cageAssignment,i.CageId,false)
-						  							var point=0
-						  							animalsOnCurrentCage.forEach(function(i){
-						  								point+=scoring(i,a)
-						  							}); 
-						  							animalAssignedOnCurrentCage.forEach(function(i){
-						  								point+=scoring(i,a)
-						  							}); 
-						  							point==0 && animalsOnCurrentCage.length==0 && animalAssignedOnCurrentCage.length==0 ? 
-							  							listOfPoints.push({point: 0, cage: i.CageId, cageType: i.int_CageType})
-							  							:
-							  							listOfPoints.push({point: (point/(animalsOnCurrentCage.length+animalAssignedOnCurrentCage.length))+.01, cage: i.CageId})
-						  							;
-						  							console.log(CageAssignments)
-						  						}
+					  						if (i.int_CageType == x.a && a.int_AnimalSpecies==x.b && a.int_HealthStatus==x.c){
+					  							animalsOnCurrentCage=search(impounded,i.CageId,true)
+					  							animalAssignedOnCurrentCage=search(cageAssignment,i.CageId,false)
+					  							var point=0
+					  							animalsOnCurrentCage.forEach(function(i){
+					  								point+=scoring(i,a)
+					  							}); 
+					  							animalAssignedOnCurrentCage.forEach(function(i){
+					  								point+=scoring(i,a)
+					  								console.log(point)
+					  								console.log(JSON.stringify(i))
+					  							}); 
+					  							point==0 && animalsOnCurrentCage.length==0 && animalAssignedOnCurrentCage.length==0 ? 
+					  							listOfPoints.push({point: 0, cage: i.CageId})
+					  							:
+					  							listOfPoints.push({point: (point/(animalsOnCurrentCage.length+animalAssignedOnCurrentCage.length))+.01, cage: i.CageId})
+					  							;
+					  						}
 					  					});
 					  				} 
 					});  
-					console.log(listOfPoints)
 					cageAssignment.push([((sortJsonArray(listOfPoints,'point','des')).pop()),a]);
 				});  
 				console.log(cageAssignment)	
-				res.render('CVO-T-Apprehension/views/CageAssignments.ejs',{ca:cageAssignment});  
 		  	});
 		});
 	
 	}); 
 
-	function search(objTS, queryTS, x){//TS-To Search
+	function search(objTS, queryTS,x){//TS-To Search
 		var passed=[];
-		console.log(x)
 		if(x){
 			objTS.forEach(function(i){
 				i.int_CageId==queryTS ? passed.push(i)  : "";	
 			});
 		}
 		else{
-
 			objTS.forEach(function(i,ctr){
-				console.log(i);
 				i[0]["cage"]==queryTS ? passed.push(i[1])  : "";	
 			});
 		}	

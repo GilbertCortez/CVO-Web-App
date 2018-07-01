@@ -7,48 +7,56 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-	db.query(`SELECT * FROM requirements JOIN requirementspertransaction 
-	WHERE requirements.int_RequirementsId = requirementspertransaction.int_RequirementsId`, (err, results, fields) => {
-		if(err){
-			console.log(err)
-			res.redirect('/CVO_TransactionRequirements')
-		}
-		else {
-			render(results)
-		}
-
+	db.query(`SELECT * FROM requirements`, (err, requirements, fields) => {
+		db.query(`SELECT * FROM requirements r JOIN requirementspertransaction rt ON r.int_RequirementsId=rt.int_RequirementsId WHERE int_Transaction='0'`, (err, por, fields) => {
+			db.query(`SELECT * FROM requirements r JOIN requirementspertransaction rt ON r.int_RequirementsId=rt.int_RequirementsId WHERE int_Transaction='1'`, (err, pr, fields) => {
+				db.query(`SELECT * FROM requirements r JOIN requirementspertransaction rt ON r.int_RequirementsId=rt.int_RequirementsId WHERE int_Transaction='2'`, (err, vac, fields) => {
+					db.query(`SELECT * FROM requirements r JOIN requirementspertransaction rt ON r.int_RequirementsId=rt.int_RequirementsId WHERE int_Transaction='3'`, (err, ado, fields) => {
+						db.query(`SELECT * FROM requirements r JOIN requirementspertransaction rt ON r.int_RequirementsId=rt.int_RequirementsId WHERE int_Transaction='4'`, (err, red, fields) => {
+							res.render('CVO-M-TransactionRequirements/views/view',{por:por, pr:pr,vac:vac,ado:ado,red:red,req:requirements});
+						});
+					});
+				});
+			});
+		});
 	});
-
-	function render(req){
-		res.render('CVO-M-TransactionRequirements/views/view',{req:req});
-	}
           
 });
 
-router.post('/',  (req,res)=>{
-	var reqDescription = `${req.body.req_desc}`.trim();
-	var reqPurpose = `${req.body.req_purpose}`.trim();
-	var reqTransaction = `${req.body.transaction}`;
-	db.query(`INSERT INTO requirements(str_Description,str_Purpose,int_EmployeeNo) VALUES ("${reqDescription}","${reqPurpose}",1)`, (err, results, fields) => {
-		if (err){
-			console.log(err);
-			res.redirect('/CVO_TransactionRequirements')
+router.post('/add',  (req,res)=>{
+	var requirements=JSON.parse(req.body.id);
+	var transaction=req.body.trans;
+	var QUERY="";
+	console.log(requirements.length)
+	requirements.forEach(function(i){
+		QUERY+='INSERT INTO requirementspertransaction(int_Transaction, int_RequirementsId) VALUES ("'+transaction+'",'+i+');';
+	});
+	db.query(QUERY,(err)=>{
+		console.log(err)
+		if(err){
+
+			res.send(false)
 		}
-		else {
-			db.query(`SELECT int_RequirementsId FROM requirements order by 1 desc limit 1`,(err,currentReqId, fields)=>{
-				if (err){
-					console.log(err);
-				}
-				else {
-					db.query(`INSERT INTO requirementspertransaction(int_RequirementsId,int_Transaction,int_EmployeeNo) VALUES("${currentReqId[0].int_RequirementsId}","${reqTransaction}",1)`,(err,results,fields)=>{
-						res.redirect('/CVO_TransactionRequirements')
-					});
-				}
-			})
+		else{
+			res.send(true)
 		}
 	});
-			
-  });
 
+
+ });
+
+
+router.post('/remove',  (req,res)=>{
+
+	console.log(req.body)
+	db.query(`DELETE FROM requirementspertransaction WHERE int_Transaction="${req.body.trans}" AND int_RequirementsId=${req.body.id}`,(err)=>{
+		if(err){
+			res.send(false)
+		}
+		else{
+			res.send(true)
+		}
+	});
+ });
 
 exports.CVO_TransactionRequirements= router;

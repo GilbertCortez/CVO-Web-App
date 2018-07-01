@@ -1,0 +1,43 @@
+<div class="body">
+                                    
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Purpose</th>
+                                            
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                        <% req.forEach(function (i) { %>
+                                                        <tr>
+                                                            <td><%= i.int_RequirementsId %></td>
+                                                            <td><%= i.str_Description %></td>
+                                                            <td><%= i.str_Purpose %></td>
+                                                          
+                                                            <td>
+                                                                <div align="center">
+                                                                   
+                                                                   
+                                                                     <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
+                                                                            <i class="material-icons">mode_edit</i>
+                                                                    </button></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>

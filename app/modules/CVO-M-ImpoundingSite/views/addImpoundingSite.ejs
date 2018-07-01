@@ -1,110 +1,153 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div >
-                       
-                        <div >
-                            <form  action="/CVO_ImpoundingSite" method="POST" novalidate="novalidate">
-
-                                <label class="form-label">Impounding Site Location(Barangay)</label>
-                                <select name="barangayId" class="form-control show-tick" data-live-search="true">
-                                         <option>select</option>
-                                        <% ba.forEach(function(b){ %>
-                                        <option value=<%= b.int_BarangayId %>> <%= b.str_BarangayName %> </option>
-                                          <% }); %>
-                                      </select>
-                            <br>
-                              <br>
-								                 <label class="form-label">Number Of Cages</label>
-                                 <br>
-                                 <div class="col-sm-8">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="forImpoundedDogs">
-                                        <label class="form-label">For Impounded Dogs</label>
-                                    </div>
-                                    </div>
-                                   
-                                </div>
-                                 <div class="col-sm-4">
-                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="maxforImpoundedDogs">
-                                        <label class="form-label">Max Number of Dogs</label>
-                                    </div>
-                                    </div>
-                                    </div>
-                                 <div class="col-sm-8">
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="forImpoundedCats">
-                                        <label class="form-label">For Impounded Cats</label>
-                                    </div>
-                                    </div>
-                                </div>
-                                 <div class="col-sm-4">
-                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="maxforImpoundedCats">
-                                        <label class="form-label">Max Number of Cats</label>
-                                    </div>
-                                    </div>
-                                    </div>
-                                <div class="col-sm-8">
-                                                <div class="form-group form-float">
-                                                    <div class="form-line">
-                                                        <input type="Number" class="form-control" name="forDogsObservation">
-                                                        <label class="form-label">For Dogs Observation</label>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                 <div class="col-sm-4">
-                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="maxforDogsObservation">
-                                        <label class="form-label">Max Number of Dogs Observation</label>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    <div class="col-sm-8">
-                                                <div class="form-group form-float">
-                                                    <div class="form-line">
-                                                        <input type="Number" class="form-control" name="forCatsObservation">
-                                                        <label class="form-label">For Cats Observation</label>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                 <div class="col-sm-4">
-                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="Number" class="form-control" name="maxforCatsObservation">
-                                        <label class="form-label">Max Number of Cats Observation</label>
-                                    </div>
-                                    </div>
-                                    </div>
-
-
-                                <input type="hidden" name="status" id="status" value=1 ><span class="lever switch-col-blue">
-                                 <label class="form-label">Active/Inactive</label>
-                                         <div class="switch">
-                                             <label><input type="checkbox" checked onChange="statIndicate(); "><span class="lever switch-col-blue"></span></label>
-                                             <span id="StatusIndication">Active</span>
-                                         </div>
-                                <br>
-                                <center><button class="btn btn-primary waves-effect" type="submit">ADD</button></center>
-                            </form>
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">ADD NEW IMPOUNDING SITE</h4>
+         </div>
+         <div class="modal-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               <div >
+                  <div >
+                     <form  action="/CVO_ImpoundingSite" method="POST" novalidate="novalidate">
+                        <div class="col-sm-8">
+                           <label class="form-label">Impounding Site Location(Barangay)</label>
+                           <div class="form-group form-float">
+                              <div class="form-line" id="barangayId">
+                                 <select name="barangayId" class="form-control show-tick" data-live-search="true" onchange="selectRequiredValidate(this)">
+                                    <option value="select">select</option>
+                                    <% ba.forEach(function(b){ %>
+                                    <option value=<%= b.int_BarangayId %>> <%= b.str_BarangayName %> </option>
+                                    <% }); %>
+                                 </select>
+                              </div>
+                              <label id="required-barangayId" class="error" style="display: none;">This field is required.</label>
+                           </div>
                         </div>
-                    </div>
-                </div>
-
-
-				<script>
-				function statIndicate(){
-					if(document.getElementById('StatusIndication').innerHTML=='Active'){
-						document.getElementById('StatusIndication').innerHTML='Inactive';
-            document.getElementById('status').value=0;
-					}
-					else{
-						document.getElementById('StatusIndication').innerHTML='Active';
-            document.getElementById('status').value=1;
-					}
-				}
-				</script>
+                        <div class="col-sm-4">
+                           <input type="hidden" name="status" id="status" value=1 ><span class="lever switch-col-blue"></span>
+                           <label class="form-label">Active/Inactive</label>
+                           <div class="switch">
+                              <label><input type="checkbox" checked onChange="statIndicate(); "><span class="lever switch-col-blue"></span></label>
+                              <span id="StatusIndication">Active</span>
+                           </div>
+                        </div>
+                        <br>
+                        <br><br><br>
+                        <div class="col-xs-12">
+                           <label class="form-label">Number Of Cages</label>
+                        </div>
+                        <br>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="forImpoundedDogs">
+                                 <input type="Number" class="form-control" name="forImpoundedDogs" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">For Impounded Dogs</label>
+                              </div>
+                              <label id="required-forImpoundedDogs" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float" >
+                              <div class="form-line" id="maxforImpoundedDogs">
+                                 <input type="Number" class="form-control" name="maxforImpoundedDogs" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">Max Number of Dogs per Cage</label>
+                              </div>
+                              <label id="required-maxforImpoundedDogs" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="forImpoundedCats">
+                                 <input type="Number" class="form-control" name="forImpoundedCats" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">For Impounded Cats</label>
+                              </div>
+                              <label id="required-forImpoundedCats" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="maxforImpoundedCats">
+                                 <input type="Number" class="form-control" name="maxforImpoundedCats" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">Max Number of Cats per Cage</label>
+                              </div>
+                              <label id="required-maxforImpoundedCats" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="forDogsObservation">
+                                 <input type="Number" class="form-control" name="forDogsObservation" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">For Dogs Observation</label>
+                              </div>
+                              <label id="required-forDogsObservation" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="maxforDogsObservation">
+                                 <input type="Number" class="form-control" name="maxforDogsObservation" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">Max Number of Dogs Observation per Cage</label>
+                              </div>
+                              <label id="required-maxforDogsObservation" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="forCatsObservation">
+                                 <input type="Number" class="form-control" name="forCatsObservation" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">For Cats Observation</label>
+                              </div>
+                              <label id="required-forCatsObservation" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group form-float">
+                              <div class="form-line" id="maxforCatsObservation">
+                                 <input type="Number" class="form-control" name="maxforCatsObservation" onkeyup="requiredValidate(this)">
+                                 <label class="form-label">Max Number of Cats Observation per Cage</label>
+                              </div>
+                              <label id="required-maxforCatsObservation" class="error" style="display: none;">This field is required.</label>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect">ADD</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   function requiredValidate(x){
+       
+         if(x.value.trim()==""){
+           document.getElementById("required-"+x.name).style.display="block";
+           $("#"+x.name).addClass("error");
+         }
+       else{
+         document.getElementById("required-"+x.name).style.display="none";
+          $("#"+x.name).removeClass("error");
+       }
+   
+     }
+     function selectRequiredValidate(x){
+         if(x.value=="select"){
+           document.getElementById("required-"+x.name).style.display="block";
+           $("#"+x.name).addClass("error");
+         }
+     }
+   function statIndicate(){
+   if(document.getElementById('StatusIndication').innerHTML=='Active'){
+   document.getElementById('StatusIndication').innerHTML='Inactive';
+         document.getElementById('status').value=0;
+   }
+   else{
+   document.getElementById('StatusIndication').innerHTML='Active';
+         document.getElementById('status').value=1;
+   }
+   }
+</script>
