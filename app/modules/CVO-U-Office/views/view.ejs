@@ -4,17 +4,13 @@ document.getElementById("utilities_list").className="active";
 document.getElementById("office_list").className="active";
 </script>
                  <div >
+                        <div class="block-header">
+                                <h2>OFFICE INFORMATION</h2>
+                            </div>
                     <div class="card">
-                        <div class="header bg-blue">
-                            <h2>OFFICE INFORMATION</h2>
-                        </div>
                         <div class="body">
                                 <form action="/CVO_Office" method="POST" id="office_form">
-                                <div class="form-group form-float">
-                                    <div class="alert bg-grey alert-dismissable" id="officeinfoalert">
-                                        <button type="button" class="close" onclick="document.getElementById('officeinfoalert').hidden=true;"><span aria-hidden="true">×</span></button>Last modified by <u>Mary Justine Espin</u>.
-                                    </div>
-                                    
+                                <div class="form-group form-float">                            
                                     <div class="form-group form-float">
                                     <label class="form-label">Office Name</label>
                                     <div class="form-line" id="officename_line">
