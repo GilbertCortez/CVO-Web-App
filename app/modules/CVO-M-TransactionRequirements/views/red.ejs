@@ -2,6 +2,8 @@
     <div class="col-sm-12">
         <h5>Add Requirement<small> (You can select multiple)</small></h5>
         <div class="col-sm-8">
+         <div class="form-group form-float">
+            <div class="form-line">
             <select class="form-control show-tick" id="sel_red" multiple data-show-subtext="true" data-live-search="true">
                 <% 
                 req.forEach(function(i){  
@@ -17,6 +19,8 @@
                 
                  }); %>
             </select>
+            </div>
+            </div>
         </div>
         <div class="col-sm-4">
             <button type="button" class="btn btn-primary btn-block waves-effect" onclick="add(JSON.stringify($('#sel_red').val()),4)" >

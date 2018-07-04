@@ -1,11 +1,14 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD NEW EMPLOYEES</h2>
+  <div class="modal fade" id="add" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document" >
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">ADD NEW EMPLOYEE</h4>
                         </div>
-                        <div class="body">
+                        <div>
+                        <div class="modal-body" style="min-height: 300px">
+
                             <form id="form_validation" method="POST" action="/CVO_Employees" enctype="multipart/form-data">
-                            <center>  <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                           <div class="col-sm-4"> <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                               <script type="text/javascript">
 
                                 function readURL(input) {
@@ -21,38 +24,44 @@
                                         }
                                         }
                                 </script>
-                              <div>
+                              
                                   <div class="form-line">
                                     <label class="form-label">ID Picture</label>
                                     <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
                                   </div>
                               </div>
-                              <br></center>
+                                <div class="col-sm-8">
+                                <div class="col-sm-12"><br></div>
+                                <div class="col-sm-4">
 								<label class="form-label">First Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="FName">
+                                        <input type="text" class="form-control" name="FName" autocomplete="off">
                                     </div>
                                 </div>
+                                </div>
+                                <div class="col-sm-4">
 								<label class="form-label">Middle Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="MName" >
+                                        <input type="text" class="form-control" name="MName" autocomplete="off">
                                     </div>
                                 </div>
+                                </div>
+                                <div class="col-sm-4">
 								<label class="form-label">Last Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="LName">
+                                        <input type="text" class="form-control" name="LName" autocomplete="off">
                                     </div>
                                 </div>
-
-
+                                </div>
+                                <div class="col-sm-12">
 
 								<label class="form-label">Email</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="email" class="form-control" name="Email">
+                                        <input type="email" class="form-control" name="Email" autocomplete="off">
                                     </div>
                                 </div>
 								<label class="form-label">Employee Type</label>
@@ -66,28 +75,32 @@
                                         <option value=3>Management</option>
 
                                     </select>
-								<br><br>
-
-
-
-                                <br>
-                                <center><button class="btn btn-primary waves-effect" name="submit" type="submit">ADD</button></center>
+                                    </div>
+								
+                               </div>
                             </form>
 
 
 
+
+
+			
+   </div>
+                      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">ADD</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
-
-
-				<script>
-				function statIndicate(){
-					if(document.getElementById('StatusIndication').innerHTML=='Active'){
-						document.getElementById('StatusIndication').innerHTML='Inactive';
-					}
-					else{
-						document.getElementById('StatusIndication').innerHTML='Active';
-					}
-				}
-				</script>
+            </div>
+                <script>
+                function statIndicate(){
+                    if(document.getElementById('StatusIndication').innerHTML=='Active'){
+                        document.getElementById('StatusIndication').innerHTML='Inactive';
+                    }
+                    else{
+                        document.getElementById('StatusIndication').innerHTML='Active';
+                    }
+                }
+                </script>

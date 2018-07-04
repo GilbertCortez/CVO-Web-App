@@ -67,9 +67,10 @@ function breedname_typing_update(i) {
         type: 'POST',
         dataType: "json",
         data: {
-            id: i
+            id: i,
+            id2: $('#modal_BreedId').val()
         },
-        url: '/checkBreedName ',
+        url: '/checkBreedName/update',
         success: function(data) {
 
             if (data == 1) {
@@ -99,9 +100,10 @@ function update_validation() {
         type: 'POST',
         dataType: "json",
         data: {
-            id: document.getElementById('modal_BreedName').value.trim()
+            id: document.getElementById('modal_BreedName').value.trim(),
+            id2: $('#modal_BreedId').val()
         },
-        url: '/checkBreedName ',
+        url: '/checkBreedName/update',
         success: function(data) {
 
             if (data == 1) {

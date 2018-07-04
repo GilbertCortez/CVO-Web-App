@@ -8,6 +8,7 @@ var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 var sortJsonArray = require('sort-json-array');
 // router.use(authMiddleware.noAuthed);
+var munkres = require('munkres-js');
 
 router1.get('/',  (req,res)=>{
   	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId`,(err,apprehended)=>{
@@ -77,70 +78,114 @@ router2.post('/',upload.any(),  (req,res)=>{
 //CAGE ASSIGNMENTS
 //TO DO, CONSIDER THE CAGE ASSIGNED NA. KELANGAN RESERVE NA SA KANILA YUNG SLOT
 router3.get('/',  (req,res)=>{
-		var preferredImpoundingSite=2;
-  	var cageAssignment=[];
+	var preferredImpoundingSite=7;
+  	
 	  
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId`,(err,apprehended)=>{console.log(err);
-	  	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} GROUP BY c.int_CageId`,(err,impoundingsite)=>{console.log(err);
-		  	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite})`,(err,impounded)=>{ console.log(err);
-				apprehended.forEach(function(a){ 
-					var listOfPoints=[];
-					impoundingsite.forEach(function(i){
-					  				var animalsOnCurrentCage;
-					  				var animalAssignedOnCurrentCage;
-					  				if(i.AvailableSlots != 0){
-					  						[{a:0,b:0,c:0},{a:1,b:1,c:0},{a:2,b:0,c:1},{a:3,b:1,c:1}].forEach(function(x){
-					  						if (i.int_CageType == x.a && a.int_AnimalSpecies==x.b && a.int_HealthStatus==x.c){
-					  							animalsOnCurrentCage=search(impounded,i.CageId,true)
-					  							animalAssignedOnCurrentCage=search(cageAssignment,i.CageId,false)
-					  							var point=0
-					  							animalsOnCurrentCage.forEach(function(i){
-					  								point+=scoring(i,a)
-					  							}); 
-					  							animalAssignedOnCurrentCage.forEach(function(i){
-					  								point+=scoring(i,a)
-					  								console.log(point)
-					  								console.log(JSON.stringify(i))
-					  							}); 
-					  							point==0 && animalsOnCurrentCage.length==0 && animalAssignedOnCurrentCage.length==0 ? 
-					  							listOfPoints.push({point: 0, cage: i.CageId})
-					  							:
-					  							listOfPoints.push({point: (point/(animalsOnCurrentCage.length+animalAssignedOnCurrentCage.length))+.01, cage: i.CageId})
-					  							;
-					  						}
-					  					});
-					  				} 
-					});  
-					cageAssignment.push([((sortJsonArray(listOfPoints,'point','des')).pop()),a]);
-				});  
-				console.log(cageAssignment)	
-		  	});
-		});
-	
-	}); 
+	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=0`,(err,aa_forImpoundingDogs)=>{ 
+	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=0`,(err,aa_forImpoundingCats)=>{ 
+	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=1`,(err,aa_forDogObservations)=>{ 
+	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=1`,(err,aa_forCatObservations)=>{ 
 
-	function search(objTS, queryTS,x){//TS-To Search
-		var passed=[];
-		if(x){
-			objTS.forEach(function(i){
-				i.int_CageId==queryTS ? passed.push(i)  : "";	
+	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=0 AND a.int_HealthStatus=0`,(err,imp_forImpoundingDogs)=>{ 
+	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=1 AND a.int_HealthStatus=0`,(err,imp_forImpoundingCats)=>{ 
+	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=0 AND a.int_HealthStatus=1`,(err,imp_forDogObservations)=>{
+	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=1 AND a.int_HealthStatus=1`,(err,imp_forCatObservations)=>{ 
+
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=0 GROUP BY c.int_CageId`,(err,ca_forImpoundingDogs)=>{
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=1 GROUP BY c.int_CageId`,(err,ca_forImpoundingCats)=>{ 
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=2 GROUP BY c.int_CageId`,(err,ca_forDogObservations)=>{ 
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=3 GROUP BY c.int_CageId`,(err,ca_forCatObservations)=>{ 
+
+	
+				
+		//POINTS PER CAGES
+		var ppc_forImpoundingDogs=[];
+		var ppc_forImpoundingCats=[];
+		var ppc_forDogObservations=[];
+		var ppc_forCatObservations=[];
+
+		//ASSIGNED
+		var munk_forImpoundingDogs=[];
+		var munk_forImpoundingCats=[];
+		var munk_forDogObservations=[];
+		var munk_forCatObservations=[];
+
+		//POINTING ALGORITHM
+		ppc_forImpoundingDogs= pointing(aa_forImpoundingDogs, imp_forImpoundingDogs, ca_forImpoundingDogs);
+		ppc_forImpoundingCats= pointing(aa_forImpoundingCats, imp_forImpoundingCats, ca_forImpoundingCats);
+		ppc_forDogObservations= pointing(aa_forDogObservations, imp_forDogObservations, ca_forDogObservations);
+		ppc_forCatObservations= pointing(aa_forCatObservations, imp_forCatObservations, ca_forCatObservations);
+
+		var munk_forImpoundingDogs=[];
+		var munk_forImpoundingCats=[];
+		var munk_forDogObservations=[];
+		var munk_forCatObservations=[];
+
+		munk_forImpoundingDogs=hungarian(ppc_forImpoundingDogs);
+		munk_forImpoundingCats=hungarian(ppc_forImpoundingCats);
+		munk_forDogObservations=hungarian(ppc_forDogObservations);
+		munk_forCatObservations=hungarian(ppc_forCatObservations);
+		
+		var cageAssignment_forImpoundingDogs=[];
+		var cageAssignment_forImpoundingCats=[];
+		var cageAssignment_forDogObservations=[];
+		var cageAssignment_forCatObservations=[];
+		
+		cageAssignment_forImpoundingDogs=finalize(munk_forImpoundingDogs,aa_forImpoundingDogs,ca_forImpoundingDogs);
+		cageAssignment_forImpoundingCats=finalize(munk_forImpoundingCats,aa_forImpoundingCats,ca_forImpoundingCats);
+		cageAssignment_forDogObservations=finalize(munk_forDogObservations,aa_forDogObservations,ca_forDogObservations);
+		cageAssignment_forCatObservations=finalize(munk_forCatObservations,aa_forCatObservations,ca_forCatObservations);
+		
+	
+		res.render('CVO-T-Apprehension/views/CageAssignments.ejs',{fid:cageAssignment_forImpoundingDogs,fic:cageAssignment_forImpoundingCats,fdo:cageAssignment_forDogObservations,fco:cageAssignment_forCatObservations});
+		
+	}); }); }); }); 
+	}); }); }); }); 
+	}); }); }); }); 
+
+	function pointing(a, b, c){
+		var allCages=[];
+		a.forEach(function(q){//Apprehended Animal
+			var currentCage=[];
+			c.forEach(function(w){//Cages
+				var pointsPerCage=0;
+				b.forEach(function(e){//Impounded Animal
+					var point=0;
+					['int_ColorPatternId','int_Sex','int_BreedId'].forEach(function(i){
+						e[i]==q[i] ? point++ : "";
+					})
+					if(w.AvailableSlots==0){
+						point+=1000;
+					}
+					pointsPerCage=point;
+				});
+				currentCage=currentCage.concat(pointsPerCage);
 			});
+			allCages.push(currentCage);
+		});
+		return allCages;
+		
+	}
+
+	function hungarian(z){
+		if(z.length!=0){
+			return munkres(z);	
 		}
 		else{
-			objTS.forEach(function(i,ctr){
-				i[0]["cage"]==queryTS ? passed.push(i[1])  : "";	
-			});
-		}	
-		return passed;
+			return [];
+		}
+		
 	}
 
-	function scoring(onCage,toCaged){
-		var point=0;
-		['int_ColorPatternId','int_Sex','int_BreedId'].forEach(function(i){
-			onCage[i]==toCaged[i] ? point++ : "";
+	function finalize(a,b,c){
+		var cageAssignments=[];
+		a.forEach(function(i,ctr){
+			cageAssignments.push(Object.assign(b[ctr],c[i[1]]));
 		})
-		return point/3;
+		console.log(cageAssignments);
+		return cageAssignments;
 	}
+	
 
 
 });

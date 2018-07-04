@@ -5,7 +5,7 @@
             <h4 class="modal-title" id="defaultModalLabel">EDIT MANUFACTURER</h4>
          </div>
          <div class="modal-body">
-               <form id="form_manufacturer_update" method="POST" action="/CVO_Manufacturer/update" >
+               <form id="form_manufacturer_update" method="POST" action="/CVO_Manufacturer/update" onsubmit="return false;">
                   <input type="hidden" id="modal_ID" class="form-control" name="update_id">
            
            
@@ -20,7 +20,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+            <a class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</a>
             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
          </div>
       </div>
@@ -42,9 +42,10 @@
         type: 'POST',
         dataType: "json",
         data: {
-            id: i
+            id: i,
+            id2: $('#modal_ID').val()
         },
-        url: '/checkManufacturer ',
+        url: '/checkManufacturer/update',
         success: function(data) {
 
             if (data == 1) {
@@ -67,16 +68,16 @@
     }
 
 }
-
 function update_validation() {
     var toSubmit = true;
     $.ajax({
         type: 'POST',
         dataType: "json",
         data: {
-            id: document.getElementById('modal_Manufacturer').value.trim()
+            id: document.getElementById('modal_Manufacturer').value.trim(),
+            id2: $('#modal_ID').val()
         },
-        url: '/checkManufacturer',
+        url: '/checkManufacturer/update',
         success: function(data) {
 
             if (data == 1) {

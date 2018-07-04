@@ -6,7 +6,7 @@
          </div>
          <div class="modal-body">
             <form id="form_requirements_update" method="POST" action="/CVO_Requirement/update">
-               <input type="hidden" class="form-control" id="modal_ReqId" name="Req_Id" required="" aria-required="true" >
+               <input type="hidden" class="form-control" id="modal_ReqId" name="Req_Id" >
                <label class="form-label">Requirement Description</label>
                <div class="form-group form-float">
                   <div class="form-line" id="requirements_line_update">
@@ -38,9 +38,10 @@ function requirements_typing_update(i){
            type: 'POST',
            dataType: "json",
            data: {
-               id: i
+               id: i,
+               id2: $('#modal_ReqId').val()
            },
-           url: '/checkRequirements',
+           url: '/checkRequirements/update',
            success: function(data) {
    
                if (data == 1) {
@@ -74,6 +75,32 @@ function requirements_typing_update(i){
    }
    }
    function update_validation(){
-      document.getElementById('form_requirements_update').submit();
+     $.ajax({
+           type: 'POST',
+           dataType: "json",
+           data: {
+               id: $('#modal_ReqDesc').val(),
+               id2: $('#modal_ReqId').val()
+           },
+           url: '/checkRequirements/update',
+           success: function(data) {
+   
+               if (data == 1) {
+                   $('#requirements_line_update').addClass("error");
+                   document.getElementById("exists-requirements_update").style.display = 'block';
+             
+               } else {
+                 if(document.getElementById('modal_ReqDesc').value.trim()==""){
+           $("#requirements_line_update").addClass("error");
+           document.getElementById("required-requirements_update").style.display='block';
+       }
+       else{
+        document.getElementById('form_requirements_update').submit();
+       }
+                    
+               }
+           }
+       });
+     
    }
 </script>

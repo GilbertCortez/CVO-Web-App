@@ -6,6 +6,9 @@
 </script>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="block-header">
+<h2>APPREHENSION</h2>
+</div>
         <div class="card">
            
             <div class="body">
@@ -31,6 +34,7 @@
                                                            <th>Breed</th>
                                                            <th>Color Pattern</th>
                                                            <th>Sex</th>
+                                                           <th>Health Status</th>
                                                             <th >Action</th>
                                                         </tr>
                                                     </thead>
@@ -44,7 +48,7 @@
                                                            <td><%= i.str_BreedName %></td>
                                                            <td><%= i.str_Description %></td>
                                                            <td><%= i.int_Sex == 0 ? "Male" : "Female"; %></td>
-                                                         
+                                                         <td><%= i.int_HealthStatus == 0 ? "Healthy" : "Sick"; %></td>
                                                             <td >
                                                                 <div class="row"align="center">
                                                                     <a data-toggle="modal" data-target="#orderofapprehension"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">

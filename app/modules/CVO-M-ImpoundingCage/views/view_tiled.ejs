@@ -1,27 +1,38 @@
 <h2>For Impounded Dogs</h2>
    <table border="1px" style="width:100%">
 
-  <% fid.forEach(function(i,ctr){ %>
+  <% if(fid.length>0){
+        fid.forEach(function(i,ctr){ %>
         <% if(ctr+1==0 ){ %>
         <tr> 
         <% } %>
-       <% if((ctr+1)%10==0){ %>
+        <% if((ctr+1)%10==0){ %>
         <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
          
         </tr>
         <tr>
        <% } else { %>
        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
-       <% } %>
+       <% } 
+      
+      
        
-       <% }); %>
+       }); 
+       }else{
+        %>
+        <h4>No Cages</h4>
+        <%  
+       }
+
+       %>
 
   
 </table>
 <h2>For Impounded Cats</h2>
    <table border="1px" style="width:100%">
   
-    <% fic.forEach(function(i,ctr){ %>
+    <% if(fic.length>0){
+    fic.forEach(function(i,ctr){ %>
         <% if(ctr+1==0 ){ %>
         <tr> 
         <% } %>
@@ -35,14 +46,21 @@
        <% } %>
        
 
-       <% }); %>
+       <% }); 
+       }else{
+        %>
+        <h4>No Cages</h4>
+        <%  
+       }
+       %>
 
    
 </table>
    <h2>For Dogs Observation</h2>
       <table border="1px" style="width:100%">
   
-     <% fdo.forEach(function(i,ctr){ %>
+     <% if(fdo.length>0){
+     fdo.forEach(function(i,ctr){ %>
           <% if(ctr+1==0 ){ %>
         <tr> 
         <% } %>
@@ -55,7 +73,13 @@
        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
        <% } %>
        
-          <% }); %>
+          <% });
+          }else{
+        %>
+        <h4>No Cages</h4>
+        <%  
+       }
+           %>
 
     
     </table>
@@ -63,7 +87,8 @@
   <h2>For Cats Observation</h2>
       <table border="1px" style="width:100%">
   
-     <% fco.forEach(function(i,ctr){ %>
+     <% if(fco.length>0){ 
+     fco.forEach(function(i,ctr){ %>
           <% if(ctr+1==0 ){ %>
         <tr> 
         <% } %>
@@ -76,7 +101,13 @@
        <td onclick="iteratingCage('<%= JSON.stringify(i) %>');" style="cursor: pointer" width="15px"><div><small><%= i.int_CageNumber %></small></div>&nbsp;</td>
        <% } %>
        
-          <% }); %>
+          <% }); 
+          }else{
+        %>
+        <h4>No Cages</h4>
+        <%  
+       }
+          %>
 
     
     </table>

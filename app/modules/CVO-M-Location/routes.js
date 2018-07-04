@@ -44,6 +44,18 @@ cl.post('/', (req, res) => {
     });
 });
 
+cl.post('/update', (req, res) => {
+    var id = req.sanitize(req.body.id.trim());
+    console.log(id);
+    db.query(`SELECT * FROM barangay WHERE str_BarangayName="${id}" AND int_BarangayId <> ${req.body.id2}`, (err, result) => {
+        console.log(result);
+        if (result.length == 0) {
+            res.json(0);
+        } else {
+            res.json(1);
+        }
+    });
+});
 
 exports.CVO_Location = router;
 exports.checkLocation = cl;

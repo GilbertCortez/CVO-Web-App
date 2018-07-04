@@ -46,6 +46,20 @@ cm.post('/',  (req,res)=>{
   });
 });
 
+cm.post('/update',  (req,res)=>{
+   var id=req.sanitize(req.body.id.trim());
+  console.log(id);
+  db.query(`SELECT str_Manufacturer FROM manufacturer WHERE str_Manufacturer="${id}" AND int_ManufacturerId <> ${req.body.id2}`,(err,result)=>{
+    console.log(`SELECT str_Manufacturer FROM manufacturer WHERE str_Manufacturer="${id}" AND int_ManufacturerId <> ${req.body.id2}`);
+    if(result.length==0){
+    res.json(0);
+    }
+    else{
+    res.json(1);  
+    }
+  });
+});
+
 exports.CVO_Manufacturer= router;
 exports.checkManufacturer= cm;
 

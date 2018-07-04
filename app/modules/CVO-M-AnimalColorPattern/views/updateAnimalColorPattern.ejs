@@ -50,9 +50,10 @@ function modal_iteration(ColorPatternDetails){
         type: 'POST',
         dataType: "json",
         data: {
-            id: i
+            id: i,
+            id2: $('#modal_ColorId').val()
         },
-        url: '/checkColorPattern',
+        url: '/checkColorPattern/update',
         success: function(data) {
 
             if (data == 1) {
@@ -89,9 +90,10 @@ if(document.getElementById('modal_ColorDesc').value.trim()==""){
         type: 'POST',
         dataType: "json",
         data: {
-            id: document.getElementById('modal_ColorDesc').value.trim()
+            id: document.getElementById('modal_ColorDesc').value.trim(),
+            id2: $('#modal_ColorId').val()
         },
-        url: '/checkColorPattern',
+        url: '/checkColorPattern/update',
         success: function(data) {
 
             if (data == 1) {

@@ -65,6 +65,18 @@ var id=req.sanitize(req.body.id.trim());
 	});
 });
 
+ccp.post('/update',  (req,res)=>{
+var id=req.sanitize(req.body.id.trim());
+	db.query(`SELECT str_Description FROM colorpattern WHERE str_Description="${id}" AND int_ColorPatternId <> ${req.body.id2}`,(err,result)=>{
+		console.log(result);
+		if(result.length==0){
+		res.json(0);
+		}
+		else{
+		res.json(1);	
+		}
+	});
+});
 
 exports.CVO_AnimalColorPattern= router;
 

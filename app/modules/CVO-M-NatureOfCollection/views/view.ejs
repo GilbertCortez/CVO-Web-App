@@ -145,8 +145,23 @@
          document.getElementsByName(currname)[0].value=="" ? toSubmit=false : "" ;
       });
 
-      toSubmit==true? document.getElementById('update_validation').submit() : "";
+      toSubmit==true? 
+      swal({
+            title: "Confirmation?",
+            text: "Do you want to update Nature of Collection",
+            icon: "info",
+            buttons: true,
+            
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+               document.getElementById('update_validation').submit()
+            }
+        })
+       : "";
 
    }
 </script>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+

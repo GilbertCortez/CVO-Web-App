@@ -17,6 +17,38 @@ document.getElementById("transaction_list").className="active";
             </div>
             <div class="body"  >
             
+             <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ALIAS</th>
+                                        <th>ANIMAL BREED</th>
+                                        <th>ANIMAL SPECIES</th>
+                                        <th>SEX</th>
+                                        <th>COLOR PATTERN</th>
+                                        <th>PET TAG</th>
+                                        <th>VAN CAGE NUMBER</th>
+                                        <th>CAGE NUMBER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <% fid.forEach(function(i){ %>
+                                    <tr>
+                                        <td><%= i.str_Alias %></td>
+                                        <td><%= i.str_BreedName %></td>
+                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                                        <td><%= i.str_Description %></td>
+                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                                        <td><%= i.int_VanCageNumber %></td>
+                                        <td><%= i.CageId %></td>
+                                    </tr>
+                                    <% }); %>
+
+                                </tbody>
+                            </table>
+                          
+                        </div>
             <div class="body table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -26,27 +58,22 @@ document.getElementById("transaction_list").className="active";
                                         <th>ANIMAL SPECIES</th>
                                         <th>SEX</th>
                                         <th>COLOR PATTERN</th>
-                         
                                         <th>PET TAG</th>
                                         <th>VAN CAGE NUMBER</th>
-                                       
-                                        <th>CAGE CLASSIFICATION</th>
                                         <th>CAGE NUMBER</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <% ca.forEach(function(i){ %>
+                                     <% fic.forEach(function(i){ %>
                                     <tr>
-                                        <td><%= i[1].str_Alias %></td>
-                                        <td><%= i[1].str_BreedName %></td>
-                                        <td><%= i[1].int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
-                                        <td><%= i[1].int_Sex == 0 ? "Male" : "Female" %></td>
-                                        <td><%= i[1].str_Description %></td>
-                                        <td><%= i[1].str_PetTagNo != null && i[1].str_PetTagNo != ""? i[1].str_PetTagNo  : "NONE"; %></td>
-                                        <td><%= i[1].int_VanCageNumber %></td>
-                                    
-                                        <td><% var c= i[0].cageType; %><%=  c == 0 ?"For Impounded Dogs" :c==1?"For Impounded Cats":c==2? "For Dogs Observation": c==3? "For Cats Observation" : "" ; %></td>
-                                        <td><%= i[0].cage %></td>
+                                        <td><%= i.str_Alias %></td>
+                                        <td><%= i.str_BreedName %></td>
+                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                                        <td><%= i.str_Description %></td>
+                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                                        <td><%= i.int_VanCageNumber %></td>
+                                        <td><%= i.CageId %></td>
                                     </tr>
                                     <% }); %>
 
@@ -54,6 +81,71 @@ document.getElementById("transaction_list").className="active";
                             </table>
                           
                         </div>
+                         <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ALIAS</th>
+                                        <th>ANIMAL BREED</th>
+                                        <th>ANIMAL SPECIES</th>
+                                        <th>SEX</th>
+                                        <th>COLOR PATTERN</th>
+                                        <th>PET TAG</th>
+                                        <th>VAN CAGE NUMBER</th>
+                                        <th>CAGE NUMBER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <% fdo.forEach(function(i){ %>
+                                    <tr>
+                                        <td><%= i.str_Alias %></td>
+                                        <td><%= i.str_BreedName %></td>
+                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                                        <td><%= i.str_Description %></td>
+                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                                        <td><%= i.int_VanCageNumber %></td>
+                                        <td><%= i.CageId %></td>
+                                    </tr>
+                                    <% }); %>
+
+                                </tbody>
+                            </table>
+                          
+                        </div>
+                         <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ALIAS</th>
+                                        <th>ANIMAL BREED</th>
+                                        <th>ANIMAL SPECIES</th>
+                                        <th>SEX</th>
+                                        <th>COLOR PATTERN</th>
+                                        <th>PET TAG</th>
+                                        <th>VAN CAGE NUMBER</th>
+                                        <th>CAGE NUMBER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <% fco.forEach(function(i){ %>
+                                    <tr>
+                                        <td><%= i.str_Alias %></td>
+                                        <td><%= i.str_BreedName %></td>
+                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                                        <td><%= i.str_Description %></td>
+                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                                        <td><%= i.int_VanCageNumber %></td>
+                                        <td><%= i.CageId %></td>
+                                    </tr>
+                                    <% }); %>
+
+                                </tbody>
+                            </table>
+                          
+                        </div>
+
                           <br>
                            <center> <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >PLACE ALL</a>  <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >BACK</a></center>
             </div>

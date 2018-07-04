@@ -46,6 +46,19 @@ cr.post('/', (req, res) => {
     });
 });
 
+cr.post('/update', (req, res) => {
+    var id = req.sanitize(req.body.id.trim());
+
+    db.query(`SELECT str_Description FROM requirements WHERE str_Description="${id}" AND int_RequirementsId <> ${req.body.id2}`, (err, result) => {
+    
+        if (result.length == 0) {
+            res.json(0);
+        } else {
+            res.json(1);
+        }
+    });
+});
+
 
 exports.CVO_Requirement = router;
 exports.checkRequirements = cr; 
