@@ -7,7 +7,8 @@ var router3 = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
 var sortJsonArray = require('sort-json-array');
-// router.use(authMiddleware.noAuthed);
+//sess.use(authMiddleware.noAuthed);
+
 var munkres = require('munkres-js');
 
 router1.get('/',  (req,res)=>{
@@ -78,7 +79,7 @@ router2.post('/',upload.any(),  (req,res)=>{
 //CAGE ASSIGNMENTS
 //TO DO, CONSIDER THE CAGE ASSIGNED NA. KELANGAN RESERVE NA SA KANILA YUNG SLOT
 router3.get('/',  (req,res)=>{
-	var preferredImpoundingSite=7;
+	var preferredImpoundingSite=5;
   	
 	  
 	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=0`,(err,aa_forImpoundingDogs)=>{ 

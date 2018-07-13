@@ -1,5 +1,18 @@
  </div>
     </section>
+    <script>
+    function escapeHtmlSpecial(eleme) {
+  var map = {
+    '&': '',
+    '<': '',
+    '>': '',
+    '"': ''
+  };
+
+    var newtxt=eleme.value.replace(/[&<>"']/g, function(m) { return map[m]; });
+    document.getElementById(eleme.id).value=newtxt;
+}
+    </script>
 
     <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>

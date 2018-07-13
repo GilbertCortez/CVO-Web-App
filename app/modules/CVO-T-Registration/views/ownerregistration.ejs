@@ -1,4 +1,4 @@
-<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+  <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
    document.getElementById("registration_list").className="active";
    document.getElementById("transaction_list").className="active";
@@ -7,111 +7,154 @@
 </script>
 <section >
    <div class="row clearfix col-md-12">
+      <div class="block-header">
+         <h2>Pet Owner Registration Form</h2>
+      </div>
       <div >
          <div class="card">
-            <div class="header  bg-blue">
-               <h2>Pet Owner Registration Form</h2>
-            </div>
             <div class="body">
-
-              <% if(pageStatus==2){ %>
-                <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration/preregistered/recording" enctype="multipart/form-data">
-                <input type="hidden" name="currentPetOwnerId" value='<%= cp.int_PetOwnerId %>'>
-              <% } else { %>
+               <% if(pageStatus==2){ %>
+               <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration/preregistered/recording" enctype="multipart/form-data">
+                  <input type="hidden" name="currentPetOwnerId" value='<%= cp.int_PetOwnerId %>'>
+                  <% } else { %>
                <form id="petOwnerForm" method="POST" action="/CVO_OwnerRegistration" enctype="multipart/form-data">
-              <% } %> 
+                  <% } %> 
+                  <div class="col-sm-4">
+                     <center>
+                        <img src="../../images/noIdPicture.jpg" onclick="$('#petOwnerPicture').trigger('click');" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3;" id="blah" id="showPic" width="300" height="300" /><br><br><br>
+                        <script type="text/javascript">
+
+                           function readURL(input) {
+                           if (input.files && input.files[0]) {
+                             var reader = new FileReader();
+                             reader.onload = function (e) {
+                               $('#blah').attr('src', e.target.result);
+                               $('#modal_OwnerPicture').attr('src', e.target.result);
+                              $("#petOwnerPicture_line").removeClass('error');
+                              document.getElementById("petOwnerPicture_required").style.display="none";
+                             };
+                             reader.readAsDataURL(input.files[0]);
+                           }
+                           else{
+                             $('#blah').attr('src',"../../images/noIdPicture.jpg");
+                             $('#modal_OwnerPicture').attr('src', "../../images/noIdPicture.jpg");
+                             $("#petOwnerPicture_line").addClass('error');
+
+                              document.getElementById("petOwnerPicture_required").style.display="block";
+                           }
+                           }
+                        </script>
+                        <div>
+                           <div class="form-line">
+                              <label class="form-label">Pet Owner Picture</label>
+                                    <div class="form-group form-float">
+                           <div class="form-line" id="petOwnerPicture_line">
+                              <input type="file" name="petOwnerPicture" id="petOwnerPicture" onchange="readURL(this);" accept="image/*" />
+                            
+                           </div>
+                              <label id="petOwnerPicture_required" class="error" style="display: none;">Please Upload Pet Owner's Picture.</label>
+                           </div>
+                           </div>
+
+
+
+                        </div>
+                        <br>
+                     </center>
+                  </div>
+                  <div class="col-sm-8">
+                     <div class="col-md-4">
+                        <label class="form-label">First Name</label>
+                        <div class="form-group form-float">
+                           <div class="form-line" id="FName_line">
+                              <input type="text" class="form-control" id="FName" name="FName" autocomplete="off" onkeyup="required_validate(this)" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
+                           </div>
+                           <label id="FName_required" class="error" style="display: none;">This field is required.</label>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <label class="form-label">Middle Name</label>
+                        <div class="form-group form-float">
+                           <div class="form-line">
+                              <input type="text" class="form-control" id="MName" name="MName" autocomplete="off"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <label class="form-label">Last Name</label>
+                        <div class="form-group form-float" >
+                           <div class="form-line" id="LName_line">
+                              <input type="text" class="form-control" id="LName" name="LName" onkeyup="required_validate(this)"  autocomplete="off"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
+                           </div>
+                           <label id="LName_required" class="error" style="display: none;">This field is required.</label>
+                        </div>
+                     </div>
+                     <div class="col-sm-12"></div>
+                     <div class="col-sm-6">
+                        <label class="form-label">Cellphone Number</label>
+                        <div class="form-group form-float" >
+                           <div class="form-line" id="CellphoneNumber_line">
+                              <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber" onkeyup="required_validate(this);validate_Phone();" autocomplete="off" onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
+                           </div>
+                           <label id="CellphoneNumber_required" class="error" style="display: none;">This field is required.</label>
+                           <label id="CellphoneNumber_notPhone" class="error" style="display: none;">Please Enter a correct Cellphone Number.</label>
+                           <label id="CellphoneNumber_registered" class="error" style="display: none;">Cellphone Number Registered.</label>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <label class="form-label">Email Address</label>
+                        <div class="form-group form-float">
+                           <div class="form-line" id="emailAddress_line">
+                               <input type="text" class="form-control" id="emailAddress" name="emailAddress" onkeyup="required_validate(this);validate_email();" autocomplete="off" onchange="document.getElementById('modal_EmailAddress').value=this.value;">
+                           </div>
+                           <label id="emailAddress_required" class="error" style="display: none;">This field is required.</label>
+                           <label id="emailAddress_registered" class="error" style="display: none;">Email Address Registered.</label>
+                           <label id="emailAddress_notEmail" class="error" style="display: none;">Not an Email Address.</label>
+                        </div>
+                     </div>
+                     <div class="col-sm-12"></div>
+                     <div class="col-sm-6">
+                        <label class="form-label">Barangay</label>
+                          <div class="form-group form-float">
+                         <div class="form-line" id="barangay_line">
+                        <select class="form-control show-tick" id="barangay" name="barangay"  data-live-search="true"  onchange='required_validate(this);document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
+                           <option>select</option>
+                           <% ba.forEach(function(i){ %>
+                           <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
+                           <% }); %>
+                        </select>
+                        </div>
+                        <label id="barangay_required" class="error" style="display: none;">This field is required.</label>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <label class="form-label">Start Year of Stay in the City</label>
+                         <div class="form-group form-float">
+                         <div class="form-line" id="startYear_line">
+                        <select class="form-control show-tick" data-live-search="true" id="startYear" name="startYear"  onchange="required_validate(this);document.getElementById('modal_StartYear').value=this.value;">
+                           <option>select</option>
+                           <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
+                           <option value='<%= curryear %>'><%= curryear %></option>
+                           <% curryear--; } %>
+                        </select>
+                        </div>
+                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
+                        </div>
+                     </div>
+                     <br><br><br>
+                     <div class="col-sm-12">
+                        <label class="form-label">Complete Address</label>
+                        <div class="form-group form-float">
+                           <div class="form-line" id="completeAddress_line">
+                              <input type="text" class="form-control" id="completeAddress" name="completeAddress" onkeyup="required_validate(this)" autocomplete="off" onchange="document.getElementById('modal_CompleteAddress').value=this.value;">
+                           </div>
+                           <label id="completeAddress_required" class="error" style="display: none;">This field is required.</label>
+                        </div>
+                     </div>
+                  </div>
                   <center>
-                     <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click');" style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
-                     <script type="text/javascript">
-                        function readURL(input) {
-                        if (input.files && input.files[0]) {
-                          var reader = new FileReader();
-                          reader.onload = function (e) {
-                            $('#blah').attr('src', e.target.result);
-                            $('#modal_OwnerPicture').attr('src', e.target.result);
-                        
-                          };
-                          reader.readAsDataURL(input.files[0]);
-                        }
-                        else{
-                          $('#blah').attr('src',"../../images/noIdPicture.jpg");
-                          $('#modal_OwnerPicture').attr('src', "../../images/noIdPicture.jpg");
-                        }
-                        }
-                     </script>
-                     <div>
-                        <div class="form-line">
-                           <label class="form-label">Pet Owner Picture</label>
-                           <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
-                        </div>
-                     </div>
-                     <br>
-                  </center>
-                  <!---- NAME OF THE PET OWNER  ---->
-                  <label class="form-label">Name</label>
-                  <br>
-                  <div class="col-md-4">
-                     <div class="form-group form-float">
-                        <div class="form-line">
-                           <input type="text" class="form-control" id="FName" name="FName" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
-                           <label class="form-label">First Name</label>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="form-group form-float">
-                        <div class="form-line">
-                           <input type="text" class="form-control" id="MName" name="MName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();">
-                           <label class="form-label">Middle Name</label>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="form-group form-float">
-                        <div class="form-line">
-                           <input type="text" class="form-control" id="LName" name="LName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
-                           <label class="form-label">Last Name</label>
-                        </div>
-                     </div>
-                  </div>
-                  <br>
-                  <label class="form-label">Cellphone Number</label>
-                  <div class="form-group form-float">
-                     <div class="form-line">
-                        <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber"  onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
-                     </div>
-                  </div>
-                  <label class="form-label">Email Address</label>
-                  <div class="form-group form-float">
-                     <div class="form-line">
-                        <input type="email" class="form-control" id="emailAddress" name="emailAddress"   onchange="document.getElementById('modal_EmailAddress').value=this.value;">
-                     </div>
-                  </div>
-                  <label class="form-label">Barangay</label>
-                  <select class="form-control show-tick" id="barangay" name="barangay"  data-live-search="true" onchange='document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
-                     <option>select</option>
-                     <% ba.forEach(function(i){ %>
-                     <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
-                     <% }); %>
-                  </select>
-                  <br><br>
-                  <label class="form-label">Complete Address</label>
-                  <div class="form-group form-float">
-                     <div class="form-line">
-                        <input type="email" class="form-control" id="completeAddress" name="completeAddress"  onchange="document.getElementById('modal_CompleteAddress').value=this.value;">
-                     </div>
-                  </div>
-                  <label class="form-label">Start Year of Stay in the City</label>
-                  <select class="form-control show-tick" data-live-search="true" id="startYear" name="startYear"  onchange="document.getElementById('modal_StartYear').value=this.value;">
-                     <option>select</option>
-                     <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
-                     <option value='<%= curryear %>'><%= curryear %></option>
-                     <% curryear--; } %>
-                  </select>
-                  <br><br>
-                  <center>
-                     <a ><button class="btn btn-primary waves-effect" type="button" data-toggle="modal" data-target="#summary">REGISTER</button></a>&nbsp;
-                     <a href="/CVO_Registration"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
+                     <a ><button class="btn btn-primary waves-effect" type="button" onclick="validate()">REGISTER</button></a>&nbsp;
+                     <a href="/CVO_Registration"><button class="btn btn-grey waves-effect" type="button">CANCEL</button></a>
                   </center>
                </form>
             </div>
@@ -128,7 +171,7 @@
          <div class="modal-body">
             <table>
                <tr>
-                  <td><img id="modal_OwnerPicture" src="../../images/noIdPicture.jpg" style="border:4px;border-style:solid;border-color:#2196f3" width="200" height="200"  alt="User" /></td>
+                  <td><img id="modal_OwnerPicture" src="../../images/noIdPicture.jpg" style="border:4px;border-style:solid;border-color:#2196f3" width="400" height="400"  alt="User" /></td>
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                   <td>
                      <table class="table table-striped">
@@ -168,6 +211,96 @@
       </div>
    </div>
 </div>
+<script>
+   function required_validate(x){
+     if(document.getElementById(x.name).value.trim()=="" || document.getElementById(x.name).value=="select"){
+       $("#"+x.name+"_line").addClass('error');
+       document.getElementById(x.name+"_required").style.display="block";
+     }
+     else{
+      $("#"+x.name+"_line").removeClass('error');
+       document.getElementById(x.name+"_required").style.display="none";
+     }
+   }
+   function validate_Phone(){
+      if(/^(09|\+639)\d{9}$/.test(document.getElementById('CellphoneNumber').value.trim())==false && document.getElementById('CellphoneNumber').value !=""){
+        $("#CellphoneNumber_line").addClass('error');
+       document.getElementById("CellphoneNumber_notPhone").style.display="block";
+        document.getElementById("CellphoneNumber_registered").style.display = 'none';
+      }
+      else{
+         document.getElementById("CellphoneNumber_notPhone").style.display="none";
+         $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('CellphoneNumber').value.trim()
+        },
+        url: '/CVO_OwnerRegistration/checkNumber ',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#CellphoneNumber_line').addClass("error");
+                document.getElementById("CellphoneNumber_registered").style.display = 'block';
+
+
+            } else {
+                document.getElementById("CellphoneNumber_registered").style.display = 'none';
+            }
+        }
+    });
+
+      }
+   }
+    function validate_email(){
+      if(/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z]{2,5}$/.test(document.getElementById('emailAddress').value.trim())==false && document.getElementById('emailAddress').value !=""){
+         $('#emailAddress_line').addClass("error");
+                document.getElementById("emailAddress_notEmail").style.display = 'block';
+                document.getElementById("emailAddress_registered").style.display = 'none';
+      }
+      else{
+        document.getElementById("emailAddress_notEmail").style.display = 'none';
+      $.ajax({
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id: document.getElementById('emailAddress').value.trim()
+        },
+        url: '/CVO_OwnerRegistration/checkEmail ',
+        success: function(data) {
+
+            if (data == 1) {
+                $('#emailAddress_line').addClass("error");
+                document.getElementById("emailAddress_registered").style.display = 'block';
+            } else {
+                document.getElementById("emailAddress_registered").style.display = 'none';
+            }
+        }
+    });
+    }
+   }
+   function validate(){
+    //^(09|\+639)\d{9}$
+    var toSubmit=true;
+      ['petOwnerPicture','FName','LName','CellphoneNumber','emailAddress','barangay','startYear','completeAddress'].forEach(function(x){
+         if(document.getElementById(x).value.trim()=="" || document.getElementById(x).value=="select" || document.getElementById(x).value==""){
+       $("#"+x+"_line").addClass('error');
+       document.getElementById(x+"_required").style.display="block";
+       toSubmit=false;
+     }
+     else if(document.getElementById('CellphoneNumber_line').className.search('error') != -1){
+       toSubmit=false;
+     }
+      });
+      if(toSubmit){
+      $('#summary').modal('toggle');
+    }
+    else{
+      swal("Warning!","Please fill up the form correctly.","warning")
+    }
+   }
+
+</script>
 <% if(pageStatus==1){ %>
 <form action="/CVO_Registration" method="GET" id="noProceed"></form>
 <form action="/CVO_PetRegistration" method="POST" id="yesProceed">
@@ -207,16 +340,15 @@
 </script>
 <% } %>
 <% if(pageStatus==2){ %>
-  <script >
-    document.getElementById('FName').value= '<%= cp.str_PetOwnerFirstName %>';
-    document.getElementById('MName').value= '<%= cp.str_PetOwnerMiddleName %>';
-    document.getElementById('LName').value= '<%= cp.str_PetOwnerLastName %>';
-    document.getElementById('CellphoneNumber').value='<%= cp.str_PhoneNo %>';
+<script >
+   document.getElementById('FName').value= '<%= cp.str_PetOwnerFirstName %>';
+   document.getElementById('MName').value= '<%= cp.str_PetOwnerMiddleName %>';
+   document.getElementById('LName').value= '<%= cp.str_PetOwnerLastName %>';
+   document.getElementById('CellphoneNumber').value='<%= cp.str_PhoneNo %>';
    document.getElementById('emailAddress').value='<%= cp.str_Email %>';
    document.getElementById('barangay').value='<%= cp.int_BarangayId %>';
    document.getElementById('completeAddress').value='<%= cp.str_CompleteAddress %>';
    document.getElementById('startYear').value='<%= cp.dat_StartedYearOfStay %>';
-  </script>
-
+</script>
 <% } %>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

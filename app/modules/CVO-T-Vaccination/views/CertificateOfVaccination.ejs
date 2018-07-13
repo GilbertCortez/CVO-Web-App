@@ -1,0 +1,220 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>City Veterinary Office</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/all-themes.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Calibri Light";
+        }
+
+        tr {
+            font-size: 15px;
+        }
+    </style>
+    <style>
+        td,
+        th,
+        tr {
+
+
+            padding: 2px;
+
+        }
+    </style>
+     <style>
+    .swal-overlay {
+      background-color: rgba(66, 134, 244);
+      }
+
+    </style>
+</head>
+
+<body style="background: gray">
+    <div id="toPrint" class="col-sm-12" style="background: white">
+
+        <div style="max-width:570px;">
+            <br><br>
+            <center>
+                <img src="/images/pdfHeader.jpg" width="70%">
+                <h3>Certificate of Vaccination</h3>
+            </center>
+            <br>
+
+            <table class="bg-blue" width="100%">
+                <tr>
+                    <td>
+                        <h5>
+                            <%= od[0].str_OfficeName.toUpperCase() %>
+                        </h5>
+                    </td>
+                    <td style="text-align:right">
+                        <h6>
+                            <%= od[0].str_ContactNo %>
+                        </h6>
+                    </td>
+                </tr>
+            </table>
+
+            <center>
+                <table width="100%" style="border: 1px solid gray">
+
+                    <tr>
+                        <th width="50%"></th>
+                        <td style="text-align:right">
+                            <h6>
+                                <%= od[0].str_Email %>
+                                    <h6>
+                                        <h6>
+                                            <%= od[0].str_Address %>
+                                                <h6>
+                        </td>
+                    </tr>
+
+                </table>
+            </center>
+
+            <table class="bg-blue" width="100%">
+                <tr>
+                    <td>
+                        <h5>PET INFORMATION</h5>
+                    </td>
+
+                </tr>
+            </table>
+
+            <center>
+                <table width="100%" style="border: 1px solid gray" cols>
+
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Pet Id</th>
+                        <td style="border: 1px solid gray"><%= pd[0].int_PetId %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Pet Tag Number</th>
+                        <td style="border: 1px solid gray"><%= pd[0].str_PetTagNo %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Pet Name</th>
+                        <td style="border: 1px solid gray"><%= pd[0].str_PetName %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Breed</th>
+                        <td style="border: 1px solid gray"><%= pd[0].str_BreedName %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Sex</th>
+                        <td style="border: 1px solid gray"><%= pd[0].int_Sex ==0? "Male" : "Female"; %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Color Pattern</th>
+                        <td style="border: 1px solid gray"><%= pd[0].str_Description %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray" colspan="2">Birthday</th>
+                        <td style="border: 1px solid gray" colspan="2"><%=  MMMMDDYYYY(pd[0].dat_Birthday) %></td>
+
+                    </tr>
+
+                </table>
+            </center>
+            <table class="bg-blue" width="100%">
+                <tr>
+                    <td>
+                        <h5>VACCINATION CERTIFICATE</h5>
+                    </td>
+
+                </tr>
+            </table>
+
+            <center>
+                <table width="100%" style="border: 1px solid gray" cols>
+
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Vaccine</th>
+                        <td style="border: 1px solid gray"><%= vd[0].str_VaccineName %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Number Of Immunity Years</th>
+                        <td style="border: 1px solid gray"><%= vd[0].flt_YearsOfImmunity %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Manufacturer</th>
+                        <td style="border: 1px solid gray"><%= vd[0].str_Manufacturer %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Date Of Vaccination</th>
+                        <td style="border: 1px solid gray"><%=  MMMMDDYYYY(vd[0].dtm_DateTimeOfVaccination) %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">LOT Number</th>
+                        <td style="border: 1px solid gray"><%= vd[0].str_LotNo %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Next Ideal Date Of Vaccination</th>
+                        <td style="border: 1px solid gray"><%=  MMMMDDYYYY_addYear(vd[0].dtm_DateTimeOfVaccination,vd[0].flt_YearsOfImmunity) %></td>
+                    </tr>
+
+                </table>
+            </center>
+            <br>
+            <p style="border: 1px solid gray;font-size:12px">
+                <strong>NOTE:</strong> This is to certify that the above described pet has been vaccinated by the undersigned City Veterinary Office Employee on the date specified above. <br><br> Not Valid if there are any erasures, without signature of City Veterinary Office Employee or without official dry seal/official stamp. Falsification is punishable by law under Article 171 RPC.<br><br> VALID UNTIL THE NEXT IDEAL DATE OF VACCINATION.
+            </p>
+
+            <br><br><br>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <div align="left">
+                            Something<br>
+                            <i>Pet Owner</i>
+                        </div>
+                    </td>
+                    <td>
+                        <div align="right">
+                            <%= empName %><br>
+                                <i>City Veterinary Office Employee</i>
+                        </div>
+                    </td>
+                    <tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="/jsPDF/dist/jspdf.debug.js"></script>
+    <script type="text/javascript" src="/html2canvas.js"></script>
+    <script type="text/javascript" src="/jsPDF/examples/js/basic.js"></script>
+    <script>
+        var doc = new jsPDF();
+         swal({
+     title: "Conducted Vaccination is recorded!",
+     text: "The Certificate of Vaccination will be downloaded in just a few seconds. ",
+     icon: "success",
+     button: true,
+     closeOnClickOutside: false,
+   }).then((willDelete) => {
+             if (willDelete) {
+                    document.body.innerHTML = "";
+                    window.location.href="/CVO_Registration"
+               }
+   });
+        html2canvas(document.getElementById('toPrint')).then(function(canvas) {
+            doc.addImage(canvas, 5, 1);
+            doc.save("Pet_Owner_Pre-registration_Summary.pdf")
+        });
+    
+    </script>
+    <% function MMMMDDYYYY(i){
+                             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                             var now = new Date(i);
+                             return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                                }
+                                function MMMMDDYYYY_addYear(i,x){
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + (now.getFullYear()+x);
+                        
+                       }
+                       
+                                %>
+</body>
+
+</html>

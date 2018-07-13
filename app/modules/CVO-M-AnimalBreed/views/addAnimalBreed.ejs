@@ -45,7 +45,7 @@ function breedname_typing(i) {
         data: {
             id: i
         },
-        url: '/checkBreedName ',
+        url: '/checkBreedName/add ',
         success: function(data) {
 
             if (data == 1) {
@@ -68,19 +68,21 @@ function breedname_typing(i) {
 }
 
 function add_validation() {
+ 
     var toSubmit = true;
-    if (document.getElementById('name').value.trim() == "") {
+    if (document.getElementById('name').value.trim() == "") { alert("hi")
         toSubmit = false;
         $('#breedname_line').addClass("error");
         document.getElementById("required-breed_name").style.display = 'block';
     }
+    else{
     $.ajax({
         type: 'POST',
         dataType: "json",
         data: {
-            id: trim().document.getElementById('name').value.trim()
+            id: document.getElementById('name').value.trim()
         },
-        url: '/checkBreedName ',
+        url: '/checkBreedName/add ',
         success: function(data) {
 
             if (data == 1) {
@@ -104,6 +106,8 @@ function add_validation() {
             }
         }
     });
+  }
 
 }
 </script>
+

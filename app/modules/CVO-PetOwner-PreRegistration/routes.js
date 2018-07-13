@@ -63,6 +63,10 @@ router.post('/',  (req,res)=>{
 	});
 });
 
+router.get('/pdf',(req,res)=>{
+		res.render('CVO-PetOwner-PreRegistration/views/preregpdf');
+});
+
 
 
 exports.PetOwner_PreRegistration= router;

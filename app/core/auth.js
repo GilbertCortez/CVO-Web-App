@@ -1,14 +1,14 @@
 var db = require('../lib/database')();
 exports.hasAuth = (req, res, next) => {
     if (req.session && req.session.user && Object.keys(req.session.user).length > 0) return next();
-    return res.redirect('/login/tempLog?unauthorized');
+    return res.redirect('/PetOwner_Login');
 }
 
 exports.noAuthed = (req, res, next) => {
     if (req.session && req.session.user && Object.keys(req.session.user).length > 0) {
 
        Object.keys(req.session.user).forEach(i => {
-                if(i == 'strOrganizerEmail'){
+                if(i == 'int_PetOwnerId'){
                     res.redirect('/organizer');
                 }
                 else if (i == 'strProviderEmail'){

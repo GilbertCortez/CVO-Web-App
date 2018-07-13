@@ -62,28 +62,30 @@
         </div>
         <div class="card">
             <div class="body">
-                <form  method="POST">
+            
                     <div class="msg">Pet Owner Login</div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="Email"  autofocus>
+                    <form id="petowner_login" action="/PetOwner_Login" method="POST" onsubmit="return false;" >
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">person</i>
+                            </span>
+                            <div class="form-line">
+                                <input type="text" class="form-control" name="email" placeholder="Email" value="gilbert230709@gmail.com" autofocus>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" >
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">lock</i>
+                            </span>
+                            <div class="form-line">
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="sean">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="row">
                        <div class="col-xs-4"></div>
                         <div class="col-xs-4">
-                            <a class="btn btn-block bg-blue waves-effect" href="/PetOwner_MyPets" >LOGIN</a>
+                            <a class="btn btn-block bg-blue waves-effect" onclick="login()">LOGIN</a>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">
@@ -94,10 +96,19 @@
                             <a href="forgot-password.html">Forgot Password?</a>
                         </div>
                     </div>
-                </form>
+               
             </div>
         </div>
     </div>
+
+<script>
+    function login(){
+        document.getElementById('petowner_login').submit();
+    }
+</script>
+
+
+
 
     <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>

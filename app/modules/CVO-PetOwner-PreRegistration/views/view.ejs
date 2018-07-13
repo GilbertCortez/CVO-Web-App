@@ -1,20 +1,11 @@
 <%- include('../../../templates/CVO-Homepage-NavBar.ejs') -%>
 <br><br><br><br>
-
-
-
-                      
-
 <script>
 
 function summaryOfAppointment(i,dateSelected){
-
-       
-       
-            document.getElementById('Appointment').value=dateSelected+" "+i.hour+":00";
+         document.getElementById('Appointment').value=dateSelected+" "+i.hour+":00";
          document.getElementById('modal_Appointment').value=MMMMDDYYYY(dateSelected)+" "+PRETTYTIME(i.hour);
          document.getElementById('Appointments').value=MMMMDDYYYY(dateSelected)+" "+PRETTYTIME(i.hour);
-
 }
 </script>
 </div>
@@ -41,8 +32,8 @@ function summaryOfAppointment(i,dateSelected){
                   <div class="col-md-4">
                      <div class="form-group form-float">
                      <label class="form-label">First Name</label>
-                        <div class="form-line">
-                           <input type="text" class="form-control" id="FName" name="FName" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
+                        <div class="form-line error">
+                           <input type="text" class="form-control" id="FName" name="FName" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();" autocomplete="off">
                            
                         </div>
                      </div>
@@ -51,7 +42,7 @@ function summaryOfAppointment(i,dateSelected){
                      <div class="form-group form-float">
                      <label class="form-label">Middle Name</label>
                         <div class="form-line">
-                           <input type="text" class="form-control" id="MName" name="MName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();">
+                           <input type="text" class="form-control" id="MName" name="MName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+this.value+' '+$('#LName').val();" autocomplete="off">
                            
                         </div>
                      </div>
@@ -60,7 +51,7 @@ function summaryOfAppointment(i,dateSelected){
                      <div class="form-group form-float">
                       <label class="form-label">Last Name</label>
                         <div class="form-line">
-                           <input type="text" class="form-control" id="LName" name="LName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
+                           <input type="text" class="form-control" id="LName" name="LName"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;" autocomplete="off">
                           
                         </div>
                      </div>
@@ -70,7 +61,7 @@ function summaryOfAppointment(i,dateSelected){
                   <label class="form-label">Cellphone Number</label>
                   <div class="form-group form-float">
                      <div class="form-line">
-                        <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber"  onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
+                        <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber"  onchange="document.getElementById('modal_CellphoneNumber').value=this.value;" autocomplete="off">
                      </div>
                   </div>
                   </div>
@@ -78,7 +69,7 @@ function summaryOfAppointment(i,dateSelected){
                   <label class="form-label">Email Address</label>
                   <div class="form-group form-float">
                      <div class="form-line">
-                        <input type="email" class="form-control" name="emailAddress"  onchange="document.getElementById('modal_EmailAddress').value=this.value;">
+                        <input type="email" class="form-control" name="emailAddress"  onchange="document.getElementById('modal_EmailAddress').value=this.value;" autocomplete="off">
                      </div>
                      </div>
                   </div>
@@ -97,7 +88,7 @@ function summaryOfAppointment(i,dateSelected){
                   <select class="form-control show-tick" data-live-search="true" name="startYear"  onchange="document.getElementById('modal_StartYear').value=this.value;">
                      <option>select</option>
                      <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
-                     <option value='<%= curryear %>'><%= curryear %></option>
+                     <option value='<%= curryear %>' autocomplete="off"><%= curryear %></option>
                      <% curryear--; } %>
                   </select>
                   </div>
@@ -105,7 +96,7 @@ function summaryOfAppointment(i,dateSelected){
                   <label class="form-label">Complete Address</label>
                   <div class="form-group form-float">
                      <div class="form-line">
-                        <input type="email" class="form-control" name="completeAddress"  onchange="document.getElementById('modal_CompleteAddress').value=this.value;">
+                        <input type="email" class="form-control" name="completeAddress"  onchange="document.getElementById('modal_CompleteAddress').value=this.value;" autocomplete="off">
                      </div>
                   </div>
                   </div>

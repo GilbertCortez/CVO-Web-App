@@ -9,13 +9,14 @@
    <% if(pageStatus==3){ %>
    <div class="row clearfix">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         <div class="card">
-            <div class="header bg-blue">
+      <div class="block-header">
                <h2>Pet Owner Information</h2>
             </div>
-            <div class="header col-sm-12" >
-               <div class="col-sm-4" align="center">
-                  <img src="/PetOwners<%= currentPetOwner.str_PetOwnerPicturePath %>"  style="border:4px;border-style:solid;border-color:#2196f3" src="#" alt="your image" width="200" height="200" />
+         <div class="card" style="min-height:240px">
+            
+            <div class="header col-sm-12"  >
+               <div class="col-sm-4" align="center" >
+                  <img src="/PetOwners<%= currentPetOwner.str_PetOwnerPicturePath %>"  style="border:4px;border-style:solid;border-color:#2196f3;" src="#" alt="your image" width="200" height="200" />
                </div>
                <div class="col-sm-8">
                   <h1>
@@ -39,20 +40,18 @@
                </div>
             </div>
            
-            <div>
-              &nbsp;
-            </div>
-       
+          
          </div>
       </div>
    </div>
    <% } %>
    <div class="row clearfix">
       <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-         <div class="card">
-            <div class="header  bg-blue">
+      <div class="block-header">
                <h2>Pet Registration Form</h2>
             </div>
+         <div class="card" style="min-height:500px">
+            
             <div class="body">
                <form id="petForm" method="POST" action="/CVO_PetRegistration" enctype="multipart/form-data">
                   <input type="hidden" value='<%= JSON.stringify(currentPetOwner) %>' name="currentPetOwner">
@@ -62,42 +61,69 @@
                   <input type="hidden" value='<%= lastPayment %>' name="lastPayment">
                   <% } %>
                   <input type="hidden" value='Pet Registration' name="cameFrom">
+                  <div class="col-sm-4">
                   <center>
-                     <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                     <img src="../../images/animalPicture.jpg" onclick="$('#petPicture').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="300" height="300" /><br><br><br>
                      <script type="text/javascript">
                         function readURL(input) {
                             if (input.files && input.files[0]) {
                               var reader = new FileReader();
                               reader.onload = function (e) {
                                 $('#blah').attr('src', e.target.result);
-                                  $('#modal_petPicture').attr('src', e.target.result);
+                                $('#modal_petPicture').attr('src', e.target.result);
+                               
+                                $("#petPicture_line").removeClass('error');
+                              document.getElementById("petPicture_required").style.display="none";
                               };
                               reader.readAsDataURL(input.files[0]);
                             }
                             else{
                               $('#blah').attr('src',"../../images/animalPicture.jpg");
+                                $("#petPicture_line").addClass('error');
+                              document.getElementById("petPicture_required").style.display="block";
                             }
                         }
                      </script>
                      <div>
                         <div class="form-line">
                            <label class="form-label">Pet Picture</label>
-                           <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
+                          
+                            <div class="form-group form-float">
+                           <div class="form-line" id="petPicture_line">
+                               <input type="file" name="petPicture" id="petPicture" onchange="readURL(this);" accept="image/*" />
+                            
+                           </div>
+                              <label id="petPicture_required" class="error" style="display: none">Please Upload Pet's Picture.</label>
+                           </div>
                         </div>
+
                      </div>
+           
                      <br>
                   </center>
+                  </div>
+                  <div class="col-sm-8">
+                  <div class="col-sm-6">
                   <label class="form-label">
                      Pet Name 
                      <p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="To generate a pet name, just click the 'cached' icon on the right part of the Pet Name Field." >&#9432;</p>
                   </label>
+                  <div class="form-group form-float">
                   <div class="input-group">
-                     <div class="form-line">
-                        <input type="text" class="form-control" name="petName" id="petName" onchange="document.getElementById('modal_petName').value=this.value;">
+                  
+                     <div class="form-line" id="petName_line">
+                        <input type="text" class="form-control" name="petName" id="petName" autocomplete="off"  onkeyup="required_validate(this)"  onchange="document.getElementById('modal_petName').value=this.value;">
                      </div>
                      <span class="input-group-addon"><i class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="Generate a Pet Name" onclick="document.getElementById('petName').value= generateAnimalName();document.getElementById('modal_petName').value=document.getElementById('petName').value;">cached</i></span>
+                             
                   </div>
+                   
+                   <label id="petName_required" class="error" style="display: none">This field is required.</label>
+                   </div>
                   <script type="text/javascript" src="PetNameGenerator/petNameGenerator.js"></script>
+                  </div>
+                  <div class="col-sm-6">
+
                   <input type="hidden" value="0" id="sex" name="sex">
                   <label class="form-label">Sex</label>
                   <div class="demo-radio-button" align="center">
@@ -106,23 +132,37 @@
                      <input type="radio" id="female" class="with-gap" name="radio_3"  onclick="document.getElementById('sex').value='1';document.getElementById('modal_Sex').value='Female';">
                      <label for="female">Female</label>
                   </div>
-                  <br><br>
+                  </div>
+                   <div class="col-sm-12"></div>
+                 <div class="col-sm-6">
                   <label class="form-label">Breed</label>
-                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text();'>
+                   <div class="form-group form-float">
+                    <div class="form-line" id="breed_line">
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text();'>
                      <option>select</option>
                      <% br.forEach(function (i) { %>
                      <option value='<%= i.int_BreedId %>'><%= i.str_BreedName %></option>
                      <% }); %>
                   </select>
-                  <br><br>
+                   </div>
+                  <label id="breed_required" class="error" style="display:  none">This field is required.</label>
+                  </div>
+                  </div>
+                  <div class="col-sm-6">
                   <label class="form-label">Color Pattern</label>
-                  <select class="form-control show-tick" id="ColorPattern" name="ColorPattern" data-live-search="true" onchange='document.getElementById("modal_colorPattern").value=$("#ColorPattern option[value="+this.value+"]").text();'>
+                    <div class="form-group form-float">
+                    <div class="form-line" id="ColorPattern_line">
+                  <select class="form-control show-tick" id="ColorPattern" name="ColorPattern" data-live-search="true" onchange='required_validate(this);document.getElementById("modal_colorPattern").value=$("#ColorPattern option[value="+this.value+"]").text();'>
                      <option>select</option>
                      <% co.forEach(function (i) { %>
                      <option value='<%= i.int_ColorPatternId %>'><%= i.str_Description %></option>
                      <% }); %>
                   </select>
-                  <br><br>
+                    </div>
+                  <label id="ColorPattern_required" class="error" style="display: none">This field is required.</label>
+                  </div>
+                </div>
+                <div class="col-sm-12"></div>
                   <% var curryear= (new Date()).getFullYear();
                      var currmonth=(new Date()).getMonth()+1;
                      var currdate=(new Date()).getDate();
@@ -141,27 +181,37 @@
                      }
                      
                      %>
+                     <div class="col-sm-12">
                   <label class="form-label">Birthday</label>
                   <div class="form-group form-float">
-                     <div class="form-line">
-                        <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday" name="birthday"  aria-required="true" onchange="document.getElementById('modal_Birthday').value=this.value;">
+                     <div class="form-line" id="birthday_line">
+                        <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday" name="birthday" onchange="required_validate(this);document.getElementById('modal_Birthday').value=this.value;">
                      </div>
-                  </div>
+                     <label id="birthday_required" class="error" style="display: none">This field is required.</label>
+                     </div>
+                     <div class="col-sm-12"></div>
                   <label class="form-label">Pet Tag Number</label>
                   <div class="form-group form-float">
-                     <div class="form-line">
-                        <input type="text" class="form-control"  name="pettag"  aria-required="true" onchange="document.getElementById('modal_petTag').value=this.value;">
+                     <div class="form-line" id="pettag_line">
+                        <input type="text" class="form-control"  name="pettag" id="pettag"  autocomplete="off" onkeyup="required_validate(this)"  onchange="document.getElementById('modal_petTag').value=this.value;">
                      </div>
+                     <label id="pettag_required" class="error" style="display: none">This field is required.</label>
                   </div>
+</div>
                   <br>
-                  <center><a data-toggle="modal" data-target="#summary"><button class="btn btn-primary waves-effect" type="button">REGISTER</button></a>&nbsp;
-                     <a ><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
-                  </center>
+
+                 
                </form>
             </div>
+   <center><button class="btn btn-primary waves-effect" type="button" onclick="petform_validate();">REGISTER</button></a>&nbsp;
+                     <a ><button class="btn btn-primary waves-effect" type="button">CANCEL</button>
+                  </center>
          </div>
+
       </div>
    </div>
+
+
    <div class="modal fade" id="summary" tabindex="-1" role="dialog" >
       <div class="modal-dialog modal-lg" role="document">
          <div class="modal-content">
@@ -212,6 +262,41 @@
       </div>
    </div>
 </section>
+
+<script>
+   function required_validate(x){
+    
+     if(document.getElementById(x.name).value.trim()=="" || document.getElementById(x.name).value=="select"){
+       $("#"+x.name+"_line").addClass('error');
+       document.getElementById(x.name+"_required").style.display="block";
+     }
+     else{
+      $("#"+x.name+"_line").removeClass('error');
+       document.getElementById(x.name+"_required").style.display="none";
+     }
+   }
+
+    function petform_validate(){
+       var toSubmit=true;
+      ['petName','breed','ColorPattern','birthday','pettag','petPicture'].forEach(function(x){
+         if(document.getElementById(x).value.trim()=="" || document.getElementById(x).value=="select" || document.getElementById(x).value==""){
+       $("#"+x+"_line").addClass('error');
+       document.getElementById(x+"_required").style.display="block";
+       toSubmit=false;
+     }
+     
+      });
+      if(toSubmit){
+      $('#summary').modal('toggle');
+    }
+    else{
+      swal("Warning!","Please fill up the form correctly.","warning")
+    }
+     
+      
+    }
+
+</script>
 <% if(pageStatus==1){ %>
 <form method="POST" action="/CVO_VaccinationConducting" id="vaccinationConducting">
    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />

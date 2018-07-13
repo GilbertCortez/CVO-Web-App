@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
-// router.use(authMiddleware.noAuthed);
+router.use(authMiddleware.noAuthed);
 
 //FOR IMAGE UPLOAD USING MULTER
 var multer  = require('multer');

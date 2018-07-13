@@ -165,80 +165,50 @@
 
 
 
-
-
-
-
-
-
-
 <div class="modal fade" id="requirements" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header bg-blue">
-            <h4 class="modal-title" id="defaultModalLabel">Requirements</h4>
+            <h4 class="modal-title" id="defaultModalLabel">Pet Owner Registration Requirements</h4>
          </div>
          <div class="modal-body">
             <h4>Does the Registrant brings the following?</h4>
             <div class="input-group input-group-lg">
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">Requirement#1</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">Requirement#2</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">Requirement#3</label>
-               </span>
-               <label class="form-label"></label>
+               
+               <% porequ.forEach(function(i,ctr){ %>
+
+               <input type="checkbox" class="filled-in" id="po_requirements_<%=ctr %>">
+               <label for="po_requirements_<%=ctr %>"><%= i.str_Description %><font color="blue"><small> (<%= i.str_Purpose %>)</small></font></label>
+               <br><br>
+               <% }); %>
             </div>
-            <h5>After the Owner Registration Process, will the Pet Owner register a Pet?</h5>
-            <div class="input-group input-group-lg">
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">YES</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">NO</label>
-               </span>
-               <label class="form-label"></label>
-            </div>
-            <h5>Does the Pet to be registered have undergo Vaccination?</h5>
-            <div class="input-group input-group-lg">
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">YES</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">NO</label>
-               </span>
-               <label class="form-label"></label>
-            </div>
-            <h5>Does the Pet Owner brings the Certificate of Vaccination?</h5>
-            <div class="input-group input-group-lg">
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">YES</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">NO</label>
-               </span>
-               <label class="form-label"></label>
-            </div>
-         </div>
          <div class="modal-footer">
-            <a href="/CVO_OwnerRegistration"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
+            <a href="/CVO_OwnerRegistration"></a>
+            <button type="button" class="btn btn-link waves-effect" onclick="petOwnerRequirements();">PROCEED</button>
             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
          </div>
       </div>
    </div>
 </div>
+<script>
+
+function petOwnerRequirements(){
+   var toSubmit=true;
+   for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
+      if(document.getElementById('po_requirements_'+i).checked==false){
+         toSubmit=false;
+      }
+   }
+   if(toSubmit==false){
+      swal("Warning","Requirements should be completed","warning")
+   }
+   else{
+      window.location.href="/CVO_OwnerRegistration";
+   }
+}
+
+</script>
+
 <div class="modal fade" id="requirementsPetReg" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -252,14 +222,7 @@
                <input type="checkbox" class="filled-in" id="ig_checkbox">
                <label for="ig_checkbox">Requirement#1</label>
                </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">Requirement#2</label>
-               </span>
-               <span class="input-group-addon">
-               <input type="checkbox" class="filled-in" id="ig_checkbox">
-               <label for="ig_checkbox">Requirement#3</label>
-               </span>
+            
                <label class="form-label"></label>
             </div>
             <h5>Does the Pet to be registered have undergo Vaccination?</h5>

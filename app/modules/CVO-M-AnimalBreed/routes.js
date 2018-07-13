@@ -50,7 +50,7 @@ router.post('/update', (req, res)=>{
 
 
 
-cb.post('/',  (req,res)=>{
+cb.post('/add',  (req,res)=>{
 	 var id=req.sanitize(req.body.id.trim());
 	console.log(id);
 	db.query(`SELECT str_BreedName FROM breed WHERE str_BreedName="${id}"`,(err,result)=>{
