@@ -1,140 +1,160 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("record_list").className="active";
-document.getElementById("transaction_list").className="active";
-
+   document.getElementById("record_list").className="active";
+   document.getElementById("transaction_list").className="active";
+   
 </script>
-
-  <section >
-            <div class="row clearfix">
-                <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>ACCOUNTS</h2>
-                        </div>
-                        <div class="body">
-                         <div >
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>UNPAID <span class="badge bg-cyan"><%= un.length %></span></a> </li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">check</i>PAID</a></li>
-                          </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
-                                    <%- include('./unpaid.ejs') -%>
-                            </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                              <%- include('./paid.ejs') -%>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                        </div>
-                    </div>
-                </div>
+<section >
+   <div class="row clearfix">
+      <div >
+         <div class="block-header">
+            <h2>ACCOUNTS</h2>
+         </div>
+         <div class="card">
+            <div class="body">
+               <div >
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                     <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>UNPAID <span class="badge bg-cyan"><%= un.length %></span></a> </li>
+                     <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">check</i>PAID</a></li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                     <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                        <%- include('./unpaid.ejs') -%>
+                     </div>
+                     <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
+                        <%- include('./paid.ejs') -%>
+                     </div>
+                  </div>
+               </div>
             </div>
+         </div>
+      </div>
+   </div>
+</section>
+<form action="/CVO_RecordCollection/OrderOfPayment" id="generateOOP" method="post" target="my_iframe">
+  <input type="hidden" value="" name="paymentId" id="paymentId" />
+  <input type="hidden" value="" name="payorname" id="payorname" />
+</form>
 
+<iframe name="my_iframe" id="my_iframe" src="/CVO_RecordCollection/OrderOfPayment" width="100%" height="100%" frameborder="0" style="display:none"></iframe>
 
-    </section>
+<div class="modal fade" id="RecordCollection" tabindex="-1" role="dialog">
+   <div class="modal-dialog" style="width:70%;min-height:90%;" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">Record Collection</h4>
 
-    <div class="modal fade" id="RecordCollection" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">Record Collection</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-
-                          <h3>Payment Information</h3>
-                              <table class="table table-striped">
-                                <tr>
-                                  <td><strong>PAYMENT ID:</strong></td>
-                                  <td id="modal_PaymentId"></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>PAYOR NAME:</strong></td>
-                                  <td id="modal_PayorName"></td>
-                                </tr>
-                              
-                                <tr>
-                                  <td><strong>OR NUMBER:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DATE OF PAYMENT:</strong></td>
-                                  <td><input type="date" class="form-control" name="name" required="" aria-required="true" ></td>
-                                </tr>
-
-
-
-
-
-                              </table>
-                              <div class="body table-responsive">
-                                  <h3>Breakdown of Payment</h3>
-                                  <table id="breakdownTable" class="table table-bordered">
-                                  </table>
-                              </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">RECORD</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
+         </div>
+         <div class="modal-body" >
+         <div class="col-sm-6">
+         <div class="col-sm-7">
+            <h3>Payment Information </h3>
             </div>
+            <div class="col-sm-5" align="right"> 
+            <a><button type="button" class="btn btn-link waves-effect" data-toggle="tooltip" data-placement="top" title="Generate Order Of Payment">
+                                                                            <i class="material-icons">print</i> ORDER OF PAYMENT
 
-            <div class="modal fade" id="ViewCollection" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">View Collection</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-
-
-                              <table class="table table-striped">
-                                <tr>
-                                  <td><strong>PAYMENT ID:</strong></td>
-                                  <td ></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>PAYOR NAME:</strong></td>
-                                  <td>Mary Justine Espin</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>NATURE OF COLLECTION:</strong></td>
-                                  <td>Registration & Vaccination</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>OR NUMBER:</strong></td>
-                                  <td>30009</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DATE OF PAYMENT:</strong></td>
-                                  <td>01/27/2018</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>AMOUNT:</strong></td>
-                                  <td>350</td>
-                                </tr>
-
-
-
-
-                              </table>
-
-                        </div>
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
+                                                                    </button>
+                                                                    </a>
+                                                                    </div>
+            <table class="table table-striped">
+               <tr>
+                  <td><strong>PAYMENT ID:</strong></td>
+                  <td id="modal_PaymentId"></td>
+               </tr>
+               <tr>
+                  <td><strong>PAYOR NAME:</strong></td>
+                  <td id="modal_PayorName"></td>
+               </tr>
+            </table>
+            
+            <div class="body table-responsive">
+               <h3>Breakdown of Payment</h3>
+               <table id="breakdownTable" class="table table-bordered">
+               </table>
             </div>
-
+         </div>
+            </div>
+             <div class="col-sm-6">
+             <form action="/CVO_RecordCollection/record" method="POST" id="recordCollection_form">
+             <input type="hidden" id="payId" name="payId"> 
+           <label class="form-label">Official Receipt Number <font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line"  id="ORNumber_line">
+                  <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" id="ORNumber" name="ORNumber" autocomplete="off" autofocus="" onkeyup="required_validate(this)">
+               </div>
+                <label id="ORNumber_required" class="error" style="display: none;">This field is required.</label>
+            </div>
+            <label class="form-label">Date of Payment <font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line" id="DateOfPayment_line">
+                  <input type="date" class="form-control" id="DateOfPayment" name="DateOfPayment" autocomplete="off"  onchange="required_validate(this)">
+               </div>
+               <label id="DateOfPayment_required" class="error" style="display: none;">This field is required.</label>
+            </div>
+            </form>
+            </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary waves-effect" onclick="validate();">RECORD</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="ViewCollection" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">View Collection</h4>
+         </div>
+         <div class="modal-body" align="center">
+            <table class="table table-striped">
+               <tr>
+                  <td><strong>PAYMENT ID:</strong></td>
+                  <td ></td>
+               </tr>
+               <tr>
+                  <td><strong>PAYOR NAME:</strong></td>
+                  <td>Mary Justine Espin</td>
+               </tr>
+               <tr>
+                  <td><strong>NATURE OF COLLECTION:</strong></td>
+                  <td>Registration & Vaccination</td>
+               </tr>
+               <tr>
+                  <td><strong>OR NUMBER:</strong></td>
+                  <td>30009</td>
+               </tr>
+               <tr>
+                  <td><strong>DATE OF PAYMENT:</strong></td>
+                  <td>01/27/2018</td>
+               </tr>
+               <tr>
+                  <td><strong>AMOUNT:</strong></td>
+                  <td>350</td>
+               </tr>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+function validate(){
+   document.getElementById('recordCollection_form').submit();
+}
+function required_validate(x) {
+            if (document.getElementById(x.name).value.trim() == "" || document.getElementById(x.name).value == "select") {
+                $("#" + x.name + "_line").addClass('error');
+                document.getElementById(x.name + "_required").style.display = "block";
+            } else {
+                $("#" + x.name + "_line").removeClass('error');
+                document.getElementById(x.name + "_required").style.display = "none";
+            }
+        }
+</script>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

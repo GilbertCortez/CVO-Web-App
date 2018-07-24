@@ -104,7 +104,7 @@ router1.post('/preregistered/recording', uploadOwner.any(), (req, res) => {
     db.query(`UPDATE petowner SET str_PetOwnerFirstName="${FirstName}",str_PetOwnerMiddleName="${MiddleName}",str_PetOwnerLastName="${LastName}",dat_DateRegistered=now(),int_BarangayId=${BarangayId},str_CompleteAddress="${CompleteAddress}",dat_StartedYearOfStay="${StartedYear}",str_PhoneNo="${PhoneNumber}",str_PetOwnerPicturePath="${PetOwnerPicturePath}",str_Email="${Email}",int_Status=1 WHERE int_PetOwnerId=${req.body.currentPetOwnerId}`, (err, result) => {
         console.log(err);
         db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${req.body.currentPetOwnerId},0,0)`, (err, lastPayment) => {
-            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},1 )`, (err, results) => {});
+            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},0 )`, (err, results) => {});
             db.query('SELECT * FROM barangay', (err, barangay) => {
                 db.query(`SELECT * FROM petowner WHERE int_PetOwnerId=${req.body.currentPetOwnerId} `, (err, currentPetOwner) => {
                     console.log(currentPetOwner);
@@ -156,7 +156,7 @@ router1.post('/', uploadOwner.any(), (req, res) => {
 
     db.query(`INSERT INTO petowner(str_PetOwnerFirstName, str_PetOwnerMiddleName, str_PetOwnerLastName, dat_DateRegistered, int_BarangayId, str_CompleteAddress, dat_StartedYearOfStay, str_PhoneNo, str_PetOwnerPicturePath, str_Email, str_Password, int_Status) VALUES ('${FirstName}','${MiddleName}','${LastName}',now(),${BarangayId},'${CompleteAddress}','${StartedYear}','${PhoneNumber}','${PetOwnerPicturePath}','${Email}','${Password}',1)`, (err, currentPetOwnerId) => {
         db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${currentPetOwnerId.insertId},0,0)`, (err, lastPayment) => {
-            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},1 )`, (err, results) => {});
+            db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId) VALUES( ${lastPayment.insertId},0 )`, (err, results) => {});
             db.query('SELECT * FROM barangay', (err, barangay) => {
                 db.query(`SELECT * FROM petowner WHERE int_PetOwnerId=${currentPetOwnerId.insertId} `, (err, currentPetOwner) => {
                     console.log(currentPetOwner);
@@ -235,7 +235,7 @@ router2.post('/', uploadPet.any(), (req, res) => {
 
                             if (req.body.lastPayment == 'NONE') {
                                 db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},0,0)`, (err, lastPayment) => {
-                                    db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},2,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {});
+                                    db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},1,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {});
                                     db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`, (err, currentPetRecord) => {
                                         res.render('CVO-T-Registration/views/petregistration.ejs', {
                                             br: breed,
@@ -248,7 +248,7 @@ router2.post('/', uploadPet.any(), (req, res) => {
                                     });
                                 });
                             } else {
-                                db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},2,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {
+                                db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},1,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {
                                     db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`, (err, currentPetRecord) => {
                                         res.render('CVO-T-Registration/views/petregistration.ejs', {
                                             br: breed,

@@ -1,70 +1,85 @@
 <div class="body">
-                                         <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Payment ID</th>
-                                                            <th>Payor Name</th>
+   <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+         <thead>
+            <tr>
+               <th>Payment ID</th>
+               <th>Payor Name</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            <% un.forEach(function(i){ %>
+            <tr>
+               <td><%= i.int_PaymentId %></td>
+               <td><%= i.str_PayorName %></td>
+               <td>
+                  <div align="center">
+                     <a data-toggle="modal" data-target="#RecordCollection" onclick="getBreakdown(<%= i.int_PaymentId %>)"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Collection">
+                     <i class="material-icons">account_balance_wallet</i> RECORD
+                     </button>
+                     </a>
+                     <a onclick="
+                        document.getElementById('my_iframe').style.display='block';
+                        document.getElementById('paymentId').value=<%= i.int_PaymentId %>; 
+                        document.getElementById('payorname').value='<%= i.str_PayorName %>';
+                        document.getElementById('generateOOP').submit(); 
+                        setTimeout(function(){ document.getElementById('my_iframe').style.display='none'; }, 3000);
+                        swal({
+                        title: 'Generating Order of Payment',
+                        text: 'The Order of Payment will be downloaded in just a few seconds. ',
+                        icon: 'success',
+                        button: true,
+                        closeOnClickOutside: false,
+                        })
+                        " ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Generate Order Of Payment" >
+                     <i class="material-icons">print</i> ORDER OF PAYMENT
+                     </button>
+                     </a>
+                  </div>
+               </td>
+            </tr>
+            <% }); %>
+         </tbody>
+      </table>
+   </div>
+</div>
+<script>    
+    
 
-                                                            <th>Total Amount</th>
-															                              <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr>
-                                                    </tfoot> -->
-                                                    <tbody>
-                                                        <% un.forEach(function(i){ %>
-                                                        <tr>
-                                                            <td><%= i.int_PaymentId %></td>
-                                                            <td><%= i.str_PayorName %></td>
+function YYYYMMDD() {
+            var d = new Date(),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
 
-															                              <td>350</td>
-                                                            <td>
-                                                                <div align="center">
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
 
+            return [day, month, year].join('/');
+}
 
-
-                                                                     <a data-toggle="modal" data-target="#RecordCollection" onclick="getBreakdown(<%= i.int_PaymentId %>)"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Collection">
-                                                                            <i class="material-icons">add</i> RECORD COLLECTION
-
-                                                                    </button>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <% }); %>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <script>
-                                        function getBreakdown(paymentId){
-                                            var totalAmount=0.0;
-                                        $.ajax({
-                                              type: 'POST',
-                                              dataType: "json",
-                                              data: { id: paymentId },
-                                                          url: '/CVO_PaymentBreakdown',
-                                                          success: function(data) {
-                                                                //alert(JSON.stringify(data));
-
-                                                              $('#modal_PaymentId').text("#"+paymentId);
-                                                              $('#modal_PayorName').text(data[0].str_PayorName);
-                                                              $('#breakdownTable').empty();
-                                                              $('#breakdownTable').append('<tr><th>Nature Of Collection</th><th>Amount</th></tr>');
-
-                                                              data.forEach(function(i){
-                                                                  $('#breakdownTable').append('<tr><td>'+i.str_Description+'</td><td>'+parseFloat(i.dec_Amount).toFixed(2)+'</td></tr>');
-                                                                  totalAmount+=parseFloat(i.dec_Amount);
-                                                              });
-                                                              $('#breakdownTable').append('<tr><th>TOTAL</th><th>'+totalAmount+'</th></tr>');
-                                                          }
-                                                      });
-                                                    }
-                                        </script>
+   function getBreakdown(paymentId){
+       var totalAmount=0.0;
+   $.ajax({
+         type: 'POST',
+         dataType: "json",
+         data: { id: paymentId },
+                     url: '/CVO_PaymentBreakdown',
+                     success: function(data) {
+                           //alert(JSON.stringify(data));
+                           $('#payId').val(paymentId);
+                         $('#modal_PaymentId').text("#"+paymentId);
+                         $('#modal_PayorName').text(data[0].str_PayorName);
+                         $('#breakdownTable').empty();
+                         $('#breakdownTable').append('<tr><th>Nature Of Collection</th><th>Amount</th></tr>');
+   
+                         data.forEach(function(i){
+                             $('#breakdownTable').append('<tr><td>'+i.str_Description+'</td><td>'+parseFloat(i.dec_Amount).toFixed(2)+'</td></tr>');
+                             totalAmount+=parseFloat(i.dec_Amount);
+                         });
+                         $('#breakdownTable').append('<tr><th>TOTAL</th><th>'+totalAmount+'</th></tr>');
+                     }
+                 });
+               }
+</script>

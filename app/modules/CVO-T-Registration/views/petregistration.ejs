@@ -134,21 +134,32 @@
                   </div>
                   </div>
                    <div class="col-sm-12"></div>
-                 <div class="col-sm-6">
+                    <div class="col-sm-4">
                   <label class="form-label">Breed</label>
                    <div class="form-group form-float">
                     <div class="form-line" id="breed_line">
-                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text();'>
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
                      <option>select</option>
                      <% br.forEach(function (i) { %>
-                     <option value='<%= i.int_BreedId %>'><%= i.str_BreedName %></option>
+                     <option value='<%= i.int_BreedId %>' ><%= i.str_BreedName %></option>
                      <% }); %>
                   </select>
                    </div>
                   <label id="breed_required" class="error" style="display:  none">This field is required.</label>
                   </div>
                   </div>
-                  <div class="col-sm-6">
+                    <div class="col-sm-4">
+                     <label class="form-label">Species</label>
+                      <div class="form-group form-float">
+                     <div class="form-line" id="pettag_line">
+                        <input type="text" class="form-control"  id="species"  autocomplete="off" value="select breed" disabled>
+                     </div>
+                     
+                  </div>
+                  
+                  </div>
+                
+                  <div class="col-sm-4">
                   <label class="form-label">Color Pattern</label>
                     <div class="form-group form-float">
                     <div class="form-line" id="ColorPattern_line">
@@ -264,6 +275,21 @@
 </section>
 
 <script>
+ 
+    function speciesIterate(){
+        if(document.getElementById('breed').value=="select"){
+           document.getElementById('species').value="select breed"
+           return;
+        }
+
+         <% br.forEach(function (i) { %>
+                      if( document.getElementById('breed').value == '<%= i.int_BreedId %>'){
+                    document.getElementById('species').value='<%= i.int_AnimalSpecies %>'==0 ?  'Dog' : 'Cat'; 
+                   }
+                     <% }); %>
+            
+
+    }
    function required_validate(x){
     
      if(document.getElementById(x.name).value.trim()=="" || document.getElementById(x.name).value=="select"){
@@ -273,6 +299,8 @@
      else{
       $("#"+x.name+"_line").removeClass('error');
        document.getElementById(x.name+"_required").style.display="none";
+       
+       
      }
    }
 
@@ -298,6 +326,9 @@
 
 </script>
 <% if(pageStatus==1){ %>
+<form action="/CVO_RecordCollection/OrderOfPayment" method="POST" id="noProceed">
+   <input type="hidden" value='<%= lastPayment %>' name="paymentId">
+</form>
 <form method="POST" action="/CVO_VaccinationConducting" id="vaccinationConducting">
    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />
    <input type="hidden" value="<%= lastPayment %>" name="lastPaymentId" />
@@ -318,12 +349,13 @@
    }).then((willDelete) => {
              if (willDelete) {
                swal({
-                 title: "What type of Vaccination?",
+                 title: "What way of Vaccination?",
                  icon: "/images/alert_question.png",
                  buttons: {
                    Conduct: "CONDUCT",
                    Schedule: "SCHEDULE",
                    Record: "RECORD",
+                   Order: "ORDER OF PAYMENT",
                  },
                  closeOnClickOutside: false,
                })
@@ -336,6 +368,9 @@
                  }
                  else if(decision==="Record"){
                    $('#vaccinationRecording').submit();
+                 }
+                  else if(decision==="Order"){
+                   $('#noProceed').submit();
                  }
                })
                }

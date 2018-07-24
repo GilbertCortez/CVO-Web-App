@@ -1,0 +1,186 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>City Veterinary Office</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="css/themes/all-themes.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Calibri Light";
+        }
+
+        tr {
+            font-size: 15px;
+        }
+    </style>
+    <style>
+        td,
+        th,
+        tr {
+
+
+            padding: 2px;
+
+        }
+    </style>
+     <style>
+    .swal-overlay {
+      background-color: rgba(66, 134, 244);
+      }
+
+    </style>
+</head>
+
+<body style="background: gray">
+    <div id="toPrint" class="col-sm-12" style="background: white">
+
+        <div style="max-width:700px;">
+            <br><br>
+            <center>
+                <img src="/images/pdfHeader.jpg" width="70%">
+                <h3>Certificate of Pet Ownership</h3>
+            </center>
+            <br>
+
+            <table class="bg-blue" width="100%">
+                <tr>
+                    <td>
+                        <h5>
+                            <%= od[0].str_OfficeName.toUpperCase() %>
+                        </h5>
+                    </td>
+                    <td style="text-align:right">
+                        <h6>
+                            <%= od[0].str_ContactNo %>
+                        </h6>
+                    </td>
+                </tr>
+            </table>
+
+            <center>
+                <table width="100%" style="border: 1px solid gray">
+
+                    <tr>
+                        <th width="50%"></th>
+                        <td style="text-align:right">
+                            <h6>
+                                <%= od[0].str_Email %>
+                                    <h6>
+                                        <h6>
+                                            <%= od[0].str_Address %>
+                                                <h6>
+                        </td>
+                    </tr>
+
+                </table>
+            </center>
+
+            <table class="bg-blue" width="100%">
+                <tr>
+                    <td>
+                        <h5>PET OWNER INFORMATION</h5>
+                    </td>
+
+                </tr>
+            </table>
+
+            <center>
+                <table width="100%" style="border: 1px solid gray" cols>
+
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Name</th>
+                        <td style="border: 1px solid gray"><%= po[0][0].str_PetOwnerLastName+", "+po[0][0].str_PetOwnerFirstName+" "+po[0][0].str_PetOwnerMiddleName %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Date of Registration</th>
+                        <td style="border: 1px solid gray"><%= MMMMDDYYYY(po[0][0].dat_DateRegistered) %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Cellphone Number</th>
+                        <td style="border: 1px solid gray"><%= po[0][0].str_PhoneNo %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Email Address</th>
+                        <td style="border: 1px solid gray"><%= po[0][0].str_Email %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray">Barangay</th>
+                        <td style="border: 1px solid gray"><%= po[0][0].str_BarangayName %></td>
+                        <th class="bg-grey" style="border: 1px solid gray">Start Year of Stay</th>
+                        <td style="border: 1px solid gray"><%= po[0][0].dat_StartedYearOfStay %></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-grey" style="border: 1px solid gray" >Complete Address</th>
+                        <td style="border: 1px solid gray" colspan="3"><%= po[0][0].str_CompleteAddress %></td>
+                
+                    </tr>
+                   
+
+                </table>
+            </center>
+           
+            <br>
+            <p style="border: 1px solid gray;font-size:12px">
+                <strong>NOTE:</strong> <br><br> Not Valid if there are any erasures, without signature of City Veterinary Office Employee or without official dry seal/official stamp. Falsification is punishable by law under Article 171 RPC.<br><br> 
+            </p>
+
+            <br><br><br>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <div align="left">
+                            Something<br>
+                            <i>Pet Owner</i>
+                        </div>
+                    </td>
+                    <td>
+                        <div align="right">
+                            <%= empName %><br>
+                                <i>City Veterinary Office Employee</i>
+                        </div>
+                    </td>
+                    <tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="/jsPDF/dist/jspdf.debug.js"></script>
+    <script type="text/javascript" src="/html2canvas.js"></script>
+    <script type="text/javascript" src="/jsPDF/examples/js/basic.js"></script>
+    <script>
+        var doc = new jsPDF();
+      
+        html2canvas(document.getElementById('toPrint')).then(function(canvas) {
+            doc.addImage(canvas, 5, 1,340,200);
+          
+
+     var canvasImg = canvas.toDataURL("image/jpg");
+       document.write('<img src="'+canvasImg+'" width="180%">');
+       setTimeout(function(){window.print()}, 200)
+    
+
+  
+//doc.save("Pet_Owner_Certificate.pdf")
+        });
+    
+    </script>
+    <% function MMMMDDYYYY(i){
+                             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                             var now = new Date(i);
+                             return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                                }
+                                function MMMMDDYYYY_addYear(i,x){
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + (now.getFullYear()+x);
+                        
+                       }
+                       
+                                %>
+</body>
+
+</html>

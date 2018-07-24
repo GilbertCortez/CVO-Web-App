@@ -26,6 +26,20 @@ function YYYYMMDD() {
 						return [year, month, day].join('-');
 }
 
+
+function DDMMYYYY() {
+            var d = new Date(),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [day, month, year].join('/');
+}
+
+
 function PRETTYTIME(i){//HH:SS To HH:SS PM/AM
 						var splitTime=i.split(":");
 						var prettytime="";

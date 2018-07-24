@@ -11,52 +11,187 @@ document.getElementById("transaction_list").className="active";
     <section >
 
             <div class="row clearfix">
-                <div >
+            <div class="col-sm-6">
+            <div class="card bg-blue" style="min-height:580px;">
+                <div class="body">
+                    <div class="col-sm-12">
+                       <br>
+                        <div class="col-sm-4">
+                        <br><br><br>
+                        <center>
+                            <font size="100px"><i class="material-icons" style="font-size: 150px;color: white">pets</i></font>
+                            <br>
+                            <h5 style="color: white">&nbsp;&nbsp;&nbsp;PET INFORMATION</h5></center>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-7" align="center">
 
-                    <div class="card">
-                        <div class="header  bg-blue">
+                            <img style="border:4px;border-style:solid;border-color:white " id="blah " src="<%='/Pets' +pe[0].str_AnimalPicturePath %>" alt="your image" width="270px" height="270px" />
+                        </div>
+                        <div class="col-sm-12">
+                            <font color="white">
+                                <% function MMMMDDYYYY(i){
+                             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                             var now = new Date(i);
+                             return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                                }%>
+                                    <style>
+                                        td,
+                                        th,
+                                        tr {
+
+                                           border-bottom: 1px solid #ddd;
+                                            color: white;
+                                            height: 30px;
+                                            padding: 3px;
+
+                                        }
+                                    </style>
+                                    <table style="width: 100%; ">
+                                        <tr>
+                                            <th>PET NAME</th>
+                                            <td>
+                                                <%=pe[0].str_PetName %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>PET TAG NUMBER</th>
+                                            <td>
+                                                <%= pe[0].str_PetTagNo %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>ANIMAL SPECIES</th>
+                                            <td>
+                                                <%= pe[0].int_AnimalSpecies==0? "Dog" : "Cat"; %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>BREED</th>
+                                            <td>
+                                                <%=  pe[0].str_BreedName %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>COLOR PATTERN</th>
+                                            <td>
+                                                <%= pe[0].str_Description %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>BIRTHDAY</th>
+                                            <td>
+                                                <%=MMMMDDYYYY(pe[0].dat_Birthday)%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>HEALTH STATUS</th>
+                                            <td>
+                                                <%= pe[0].int_HealthStatus==0 ? "Healthy" : "Sick" ;%>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+                            </font>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm-6">
+                <div >
+ <div class="block-header">
                             <h2>Record Vaccination</h2>
                         </div>
+                    <div class="card" style="min-height: 550px">
+                       
                         <div class="body">
 
 
                             <form id="vaccinationRecordingForm" method="POST"  action="/CVO_VaccinationRecording/recording">
+                              <input type="hidden" value='<%= currentPetId %>' name="currentPetId" />
+                                  <div class="col-sm-12">
+                                <label class="form-label">Vaccine <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="vaccine_line">
+                                        <select class="form-control show-tick" id="vaccine" name="vaccine" data-live-search="true" onchange="required_validate(this);getVaccineDetails();">
+                                            <option>select</option>
+                                            <% va.forEach(function(i){ %>
+                                                <option value='<%= i.int_VaccineId %>'>
+                                                    <%= i.str_VaccineName %>
+                                                </option>
+                                                <% }); %>
+                                        </select>
+                                    </div>
+                                    <label id="vaccine_required" class="error" style="display: none;">This field is required.</label>
+                                </div>
 
-                                    <input type="hidden" name="currentPetId" value="<%= currentPetId %>">
-                                <label class="form-label">Vaccine</label>
-                             	  <select class="form-control show-tick" id="vaccine" name="vaccine" data-live-search="true" onchange="getVaccineDetails();">
-                                        <option>select</option>
-                                        <% va.forEach(function(i){ %>
-                                        <option value='<%= i.int_VaccineId %>' ><%= i.str_VaccineName %></option>
-                                        <% }); %>
-                                </select><br><br>
+                            </div>
 
+                            <div class="col-sm-12">
+                                <label class="form-label">Vaccine Lot Number<font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="lotNumber_line">
+                                        <input type="text" class="form-control" name="lotNumber" id="lotNumber" autocomplete="off" onkeyup="required_validate(this)">
+                                    </div>
+                                    <label id="lotNumber_required" class="error" style="display: none;">This field is required.</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <label class="form-label">Vaccine Classification</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="VaccineClassification" disabled>
+                                    <div class="form-line" id="vac1">
+                                        <input type="text" class="form-control" id="VaccineClassification" value="select vaccine" disabled>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="col-sm-4">
                                 <label class="form-label">Vaccine Manufacturer</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" id="VaccineManufacturer" disabled>
+                                    <div class="form-line" id="vac2">
+                                        <input type="text" class="form-control" id="VaccineManufacturer" value="select vaccine" disabled>
                                     </div>
                                 </div>
-
-                                <label class="form-label">Vaccine Lot Number</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label"># of Immunity Years</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="lotNumber" >
+                                    <div class="form-line" id="vac3">
+                                        <input type="text" class="form-control" id="YearOfImmunity" value="select vaccine" disabled>
                                     </div>
                                 </div>
-
-                                <label class="form-label">Vaccination Date</label>
+                            </div>
+                            <div class="col-sm-12">
+                              <% var curryear= (new Date()).getFullYear();
+                     var currmonth=(new Date()).getMonth()+1;
+                     var currdate=(new Date()).getDate();
+                     var yyyymmdd=curryear+"";
+                     if(currmonth<=9){
+                       yyyymmdd=yyyymmdd+"-0"+currmonth;
+                     }
+                     else{
+                       yyyymmdd=yyyymmdd+"-"+currmonth;
+                     }
+                     if(currdate<=9){
+                       yyyymmdd=yyyymmdd+"-0"+currdate;
+                     }
+                     else{
+                       yyyymmdd=yyyymmdd+"-"+currdate;
+                     }
+                     
+                     %>
+                                   <label class="form-label">Vaccination Date</label>
                                 <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="date" class="form-control" name="vaccinationDate" >
+                                    <div class="form-line" id="vaccinationdate_line">
+                                        <input type="date" class="form-control" name="vaccinationdate" id="vaccinationdate" max="<%= yyyymmdd %>" name="vaccinationDate" onchange="required_validate(this)">
                                     </div>
+                                     <label id="vaccinationdate_required" class="error" style="display: none">This field is required.</label>
+                                </div>
                                 </div>
                                 <br>
 
@@ -68,6 +203,7 @@ document.getElementById("transaction_list").className="active";
                     </div>
                 </div>
             </div>
+            </div>
             
 
     </section>
@@ -78,33 +214,88 @@ document.getElementById("transaction_list").className="active";
       </script>
 
       <script>
-        function submitVaccinationRecordingForm(){
-            document.getElementById('vaccinationRecordingForm').submit();
-       
+    
+         function required_validate(x) {
+            if (document.getElementById(x.name).value.trim() == "" || document.getElementById(x.name).value == "select") {
+                $("#" + x.name + "_line").addClass('error');
+                document.getElementById(x.name + "_required").style.display = "block";
+            } else {
+                $("#" + x.name + "_line").removeClass('error');
+                document.getElementById(x.name + "_required").style.display = "none";
+            }
         }
+
+         function submitVaccinationRecordingForm(){
+    //^(09|\+639)\d{9}$
+    var toSubmit=true;
+      ['vaccine','lotNumber','vaccinationdate'].forEach(function(x){
+         if(document.getElementById(x).value.trim()=="" || document.getElementById(x).value=="select" || document.getElementById(x).value==""){
+       $("#"+x+"_line").addClass('error');
+       document.getElementById(x+"_required").style.display="block";
+       toSubmit=false;
+     }
+      });
+      if(toSubmit){
+            swal({
+              title: "Do you wish to continue?",
+              text: "The Vaccination will be recorded after confirmation",
+              icon: "info",
+              buttons: true,
+             
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                document.getElementById('vaccinationRecordingForm').submit();
+              } 
+            });
+     
+    }
+    else{
+      swal("Warning!","Please fill up the form correctly.","warning")
+    }
+   }
+            
       </script>
 
-      <script>
-        function getVaccineDetails(){
-            $.ajax({
-                type: 'POST',
-                dataType: "json",
-                data: { id: document.getElementById('vaccine').value },
-                url: '/CVO_VaccinationRecording/getVaccineDetails',
-                success: function(data) {
+          <script>
+        function getVaccineDetails() {
+            if (document.getElementById('vaccine').value != "select") {
+                $.ajax({
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        id: document.getElementById('vaccine').value
+                    },
+                    url: '/CVO_VaccinationRecording/getVaccineDetails',
+                    success: function(data) {
 
-                        if(data[0].int_VaccineClassification==0){
+                        if (data[0].int_VaccineClassification == 0) {
                             $('#VaccineClassification').val("Government");
-                        }
-                        else{
+                        } else {
                             $('#VaccineClassification').val("Private");
                         }
 
                         $('#VaccineManufacturer').val(data[0].str_Manufacturer);
+                        $('#YearOfImmunity').val(data[0].flt_YearsOfImmunity);
+                        $("#vac1").removeClass('error');
+                $("#vac2").removeClass('error');
+                $("#vac3").removeClass('error');
 
-                }
-            });
+                    }
+                });
+            } else {
+                $('#VaccineClassification').val("select vaccine");
+                $('#VaccineManufacturer').val("select vaccine");
+                $('#YearOfImmunity').val("select vaccine");
+                $("#vac1").addClass('error');
+                $("#vac2").addClass('error');
+                $("#vac3").addClass('error');
+
+
+
+            }
         }
-      </script>
+    </script>
+
 
  <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

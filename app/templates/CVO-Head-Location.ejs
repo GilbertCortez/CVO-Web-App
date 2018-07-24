@@ -6,7 +6,7 @@
  
     <title>City Veterinary Office</title>
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="/material-design-icons/iconfont/material-icons.css" rel="stylesheet" type="text/css">
@@ -33,13 +33,32 @@
     <link href="/css/style.css" rel="stylesheet">
     <!-- For Sweet Alert -->
     <script src="/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
     .swal-overlay {
-      background-color: rgba(66, 134, 244, 0.90);
+      background-color: rgba(66, 134, 244, 1);
       }
 
     </style>
+      <script>
+$(document).ready(function(){
+     $( "input" ).keyup(function() {
+        var eleme=this;
+        var map = {
+    '&': '',
+    '<': '',
+    '>': '',
+    '"': '',
+  };
+
+    var newtxt=eleme.value.replace(/[&<>"']/g, function(m) { return map[m]; });
+    document.getElementById(eleme.id).value=newtxt;
+});
+     });
+
+   
+   
+    </script>
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/css/themes/all-themes.css" rel="stylesheet" />
 

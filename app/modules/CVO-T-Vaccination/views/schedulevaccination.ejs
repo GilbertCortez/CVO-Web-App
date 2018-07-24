@@ -14,11 +14,11 @@ document.getElementById("transaction_list").className="active";
             
             <div class="row clearfix">
                 <div >
-                
-                    <div class="card">
-                        <div class="header  bg-blue">
+                <div class="block-header">
                             <h2>Schedule Vaccination</h2>
                         </div>
+                    <div class="card">
+                        
                         <div class="body">
        
                <link rel='stylesheet' href='/fullcalendar/fullcalendar.css' />                   
@@ -46,6 +46,22 @@ swal("Please select a date of appointment in the calendar!");
    
      height: 400,
      contentHeight: 450,
+     businessHours: {
+      dow: '<%= daysOfWeek %>'.split(",")
+    },
+    events: [
+    {
+      start: '2018-07-20',
+      end: '2018-07-20',
+       overlap: true,
+      rendering: 'background',
+      color: '#ff9f89',
+       selectable:false
+    }
+  ],
+   
+
+
      dayClick: function(date) {
      
           $.ajax({
@@ -62,7 +78,7 @@ swal("Please select a date of appointment in the calendar!");
                                                                data.forEach(function(i,x){
                                                                
                                                                 
-                                                              if(i.totalSlots-i.takenSlots==0){
+                                                              if(i.totalSlots-i.takenSlots<=0){
                                                                 $('#appointmentTime').append(`<button class="btn btn-danger btn-lg btn-block waves-effect" type="button"  disabled>`+i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+0+` Slots)</button>`);
                                                               }else{
                                                                 $('#appointmentTime').append(`<a class="btn btn-primary btn-lg btn-block waves-effect" 
@@ -79,10 +95,13 @@ swal("Please select a date of appointment in the calendar!");
     return {
       start: nowDate
     
-    };
-  },
+    }
+   
+    ;
 
-     events: [{}]
+  }
+
+
 
   })
 

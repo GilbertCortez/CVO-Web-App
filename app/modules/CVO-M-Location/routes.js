@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/add', (req, res) => {
+    console.log(req.body)
     db.query(`INSERT INTO barangay(str_BarangayName, int_ResettlementArea) VALUES ('${req.body.BarangayName}',${req.body.Resettlement})`, (err, fields, results) => {
         res.redirect('/CVO_Location');
     });
@@ -31,9 +32,9 @@ router.post('/update', (req, res) => {
     
 });
 
-cl.post('/', (req, res) => {
+cl.post('/add', (req, res) => {
     var id = req.sanitize(req.body.id.trim());
-    console.log(id);
+  
     db.query(`SELECT * FROM barangay WHERE str_BarangayName="${id}"`, (err, result) => {
         console.log(result);
         if (result.length == 0) {

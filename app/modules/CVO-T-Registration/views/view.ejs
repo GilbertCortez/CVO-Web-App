@@ -172,7 +172,13 @@
             <h4 class="modal-title" id="defaultModalLabel">Pet Owner Registration Requirements</h4>
          </div>
          <div class="modal-body">
+         <center>
             <h4>Does the Registrant brings the following?</h4>
+            <a class="btn btn-primary waves-effect" onclick="checkAllRequirements()"><i class="material-icons">check</i> CHECK ALL</a>
+            <a class="btn btn-gray waves-effect" onclick="uncheckAllRequirements()"><i class="material-icons">clear</i> UNCHECK ALL</a>
+            </center>
+            <br>
+            <br>
             <div class="input-group input-group-lg">
                
                <% porequ.forEach(function(i,ctr){ %>
@@ -184,12 +190,14 @@
             </div>
          <div class="modal-footer">
             <a href="/CVO_OwnerRegistration"></a>
-            <button type="button" class="btn btn-link waves-effect" onclick="petOwnerRequirements();">PROCEED</button>
+            <button type="button" class="btn btn-primary waves-effect" onclick="petOwnerRequirements();">PROCEED</button>
             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
          </div>
       </div>
    </div>
 </div>
+
+
 <script>
 
 function petOwnerRequirements(){
@@ -205,6 +213,22 @@ function petOwnerRequirements(){
    else{
       window.location.href="/CVO_OwnerRegistration";
    }
+}
+function checkAllRequirements(){
+
+   for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
+      document.getElementById('po_requirements_'+i).checked="checked";
+     
+      }
+   }
+   function uncheckAllRequirements(){
+
+   for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
+      document.getElementById('po_requirements_'+i).checked="";
+     
+      
+   }
+  
 }
 
 </script>
