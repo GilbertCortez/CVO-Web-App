@@ -210,7 +210,6 @@ router.post('/OrderOfPayment', (req, res) => {
     db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE p.int_PaymentId=${req.body.paymentId}`, (err, breakdown) => {
         
             db.query(`SELECT * FROM office`, (err, officeDetails) => {
-                console.log("HIIII"+breakdown[0].str_PayorName)
                 res.render('CVO-T-RecordCollection/views/OrderOfPayment_DOWNLOAD.ejs', {
                     br: breakdown,
                     od: officeDetails,

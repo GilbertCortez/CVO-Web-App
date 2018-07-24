@@ -279,7 +279,9 @@ router3.post('/', (req, res) => {
     });
 });
 router3.post('/getVaccinationHistory', (req, res) => {
-    db.query(`SELECT * FROM vaccination v JOIN vaccine va ON v.int_VaccineId=va.int_VaccineId JOIN employee e ON v.int_EmployeeId=e.int_EmployeeId WHERE v.int_PetId=${req.body.id}`, (err, vaccinationHistory) => {
+    console.log(req.body.id)
+    db.query(`SELECT * FROM vaccination v JOIN vaccine va ON v.int_VaccineId=va.int_VaccineId WHERE v.int_PetId=${req.body.id}`, (err, vaccinationHistory) => {
+        console.log(err)
         res.json(vaccinationHistory);
     });
 });
