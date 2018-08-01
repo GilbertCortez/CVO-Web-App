@@ -1,0 +1,115 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">EDIT ARTICLE</h4>
+          </div>
+          <div class="modal-body">        
+                <form method="POST" action="/CVO_Article/update" id="learn" enctype="multipart/form-data">
+                    <input type="hidden" name="currentImage" id="currentImage">
+                    <input type="hidden" name="updateId" id="updateId">
+                            <div class="form-group form-float">
+                                <label class="form-label">Topic</label>
+                                <div class="form-line" id="update_topic">
+                                    <input type="text" class="form-control" name="updateTopic" id="updateTopic" required="" aria-required="true" onkeypress="update_topic_typing()">
+                                </div>
+                                <label id="update_required-topic" class="error" style="display: block;">This field is required.</label>
+                            </div>
+
+                            <script type="text/javascript">
+                                
+                                function updateReadURL(input) {
+                                        if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function(e){
+                                            $('#fileImage').attr('src', e.target.result);
+                                        }
+                                        reader.readAsDataURL(input.files[0]);
+                                        }
+                                     }         
+                            </script>
+
+                            <label class="form-label">Image Content<small>(Maximum 1)</small></label>
+                                <div >
+                                    <div class="form-line" id="update_line_image">
+                                        <input type="file" name="new_imagepath" id="new_imagepath" onchange="updateReadURL(this);previewFile();" accept="image/*"/>
+                                    </div>
+                                    <br>
+                                    <center><img id="fileImage" height="200" alt="Image Preview..."/></center>
+                                </div>
+                                <br>
+
+                            <label class="form-label">Content</label><br><br>
+                             <div class="form-group form-float">
+                               
+                                <div class="form-line" id="update_line_content">
+                                    <textarea class="form-control" name="update_content" id="update_content" required="" aria-required="true" onkeypress="update_content_typing()"></textarea>
+                                </div>
+                                <label id="update_required-content" class="error" style="display: block;">This field is required.</label>
+                            </div>
+                                <br><br>
+                              <center><button class="btn btn-primary waves-effect" type="button" onclick="update_validation()">UPDATE</button></center>  
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                <script>
+                
+                document.getElementById('update_required-topic').style.display="none";
+                document.getElementById('update_required-content').style.display="none";
+
+                function edit_modal_iteration(Articles){
+                    document.getElementById("updateId").value=JSON.parse(Articles).int_Learn;
+                    document.getElementById("currentImage").value=JSON.parse(Articles).str_ImagePath;
+                    document.getElementById("updateTopic").value=JSON.parse(Articles).str_Topic;
+                    document.getElementById("update_content").value=JSON.parse(Articles).str_Content;
+                    $('#fileImage').attr('src', '/Articles'+JSON.parse(Articles).str_ImagePath); 
+                }
+                
+                
+                function update_topic_typing() {
+                    $('#update_line_topic').removeClass("error");
+                    document.getElementById('update_required-topic').style.display="none";
+                }
+
+                function update_content_typing(){
+                    $('#update_line_content').removeClass("error");
+                    document.getElementById('update_required-content').style.display="none";
+                }
+
+                function update_validation(){
+                    var toSubmit=true;
+                    
+                    if( document.getElementById("new_imagepath").files.length == 0 ){
+                       alert('no files selected');
+                    }
+
+                    if(document.getElementById('updateTopic').value.trim()==""){
+                        toSubmit=false;
+                        $('#update_line_topic').addClass("error");
+                        document.getElementById('update_required-topic').style.display='block';
+                    }
+
+                    if(document.getElementById('update_content').value.trim()==""){
+                        toSubmit=false;
+                        $('#update_line_content').addClass("error");
+                        document.getElementById('update_required-content').style.display='block';
+                    }
+
+                    if(toSubmit==true){
+                        swal({
+                        title: "Are you sure you want to update Article for Learn Section?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                                document.getElementById('learn').submit();
+                        }
+                        });
+                    }
+                }
+                </script>

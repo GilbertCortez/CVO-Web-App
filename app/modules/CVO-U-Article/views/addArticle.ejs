@@ -1,10 +1,11 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD ARTICLE TO LEARN SECTION</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_article" method="POST" action="/CVO_Article" enctype="multipart/form-data">
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">ADD NEW ARTICLE</h4>
+          </div>
+          <div class="modal-body">        
+                <form id="form_article" method="POST" action="/CVO_Article/add" enctype="multipart/form-data">
                             <div class="form-group form-float">
                                 <label class="form-label">Topic</label>
                                 <div class="form-line" id="line_topic">
@@ -16,8 +17,12 @@
                             <script type="text/javascript">
                                 
                                 function readURL(input) {
-                                        if (input.files && input.files[0]) {
+                                    if (input.files && input.files[0]) {
                                         var reader = new FileReader();
+
+                                        reader.onload = function(e){
+                                            $('#file').attr('src', e.target.result);
+                                        }
                                         reader.readAsDataURL(input.files[0]);
                                         }
                                      }
@@ -26,8 +31,10 @@
                             <label class="form-label">Image Content<small>(Maximum 1)</small></label>
                                 <div >
                                     <div class="form-line" id="line_image">
-                                        <input type="file" name="imagepath" id="imagepath" onchange="readURL(this);image_select();"/>
+                                        <input type="file" name="imagepath" id="imagepath" onchange="readURL(this);image_select();" accept="image/*"/>
                                     </div>
+                                    <br>
+                                    <center><img id="file" height="200" alt="Image Preview..."/></center>
                                     <label id="required-image" class="error" style="display: block;">This field is required.</label>
                                 </div>
                                 <br>
@@ -41,10 +48,12 @@
                                 <label id="required-content" class="error" style="display: block;">This field is required.</label>
                             </div>
                                 <br><br>
-                              <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()">POST</button></center>  
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()">POST</button></center>  
+                        </form> 
                         </div>
                     </div>
                 </div>
+            </div>
             
                 <script>
                 

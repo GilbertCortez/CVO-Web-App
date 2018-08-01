@@ -18,7 +18,7 @@ router.get('/',  (req,res)=>{
 	})	
 });
 
-router.post('/', (req, res)=>{
+router.post('/add', (req, res)=>{
 	var question = req.sanitize(`${req.body.question}`);
 	var answer = req.sanitize(`${req.body.answer}`);
 
@@ -42,11 +42,11 @@ router.post('/', (req, res)=>{
 
 router.post('/update', (req, res) => {
 
-	var id = req.body.modal_ID.trim();
-	var question = req.sanitize(req.body.modal_Question);
-	var answer = req.sanitize(req.body.modal_Answer);
+	var id = req.body.modal_id;
+	var update_question = req.sanitize(req.body.modal_question.trim());
+	var update_answer = req.sanitize(req.body.modal_answer.trim());
 
-	db.query(`UPDATE faq SET str_Question = "${question}", str_Answer = ${answer} 
+	db.query(`UPDATE faq SET str_Question = "${update_question}", str_Answer = "${update_answer}"
 	   WHERE int_FAQId = ${id}`, (err) => {
 		   if (err){
 			   console.log(err);

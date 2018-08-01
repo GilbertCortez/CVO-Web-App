@@ -7,22 +7,24 @@ document.getElementById("transaction_list").className="active";
 </script>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-                <div class="header  bg-blue">
+  <div class="block-header">
                         
                             <h2>IMPOUNDING SITES</h2>
                           
                         </div>
-            <div class="body">
+        <div class="card" >
+              
+            <div class="body" >
              
                                    
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                            <div class="table-responsive" style="max-height:550px;min-height:550px;" >
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" >
                                                     <thead>
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Barangay Located</th>
-                                                            <th>Number Of Cages</th>
+                                                            <th>Available Number of Slots</th>
+                                                            <th>Total Number Of Slots</th>
 															<th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -34,24 +36,29 @@ document.getElementById("transaction_list").className="active";
                                                         </tr> 
                                                     </tfoot> -->
                                                     <tbody>
-                        
+                                                    <% is.forEach(function(i){ %>
+
+                                                    
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Concepcion</td>
-															<td>175</td>
-															 
+                                                            <td><%= i.int_ImpoundingSite %> </td>
+                                                            <td><%= i.str_BarangayName %></td>
+															<td><%= i.AvailableCagePerImpounding %></td>
+															 <td><%= i.Total %></td>
                                                             <td>
                                                                 <div align="center">
                                                                    
                                                                    
-                                                                    <a href="CVO_Cages"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
-                                                                            <i class="material-icons">apps</i>
-                                                                    </button></a>
+                                                                <form method="POST" action="/CVO_Impounding/Cages">
+                                                                      <input type="hidden" name="impoundingsite" value="<%= i.int_ImpoundingSiteId %>">
+                                                                        <button type="submit" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
+                                                                                <i class="material-icons">apps</i>
+                                                                        </button>
+                                                                    </form>
 
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                             
+                                                    <% }); %>
                                                     </tbody>
                                                 </table>
                                            

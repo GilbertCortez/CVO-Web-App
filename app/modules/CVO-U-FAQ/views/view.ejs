@@ -26,7 +26,6 @@ document.getElementById("FAQ_list").className="active";
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs tab-nav-right" role="tablist" >
                             <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
                           </ul>
 
                         <!-- Tab panes -->
@@ -71,9 +70,6 @@ document.getElementById("FAQ_list").className="active";
                                             </div>
                                         </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addFAQ.ejs') -%>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,16 +77,6 @@ document.getElementById("FAQ_list").className="active";
         </div>
     </div>
 
-    
+<%- include('./addFAQ.ejs') -%>    
 <%- include('./updateFAQ.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-
-<script>
-    
-    function modal_iteration(Questions){
-    document.getElementById("modal_ID").value=JSON.parse(Questions).int_FAQId;
-    document.getElementById("modal_Question").value=JSON.parse(Questions).str_Question;
-    document.getElementById("modal_Answer").value=JSON.parse(Questions).str_Answer;
-    }
-
-</script>

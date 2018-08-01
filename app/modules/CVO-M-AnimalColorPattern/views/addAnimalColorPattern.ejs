@@ -9,7 +9,7 @@
                <label class="form-label">Color Pattern Description</label>
                <div class="form-group form-float">
                   <div class="form-line" id="colorpattern_line">
-                     <input type="text" class="form-control" name="name" id="name" onkeyup="escapeHtmlSpecial(this);colorpattern_typing(this.value)" required="" aria-required="true" autocomplete="off">
+                     <input type="text" class="form-control" name="name" id="name" onkeyup="colorpattern_typing(this.value)" required="" aria-required="true" autocomplete="off">
                   </div>
                   <label id="required-colorpattern" class="error" style="display: block;">This field is required.</label>
                   <label id="exists-colorpattern" class="error" style="display: block;">Color Pattern exists.</label>
@@ -17,7 +17,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-link waves-effect"onclick="add_validation()">ADD</button>
+            <button type="button" class="btn btn-primary waves-effect"onclick="add_validation()">ADD</button>
             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
          </div>
       </div>

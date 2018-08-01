@@ -12,12 +12,12 @@ var sortJsonArray = require('sort-json-array');
 var munkres = require('munkres-js');
 
 router1.get('/',  (req,res)=>{
-  	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId`,(err,apprehended)=>{
+  	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId AND a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,apprehended)=>{
+  		db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId   GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSites)=>{
 
-
-	res.render('CVO-T-Apprehension/views/Apprehension.ejs',{ap:apprehended});
+	res.render('CVO-T-Apprehension/views/Apprehension.ejs',{ap:apprehended, is:impoundingSites});
 		});
-          
+        });
 });
 
 
@@ -39,8 +39,10 @@ router2.get('/',  (req,res)=>{
   	db.query('SELECT * FROM breed',(err,breed) =>{
     	db.query('SELECT * FROM colorpattern',(err,colorpattern)=>{
     		db.query('SELECT * FROM barangay',(err,barangay)=>{
-    			db.query('SELECT * FROM employee WHERE int_EmployeeType=1',(err,employee)=>{console.log(err);
-					res.render('CVO-T-Apprehension/views/ApprehendedAnimal.ejs',{br:breed,cp:colorpattern,ba:barangay,em:employee});
+    			db.query('SELECT * FROM van v JOIN vancage vc ON v.int_VanId=vc.int_VanId WHERE v.int_Status=1 AND vc.int_Status=1',(err,vancages)=>{
+    				db.query('SELECT * FROM employee WHERE int_EmployeeType IN (1)',(err,employee)=>{
+					res.render('CVO-T-Apprehension/views/ApprehendedAnimal.ejs',{br:breed,cp:colorpattern,ba:barangay,em:employee,vc:vancages});
+					});
 					});
     			});
     		});
@@ -60,14 +62,14 @@ router2.post('/',upload.any(),  (req,res)=>{
 		var BarangayId=req.body.barangay;
 		var PetTag=req.body.pettag;
 		var Alias=req.body.alias;
-		var VanCageNumber=req.body.vanCageNumber;
+		var VanCageId=req.body.vanCageId;
 		var DateTimeApprehension="2018-06-07 "+req.body.timeApprehended+":00";
 		var EmployeeId=req.body.employee;
 		var Remarks=req.body.remarks;
 
 		console.log(req.body);
     	db.query(`INSERT INTO animal(int_BreedId, int_Sex, int_ColorPatternId, str_AnimalPicturePath, int_AnimalStatus,int_HealthStatus) VALUES (${BreedId},${Sex},${ColorPatternId},'${AnimalPicturePath}',1,${HealthStatus})`,(err,animalId)=>{console.log(err);
-          db.query(`INSERT INTO apprehendedanimal(int_AnimalId, int_BarangayId, str_PetTagNo, str_Alias, int_VanCageNumber, dtm_DateTimeApprehension, int_EmployeeId, str_Remarks) VALUES (${animalId.insertId},${BarangayId},"${PetTag}","${Alias}",${VanCageNumber},"${DateTimeApprehension}",${EmployeeId},"${Remarks}")`,(err,result)=>{console.log(err);
+          db.query(`INSERT INTO apprehendedanimal(int_AnimalId, int_BarangayId, str_PetTagNo, str_Alias, int_VanCageId, dtm_DateTimeApprehension, int_EmployeeId, str_Remarks) VALUES (${animalId.insertId},${BarangayId},"${PetTag}","${Alias}",${VanCageId},"${DateTimeApprehension}",${EmployeeId},"${Remarks}")`,(err,result)=>{console.log(err);
            res.send(`<html><body><script src="sweetalert/dist/sweetalert.min.js"></script> <style>body{font-family: "Trebuchet MS";}tr{font-size: 15px;}.swal-overlay{background-color: rgba(66, 134, 244, 0.90);}</style> <script>swal("Added!" , "Do you want to add another apprehended animal?" , "success" ).then(()=>{window.location.href="/CVO_ApprehendedAnimal";});</script></body></html>`); 
 
            });                                                  
@@ -78,26 +80,24 @@ router2.post('/',upload.any(),  (req,res)=>{
 
 //CAGE ASSIGNMENTS
 //TO DO, CONSIDER THE CAGE ASSIGNED NA. KELANGAN RESERVE NA SA KANILA YUNG SLOT
-router3.get('/',  (req,res)=>{
-	var preferredImpoundingSite=5;
+router3.post('/',  (req,res)=>{
+	var preferredImpoundingSite=req.body.impoundingSiteId;
   	
 	  
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=0`,(err,aa_forImpoundingDogs)=>{ 
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=0`,(err,aa_forImpoundingCats)=>{ 
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=1`,(err,aa_forDogObservations)=>{ 
-	db.query(`SELECT * FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=1`,(err,aa_forCatObservations)=>{ 
+	db.query(`SELECT *,aa.int_AnimalId AS Animal FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=0 AND a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,aa_forImpoundingDogs)=>{ 
+	db.query(`SELECT *,aa.int_AnimalId AS Animal FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=0 AND a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,aa_forImpoundingCats)=>{ 
+	db.query(`SELECT *,aa.int_AnimalId AS Animal FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=0 AND int_HealthStatus=1 AND a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,aa_forDogObservations)=>{ 
+	db.query(`SELECT *,aa.int_AnimalId AS Animal FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId WHERE int_AnimalSpecies=1 AND int_HealthStatus=1 AND a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,aa_forCatObservations)=>{ 
 
 	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=0 AND a.int_HealthStatus=0`,(err,imp_forImpoundingDogs)=>{ 
 	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=1 AND a.int_HealthStatus=0`,(err,imp_forImpoundingCats)=>{ 
 	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=0 AND a.int_HealthStatus=1`,(err,imp_forDogObservations)=>{
 	db.query(`SELECT * FROM lodginghistory l JOIN animal a ON l.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId WHERE l.int_LodgingStatus <> 2 AND l.int_CageId in (SELECT int_CageId FROM cage WHERE int_ImpoundingSite=${preferredImpoundingSite}) AND b.int_AnimalSpecies=1 AND a.int_HealthStatus=1`,(err,imp_forCatObservations)=>{ 
 
-	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=0 GROUP BY c.int_CageId`,(err,ca_forImpoundingDogs)=>{
-	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=1 GROUP BY c.int_CageId`,(err,ca_forImpoundingCats)=>{ 
-	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=2 GROUP BY c.int_CageId`,(err,ca_forDogObservations)=>{ 
-	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=3 GROUP BY c.int_CageId`,(err,ca_forCatObservations)=>{ 
-
-	
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots, COUNT(l.int_AnimalId) as ConsumedSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=0 GROUP BY c.int_CageId`,(err,ca_forImpoundingDogs)=>{
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots, COUNT(l.int_AnimalId) as ConsumedSlots  FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=1 GROUP BY c.int_CageId`,(err,ca_forImpoundingCats)=>{ 
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots, COUNT(l.int_AnimalId) as ConsumedSlots  FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=2 GROUP BY c.int_CageId`,(err,ca_forDogObservations)=>{ 
+	db.query(`SELECT *,c.int_CageId AS CageId, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots, COUNT(l.int_AnimalId) as ConsumedSlots  FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE c.int_ImpoundingSite=${preferredImpoundingSite} AND int_CageType=3 GROUP BY c.int_CageId`,(err,ca_forCatObservations)=>{ 
 				
 		//POINTS PER CAGES
 		var ppc_forImpoundingDogs=[];
@@ -138,7 +138,16 @@ router3.get('/',  (req,res)=>{
 		cageAssignment_forCatObservations=finalize(munk_forCatObservations,aa_forCatObservations,ca_forCatObservations);
 		
 	
-		res.render('CVO-T-Apprehension/views/CageAssignments.ejs',{fid:cageAssignment_forImpoundingDogs,fic:cageAssignment_forImpoundingCats,fdo:cageAssignment_forDogObservations,fco:cageAssignment_forCatObservations});
+		res.render('CVO-T-Apprehension/views/CageAssignments.ejs',{
+			fid:cageAssignment_forImpoundingDogs,
+			fic:cageAssignment_forImpoundingCats,
+			fdo:cageAssignment_forDogObservations,
+			fco:cageAssignment_forCatObservations,
+			ca_fid:ca_forImpoundingDogs,
+			ca_fic:ca_forImpoundingCats,
+			ca_fdo:ca_forDogObservations,
+			ca_fco:ca_forCatObservations
+		});
 		
 	}); }); }); }); 
 	}); }); }); }); 
@@ -158,6 +167,7 @@ router3.get('/',  (req,res)=>{
 					if(w.AvailableSlots==0){
 						point+=1000;
 					}
+					point+=w.ConsumedSlots;
 					pointsPerCage=point;
 				});
 				currentCage=currentCage.concat(pointsPerCage);
@@ -170,6 +180,7 @@ router3.get('/',  (req,res)=>{
 
 	function hungarian(z){
 		if(z.length!=0){
+			console.log(z)
 			return munkres(z);	
 		}
 		else{
@@ -183,7 +194,7 @@ router3.get('/',  (req,res)=>{
 		a.forEach(function(i,ctr){
 			cageAssignments.push(Object.assign(b[ctr],c[i[1]]));
 		})
-		console.log(cageAssignments);
+	//	console.log(cageAssignments);
 		return cageAssignments;
 	}
 	
@@ -191,6 +202,19 @@ router3.get('/',  (req,res)=>{
 
 });
 
+router3.post('/place',  (req,res)=>{
+
+	var QUERY="";
+	JSON.parse(req.body.finalCageAssignment).forEach(function(i){
+		if(i.cage!="unassign"){
+			QUERY += 'INSERT INTO lodginghistory( int_AnimalId, int_CageId, dtm_DateTimeOfOccurence, int_LodgingStatus, str_Remarks) VALUES ('+i.animal+','+i.cage+',now(),0,"Impounded to cage number '+i.cage+'");'
+		}
+	});
+	console.log(QUERY)
+	db.query(QUERY,(err)=>{ console.log(err)
+		res.redirect("/CVO_Apprehension")
+	}) 
+});
 
 
 exports.CVO_Apprehension=router1;

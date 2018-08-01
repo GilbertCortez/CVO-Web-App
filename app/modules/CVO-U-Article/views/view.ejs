@@ -26,7 +26,6 @@ document.getElementById("Article_list").className="active";
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs tab-nav-right" role="tablist" >
                             <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>LIST</a></li>
-                            <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">add</i>ADD</a></li>
                           </ul>
 
                         <!-- Tab panes -->
@@ -39,8 +38,8 @@ document.getElementById("Article_list").className="active";
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Topic</th>
-                                                            <th>Date Posted</th>
-                              <th>Action</th>
+                                                            <th>Content</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                  <!--   <tfoot>
@@ -58,10 +57,10 @@ document.getElementById("Article_list").className="active";
                                                             <td><%= i.str_Content %></td>
                                                             <td>
                                                                 <div align="center">
-                                                                  <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                  <a data-toggle="modal" data-target="#view" onclick="view_modal_iteration('<%= JSON.stringify(i) %>');"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
                                                                         <i class="material-icons">remove_red_eye</i>
                                                                     </button></a>
-                                                                    <a data-toggle="modal" data-target="#edit" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                    <a data-toggle="modal" data-target="#edit" onclick="edit_modal_iteration('<%= JSON.stringify(i) %>');"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                         <i class="material-icons">mode_edit</i>
                                                                     </button></a>
                                                                 </div>
@@ -73,12 +72,56 @@ document.getElementById("Article_list").className="active";
                                             </div>
                                         </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                               <%- include('./addArticle.ejs') -%>
-                            </div>
-
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./addArticle.ejs') -%>
+    <%- include('./updateArticle.ejs') -%>
+    <script src="PrettifyDate/PrettifyDate.js"></script>
+    <script>
+     
+     function view_modal_iteration(Article){
+        $('#modal_IdPic').attr('src', '/Articles'+JSON.parse(Article).str_ImagePath); 
+        $('#modal_Topic').html(JSON.parse(Article).str_Topic);   
+        $('#modal_Content').html(JSON.parse(Article).str_Content); 
+        $('#modal_DatePosted').html(MMMMDDYYYY(JSON.parse(Article).dtm_DateTimePosted)+" "+HHSS(JSON.parse(Article).dtm_DateTimePosted));
+    }
+    
+    </script>
+    <div class="modal fade" id="view" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-blue">
+                    <h4 class="modal-title" id="defaultModalLabel">VIEW ARTICLE DETAILS</h4>
+                </div>
+                <div class="table-responsive">
+                <div class="modal-body">
+                <table>
+                <tr>
+                     <td><img width="200" style="border:4px;border-style:solid;border-color:white" id="modal_IdPic" /></td>
+                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      <td>
+                <table class="table table-striped">
+                        <tr>
+                          <td><strong>TOPIC:</strong></td>
+                          <td id="modal_Topic"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>CONTENT:</strong></td>
+                         <td id="modal_Content"></td>
+                        </tr>
+                       <tr>
+                          <td><strong>DATE TIME POSTED:</strong></td>
+                          <td id="modal_DatePosted"></td>
+                        </tr>
+                      </table>
+                </div>
+              </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
         </div>
@@ -86,4 +129,3 @@ document.getElementById("Article_list").className="active";
  
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
-

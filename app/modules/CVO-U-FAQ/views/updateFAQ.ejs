@@ -1,31 +1,80 @@
 <div class="modal fade" id="edit" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-blue">
-                <h4 class="modal-title" id="defaultModalLabel">EDIT FAQ DETAILS</h4>
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">UPDATE FREQUENTLY ASKED QUESTION</h4>
+          </div>
+          <div class="modal-body">
+                             <form id="update_faq" method="POST" action="/CVO_FAQs/update">
+                                <input type="hidden" class="form-control" id="modal_id" name="modal_id" aria-required="true" >
+								<label class="form-label">Question</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="modal_question_line">
+                                        <input type="text" class="form-control" name="modal_question" id="modal_question" onkeypress="update_question_typing()">
+                                    </div>
+                                    <label id="modal_required-question" class="error" style="display: block;">This field is required.</label>
+                                </div>
+                                <label class="form-label">Answer</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="modal_answer_line">
+                                        <input type="text" class="form-control" name="modal_answer" id="modal_answer" onkeypress="update_answer_typing()">
+                                    </div>
+                                    <label id="modal_required-answer" class="error" style="display: block;">This field is required.</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            <form id="form_faq" method="POST" action="/CVO_FAQs/update">
-            <table class="table table-striped">
-                    <tr>
-                      <td><strong>ID NUMBER:</strong></td>
-                      <td><input type="text" class="form-control" id="modal_ID" name="modal_ID" required="" aria-required="true" disabled></td>
-                    </tr>
-                    <tr>
-                      <td><strong>QUESTION:</strong></td>
-                      <td><input type="text" class="form-control" id="modal_Question" name="modal_Question" required="" aria-required="true"></td>
-                      </tr>
-                    <tr>
-                      <td><strong>ANSWER:</strong></td>
-                     <td><input type="text" class="form-control" id="modal_Answer" name="modal_Answer" required="" aria-required="true"></td>
-                     </tr>
-                  </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-            </div>
-        </form>
-        </div>
-    </div>
-</div>
+                <script>
+                document.getElementById('modal_required-question').style.display="none";
+                document.getElementById('modal_required-answer').style.display="none";
+                
+                function modal_iteration(Questions){
+                    document.getElementById("modal_id").value=JSON.parse(Questions).int_FAQId;
+                    document.getElementById("modal_question").value=JSON.parse(Questions).str_Question;
+                    document.getElementById("modal_answer").value=JSON.parse(Questions).str_Answer;
+                    }
+
+                function update_question_typing(){
+                    $('#modal_question_line').removeClass("error");
+                    document.getElementById('modal_required-question').style.display="none";
+                }
+
+                function update_answer_typing(){
+                    $('#modal_answer_line').removeClass("error");
+                    document.getElementById('modal_required-answer').style.display="none";
+                }
+
+                function update_validation(){
+                    var toSubmit=true;
+                    if(document.getElementById('modal_question').value.trim()==""){
+                        toSubmit=false;
+                        $('#modal_question_line').addClass("error");
+                        document.getElementById('modal_required-question').style.display='block';
+                    }
+
+                    if(document.getElementById('modal_answer').value.trim()==""){
+                        toSubmit=false;
+                        $('#modal_answer_line').addClass("error");
+                        document.getElementById('modal_required-answer').style.display='block';
+                    }
+
+                    if(toSubmit==true){
+                        swal({
+                        title: "Are you sure you want to update Frequently Asked Question?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                                document.getElementById('update_faq').submit();
+                        }
+                        });
+                    }
+                 }
+                </script>

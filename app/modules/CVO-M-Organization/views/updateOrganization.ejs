@@ -1,0 +1,102 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">EDIT ORGANIZATION</h4>
+          </div>
+          <div class="modal-body">
+             <form id="form_updateorganization" method="POST"  action="/CVO_Organization/update" >
+                <input type="hidden" class="form-control" id="modal_id" name="modal_orgid" aria-required="true" >
+                <label class="form-label">Organization Name</label>
+                <div class="form-group form-float">
+                   <div class="form-line" id="modalorgname_line">
+                      <input type="text" class="form-control" id="modal_orgname" name="modal_orgname" onkeyup="modalorgname_typing()" autocomplete='off' aria-required="true">
+                   </div>
+                   <label id="modal_required-org_name" class="error" style="display: block;">This field is required.</label>
+                   <label id="modal_exist-org_name" class="error" style="display: block;">Organization Name exists.</label>
+                </div>
+                <label class="form-label">Email</label>
+                <div class="form-group form-float">
+                    <div class="form-line" id="modalorgemail_line">
+                       <input type="email" class="form-control" id="modal_orgemail" name="modal_orgemail" onkeyup="modalorgemail_typing()" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="modal_required-org_email" class="error" style="display: block;">This field is required.</label>
+                    <label id="modal_exist-org_email" class="error" style="display: block;">Organization email exists.</label>
+                 </div>
+                 <label class="form-label">Telephone Number</label>
+                 <div class="form-group form-float">
+                    <div class="form-line" id="modalorgtelnum_line">
+                       <input type="text" class="form-control" id="modal_orgtelnum" name="modal_orgtelnum" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="modalrequired-org_telnum" class="error" style="display: block;">This field is required.</label>
+                 </div>
+                 <label class="form-label">Cellphone Number</label>
+                 <div class="form-group form-float">
+                    <div class="form-line" id="modalorgcellnum_line">
+                       <input type="text" class="form-control" id="modal_orgcellnum" name="modal_orgcellnum" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="modalrequired-org_cellnum" class="error" style="display: block;">This field is required.</label>
+                 </div>
+             </form>
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-link waves-effect" onclick="update_validation()">UPDATE</button>
+             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ <script>
+ document.getElementById("modal_required-org_name").style.display = "none";
+ document.getElementById("modal_exist-org_name").style.display = "none";
+ document.getElementById("modal_exist-org_email").style.display = "none";
+ document.getElementById("modal_required-org_email").style.display = "none";
+ document.getElementById("modalrequired-org_cellnum").style.display = "none";
+ document.getElementById("modalrequired-org_telnum").style.display = "none";
+
+ function modal_iteration(organization){
+    document.getElementById("modal_id").value = JSON.parse(organization).int_OrganizationId;
+    document.getElementById("modal_orgname").value = JSON.parse(organization).str_OrganizationName;
+    document.getElementById("modal_orgemail").value = JSON.parse(organization).str_Email;
+    document.getElementById("modal_orgtelnum").value = JSON.parse(organization).str_TelephoneNumber;
+    document.getElementById("modal_orgcellnum").value = JSON.parse(organization).str_CellphoneNumber;
+ }
+
+ function modalorgname_typing(){
+    document.getElementById("modal_required-org_name").style.display = "none";
+    $('#modalorgname_line').removeClass("error");
+ }
+
+ function modalorgemail_typing(){
+    document.getElementById("modal_required-org_email").style.display = "none";
+    $('#modalorgemail_line').removeClass("error");   
+ }
+
+ function update_validation(){
+                    var toSubmit=true;
+                    if(document.getElementById('modal_orgname').value.trim()==""){
+                        toSubmit=false;
+                        $('#modalorgname_line').addClass("error");
+                        document.getElementById('modal_required-org_name').style.display='block';
+                    }
+
+                    if(document.getElementById('modal_orgemail').value.trim()==""){
+                        toSubmit=false;
+                        $('#modalorgemail_line').addClass("error");
+                        document.getElementById('modal_required-org_email').style.display='block';
+                    }
+
+                    if(toSubmit==true){
+                        swal({
+                        title: "Are you sure you want to update Organization?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                                document.getElementById('form_updateorganization').submit();
+                        }
+                        });
+                    }
+                 }
+ </script>

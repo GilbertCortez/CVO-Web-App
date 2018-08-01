@@ -28,8 +28,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-link waves-effect" onclick="add_validation()" >ADD</button>
-            <button type="button" class="btn btn-link waves-effect" onclick="document.getElementById("form_breed").reset();">CLOSE</button>
+            <button type="button" class="btn btn-primary waves-effect" onclick="add_validation()" >ADD</button>
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
          </div>
       </div>
    </div>
@@ -70,7 +70,7 @@ function breedname_typing(i) {
 function add_validation() {
  
     var toSubmit = true;
-    if (document.getElementById('name').value.trim() == "") { alert("hi")
+    if (document.getElementById('name').value.trim() == "") { 
         toSubmit = false;
         $('#breedname_line').addClass("error");
         document.getElementById("required-breed_name").style.display = 'block';

@@ -1,0 +1,95 @@
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">ADD ORGANIZATION</h4>
+          </div>
+          <div class="modal-body">
+             <form id="form_organization" method="POST"  action="/CVO_Organization/add" >
+                <label class="form-label">Organization Name</label>
+                <div class="form-group form-float">
+                   <div class="form-line" id="orgname_line">
+                      <input type="text" class="form-control" id="orgname" name="orgname" onkeyup="orgname_typing()" autocomplete='off' aria-required="true">
+                   </div>
+                   <label id="required-org_name" class="error" style="display: block;">This field is required.</label>
+                   <label id="exist-org_name" class="error" style="display: block;">Organization Name exists.</label>
+                </div>
+                <label class="form-label">Email</label>
+                <div class="form-group form-float">
+                    <div class="form-line" id="orgemail_line">
+                       <input type="email" class="form-control" id="orgemail" name="orgemail" onkeyup="orgemail_typing()" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="required-org_email" class="error" style="display: block;">This field is required.</label>
+                    <label id="exist-org_email" class="error" style="display: block;">Organization email exists.</label>
+                 </div>
+                 <label class="form-label">Telephone Number</label>
+                 <div class="form-group form-float">
+                    <div class="form-line" id="orgtelnum_line">
+                       <input type="text" class="form-control" id="orgtelnum" name="orgtelnum" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="required-org_telnum" class="error" style="display: block;">This field is required.</label>
+                 </div>
+                 <label class="form-label">Cellphone Number</label>
+                 <div class="form-group form-float">
+                    <div class="form-line" id="orgcellnum_line">
+                       <input type="text" class="form-control" id="orgcellnum" name="orgcellnum" autocomplete='off' aria-required="true">
+                    </div>
+                    <label id="required-org_cellnum" class="error" style="display: block;">This field is required.</label>
+                 </div>
+             </form>
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-link waves-effect" onclick="validation()">ADD</button>
+             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ <script>
+ document.getElementById("required-org_name").style.display = "none";
+ document.getElementById("exist-org_name").style.display = "none";
+ document.getElementById("exist-org_email").style.display = "none";
+ document.getElementById("required-org_email").style.display = "none";
+ document.getElementById("required-org_cellnum").style.display = "none";
+ document.getElementById("required-org_telnum").style.display = "none";
+
+ function orgname_typing(){
+    document.getElementById("required-org_name").style.display = "none";
+    $('#orgname_line').removeClass("error");
+ }
+
+ function orgemail_typing(){
+    document.getElementById("required-org_email").style.display = "none";
+    $('#orgemail_line').removeClass("error");   
+ }
+
+ function validation(){
+                    var toSubmit=true;
+                    if(document.getElementById('orgname').value.trim()==""){
+                        toSubmit=false;
+                        $('#orgname_line').addClass("error");
+                        document.getElementById('required-org_name').style.display='block';
+                    }
+
+                    if(document.getElementById('orgemail').value.trim()==""){
+                        toSubmit=false;
+                        $('#orgemail_line').addClass("error");
+                        document.getElementById('required-org_email').style.display='block';
+                    }
+
+                    if(toSubmit==true){
+                        swal({
+                        title: "Are you sure you want to add new Organization?",
+                        icon: "/images/alert_question.png",
+                        buttons: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                                document.getElementById('form_organization').submit();
+                        }
+                        });
+                    }
+                 }
+ </script>
+ 
+ 

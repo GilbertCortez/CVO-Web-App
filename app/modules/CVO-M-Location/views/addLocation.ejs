@@ -9,12 +9,12 @@
                <label class="form-label">Barangay Name</label>
                <div class="form-group form-float">
                   <div class="form-line"  id="location_line">
-                     <input type="text" class="form-control" name="BarangayName" id="BarangayName" onkeyup="typing_location(this.value)" autocomplete="off">
+                     <input type="text" class="form-control" name="BarangayName" id="BarangayName"  onkeyup="typing_location(this.value)" autocomplete="off">
                   </div>
                   <label id="required-location" class="error" style="display: none;">This field is required.</label>
                   <label id="exist-location" class="error" style="display: none;">Location Exists.</label>
                </div>
-               <input type="text" class="form-control" name="Resettlement" id="Resettlement" required="" aria-required="true" value=0>
+               <input type="hidden" class="form-control" name="Resettlement" id="Resettlement" required="" aria-required="true" value=0>
                <label class="form-label">Resettlement Area?</label>
                <div class="switch">
                   <label><input type="checkbox" unchecked onChange="statIndicate(); "><span class="lever switch-col-blue"></span></label>

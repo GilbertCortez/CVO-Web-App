@@ -33,8 +33,9 @@
                                  <tr>
                                     <th>ID</th>
                                     <th>Anti Rabies Vaccine Name</th>
-                                    <th>Classification</th>
+                                   
                                     <th>Manufacturer</th>
+                                    <th>Active?</th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
@@ -43,12 +44,12 @@
                                  <tr>
                                     <td><%= i.int_VaccineId %></td>
                                     <td><%= i.str_VaccineName %></td>
-                                    <% if(i.int_VaccineClassification==1){ %>
-                                    <td>Private</td>
-                                    <% } else { %>
-                                    <td>Government</td>
-                                    <% } %>
+                                   
                                     <td><%= i.str_Manufacturer %></td>
+                                    <td> <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                                    <span>Active</span>
+                                                                </div></td>
                                     <td>
                                        <div align="center">
                                           <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
@@ -56,6 +57,9 @@
                                           <i class="material-icons">mode_edit</i>
                                           </button>
                                           </a>
+                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                            <i class="material-icons">delete</i></button>
+
                                        </div>
                                     </td>
                                  </tr>

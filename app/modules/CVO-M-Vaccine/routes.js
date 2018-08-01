@@ -24,7 +24,7 @@ router.post('/add', (req, res) => {
   var species=req.body.species;
   var yearsOfImmunity=req.sanitize(`${req.body.yearsOfImmunity}`.trim());
 
-	db.query(`INSERT INTO vaccine(str_VaccineName,int_VaccineClassification,int_ManufacturerId, int_Species,flt_YearsOfImmunity) VALUES ("${vaccineName}","${vaccineClass}","${vaccineManu}",${species},${yearsOfImmunity})`,(err, fields, results) => {
+	db.query(`INSERT INTO vaccine(str_VaccineName,int_ManufacturerId, int_Species,flt_YearsOfImmunity) VALUES ("${vaccineName}","${vaccineManu}",${species},${yearsOfImmunity})`,(err, fields, results) => {
 			res.redirect('/CVO_Vaccine');
 	});
 

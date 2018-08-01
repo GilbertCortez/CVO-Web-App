@@ -53,9 +53,9 @@ var uploadPet = multer({
 
 router.get('/', (req, res) => {
     db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='0'`, (err, porequirements) => {
-        db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_status = 1`, (err, petowners) => {
-            db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_status = 0`, (err, prereg) => {
-                console.log(porequirements)
+        db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 1`, (err, petowners) => { console.log(err)
+            db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 0`, (err, prereg) => {
+                
                 res.render('CVO-T-Registration/views/view.ejs', {
                     po: petowners,
                     pr: prereg,
@@ -235,7 +235,7 @@ router2.post('/', uploadPet.any(), (req, res) => {
 
                             if (req.body.lastPayment == 'NONE') {
                                 db.query(`INSERT INTO payment(int_PayorId, int_PayorType, int_Status) VALUES (${JSON.parse(req.body.currentPetOwner).int_PetOwnerId},0,0)`, (err, lastPayment) => {
-                                    db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},1,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {});
+                                    db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${lastPayment.insertId},1,${result.insertId} )`, (err, results) => {});
                                     db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`, (err, currentPetRecord) => {
                                         res.render('CVO-T-Registration/views/petregistration.ejs', {
                                             br: breed,
@@ -248,7 +248,7 @@ router2.post('/', uploadPet.any(), (req, res) => {
                                     });
                                 });
                             } else {
-                                db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},1,${currentAnimalRecord[0].int_AnimalId} )`, (err, results) => {
+                                db.query(`INSERT INTO breakdown( int_PaymentId, int_NatureOfCollectionId,int_AnimalInvolved) VALUES( ${req.body.lastPayment},1,${result.insertId} )`, (err, results) => {
                                     db.query(`SELECT * FROM pet WHERE int_PetId=${result.insertId}`, (err, currentPetRecord) => {
                                         res.render('CVO-T-Registration/views/petregistration.ejs', {
                                             br: breed,

@@ -35,6 +35,7 @@ document.getElementById("antirabies_list").className="active";
                             
                      
                                     <th>Manufacturer</th>
+                                    <th>Active?</th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
@@ -43,6 +44,10 @@ document.getElementById("antirabies_list").className="active";
                                  <tr>
                                     <td><%= i.int_ManufacturerId %></td>
                                     <td><%= i.str_Manufacturer %></td>
+                                    <td> <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                                    <span>Active</span>
+                                                                </div></td>
                                     <td>
                                        <div align="center">
                                           <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
@@ -50,6 +55,9 @@ document.getElementById("antirabies_list").className="active";
                                           <i class="material-icons">mode_edit</i>
                                           </button>
                                           </a>
+                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                            <i class="material-icons">delete</i></button>
+
                                        </div>
                                     </td>
                                  </tr>

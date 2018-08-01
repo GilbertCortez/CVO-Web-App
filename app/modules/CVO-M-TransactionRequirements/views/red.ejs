@@ -12,7 +12,7 @@
                         if(i.int_RequirementsId == x.int_RequirementsId){
                             check=true;
                         } }); if(check) { %>
-                    <option data-subtext="<%= i.str_Purpose %>" disabled value=<%=i.int_RequirementsId %>  ><%= i.str_Description %></option>
+              
                     <% } else { %>
                     <option data-subtext="<%= i.str_Purpose %>" value=<%=i.int_RequirementsId %>  ><%= i.str_Description %></option>
                     <% }

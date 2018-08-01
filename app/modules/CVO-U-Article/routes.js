@@ -8,7 +8,7 @@ var db = require('../../lib/database')();
 var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../images/' )
+    cb(null, '../images/Articles')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now()+".jpg")
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.post('/', upload.any(), (req, res) => {
+router.post('/add', upload.any(), (req, res) => {
 	var topic = req.sanitize(req.body.topic);
 	var content = req.sanitize(req.body.content);
 	var imagepath = "/"+req.files[0].filename;
@@ -43,5 +43,39 @@ router.post('/', upload.any(), (req, res) => {
 		});
 });
 
+router.post('/update', upload.any(), (req, res)=>{
+	console.log(req.body);
+	var currImagepath = req.body.currentImage;
+	var id = req.body.updateId;
+	var update_topic = req.sanitize(req.body.updateTopic);
+	var update_content = req.sanitize(req.body.update_content);
+	var update_imagepath = "/"+req.files[0].filename;
 
+	if(req.files[0].filename==""){
+		currImagepath = update_imagepath;
+	}
+
+	if(currImagepath == update_imagepath){
+	db.query(`UPDATE learn SET (str_Topic = "${update_topic}"),(str_Content = "${update_content}"),
+	(str_ImagePath = "${currImagepath})" WHERE int_Learn = ${id}`, (err)=>{
+		if (err){
+			console.log(err);
+		}
+		else {
+			res.redirect("/CVO_Article");
+		}
+	})
+	}
+	else {
+		db.query(`UPDATE learn SET str_Topic = "${update_topic}", str_Content = "${update_content}",
+		str_ImagePath = "${update_imagepath}" WHERE int_Learn = ${id}`, (err)=>{
+			if (err){
+				console.log(err);
+			}
+			else {
+				res.redirect("/CVO_Article");
+			}
+		})
+	}
+});
 exports.CVO_Article= router;

@@ -1,231 +1,194 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("impounding_list").className="active";
-document.getElementById("apprehension").className="active";
-document.getElementById("transaction_list").className="active";
-
+   document.getElementById("impounding_list").className="active";
+   document.getElementById("apprehension").className="active";
+   document.getElementById("transaction_list").className="active";
+   document.title="Cage Assignments";
 </script>
-
-
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
-                <h2>
-                CAGE ASSIGNMENTS
-                </h2>
-            
-            </div>
-            <div class="body"  >
-            
-             <div class="body table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ALIAS</th>
-                                        <th>ANIMAL BREED</th>
-                                        <th>ANIMAL SPECIES</th>
-                                        <th>SEX</th>
-                                        <th>COLOR PATTERN</th>
-                                        <th>PET TAG</th>
-                                        <th>VAN CAGE NUMBER</th>
-                                        <th>CAGE NUMBER</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <% fid.forEach(function(i){ %>
-                                    <tr>
-                                        <td><%= i.str_Alias %></td>
-                                        <td><%= i.str_BreedName %></td>
-                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
-                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
-                                        <td><%= i.str_Description %></td>
-                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
-                                        <td><%= i.int_VanCageNumber %></td>
-                                        <td><%= i.CageId %></td>
-                                    </tr>
-                                    <% }); %>
+   <div class="block-header" >
+      <h2>
+         CAGE ASSIGNMENTS
+      </h2>
+   </div>
+   <div class="card">
+   <div class="modal-header">
+         <div style="float:right"> 
+                  <a type="button" class="btn btn-lg btn-primary waves-effect" onclick="submitAssignments();" >PLACE ALL</a>  &nbsp;
+                  <a href="/CVO_Apprehension" type="button" class="btn btn-lg btn-primary waves-effect" >BACK</a> &nbsp;
+         </div>
 
-                                </tbody>
-                            </table>
+      </div>
+    <div class="body">
+    <script>
+var toPass=[]   ;
+<% 
+var allCages=fid.concat(fic.concat(fdo.concat(fco)));
+allCages.forEach(function(i){ %>
+        toPass.push(JSON.parse('{"cage": '+<%=i.CageId %>+', "animal": '+<%= i.Animal %>+'}'))
+<% }); %>
+    
+</script>
+                  <div >
+                     <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                           <tr>
+                              <th>ALIAS</th>
+                              <th>ANIMAL BREED</th>
+                              <th>ANIMAL SPECIES</th>
+                              <th>SEX</th>
+                              <th>COLOR PATTERN</th>
+                              <th>PET TAG</th>
+                              <th>VAN CAGE NUMBER</th>
+                              <th>CAGE NUMBER</th>
+                              <th>CAGE TYPE</th>
                           
-                        </div>
-            <div class="body table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ALIAS</th>
-                                        <th>ANIMAL BREED</th>
-                                        <th>ANIMAL SPECIES</th>
-                                        <th>SEX</th>
-                                        <th>COLOR PATTERN</th>
-                                        <th>PET TAG</th>
-                                        <th>VAN CAGE NUMBER</th>
-                                        <th>CAGE NUMBER</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <% fic.forEach(function(i){ %>
-                                    <tr>
-                                        <td><%= i.str_Alias %></td>
-                                        <td><%= i.str_BreedName %></td>
-                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
-                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
-                                        <td><%= i.str_Description %></td>
-                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
-                                        <td><%= i.int_VanCageNumber %></td>
-                                        <td><%= i.CageId %></td>
-                                    </tr>
-                                    <% }); %>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <% 
 
-                                </tbody>
-                            </table>
-                          
-                        </div>
-                         <div class="body table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ALIAS</th>
-                                        <th>ANIMAL BREED</th>
-                                        <th>ANIMAL SPECIES</th>
-                                        <th>SEX</th>
-                                        <th>COLOR PATTERN</th>
-                                        <th>PET TAG</th>
-                                        <th>VAN CAGE NUMBER</th>
-                                        <th>CAGE NUMBER</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <% fdo.forEach(function(i){ %>
-                                    <tr>
-                                        <td><%= i.str_Alias %></td>
-                                        <td><%= i.str_BreedName %></td>
-                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
-                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
-                                        <td><%= i.str_Description %></td>
-                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
-                                        <td><%= i.int_VanCageNumber %></td>
-                                        <td><%= i.CageId %></td>
-                                    </tr>
-                                    <% }); %>
+                           allCages.forEach(function(i){ %>
+                           <tr>
+                              <td><%= i.str_Alias %></td>
+                              <td><%= i.str_BreedName %></td>
+                              <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                              <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                              <td><%= i.str_Description %></td>
+                              <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                              <td><%= i.int_VanCageId %></td>
+                              <td> <% 
+var cageType="";
+                              if(i.int_CageType==0){
+                               %>
+                                  <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fid.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
 
-                                </tbody>
-                            </table>
-                          
-                        </div>
-                         <div class="body table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ALIAS</th>
-                                        <th>ANIMAL BREED</th>
-                                        <th>ANIMAL SPECIES</th>
-                                        <th>SEX</th>
-                                        <th>COLOR PATTERN</th>
-                                        <th>PET TAG</th>
-                                        <th>VAN CAGE NUMBER</th>
-                                        <th>CAGE NUMBER</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <% fco.forEach(function(i){ %>
-                                    <tr>
-                                        <td><%= i.str_Alias %></td>
-                                        <td><%= i.str_BreedName %></td>
-                                        <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
-                                        <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
-                                        <td><%= i.str_Description %></td>
-                                        <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
-                                        <td><%= i.int_VanCageNumber %></td>
-                                        <td><%= i.CageId %></td>
-                                    </tr>
-                                    <% }); %>
-
-                                </tbody>
-                            </table>
-                          
-                        </div>
-
-                          <br>
-                           <center> <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >PLACE ALL</a>  <a href="/CVO_Apprehension" type="button" class="btn btn-primary waves-effect" >BACK</a></center>
-            </div>
-          </div>
-          </div>
+                                </select>
+                               <%
+                               }
+                               else  if(i.int_CageType==1){
+                               %>
+                               <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fic.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
 
 
-             <div class="modal fade" id="actionsCage" tabindex="-1" role="dialog" >
-                <div class="modal-dialog" role="document" style="width:70%;">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">Cage Classification-Cage Number</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div  id="datatable">
-                       
-                   
-                     
-                          <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Alias</th>
-                                                            <th>Apprehended in</th>
-                                                            <th>Apprehended Date</th>
-                                                            <th>Species</th>
-                                                            <th>Breed</th>
-                                                            <th>Color</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Jingjing</td>
-                                                            <td>Concepcion</td>
-                                                            <td>01/23/2018</td>
-                                                            <td>Species</td>
-                                                            <td>Breed</td>
-                                                            <td>Color</td>
-                                                            <td>
-                                                                <div align="center">
-                                                                    <a data-target="#PetInfo" data-toggle="modal"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                            <i class="material-icons">remove_red_eye</i>&nbsp;
-                                                                    </button>
-                                                                   </a>
-                                                                  
-                                                                   <a  ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Adopt Me">
-                                                                            <i class="material-icons">add</i>Adopt
-                                                                    </button>
-                                                                   </a>
-                                                              
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-             
-                
-                        
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                </select>
+                               <% }
+                               
+                               else  if(i.int_CageType==2){ %>
+                               <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fdo.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
 
 
+                                </select>
+                               <% }
+                              else  if(i.int_CageType==3){
+                               %>
+                                  <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fco.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
 
-<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+                                </select>
+                               <%
+                               }
+                               %></td>
+                              <td><% 
+                               if(i.int_CageType==0){
+                               cageType="For Impounded Dogs"
+                               }
+                               else  if(i.int_CageType==1){
+                               cageType="For Impounded Cats"
+                               }
+                               else  if(i.int_CageType==2){
+                               cageType="For Dog Observation"
+                               }
+                              else  if(i.int_CageType==3){
+                              cageType="For Cat Observation"
+                               }
+                               %><%= cageType %></td>
+                              
+                           </tr>
+                           <% }); %>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+         
+         
+         <br>
+         
+      </div>
+   </div>
+</div>
+<form action="/CVO_CageAssignments/place" method="POST" id="finalCageAssignmentForm">
+<input type="text" id="toPass" name="finalCageAssignment" >
+</form>
+<script>
+document.getElementById('toPass').value=JSON.stringify(toPass);
+  function submitAssignments(){
+  
+     
+    toPass.forEach(function(i){
+        if(i.cage=="unassign"){
+         swal({
+  title: "Unassigned Apprehended Animal/s.",
+  text: "After confirmation, some of the Apprehended animal will not be placed due to selection of 'unassign' option.",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    document.getElementById('finalCageAssignmentForm').submit();
+  } 
+});
+        }
+        else{
+            swal({
+  title: "Placing Animal on Cages.",
+  text: "After confirmation, cage assignments will be recorded. Any changes ",
+  icon: "info",
+  buttons: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    document.getElementById('finalCageAssignmentForm').submit();
+  } 
+});
+
+        }
+    });
+  } 
+  function updateToPass(x,y){
+
+    toPass.forEach(function(i,ctr){
+ 
+        if(i.animal==x){
+            toPass[ctr].cage=y;
+        }
+    });
+      document.getElementById('toPass').value=JSON.stringify(toPass)
+  }
+</script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%> 

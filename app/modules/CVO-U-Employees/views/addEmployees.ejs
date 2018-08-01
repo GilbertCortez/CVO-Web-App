@@ -7,7 +7,7 @@
                         <div>
                         <div class="modal-body" style="min-height: 300px">
 
-                            <form id="form_validation" method="POST" action="/CVO_Employees" enctype="multipart/form-data">
+                            <form id="employeeForm" method="POST" action="/CVO_Employees" enctype="multipart/form-data">
                            <div class="col-sm-4"> <img src="../../images/noIdPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                               <script type="text/javascript">
 
@@ -88,7 +88,7 @@
    </div>
                       </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary waves-effect" data-dismiss="modal">ADD</button>
+                            <button type="button" class="btn btn-primary waves-effect" onclick="document.getElementById('employeeForm').submit();">ADD</button>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                         </div>
                     </div>

@@ -1,0 +1,92 @@
+  <div class="modal fade" id="add" tabindex="-1" role="dialog">
+                <div class="modal-dialog " role="document" >
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">ADD NEW VAN</h4>
+                        </div>
+                        <div>
+                        <div class="modal-body" style="min-height: 300px">
+
+                            <form id="vanForm" method="POST" action="/CVO_Van/add" >
+                           
+                               
+                             
+                            
+                                <div class="col-sm-12">
+
+								<label class="form-label">Plate Number</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="plateNumber_line">
+                                        <input type="text" class="form-control" id="plateNumber" name="plateNumber" autocomplete="off" onkeyup="required_validate(this) ">
+                                    </div>
+                                    <label id="plateNumber_required" class="error" style="display: none;">This field is required.</label>
+                                    <label id="plateNumber_exists" class="error" style="display: none;">Van Exists.</label>
+                                </div>
+								<label class="form-label">Number of Cages</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line" id="numberOfCages_line">
+                                        <input type="number" class="form-control" id="numberOfCages" name="numberOfCages" autocomplete="off" onkeyup="required_validate(this) ">
+                                    </div>
+                                    <label id="numberOfCages_required" class="error" style="display: none;">This field is required.</label>
+                                </div>
+                            
+                            </form>
+			
+   </div>
+                      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary waves-effect" onclick="validate()">ADD</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <script>
+                function required_validate(x) {
+                   
+                            if (document.getElementById(x.name).value.trim() == "" ) {
+                                $("#" + x.name + "_line").addClass('error');
+                                document.getElementById(x.name + "_required").style.display = "block";
+                            } else {
+                                $("#" + x.name + "_line").removeClass('error');
+                                document.getElementById(x.name + "_required").style.display = "none";
+                            }
+                        }
+                  function validate(){
+                    var toSubmit=true;
+                      ['plateNumber','numberOfCages'].forEach(function(x){
+                         if(document.getElementById(x).value.trim()=="" || document.getElementById(x).value=="select" || document.getElementById(x).value==""){
+                       $("#"+x+"_line").addClass('error');
+                       document.getElementById(x+"_required").style.display="block";
+                       toSubmit=false;
+                     }
+                      });
+                      if(toSubmit){
+                            swal({
+                              title: "Do you wish to continue?",
+                              text: "The Van details will be recorded after confirmation.",
+                              icon: "info",
+                              buttons: true,
+                             
+                            })
+                            .then((willDelete) => {
+                              if (willDelete) {
+                                 document.getElementById('vanForm').submit();
+                              } 
+                            });
+                     
+                    }
+                    else{
+                      swal("Warning!","Please fill up the form correctly.","warning")
+                    }
+                   }
+
+                function statIndicate(){
+                    if(document.getElementById('StatusIndication').innerHTML=='Active'){
+                        document.getElementById('StatusIndication').innerHTML='Inactive';
+                    }
+                    else{
+                        document.getElementById('StatusIndication').innerHTML='Active';
+                    }
+                }
+                </script>

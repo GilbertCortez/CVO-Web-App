@@ -23,8 +23,9 @@
      }
    }
 </script>
+<div>
 <div class="card">
-   <div class="body" style="min-height: 550px;">
+   <div class="body" style="min-height: 590px;">
       <div class="form-group form-float">
          <form id="update_validation" action="/CVO_NatureOfCollection" method="POST" >
             <div class="col-sm-6">
@@ -130,6 +131,22 @@
             </div>
             <br>
             <div class="col-sm-12">
+               <label class="form-label">Certificate Printing Fee</label>
+               <div class="form-group form-float">
+                  <div class="input-group">
+                     <span class="input-group-addon">
+                     &#8369;
+                     </span>
+                     <div class="form-line" id="noc7_line">
+                        <input type="text" class="form-control" name="noc7" onkeyup="format(this);" autocomplete="off" style="text-align:right;" value=<%= re[7].dec_Amount % 1==0? re[7].dec_Amount+".00" : re[7].dec_Amount; %> >
+                     </div>
+                    
+                  </div>
+                   <label id="required-noc7" class="error" style="display: none; text-align:right">This field is required.</label>
+               </div>
+            </div>
+            <br>
+            <div class="col-sm-12">
                <center><button class="btn btn-primary waves-effect" type="button" onclick="validate();">UPDATE</button></center>
             </div>
          </form>
@@ -137,10 +154,11 @@
    </div>
 </div>
 </div>
+
 <script>
    function validate(){
       var toSubmit=true;
-      [0,1,2,3,4,5,6].forEach(function(i){
+      [0,1,2,3,4,5,6,7].forEach(function(i){
          var currname=("noc").concat(i);
          document.getElementsByName(currname)[0].value=="" ? toSubmit=false : "" ;
       });

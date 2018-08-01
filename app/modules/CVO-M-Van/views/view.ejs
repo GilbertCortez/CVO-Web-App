@@ -1,0 +1,114 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("maintenance_list").className="active";
+document.getElementById("van_list").className="active";
+
+</script>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+  <div class="block-header" >
+
+        <div class="block-header" >
+
+                <h2>
+              Van
+                </h2>
+            </div>
+        <div class="card">
+
+            <div class="body">
+        
+                <div class="row clearfix">
+                        <div align="center">
+                                <a data-toggle="modal" data-target="#add">
+                                <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+                                <i class="material-icons">add</i>ADD NEW VAN
+                                </button></a>
+                             </div>
+                    <div >
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                            <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
+                
+                          </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
+                                    <div class="body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                             <th>Plate Number</th>
+                                                               <th>Total Number of Cages</th>
+                                                              <th>Active?</th>
+                                                             
+                                                            
+
+															<th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr>
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                        <% van.forEach(function(i){ %>
+                                                        <tr>
+                                                             <td>
+                                                           <%= i.int_VanId%>
+                                                            </td>
+                                                            <td>
+                                                            <%= i.str_PlateNumber %>
+                                                            </td>
+                                                            <td>
+                                                             <%= i.total %>
+                                                            </td>
+                                                            <td>
+                                                             <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                                    <span>Active</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                            <center>
+                                                                <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="edit">
+                                                                            <i class="material-icons">edit</i>
+                                                                    </button>
+                                                                <button type="button" class="btn btn-info waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
+                                                                            <i class="material-icons">apps</i>
+                                                                    </button>
+                                                                <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                            <i class="material-icons">delete</i>
+                                                                    </button>
+                                                                </center>
+                                                            </td>
+                                                          
+                                                        </tr>
+                                                        <% }); %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                            </div>
+                           
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <%- include('./addVan.ejs') -%>
+
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

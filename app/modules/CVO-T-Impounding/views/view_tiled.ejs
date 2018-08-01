@@ -1,0 +1,82 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+   <li role="presentation" class="active">
+      <a href="#home_with_icon_title" data-toggle="tab">
+      <i class="material-icons">border_all</i>IMPOUNDING DOGS
+      </a>
+   </li>
+   <li role="presentation">
+      <a href="#profile_with_icon_title" data-toggle="tab">
+      <i class="material-icons">border_all</i>IMPOUNDING CATS
+      </a>
+   </li>
+   <li role="presentation">
+      <a href="#messages_with_icon_title" data-toggle="tab">
+      <i class="material-icons">healing</i>DOG OBSERVATION
+      </a>
+   </li>
+   <li role="presentation">
+      <a href="#settings_with_icon_title" data-toggle="tab">
+      <i class="material-icons">healing</i>CAT OBSERVATION
+      </a>
+   </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+   <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title"><br>
+       <center>
+         <% if(fid.length>0){
+            fid.forEach(function(i,ctr){ %>
+         <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title=" <%= i.int_CageNumber %> " onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);">
+            <%= i.int_CageNumber %> <i class="material-icons">grid_on</i>
+            </button>
+         </div>
+         <% }); }else{ %>
+         <h4>No Cages</h4>
+         <%  } %>
+      </center>
+   </div>
+   <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title"><br>
+       <center>
+         <% if(fic.length>0){
+            fic.forEach(function(i,ctr){ %>
+         <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title=" <%= i.int_CageNumber %> " onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);">
+            <%= i.int_CageNumber %> <i class="material-icons">grid_on</i>
+            </button>
+         </div>
+         <% }); }else{ %>
+         <h4>No Cages</h4>
+         <%  } %>
+      </center>
+   </div>
+   <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title"><br>
+      <center>
+         <% if(fdo.length>0){
+            fdo.forEach(function(i,ctr){ %>
+         <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title=" <%= i.int_CageNumber %> " onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);">
+            <%= i.int_CageNumber %> <i class="material-icons">grid_on</i>
+            </button>
+         </div>
+         <% }); }else{ %>
+         <h4>No Cages</h4>
+         <%  } %>
+      </center>
+   </div>
+   <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title"><br>
+       <center>
+         <% if(fco.length>0){
+            fco.forEach(function(i,ctr){ %>
+         <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-lg waves-effect" data-toggle="tooltip" data-placement="top" title=" <%= i.int_CageNumber %> " onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %> );">
+            <%= i.int_CageNumber %> <i class="material-icons">grid_on</i>
+            </button>
+         </div>
+         <% }); }else{ %>
+         <h4>No Cages</h4>
+         <%  } %>
+      </center>
+   </div>
+</div>

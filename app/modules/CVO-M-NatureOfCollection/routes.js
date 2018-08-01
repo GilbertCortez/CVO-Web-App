@@ -8,7 +8,7 @@ var db = require('../../lib/database')();
 
 
 router.post('/',  (req,res)=>{
-	var QUERY='UPDATE natureofcollection SET dec_Amount='+req.body.noc0+' WHERE int_NatureOfCollectionId=0; UPDATE natureofcollection SET dec_Amount='+req.body.noc1+' WHERE int_NatureOfCollectionId=1;UPDATE natureofcollection SET dec_Amount='+req.body.noc2+' WHERE int_NatureOfCollectionId=2; UPDATE natureofcollection SET dec_Amount='+req.body.noc3+' WHERE int_NatureOfCollectionId=3; UPDATE natureofcollection SET dec_Amount='+req.body.noc4+' WHERE int_NatureOfCollectionId=4; UPDATE natureofcollection SET dec_Amount='+req.body.noc5+' WHERE int_NatureOfCollectionId=5; UPDATE natureofcollection SET dec_Amount='+req.body.noc6+' WHERE int_NatureOfCollectionId=6;';
+	var QUERY='UPDATE natureofcollection SET dec_Amount='+req.body.noc0+' WHERE int_NatureOfCollectionId=0; UPDATE natureofcollection SET dec_Amount='+req.body.noc1+' WHERE int_NatureOfCollectionId=1;UPDATE natureofcollection SET dec_Amount='+req.body.noc2+' WHERE int_NatureOfCollectionId=2; UPDATE natureofcollection SET dec_Amount='+req.body.noc3+' WHERE int_NatureOfCollectionId=3; UPDATE natureofcollection SET dec_Amount='+req.body.noc4+' WHERE int_NatureOfCollectionId=4; UPDATE natureofcollection SET dec_Amount='+req.body.noc5+' WHERE int_NatureOfCollectionId=5; UPDATE natureofcollection SET dec_Amount='+req.body.noc6+' WHERE int_NatureOfCollectionId=6;UPDATE natureofcollection SET dec_Amount='+req.body.noc7+' WHERE int_NatureOfCollectionId=7;';
 	console.log(QUERY);
 	db.query(QUERY, (err)=>{
 		console.log(err);

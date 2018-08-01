@@ -1,0 +1,234 @@
+<div class="modal fade" id="cageInfo" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document" style="width:90%;">
+      <div class="modal-content" >
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="CageNumberLabel"></h4>
+         </div>
+         <div class="modal-body" style="min-height:550px;">
+            <div class="col-sm-6">
+            <div class="block-header">
+               <h2>ANIMALS</h2>
+            </div>
+               <div class="bg-blue" style="min-height:70%;overflow-x: auto;padding:5px;max-height:70%" id="divAnimals">
+                  
+                 
+               </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="block-header">
+               <h2>ANIMAL INFORMATION</h2>
+            </div>
+               <!-- <iframe src="/CVO_Dashboard" width="100%" height="100%" frameBorder="0"></iframe> -->
+                <div class="bg-blue" style="min-height:70%;overflow-x: auto;padding:5px;max-height:70%" id="divAnimalInfo">
+                 
+                        </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script src="/PrettifyDate/PrettifyDate.js" type="text/javascript"></script>
+<script > 
+   function iterateCage(x,y){
+       document.getElementById('CageNumberLabel').innerHTML="CAGE NUMBER "+y;
+         $.post("/CVO_Impounding/Cages/getAnimals",{id: x},function(data, status){
+              $('#divAnimalInfo').empty();
+            $('#divAnimals').empty();
+            data.forEach(function(i){
+              $('#divAnimals').append(` <button type="button" class="btn btn-block btn-default waves-effect" style="max-height:100px" onclick="iterateAnimalInfo(`+i.int_AnimalId+`);">
+                     <div class="media">
+                        <div class="media-left">
+                           <a href="javascript:void(0);">
+                           <img class="media-object" src="/Animals/`+i.str_AnimalPicturePath+`" width="90px" height="90px">
+                           </a>
+                        </div>
+                        <div class="media-body">
+                          <table style="width: 100%;color:grey;">
+                                        <tr>
+                                            <th>ANIMAL ID</th>
+                                            <td>`+i.int_AnimalId+`</td>
+                                            <th>ALIAS/PET NAME</th>
+                                            <td>`+i.str_Alias+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>SEX</th>
+                                            <td>`+(i.int_Sex==0? "Male": "Female")+`</td>
+                                            <th>ANIMAL SPECIES</th>
+                                            <td>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+ `</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BREED</th>
+                                            <td>`+i.str_BreedName+`</td>
+                                            <th>COLOR PATTERN</th>
+                                            <td>`+i.str_Description+`</td>
+                                        </tr>
+                                      
+                                    </table>
+                        </div>
+                     </div>
+                  </button>
+            `)
+            });
+            $('#cageInfo').modal('toggle');     
+          });
+       
+   }
+   function iterateAnimalInfo(x){
+      $.post("/CVO_Impounding/Cages/getAnimalDetails",{id:x},function(data){
+         var lodgingHistoryTable="";
+         data.forEach(function(i,ctr){
+
+             lodgingHistoryTable+=`<tr><th scope="row">`+(ctr+1)+`</th><td>`+(i.int_LodgingStatus==0 ? ("Impounded to cage number "+i.int_CageId):"")+`</td><td>`+MMMMDDYYYY(data[0].dtm_DateTimeApprehension)+`</td><td>`+data[0].str_LastName+`, `+data[0].str_FirstName+` `+data[0].str_MiddleName+`</td><td><center><a class="btn btn-primary" onclick="swal('`+i.str_Remarks+`')"><i class="material-icons">info</i></a></center></td></tr>`;
+         })
+         $('#divAnimalInfo').empty();
+         $('#divAnimalInfo').append(`
+                <div class="col-sm-4" align="center"><br>
+                            <img style="border:4px;border-style:solid;border-color:white " id="blah " src="/Animals/`+data[0].str_AnimalPicturePath+`" width="170px" height="170px" /><hr>
+                            <a class='btn btn-default btn-block waves-effect' onclick="cageAction(`+data[0].int_AnimalId+`);"><i class="material-icons">accessibility</i>ACTION</a>
+                        </div>
+                        <div class="col-sm-8" align="center">
+                           
+                               <table style="width: 100%;color:white;">
+                                        <tr>
+                                            <th>ANIMAL ID</th>
+                                            <td>`+data[0].int_AnimalId+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>ALIAS/PET NAME</th>
+                                            <td>`+data[0].str_Alias+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PET TAG</th>
+                                            <td>`+(data[0].str_PetTagNo!=""? data[0].str_PetTagNo : "none")+`</td>
+                                        </tr>
+                                       <tr>
+                                            <th>ANIMAL SPECIES</th>
+                                            <td>`+(data[0].int_AnimalSpecies==0? "Dog": "Cat")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BREED</th>
+                                            <td>`+data[0].str_BreedName+`</td>
+                                        </tr>
+                                       <tr>
+
+                                            <th>SEX</th>
+                                            <td>`+(data[0].int_Sex==0? "Male": "Female")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>COLOR PATTERN</th>
+                                            <td>`+data[0].str_Description+`</td>
+                                        </tr>
+                                        <tr >
+                                            <th>DATE APPREHENDED</th>
+                                            <td>`+MMMMDDYYYY(data[0].dtm_DateTimeApprehension)+`</td>
+                                             
+                                        </tr>
+                                        <tr>
+                                             <th>BARANGAY APPREHENDED</th>
+                                            <td>`+data[0].str_BarangayName+`</td>
+                                        </tr>
+                                        
+                                    </table>
+
+                        </div>
+                        <div class="col-sm-12"><br></div>
+                        <div class="col-sm-12 bg-white" style="height:210px">
+                                    <!-- Nav tabs -->
+                                   
+                                    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home_animation_1" data-toggle="tab"><i class="material-icons">grid_on</i>IMPOUNDING HISTORY</a></li>
+                                        <li role="presentation"><a href="#profile_animation_1" data-toggle="tab"><i class="material-icons">local_hospital</i>MEDICAL HISTORY</a></li>
+                                
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane animated fadeIn active" id="home_animation_1">
+                                            <div style="max-height:130px;overflow:auto">
+                                             <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Lodging Description</th>
+                                        <th>Date Occured</th>
+                                        <th>Employee Involved</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   `+lodgingHistoryTable+`
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                                       </div>
+                                           
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane animated fadeIn" id="profile_animation_1">
+                                            <div style="max-height:130px;overflow:auto">
+                                             <div class="body table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Medication Description</th>
+                                        <th>Date Occured</th>
+                                        <th>Employee Involved</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                                       </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+            `)
+      });
+   }
+   function cageAction(x){
+
+         swal("What Action to take?", {
+   buttons: {
+    
+    transfer: "TRANSFER CAGE",
+    medical: "MEDICATION",
+    euthanize: "EUTHANIZE",
+    cancel: "CANCEL"
+   },
+   icon: "info"
+   })
+   .then((value) => {
+   switch (value) {
+   
+    case "transfer":
+         transferCage(x);
+      break;
+   
+    case "medical":
+      medication(x);
+      break;
+      
+   case "euthanize":
+      
+      break;
+    
+   }
+   });
+   }
+</script>
+<%- include('./transferCage.ejs') -%>
+<%- include('./medication.ejs') -%>

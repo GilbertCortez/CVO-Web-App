@@ -8,17 +8,18 @@ document.getElementById("maintenance_list").className="active";
 
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header bg-blue" >
+  <div class="block-header" style="float:left">
 
                 <h2>
                 CAGES IN IMPOUNDING AREA
                 </h2>
 
-                <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" onclick="changeView();" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">remove_red_eye</i>
+                                   
+                            
+            </div>
+              <div>
+           <a href="javascript:void(0);" class="btn btn" style="float:right" onclick="changeView();" >
+                                        <i class="material-icons">remove_red_eye</i>CHANGE VIEW
                                     </a>
                                     <script>
                                     var currentview= "datatable";
@@ -35,9 +36,11 @@ document.getElementById("maintenance_list").className="active";
                                       }
                                     }
                                     </script>
-                                </li>
-                            </ul>
-            </div>
+</div>
+<br><br>
+        <div class="card">
+      
+                                 
             <div class="body" id="datatable">
              <%- include('./view_datatable.ejs') -%>
             </div>

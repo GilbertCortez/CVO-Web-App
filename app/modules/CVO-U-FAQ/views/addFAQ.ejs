@@ -1,10 +1,11 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-blue">
-                            <h2>ADD NEW FREQUENTLY ASKED QUESTION</h2>
-                        </div>
-                        <div class="body">
-                            <form id="form_faq" method="POST" action="/CVO_FAQs">
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header bg-blue">
+             <h4 class="modal-title" id="defaultModalLabel">ADD NEW FREQUENTLY ASKED QUESTION</h4>
+          </div>
+          <div class="modal-body">
+                             <form id="form_faq" method="POST" action="/CVO_FAQs/add">
 								<label class="form-label">Question</label>
                                 <div class="form-group form-float">
                                     <div class="form-line" id="question_line">
@@ -19,13 +20,15 @@
                                     </div>
                                     <label id="required-answer" class="error" style="display: block;">This field is required.</label>
                                 </div>
-                                <br>
-                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()" >ADD</button></center>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link waves-effect" onclick="validation()">ADD</button>
+                                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
+            </div>
                 <script>
                 document.getElementById('required-question').style.display="none";
                 document.getElementById('required-answer').style.display="none";

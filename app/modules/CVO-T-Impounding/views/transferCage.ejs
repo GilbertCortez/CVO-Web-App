@@ -1,0 +1,146 @@
+ <div class="modal fade" id="transferCageModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document" style="width:90%;">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">TRANSFER CAGE</h4>
+                        </div>
+                        <div class="modal-body"  style="min-height:550px;" >
+                        <!--START -->
+                        <div class="col-sm-6">
+                          <div class="bg-blue" style="min-height:73%;overflow-x: auto;padding:5px;max-height:90%" id="divTransferAnimalInfo">
+               
+                          </div>
+                        </div>  
+                        <div class="col-sm-6">
+                          <div class="" style="min-height:73%;overflow-x: auto;padding:5px;max-height:90%" id="divTransferForm">
+              
+                         
+                          
+                          <h2>Cage Transferring Form<small><i class="material-icons" style="font-size: 20px;color: gray">forward</i> </small></h2><hr>
+                    
+                     
+                          <label class="form-label">Impounding Site</label>
+                           <div class="form-group">
+                                        <div class="form-line">
+                          <select class="form-control show-tick" data-live-search="true"  onchange="changeImpoundingSite()" >
+                                    <% als.forEach(function (x) { %>
+                                        <option value='<%= x.int_ImpoundingSiteId %>' >
+                                            <%= x.str_BarangayName %>(ID: <%= x.int_ImpoundingSiteId %>)
+                                        </option>
+                                        <% }); %>
+
+                                </select>
+                                </div></div>
+                                
+                                 <label class="form-label">Cage</label>
+                          <div id="selectCageTransfer">
+                          </div>
+                         <br><br>
+                               <label class="form-label">Reason of Transferring</label>
+                                <div class="form-group">
+                                        <div class="form-line">
+                          <select class="form-control show-tick" data-live-search="true" name="remarks" >
+                      
+                                        <option value='0'>Sick</option>
+                                        <option value='1'>Animal Fight</option>
+                                        <option value='5'>Others(Be specific on Remarks Field)</option>
+                                        
+
+                                </select>
+                                </div></div>
+                                <br>
+                                <label class="form-label">Remarks</label>
+                               <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" class="form-control no-resize"></textarea>
+                                        </div>
+                                    </div>
+                        
+                            </div>
+
+                          </div>
+                     
+                           
+                        <!--END -->
+                        </div>
+                        <div class="modal-footer">
+                        <a class="btn btn-primary waves-effect">PROCEED</a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+              function transferCage(x){
+                  $.post("/CVO_Impounding/Cages/getAnimalDetails",{id:x},function(data){
+     
+                $('#divTransferAnimalInfo').empty();
+                $('#divTransferAnimalInfo').append(`
+                   <div class="col-sm-2"></div>
+                                  <div class="col-sm-4">
+                        <br><br>
+                        <center>
+                            <font size="100px"><i class="material-icons" style="font-size: 150px;color: white">pets</i></font>
+                            <br>
+                            <h5 style="color: white">&nbsp;&nbsp;&nbsp;ANIMAL INFORMATION</h5></center>
+                        </div>
+                                  <div class="col-sm-4" align="center"><br><br>
+                            <img style="border:4px;border-style:solid;border-color:white " id="blah " src="/Animals/`+data[0].str_AnimalPicturePath+`" width="170px" height="170px" />
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-12">
+                        <div class="col-sm-2"></div>
+
+                        <div class="col-sm-8" align="center">
+                           
+                               <table style="width: 100%;color:white;">
+                                        <tr>
+                                            <th>ANIMAL ID</th>
+                                            <td>`+data[0].int_AnimalId+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>ALIAS/PET NAME</th>
+                                            <td>`+data[0].str_Alias+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PET TAG</th>
+                                            <td>`+(data[0].str_PetTagNo!=""? data[0].str_PetTagNo : "none")+`</td>
+                                        </tr>
+                                       <tr>
+                                            <th>ANIMAL SPECIES</th>
+                                            <td>`+(data[0].int_AnimalSpecies==0? "Dog": "Cat")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BREED</th>
+                                            <td>`+data[0].str_BreedName+`</td>
+                                        </tr>
+                                       <tr>
+
+                                            <th>SEX</th>
+                                            <td>`+(data[0].int_Sex==0? "Male": "Female")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>COLOR PATTERN</th>
+                                            <td>`+data[0].str_Description+`</td>
+                                        </tr>
+                                        <tr >
+                                            <th>DATE APPREHENDED</th>
+                                            <td>`+MMMMDDYYYY(data[0].dtm_DateTimeApprehension)+`</td>
+                                             
+                                        </tr>
+                                        <tr>
+                                             <th>BARANGAY APPREHENDED</th>
+                                            <td>`+data[0].str_BarangayName+`</td>
+                                        </tr>
+                                        
+                                    </table>
+
+                        </div>
+                        <div class="col-sm-2"></div>
+                        </div>
+                  `);
+
+                $('#transferCageModal').modal('toggle');
+              });
+              }
+            </script>

@@ -5,29 +5,52 @@
             <h4 class="modal-title" id="defaultModalLabel">EDIT VACCINE DETAILS</h4>
          </div>
          <div class="modal-body">
-            <table class="table table-striped">
-               <tr>
-                  <td><strong>ID NUMBER:</strong></td>
-                  <td ><input type="text" id="modal_ID" class="form-control" name="name" required="" aria-required="true" disabled></td>
-               </tr>
-               <tr>
-                  <td><strong>VACCINE NAME:</strong></td>
-                  <td><input type="text" id="modal_VaccineName" class="form-control" name="name" required="" aria-required="true" value='Vaccine for dogs'></td>
-               </tr>
-               <tr>
-                  <td><strong>CLASSIFICATION:</strong></td>
-                  <td>
-                     <select id="modal_Classification" class="form-control show-tick" data-live-search="true" tabindex=1>
-                        <option value=0>Government</option>
-                        <option value=1>Private</option>
-                     </select>
-                  </td>
-               </tr>
-               <tr>
-                  <td><strong>MANUFACTURER:</strong></td>
-                  <td><input type="text" id="modal_Manufacturer" class="form-control" name="name" required="" aria-required="true"></td>
-               </tr>
-            </table>
+             <label class="form-label">Anti Rabies Vaccine Name</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="line_vaccine_name">
+                     <input type="text" class="form-control" name="name"  id="vaccine_name" aria-required="true" onkeyup="vaccine_name_typing();" autocomplete="off">
+                  </div>
+                  <label id="required-vaccine_name" class="error" style="display: block;">This field is required.</label>
+                   <label id="exists-vaccine_name" class="error" style="display: block;">Vaccine Exists.</label>
+               </div>
+
+               <label class="form-label">Manufacturer</label>
+                           <div class="form-group form-float">
+        <div class="form-line" id="line_manufacturer">
+                                <select id="manufacturer" onchange="vaccine_name_typing();vaccine_manufacturer_typing()" name="manu_name" class="form-control show-tick" data-live-search="true">
+                                        <option >select</option>
+                                        <% ma.forEach(function(i){ %>
+                                            <option value=<%= i.int_ManufacturerId %>><%= i.str_Manufacturer %></option>
+                                        <% }); %>
+                                    </select>   
+                                     </div>
+                   <label id="required-manufacturer" class="error" style="display: block;">This field is required.</label>        
+                           </div> <br>
+
+                <br>
+
+                <label class="form-label">Species</label>
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=0 id="forDogs" checked>
+                  <label for="forDogs">For Dogs</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=1 id="forCats">
+                  <label for="forCats">For Cats</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="species" type="radio" value=2 id="forDC">
+                  <label for="forDC">For Dogs & Cats</label>
+                  </span>
+               </div>
+               <label class="form-label">Number of Immunity Years</label>
+               <div class="form-group form-float">
+                  <div class="form-line" id="line_years">
+                     <input type="number" class="form-control" min=1 name="yearsOfImmunity" onkeyup="vaccine_years_typing();" id="yearsOfImmunity" autocomplete="off">
+                  </div>
+                   <label id="required-years" class="error" style="display: block;">This field is required.</label>
+               </div>
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">UPDATE</button>

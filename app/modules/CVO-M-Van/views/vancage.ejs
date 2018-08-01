@@ -1,7 +1,7 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
 document.getElementById("maintenance_list").className="active";
-document.getElementById("organization_list").className="active";
+document.getElementById("van_list").className="active";
 
 </script>
 
@@ -13,7 +13,7 @@ document.getElementById("organization_list").className="active";
         <div class="block-header" >
 
                 <h2>
-               Organization
+              Van
                 </h2>
             </div>
         <div class="card">
@@ -24,7 +24,7 @@ document.getElementById("organization_list").className="active";
                         <div align="center">
                                 <a data-toggle="modal" data-target="#add">
                                 <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
-                                <i class="material-icons">add</i>ADD NEW ORGANIZATION
+                                <i class="material-icons">add</i>ADD NEW VAN
                                 </button></a>
                              </div>
                     <div >
@@ -43,10 +43,10 @@ document.getElementById("organization_list").className="active";
                                                     <thead>
                                                         <tr>
                                                             <th>ID</th>
-                                                             <th>Organization Name</th>
-                                                              <th>Email</th>
-                                                              <th>Telephone Number </th>
-                                                            <th>Cellphone Number</th>
+                                                             <th>Plate Number</th>
+                                                               <th>Total Number of Cages</th>
+                                                              <th>Status</th>
+                                                             
                                                             
 
 															<th>Action</th>
@@ -60,37 +60,50 @@ document.getElementById("organization_list").className="active";
                                                         </tr>
                                                     </tfoot> -->
                                                     <tbody>
-                                                        <% organizations.forEach(function (i) { %>
-                                                         <tr>
-                                                             <td><%= i.int_OrganizationId%></td>
-                                                             <td><%= i.str_OrganizationName%></td>
-                                                             <td><%= i.str_Email%></td>
-                                                             <td><%= i.str_TelephoneNumber%></td>
-                                                             <td><%= i.str_CellphoneNumber%></td>
+                                                        <% van.forEach(function(i){ %>
+                                                        <tr>
                                                              <td>
-                                                                     <div align="center">
-                                                                             <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
-                                                                                 <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                                    <i class="material-icons">mode_edit</i>
-                                                                            </button></a>
-                                                                        </div>
-                                                             </td>
-                                                         </tr>          
-                                                         <% }); %>
-                                                     </tbody>
+                                                           <%= i.int_VanId%>
+                                                            </td>
+                                                            <td>
+                                                            <%= i.str_PlateNumber %>
+                                                            </td>
+                                                            <td>
+                                                             <%= i.total %>
+                                                            </td>
+                                                            <td>
+                                                            
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="edit">
+                                                                            <i class="material-icons">edit</i>
+                                                                    </button>
+                                                                <button type="button" class="btn btn-info waves-effect" data-toggle="tooltip" data-placement="top" title="Cages">
+                                                                            <i class="material-icons">apps</i>
+                                                                    </button>
+                                                                <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                            <i class="material-icons">delete</i>
+                                                                    </button>
+                                                            </td>
+                                                          
+                                                        </tr>
+                                                        <% }); %>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                             </div>
+                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-     
+
+     <%- include('./addVan.ejs') -%>
 
 
-<%- include('./addOrganization.ejs') -%>
-<%- include('./updateOrganization.ejs') -%>
+
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

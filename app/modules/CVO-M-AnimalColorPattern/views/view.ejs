@@ -33,6 +33,7 @@
                                  <tr>
                                     <th>ID</th>
                                     <th>Color Pattern Description</th>
+                                    <th>Active?</th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
@@ -48,11 +49,18 @@
                                  <tr>
                                     <td><%= i.int_ColorPatternId%></td>
                                     <td><%= i.str_Description%></td>
+                                     <td> <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                                    <span>Active</span>
+                                                                </div></td>
                                     <td>
                                        <div align="center">
                                           <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                           <i class="material-icons">mode_edit</i>
                                           </button></a>
+                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                            <i class="material-icons">delete</i></button>
+
                                        </div>
                                     </td>
                                  </tr>
