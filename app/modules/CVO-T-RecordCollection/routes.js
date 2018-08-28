@@ -108,6 +108,33 @@ router.post('/Certv/download', (req, res) => {
     });
 });
 
+router.post('/OrderOfReleaseR1/print', (req, res) => {
+   
+  db.query(`SELECT * FROM redemptiontransaction WHERE   int_RedemptionTransactionId=${req.body.redemptionTransactionId}`, (err, redemptionTransaction) => { console.log(redemptionTransaction)
+                    if(redemptionTransaction[0].int_OwnerStatus==0){
+                        db.query(`CALL SelectPetOwnerDetails(${redemptionTransaction[0].int_OwnerId});`,(err,petOwnerDetails)=>{ console.log(petOwnerDetails)
+                            db.query(`CALL SelectImpoundedAnimalDetails(${redemptionTransaction[0].int_AnimalId})`,(err,impoundedAnimal)=>{ console.log(impoundedAnimal)
+                               db.query(`SELECT * FROM office`, (err, officeDetails) => {
+                res.render('CVO-T-RecordCollection/views/OrderOfRelease.ejs', {
+                    po: petOwnerDetails,
+                   ia:impoundedAnimal[0][0],
+                    od: officeDetails,
+                    empName: "Gilbert Critica Cortez"
+                });
+            });
+                            })
+                        })
+                    }
+                    else{
+                        console.log('NON CITIZEN')
+                    }
+                    
+                    });
+});
+
+router.get('/trylang',(req,res)=>{
+
+});
 
 router.post('/record', (req, res) => {
 
@@ -117,7 +144,7 @@ router.post('/record', (req, res) => {
 
 
 
-    //db.query(`UPDATE payment SET str_ORNumber=${ORNumber},dat_DateOfPayment="${DateOfPayment}", int_Status=1 WHERE int_PaymentId=${PaymentId}`,(err)=>{
+    db.query(`UPDATE payment SET str_ORNumber=${ORNumber},dat_DateOfPayment="${DateOfPayment}", int_Status=1 WHERE int_PaymentId=${PaymentId}`,(err)=>{
     db.query(`CALL SelectPaymentBreakdown(${PaymentId})`, (err, breakdown) => {
 
 
@@ -194,14 +221,31 @@ console.log(breakdown[0][0].int_NatureOfCollectionId)
                     });
                 });
             }
+            else if (breakdown[0][0].int_NatureOfCollectionId == 3 || breakdown[0][0].int_NatureOfCollectionId == 4 || breakdown[0][0].int_NatureOfCollectionId == 5) {
+                 console.log(breakdown);
+                 console.log("REDEMPTION")
+              
+                 db.query(`SELECT * FROM redemptiontransaction WHERE int_OwnerId=${breakdown[0][0].int_PayorId} AND int_RedemptionResult=1`, (err, redemptionTransaction) => {
+                    db.query(`UPDATE redemptiontransaction SET int_RedemptionResult=2 WHERE int_RedemptionTransactionId=${redemptionTransaction[0].int_RedemptionTransactionId }`,(err)=>{ console.log(err)
+                      res.render('CVO-T-RecordCollection/views/TransactionSummary_R1.ejs', {
+                                redemptionTransactionId:redemptionTransaction[0].int_RedemptionTransactionId 
+                            });
+                    
+                    });
+                });
+                
+            }
             /*
               0- POR
               1- PR
               2- V
+              3- R1
+              4- R2
+              5- R3
             */
         }
 
-
+});
     });
 
 });

@@ -74,6 +74,18 @@ router.post('/type1',(req,res)=>{
 	}
 	});
 
+router.get('/Pending',  (req,res)=>{
+  
+	
+          db.query(`SELECT * FROM redemptiontransaction WHERE   int_RedemptionResult=1`, (err, redemptionTransaction) => { 
+               
+                     res.render('CVO-T-Redemption/views/pendingredemption.ejs',{rt: redemptionTransaction});
+                           
+                   
+                    
+                    }); 
+});
+
 
 router1.get('/',  (req,res)=>{
   

@@ -1,0 +1,53 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("redemption_list").className="active";
+document.getElementById("PendingRedemption").className="active";
+document.getElementById("transaction_list").className="active";
+</script>
+<div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <div class="block-header">
+                            <h2>PENDING REDEMPTION APPLICATION</h2>
+                        </div>
+                    <div class="card">
+                       
+                        <div class="body">
+                              <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="390px">
+                                                    <thead>
+                                                   
+                                                        <tr>
+                                                            <th>Transaction ID</th>
+                                                           <th>Redemption Date</th>
+
+
+                                                           <th>Date and Time Animal Lost</th>
+                                                            <th>Owner of the Lost Pet Name</th>
+                                                           <th>Transaction Status</th>
+                                                    
+                                                            <th >Date and Time Animal Released</th>
+                                                        </tr>
+                                                    </thead>
+                                               
+                                                    <tbody>
+                                                   <% rt.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_RedemptionTransactionId %></td>
+                                                      
+                                                              <td><%= i.dtm_DateTimeOfRedemption %></td>
+                                                                 <td >
+                                                               <%= i.dtm_DateTimeAnimalLost %>
+                                                            </td>
+                                                               <td><%= i.int_OwnerId %></td>
+                                                                <td><%= i.int_RedemptionResult %></td>
+                                                               
+                                                                  <td><%= i.dtm_DateTimeOfAnimalRelease == null? "n/a": i.dtm_DateTimeOfAnimalRelease %></td>
+                                                     
+                                                            
+                                                        </tr>
+                                        <% }); %>
+                                                    </tbody>
+                                                </table>
+                        </div>
+                    </div>
+                </div>
+                <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

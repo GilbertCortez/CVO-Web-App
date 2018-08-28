@@ -43,16 +43,18 @@
                                                     </thead>
                                                
                                                     <tbody>
+                                                    <% fr.forEach(function(i){ %>
                                                     <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><%= i.str_BarangayName+"(ID: "+i.int_ImpoundingSiteId+")" %></td>
+                                                    <td><%= i.int_CageNumber %></td>
+                                                    <td><%= i.int_AnimalSpecies==0? "Dog":"Cat"; %></td>
+                                                    <td><%= i.str_BreedName %></td>
+                                                    <td><%= i.str_Description %></td>
+                                                    <td><%= i.int_Sex==0?"Male": "Female"; %></td>
                                                     <td><center><a class="btn btn-primary"><i class="material-icons">photo</i></a></center></td>
-                                                    <td><center><a class="btn btn-primary "><i class="material-icons">reply</i>RELEASE</a></center></td>
+                                                    <td><center><a class="btn btn-primary " onclick="alert('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
                                                     </tr>
+                                                      <% }); %>
                                                     </tbody>
                                                 </table>
                                         
