@@ -20,5 +20,13 @@ module.exports = app => {
                 app.use(`/${route}`, routes[route]);
             });
         });
+
+  app.get('*', function(req, res){
+         res.render(`../templates/404ErrorPage.ejs`);
+       });
+
+ 
     });
+
+
 }

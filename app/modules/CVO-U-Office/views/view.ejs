@@ -2,42 +2,48 @@
 <script>
 document.getElementById("utilities_list").className="active";
 document.getElementById("office_list").className="active";
-</script>
+</script><br><br>
                  <div >
-<<<<<<< HEAD
-                  <div class="block-header">
-                            <h2>OFFICE INFORMATION</h2>
-                        </div>
-                    <div class="card">
-                       
-                        <div class="body">
-                                <form action="/CVO_Office" method="POST" id="office_form">
-                                <div class="form-group form-float">
-                                    
-                                    
-=======
+
                         <div class="block-header">
                                 <h2>OFFICE INFORMATION</h2>
                             </div>
-                    <div class="card">
+                    <div class="card" style="min-height: 470px">
                         <div class="body">
                                 <form action="/CVO_Office" method="POST" id="office_form">
                                 <div class="form-group form-float">                            
->>>>>>> da059c0a3c01ffab7778f27ce6e3377fe37e4e70
+                                    <div class="col-sm-6">
                                     <div class="form-group form-float">
                                     <label class="form-label">Office Name</label>
                                     <div class="form-line" id="officename_line">
-                                        <textarea class="form-control" name="office_name" id="office_name" onkeypress="officename_typing()"><%=office[0].str_OfficeName%></textarea>
-                                    </div><br>
+                                        <input type="text" class="form-control" name="office_name" id="office_name" onkeypress="officename_typing()" value="<%=office[0].str_OfficeName%>">
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                    <label class="form-label">Address</label>
+                                    <div class="form-line" id="officeaddress_line">
+                                        <input type="text"  class="form-control" name="office_address" id="office_address" onkeypress="officeaddress_typing()" value="<%=office[0].str_Address%>">
+                                    </div>
+
+                                    <label id="required-office_address" class="error" style="display:block;">This field is required.</label>
+                                    </div>
                                     <label id="required-office_name" class="error" style="display:block;">This field is required.</label>
                                     </div>
+                                 
+
+                                    <div class="col-sm-6">
                                     <div class="form-group form-float">
                                     <label class="form-label">Email</label>
                                     <div class="form-line" id="officeemail_line">
                                         <input type="text" class="form-control" name="office_email" id="office_email" onkeypress="officeemail_typing()" required="" aria-required="true" value=<%=office[0].str_Email%>>
-                                    </div><br>
+                                    </div>
                                     <label id="required-office_email" class="error" style="display:block;">This field is required.</label>
                                     </div>
+                                    </div>
+                                    <div class="col-sm-6">
                                     <div class="form-group form-float">
                                     <label class="form-label">Telephone Number</label>
                                     <div class="form-line" id="officenumber_line">
@@ -45,24 +51,26 @@ document.getElementById("office_list").className="active";
                                     </div><br>
                                     <label id="required-office_number" class="error" style="display:block;">This field is required.</label>
                                     </div>
-                                    <div class="form-group form-float">
-                                    <label class="form-label">Address</label>
-                                    <div class="form-line" id="officeaddress_line">
-                                        <textarea class="form-control" name="office_address" id="office_address" onkeypress="officeaddress_typing()"><%=office[0].str_Address%></textarea>
-                                    </div><br>
-                                    <label id="required-office_address" class="error" style="display:block;">This field is required.</label>
                                     </div>
+                                    <div class="col-sm-6">
+                                     <label class="form-label">Office Hours</label> 
                                     <div class="form-group form-float">
-                                     <label class="form-label">Office Hours</label>
+                                    
+                                     <div class="col-sm-6">
                                     <div class="form-line">
                                     <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Time</label>
                                        <input type="time" class="form-control" name="office_OpenHour" value=<%=office[0].dtm_OpenHour%>>
-                                       </div><br>
+                                       </div>
+                                       </div>
+                                       <div class="col-sm-6">
                                          <div class="form-line">
                                        <label class="form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Time</label>
                                        <input type="time" class="form-control" name="office_CloseHour" value=<%=office[0].dtm_CloseHour%>>
-                                    </div><br>
                                     </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-sm-6">
                                      <label class="form-label">Office Days</label>
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-addon">
@@ -94,7 +102,8 @@ document.getElementById("office_list").className="active";
                                             <label for="su">Su</label>
                                         </span>
                                     </div>        
-                                    </div><br>                                  
+                                    </div>
+                                    </div>                               
                                 <center><button class="btn btn-primary waves-effect" type="button" onclick="validation()" >UPDATE</button>
                                 </form>
                                   </div>

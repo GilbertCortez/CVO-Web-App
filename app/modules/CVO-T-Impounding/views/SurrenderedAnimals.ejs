@@ -1,0 +1,126 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("impounding_list").className="active";
+    document.getElementById("surrenderanimal").className="active";
+    document.getElementById("transaction_list").className="active";
+</script>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="block-header">
+<h2>SURRENDER ANIMAL</h2>
+</div>
+        <div class="card">
+           
+            <div class="body" >
+         
+                        
+                    <div class="col-sm-12">
+                    <div class="col-sm-6">
+       <a type="button" href="/CVO_SurrenderAnimal" class="btn btn-block btn-lg btn-primary waves-effect"  ><i class="material-icons">add</i>SURRENDER ANIMAL</a>   
+                         </div>
+                         <div class="col-sm-6">
+                         <a <% if(su.length!=0){ %>  data-target="#choose" data-toggle="modal" <% } %> class="btn btn-block btn-lg btn-primary waves-effect" <% if(su.length==0){ %> disabled <% } %>><i class="material-icons">apps</i>CAGE ASSIGNMENTS</a>
+                         </div></div>
+                         <br><br>
+                         <center><h3>Surrendered Animals</h3></center>
+                             <div>
+                                    
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height: 250px">
+                                                    <thead>
+                                                   
+                                                        <tr>
+                                                            
+                                                            <th>Pet Tag</th>
+                                                           <th>Species</th>
+                                                           <th>Breed</th>
+                                                           <th>Color Pattern</th>
+                                                           <th>Sex</th>
+                                                           <th>Health Status</th>
+                                                            <th >Action</th>
+                                                        </tr>
+                                                    </thead>
+                                               
+                                                    <tbody>
+                                                     <% su.forEach(function(i){ %>
+                                                        <tr>
+                                                           
+                                                              <td><%= i.str_PetTagNo %></td>
+                                                           <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat"; %></td>
+                                                           <td><%= i.str_BreedName %></td>
+                                                           <td><%= i.str_Description %></td>
+                                                           <td><%= i.int_Sex == 0 ? "Male" : "Female"; %></td>
+                                                         <td><%= i.int_HealthStatus == 0 ? "Healthy" : "Sick"; %></td>
+                                                            <td >
+                                                                <div class="row"align="center">
+                                                                    <a data-toggle="modal" data-target="#orderofapprehension"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                            <i class="material-icons">remove_red_eye</i>
+                                                                    </button></a>
+                                                                   
+                                                                    <a href="/CVO_ApprehendedAnimal"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Add List of Apprehended Animal ">
+                                                                             <i class="material-icons">edit</i>
+                                                                    </button>
+                                                                    </a>
+                                                                          
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                             <% }); %>
+                                                    </tbody>
+                                                </table>
+                                        
+                        
+                                        
+                </div>
+            </div>
+        </div>
+    </div>
+<form action="/CVO_SurrenderAnimal/cageAssignments" method="POST" id="cageAssignment">
+    <input type="hidden" name="impoundingSiteId" id="impoundingSiteId">
+</form>
+
+<div class="modal fade" id="choose" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4 class="modal-title" id="defaultModalLabel">CHOOSE IMPOUNDING SITE</h4>
+         </div>
+         <div class="modal-body">
+         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                   
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Barangay Located</th>
+                                                            <th>Available Slots</th>
+                                                            <th >Action</th>
+                                                        </tr>
+                                                    </thead>
+                                               
+                                                    <tbody>
+                                                    <% is.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_ImpoundingSiteId %></td>
+                                                            <td><%= i.str_BarangayName %></td>
+                                                            <td><%= i.AvailableCagePerImpounding %></td>
+                                                            <td >
+                                                                <button type="button" class="btn btn-primary btn-block waves-effect" onclick="document.getElementById('impoundingSiteId').value=<%= i.int_ImpoundingSiteId %>; document.getElementById('cageAssignment').submit()">PLACE</button>
+                                                            </td>
+                                                        </tr>
+                                                    <% }); %>
+                                                    </tbody>
+                                                </table>
+            
+            
+           
+         </div>
+         <div class="modal-footer">
+            
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+   
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

@@ -2,7 +2,7 @@
 <script>
 document.getElementById("impounding_list").className="active";
 document.getElementById("timpounding").className="active";
-document.getElementById("transaction_list").className="active";
+document.getElementById("maintenance_list").className="active";
 
 </script>
 
@@ -10,7 +10,7 @@ document.getElementById("transaction_list").className="active";
  
              <div class="col-sm-12">
         <div class="card bg-blue" style="min-height:365px">
-      <br><br>
+      <br>
                          <div class="col-sm-5"><i class="material-icons" style="font-size:130px">grid_on</i> </div> 
                          
                          <div class="col-sm-7" ><br><h3 style="float:left">IMPOUNDING SITE INFORMATION</h3></div>             
@@ -45,10 +45,11 @@ document.getElementById("transaction_list").className="active";
                                        
                                     </table>
 
-                                    <br>
+                                 
+                                  
                                     <a class='btn btn-default btn-block waves-effect' onclick="$('#addCage').modal('toggle');"><i class="material-icons">local_hospital</i>&nbsp;&nbsp;&nbsp;&nbsp;ADD CAGE</a>
-                                    <a class='btn btn-default btn-block waves-effect' onclick="searchCage();" ><i class="material-icons">search</i>SEARCH CAGE</a><br>
-                                
+                                    <a class='btn btn-default btn-block waves-effect' onclick="searchCage();" ><i class="material-icons">search</i>SEARCH CAGE</a>
+                                      <a class='btn btn-default btn-block waves-effect'  <% if( afe.length == 0){ %> disabled onclick="swal('There is no animal to be Euthanize' );"<% }else{  %> onclick="$('#batchOfEuthanasia').modal('toggle');"<% } %>><i class="material-icons">info_outline</i>&nbsp;&nbsp;BATCH OF EUTHANASIA<span class="badge bg-red"><%= afe.length %></span></a>
 
                             
                         </div>
@@ -123,75 +124,57 @@ document.getElementById("transaction_list").className="active";
 
 
 
-             <div class="modal fade" id="actionsCage" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+             <div class="modal fade" id="batchOfEuthanasia" tabindex="-1" role="dialog">
+                <div class="modal-dialog " role="document" style="width:1200px">
                     <div class="modal-content">
                         <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">CAGE DETAILS</h4>
+                            <h4 class="modal-title" id="defaultModalLabel">BATCH OF EUTHANASIA</h4>
                         </div>
                         <div class="modal-body">
-                          <script type="text/javascript" src="QR-Code/jquery.min.js"></script>
-                           <script type="text/javascript" src="QR-Code/qrcode.js"></script>
-                             <div id="printqr">
-                              <div class="col-sm-4"> 
-                         
-                          
-                           <div id="qrcode"></div>
-                           </div>
-                           <div class="col-sm-8">
-                             <button type="button" class="btn btn-block btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    DOWNLOAD QR CODE
-                            </button>
-                            <br><br>
-                            <button type="button" class="btn btn-block btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    PRINT QR CODE
-                            </button><br><br>
-                            <label class="form-label">Status</label>
-                              <div class="switch" align="center">
-                                          <label><input id="modal_status" type="checkbox"><span class="lever switch-col-blue"></span></label>
-                                          <span id="modal_statusIndicator">Inactive</span>
-                                      </div>
-                            </div>
-                          
-                          </div>
-                           <script type="text/javascript">
-                           function generateqr(x){
-                             document.getElementById("qrcode").innerHTML="";
-                             var qrcode = new QRCode(document.getElementById("qrcode"), {
-                             text: x+"",
-                             width: 175,
-                             height: 175  ,
-                             colorDark : "#3498DB",
-                             colorLight : "#ffffff",
-                             correctLevel : QRCode.CorrectLevel.H
-                           });
-                         }
-                         </script>
+                        <div class="table-responsive" style="max-height: 500px">
+                                   <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                       <thead>
+                                           <tr>
+                                               <th></th>
+                                          
+                                               <th>Cage Number</th>
+                                               <th>Animal ID</th>
+                                               <th>Species</th>
+                                               <th>Sex</th>
+                                               <th>Breed</th>
+                                               <th>Color Pattern</th>
+                                               <th>Total Lodging Days</th>
+                                               <th>Picture</th>
+                                           </tr>
+                                       </thead>
+                           
+                                       <tbody>
+                                        <% afe.forEach(function(i,ctr){ %>
+                                       <tr>
+                                       
+                                        <td width="50px"> <div class="switch">
+                                          <label><input type="checkbox"  onChange=""><span class="lever switch-col-blue"></span></label>
+                              
+                           </div></td>
+                           
+                           <td><%= i.int_CageNumber %></td>
+                                         <td><%= i.int_AnimalId %></td>
+                                         <td><%= i.int_AnimalSpecies ==0 ? "Dog" : "Cat" %></td>
+                                           <td><%= i.int_Sex ==0 ? "Male" : "Female" %></td>
+                                            <td><%= i.str_BreedName %></td>
+                                             <td><%= i.str_Description %></td>
+                                              <td><%= i.LodgingDays %></td>
+                                               <td></td>
 
-                        <table class="table table-striped">
-                                <tr>
-                                  <td><strong>ID NUMBER:</strong></td>
-                                  <td ><input type="text" id="modal_ID" class="form-control" name="name" required="" aria-required="true" disabled></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>CAGE NUMBER:</strong></td>
-                                  <td><input type="text" id="modal_CageNumber" class="form-control" name="name" required="" aria-required="true" disabled></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>CAGE TYPE:</strong></td>
-                                  <td><input type="text" id="modal_CageType" class="form-control" name="name" required="" aria-required="true" ></td>
-                                  </tr>
-                                <tr>
-                                  <td><strong>STATUS:</strong></td>
-                                 <td>
-                                 </td>
-
-                                </td>
-                                 </tr>
-
-
-                              </table>
-
+                                       </tr>
+                                         
+                                        <% }); %>
+                                                  
+                                        
+                                          
+                                       </tbody>
+                                   </table>
+                               </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>

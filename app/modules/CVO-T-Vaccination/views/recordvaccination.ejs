@@ -142,15 +142,8 @@ document.getElementById("transaction_list").className="active";
                                     <label id="lotNumber_required" class="error" style="display: none;">This field is required.</label>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <label class="form-label">Vaccine Classification</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="vac1">
-                                        <input type="text" class="form-control" id="VaccineClassification" value="select vaccine" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
+                          
+                            <div class="col-sm-6">
                                 <label class="form-label">Vaccine Manufacturer</label>
                                 <div class="form-group form-float">
                                     <div class="form-line" id="vac2">
@@ -158,8 +151,8 @@ document.getElementById("transaction_list").className="active";
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <label class="form-label"># of Immunity Years</label>
+                            <div class="col-sm-6">
+                                <label class="form-label">Number of Immunity Years</label>
                                 <div class="form-group form-float">
                                     <div class="form-line" id="vac3">
                                         <input type="text" class="form-control" id="YearOfImmunity" value="select vaccine" disabled>
@@ -269,11 +262,7 @@ document.getElementById("transaction_list").className="active";
                     url: '/CVO_VaccinationRecording/getVaccineDetails',
                     success: function(data) {
 
-                        if (data[0].int_VaccineClassification == 0) {
-                            $('#VaccineClassification').val("Government");
-                        } else {
-                            $('#VaccineClassification').val("Private");
-                        }
+                       
 
                         $('#VaccineManufacturer').val(data[0].str_Manufacturer);
                         $('#YearOfImmunity').val(data[0].flt_YearsOfImmunity);
@@ -284,7 +273,7 @@ document.getElementById("transaction_list").className="active";
                     }
                 });
             } else {
-                $('#VaccineClassification').val("select vaccine");
+             
                 $('#VaccineManufacturer').val("select vaccine");
                 $('#YearOfImmunity').val("select vaccine");
                 $("#vac1").addClass('error');

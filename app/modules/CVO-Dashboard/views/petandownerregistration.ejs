@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function () {
+
+var options = {
+	animationEnabled: true,
+	theme: "light2",
+	
+	axisX:{
+		valueFormatString: "MMM"
+	},
+	axisY: {
+		title: "Number of Registration",
+		minimum: 0
+	},
+	toolTip:{
+		shared:true
+	},  
+	legend:{
+		cursor:"pointer",
+		verticalAlign: "bottom",
+		horizontalAlign: "left",
+		dockInsidePlotArea: true,
+		itemclick: toogleDataSeries
+	},
+	data: [{
+		type: "line",
+		showInLegend: true,
+		name: "Pet Registration",
+		markerType: "square",
+		xValueFormatString: "MMM YYYY",
+		color: "rgb(33,150,243)",
+		yValueFormatString: "#,##0",
+		dataPoints: [
+		<% petowner.forEach(function(i,ctr){ %>
+			<% if(ctr+1==petowner.length){ %>
+				{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  }
+				<% } else { %>
+			{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  },
+		<%} }); %>
+			
+		]
+	},
+	{
+		type: "line",
+		showInLegend: true,
+		name: "Owner Registration",
+		color: "grey",
+		yValueFormatString: "#,##0",
+		dataPoints: [
+			<% pet.forEach(function(i,ctr){ %>
+			<% if(ctr+1==petowner.length){ %>
+				{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  }
+				<% } else { %>
+			{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  },
+		<%} }); %>
+		]
+	}]
+};
+$("#chartContainer").CanvasJSChart(options);
+
+function toogleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else{
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html>

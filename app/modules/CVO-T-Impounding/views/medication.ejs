@@ -18,12 +18,12 @@
                           
                           <h2>Medical Action Recording<small>&nbsp;<i class="material-icons" style="font-size: 20px;color: gray">local_hospital</i> </small></h2><hr>
                     
-                     
-                        
-                                <label class="form-label">Remarks</label>
+                          
+                                <input type="hidden" id="medication_AnimalId">
+                                <label class="form-label">Medical Action Taken/Notes</label>
                                <div class="form-group">
                                         <div class="form-line">
-                                            <textarea rows="20" class="form-control no-resize" ></textarea>
+                                            <textarea rows="20" class="form-control no-resize" id="medicationDescription"></textarea>
                                         </div>
                                     </div>
                         
@@ -35,16 +35,33 @@
                         <!--END -->
                         </div>
                         <div class="modal-footer">
-                        <a class="btn btn-primary waves-effect">PROCEED</a>
+                        <a class="btn btn-primary waves-effect" onclick="medicationFormSubmit()">PROCEED</a>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
             </div>
             <script>
-              function medication(x){
-                  $.post("/CVO_Impounding/Cages/getAnimalDetails",{id:x},function(data){
-     
+              function medicationFormSubmit(){
+                $.post("/CVO_Impounding/Cages/Medication",{id1:document.getElementById('medicationDescription').value,id2:document.getElementById('medication_AnimalId').value},function(data,success){
+                    if(data=="SUCCESS"){
+                      swal("Medical Action Recorded!", "Medical Action is successfully recorded.", "success");
+                      $('#medicationModal').modal('hide');
+                      $('#cageInfo').modal('hide');
+                      document.getElementById('medicationDescription').value="";
+                    }
+                })
+              }
+              function medication(x,y){
+                 var kindOfAnimal=""
+      if(y==5){
+        kindOfAnimal="/CVO_Impounding/Cages/getSurrenderedAnimalDetails";
+      }
+      else if(y==1){
+        kindOfAnimal="/CVO_Impounding/Cages/getApprehendedAnimalDetails";
+      }
+                  $.post(kindOfAnimal,{id:x},function(data){
+                document.getElementById('medication_AnimalId').value=data[0].int_AnimalId;
                 $('#divMedicationAnimalInfo').empty();
                 $('#divMedicationAnimalInfo').append(`
                    <div class="col-sm-2"></div>

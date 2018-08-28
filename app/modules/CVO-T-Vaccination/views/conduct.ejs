@@ -136,14 +136,7 @@
                                     <label id="lotNumber_required" class="error" style="display: none;">This field is required.</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Vaccine Classification</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line" id="vac1">
-                                        <input type="text" class="form-control" id="VaccineClassification" value="select vaccine" disabled>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="col-sm-6">
                                 <label class="form-label">Vaccine Manufacturer</label>
                                 <div class="form-group form-float">
@@ -152,7 +145,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label class="form-label">Number of Immunity Years</label>
                                 <div class="form-group form-float">
                                     <div class="form-line" id="vac3">
@@ -235,11 +228,7 @@
                     url: '/CVO_VaccinationRecording/getVaccineDetails',
                     success: function(data) {
 
-                        if (data[0].int_VaccineClassification == 0) {
-                            $('#VaccineClassification').val("Government");
-                        } else {
-                            $('#VaccineClassification').val("Private");
-                        }
+                      
 
                         $('#VaccineManufacturer').val(data[0].str_Manufacturer);
                         $('#YearOfImmunity').val(data[0].flt_YearsOfImmunity);
@@ -250,7 +239,7 @@
                     }
                 });
             } else {
-                $('#VaccineClassification').val("select vaccine");
+           
                 $('#VaccineManufacturer').val("select vaccine");
                 $('#YearOfImmunity').val("select vaccine");
                 $("#vac1").addClass('error');

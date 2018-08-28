@@ -1,66 +1,72 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
+document.getElementById("NewRedemption").className="active";
 document.getElementById("redemption_list").className="active";
 document.getElementById("transaction_list").className="active";
 </script>
 
   <div class="row clearfix">
                 <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
+                <div class="block-header">
                             <h2>REDEMPTION</h2>
                         </div>
-                        <div class="body">
-                           <a data-toggle="modal" data-target="#unregisteredrequirements"><button type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>UNREGISTERED PET</button><br><br>
-                           <a data-toggle="modal" data-target="#visitation"><button type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>VISITATION</button></a>
-                           </a><br><br>
-                           <h4>Registered Pet</h4><hr>
-                              <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Pet ID</th>
-                                                            <th>Pet Name</th>
-                                                            <th>Breed</th>
-                                                            <th>Pet Owner ID</th>
-                                                            <th>Pet Owner Name</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
+                    <div class="card">
                         
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>MingMing</td>
-                                                            <td>Pusakal</td>
-                                                            <td>1</td>
-                                                            <td>Mary Justine Espin</td>
-                                                            <td>
-                                                                <div align="center">
-                                                                   <!-- <a ><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                            <i class="material-icons">remove_red_eye</i>&nbsp;
-                                                                    </button>
-                                                                   </a> !-->
-                                                                  
-                                                                   <a data-toggle="modal" data-target="#registeredrequirements"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="">
-                                                                            <i class="material-icons">search</i>Suggestions
-                                                                    </button>
-                                                                   </a>
-                                                              
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                        <div class="body">
+                         <div class="col-sm-4">
+                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>UNREGISTERED PET OWNER</a>
+                           </div>
+                           <div class="col-sm-4">
+                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>NON-MARIKINA CITIZEN</a>
+                           </div>
+                           <div class="col-sm-4">
+                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">apps</i>SEARCH PET BY IMPOUNDING SITE AND CAGE</a>
+                           </div>
+                           </a><br><br><br>
+                           <h4>Registered Pet Owner</h4><hr>
+                                <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Registration Pet Owner Name</th>
+                                
+                                   
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% po.forEach(function (i){ %>
+                                            <tr>
+                                                <td>
+                                                    <%= i.int_PetOwnerId %>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                                </td>
+                                   
+                                               
+                                                    <td>
+                                                        <%= i.str_PhoneNo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_Email %>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row" align="center">
+                                                         <a  onclick="chooselostpet('<%= i.int_PetOwnerId %>');" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="CHOOSE LOST PET">
+                                                                            <i class="material-icons">pets</i>PETS
+                                                                    </a>
+                                                                 
+                                                        </div>
+                                                    </td>
+                                            </tr>
+                                            <% });  %>
+                                    </tbody>
+                                </table>
+                            </div>
                         
                         </div>
                     </div>
@@ -68,372 +74,9 @@ document.getElementById("transaction_list").className="active";
             </div>
        
 
-       <div class="row clearfix">
-                <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>ON-PROCESS REDEMPTION</h2>
-                        </div>
-                        <div class="body">
-                          
-                           <h4>Pets to be claimed</h4><hr>
-                              <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Animal ID</th>
-                                                            <th>Animal Name</th>
-                                                            <th>Breed</th>
-                                                            <th>Sex</th>
-                                                            <th>Color Pattern</th>
-                                                            <th>Pet Owner Name</th>
-                                                            <th>Payment No.</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>MingMing</td>
-                                                            <td>Pusakal</td>
-                                                            <td>Male</td>
-                                                            <td>Full White</td>
-                                                            <td>Mary Justine Espin</td>
-                                                            <td>1</td>
-                                                       
-                                                            <td>
-                                                                <div align="center">
-                                                                   
-                                                                  <table>
-                                                                  <tr>
-                                                                  <td>
-                                                                   <a  onclick="window.frames['pact'].print();" ><button class="btn btn-primary waves-effect" type="button" data-toggle="tooltip" title="Order of Release"> <i class="material-icons">description</i></button></a> 
-                                                                   </td><td><button class="btn btn-primary waves-effect" type="button" data-toggle="tooltip" title="Cancel Adoption"> <i class="material-icons">clear</i></button></td></tr></table>
-                                                                   <iframe name="pact" src="ORDEROFRELEASE.pdf" width="0" height="0" frameborder="0"></iframe>
-                                                               
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
+ 
+<%- include('./chooselostpet.ejs') -%>
+<%- include('./searchlostpet.ejs') -%>
 
-             <div class="row clearfix">
-                <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>CLAIMED PETS</h2>
-                        </div>
-                        <div class="body">
-                          
-                           
-                              <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Animal ID</th>
-                                                            <th>Animal Name</th>
-                                                            <th>Breed</th>
-                                                            <th>Sex</th>
-                                                            <th>Color Pattern</th>
-                                                            <th>Pet Owner Name</th>
-                                                            <th>Payment No.</th>
-                                                           <!-- <th>Action</th> -->
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>MingMing</td>
-                                                            <td>Pusakal</td>
-                                                            <td>Male</td>
-                                                            <td>Full White</td>
-                                                            <td>Mary Justine Espin</td>
-                                                            <td>1</td>
-                                                        <!--
-                                                            <td>
-                                                                <div align="center">
-                                                                   
-                                                                 
-                                                                   <a href="CVO_Suggestion"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                            <i class="material-icons">remove_red_eye</i>
-                                                                    </button>
-                                                                   </a>
-                                                              
-                                                                </div>
-                                                            </td>-->
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-             <div class="modal fade" id="registeredrequirements" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">REDEMPTION REQUIREMENTS</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                          <h4>Does the Pet Owner brings the following?</h4>
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#1</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#2</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#3</label>
-                                        </span>
-                                        <label class="form-label"></label>
-                                    </div>
-                             
-
-                        </div>
-                        <div class="modal-footer">
-                           <a href="/CVO_Suggestion"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-             <div class="modal fade" id="unregisteredrequirements" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">REDEMPTION REQUIREMENTS</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                          <h4>Does the Pet Owner brings the following?</h4>
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#1</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#2</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#3</label>
-                                        </span>
-                                        <label class="form-label"></label>
-                                    </div>
-                             
-
-                        </div>
-                        <div class="modal-footer">
-                           <a data-toggle="modal" data-target="#UnregisteredInfo"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
- <div class="modal fade" id="UnregisteredInfo" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">LOST PET DESCRIPTION</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                        
-                              <table class="table table-striped">
-                            <tr>
-                                  <td><strong>PET OWNER FIRST NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>PET OWNER MIDDLE NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>PET OWNER LAST NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                             <tr>
-                                  <td><strong>PET OWNER'S LOCATION(BARANGAY):</strong></td>
-                                  <td>  <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Barangay#1</option>
-                                        <option>Barangay#2</option>
-                                        <option>Barangay#3</option>
-                                        <option>Barangay#4</option>
-                                        <option>Barangay#5</option>
-                                    </select>
-                                <br><br></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>COLOR PATTERN:</strong></td>
-                                  <td> <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Color Pattern #1</option>
-                                        <option>Color Pattern #2</option>
-                                        <option>Color Pattern #3</option>
-                                        <option>Color Pattern #4</option>
-                                        <option>Color Pattern #5</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>SEX:</strong></td>
-                                  <td><select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BREED:</strong></td>
-                                  <td> <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Breed#1</option>
-                                        <option>Breed#2</option>
-                                        <option>Breed#3</option>
-                                        <option>Breed#4</option>
-                                        <option>Breed#5</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DATE LOST:</strong></td>
-                                  <td><input type="date" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>
-                                
-                                </table>          
-                                
-
-                                
-                                
-                              </table>
-
-                        </div>
-                        <div class="modal-footer">
-                           <a href="/CVO_UnregisteredSuggestion"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
- <div class="modal fade" id="visitation" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">VISITATION</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                        
-                              <table class="table table-striped">
-                            <tr>
-                                  <td><strong>PET OWNER FIRST NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>PET OWNER MIDDLE NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>PET OWNER LAST NAME:</strong></td>
-                                  <td><input type="text" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>   
-                             <tr>
-                                  <td><strong>PET OWNER'S LOCATION(BARANGAY):</strong></td>
-                                  <td>  <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Barangay#1</option>
-                                        <option>Barangay#2</option>
-                                        <option>Barangay#3</option>
-                                        <option>Barangay#4</option>
-                                        <option>Barangay#5</option>
-                                    </select>
-                                <br><br></td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>COLOR PATTERN:</strong></td>
-                                  <td> <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Color Pattern #1</option>
-                                        <option>Color Pattern #2</option>
-                                        <option>Color Pattern #3</option>
-                                        <option>Color Pattern #4</option>
-                                        <option>Color Pattern #5</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>SEX:</strong></td>
-                                  <td><select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BREED:</strong></td>
-                                  <td> <select class="form-control show-tick" data-live-search="true">
-                                        <option>select</option>
-                                        <option>Breed#1</option>
-                                        <option>Breed#2</option>
-                                        <option>Breed#3</option>
-                                        <option>Breed#4</option>
-                                        <option>Breed#5</option>
-                                    </select><br><br></td>
-                                </tr>
-                                <tr>
-                                  <td><strong>DATE LOST:</strong></td>
-                                  <td><input type="date" class="form-control" name="name" required="" aria-required="true" value=''></td>
-                                </tr>
-                                
-                                </table>          
-                                
-
-                                
-                                
-                              </table>
-
-                        </div>
-                        <div class="modal-footer">
-                        <a  onclick="window.frames['pacts'].print();" ><button class="btn btn-primary waves-effect" type="button" > <i class="material-icons">description</i>Generate Order of Visitation</button></a>
-                         <iframe name="pacts" src="ORDEROFVISITATION.pdf" width="0" height="0" frameborder="0"></iframe>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

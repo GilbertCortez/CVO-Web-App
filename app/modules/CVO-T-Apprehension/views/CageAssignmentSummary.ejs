@@ -1,0 +1,55 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("impounding_list").className="active";
+   document.getElementById("apprehension").className="active";
+   document.getElementById("transaction_list").className="active";
+   document.title="Cage Assignments";
+   alert('<%= cageAssign %>')
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header" >
+      <h2>
+         CAGE ASSIGNMENTS SUMMARY
+      </h2>
+   </div>
+   <div class="card">
+  <div class="modal-header">
+         <div style="float:right"> 
+                  
+                  <a href="/CVO_Apprehension" type="button"  class="btn btn-lg btn-primary waves-effect" >CLOSE</a> &nbsp;
+         </div>
+
+      </div>
+    <div class="body">
+    
+                  <div >
+                     <table class="table table-bordered table-striped table-hover js-exportable dataTable">
+                        <thead>
+                           <tr>
+                              <th>ALIAS</th>
+                              <th>ANIMAL BREED</th>
+                              <th>ANIMAL SPECIES</th>
+                              <th>SEX</th>
+                              <th>COLOR PATTERN</th>
+                              <th>PET TAG</th>
+                              <th>VAN CAGE NUMBER</th>
+                              <th>CAGE NUMBER</th>
+                              <th>CAGE TYPE</th>
+                          
+                           </tr>
+                        </thead>
+                        <tbody>
+                        
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+         
+         
+         <br>
+         
+      </div>
+   </div>
+</div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%> 

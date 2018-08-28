@@ -1,0 +1,48 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("transaction_list").className="active";
+document.getElementById("vaccination_list").className="active";
+document.getElementById("schedvac").className="active";
+
+
+</script>
+
+  <section >
+            
+            <div class="row clearfix">
+
+                <div >
+                <div class="block-header">
+                SCHEDULED VACCINATION
+                </div>
+                    <div class="card">
+                      
+                        <div class="body">
+    <a class="btn btn-block btn-primary btn-lg" onclick="$('#sched').modal('toggle');"><i class="material-icons">schedule</i>SCHEDULE VACCINATION</a><br><br>
+              
+                            
+                  
+                                        <%- include('./tabs/scheduled.ejs') -%>
+                                
+
+                                
+
+                              
+                            </div>
+                        </div>
+           
+                                 
+                    </div>
+                </div>
+
+            
+    <%- include('./tabs/sched.ejs') -%>
+       
+
+
+
+      
+    </section>
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

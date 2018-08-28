@@ -1,0 +1,175 @@
+ <div class="modal fade" id="euthanasiaModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document" style="width:90%;">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">EUTHANASIA</h4>
+                        </div>
+                        <div class="modal-body"  style="min-height:550px;" >
+                        <!--START -->
+                        <div class="col-sm-6">
+                          <div class="bg-blue" style="min-height:73%;overflow-x: auto;padding:5px;max-height:90%" id="divEuthanasiaAnimalInfo">
+               
+                          </div>
+                        </div>  
+                        <div class="col-sm-6">
+                          <div class="" style="min-height:73%;overflow-x: auto;padding:5px;max-height:90%" id="divEuthanasiaForm">
+              
+                         
+                          
+                          <h2>Euthanasia Form<small>&nbsp;<i class="material-icons" style="font-size: 20px;color: gray">pets</i> </small></h2><hr>
+                    
+                                <br><br>
+                                <input type="hidden" id="euthanasia_AnimalId">
+                                   <label class="form-label">Date and Time Of Euthanasia</label>
+                               <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="datetime-local" class="form-control" id="euthanasiaDateTime"></input>
+                                        </div>
+                                    </div>
+                                 <label class="form-label">Reason</label>
+                               <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control show-tick" id="euthanasiaReason" data-live-search="true"  onchange="" >
+                                    
+                                        <option value='1' >Sick</option>
+                                        <option value='2' >Aggression</option>
+                                        <option value='3' >Congestion</option>
+                                        <option value='4' >Other(Be specific on Remarks Field)</option>
+                                  
+                                </select>
+                                        </div>
+                                    </div>
+                                <label class="form-label">Remarks</label>
+                               <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4" class="form-control no-resize" id="euthanasiaRemarks"></textarea>
+                                        </div>
+                                    </div>
+                        
+                            </div>
+
+                          </div>
+                     
+                           
+                        <!--END -->
+                        </div>
+                        <div class="modal-footer">
+                        <a class="btn btn-primary waves-effect" onclick="euthanasiaFormSubmit()">PROCEED</a>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+
+              function euthanasiaFormSubmit(){
+                $.post("/CVO_Impounding/Cages/Euthanasia",
+                  {
+                      id1:document.getElementById('euthanasia_AnimalId').value,
+                      id2:document.getElementById('euthanasiaDateTime').value,
+                      id3:document.getElementById('euthanasiaReason').value,
+                      id4:document.getElementById('euthanasiaRemarks').value,
+                  },function(data){
+                    if(data=="SUCCESS"){
+
+                      swal("Euthanasia Recorded!", "Animal Euthanasia is successfully recorded.", "success");
+                      $('#euthanasiaModal').modal('hide');
+                      $('#cageInfo').modal('hide');
+                      //REMOVE VALUE IN FIELDS
+                    }
+                })
+              }
+              function euthanasia(x,y){
+                function DDMMYYYY() {
+            var d = new Date(),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+}
+
+                var currDate=DDMMYYYY()+"T"+new Date().toLocaleTimeString('en-GB', { hour: "numeric", minute: "numeric"});
+var kindOfAnimal=""
+      if(y==5){
+        kindOfAnimal="/CVO_Impounding/Cages/getSurrenderedAnimalDetails";
+      }
+      else if(y==1){
+        kindOfAnimal="/CVO_Impounding/Cages/getApprehendedAnimalDetails";
+      }
+                $("#euthanasiaDateTime").val(currDate);
+                  $.post(kindOfAnimal,{id:x},function(data){
+                document.getElementById('euthanasia_AnimalId').value=data[0].int_AnimalId;
+                $('#divEuthanasiaAnimalInfo').empty();
+                $('#divEuthanasiaAnimalInfo').append(`
+                   <div class="col-sm-2"></div>
+                                  <div class="col-sm-4">
+                        <br><br>
+                        <center>
+                            <font size="100px"><i class="material-icons" style="font-size: 150px;color: white">pets</i></font>
+                            <br>
+                            <h5 style="color: white">&nbsp;&nbsp;&nbsp;ANIMAL INFORMATION</h5></center>
+                        </div>
+                                  <div class="col-sm-4" align="center"><br><br>
+                            <img style="border:4px;border-style:solid;border-color:white " id="blah " src="/Animals/`+data[0].str_AnimalPicturePath+`" width="170px" height="170px" />
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-12">
+                        <div class="col-sm-2"></div>
+
+                        <div class="col-sm-8" align="center">
+                           
+                               <table style="width: 100%;color:white;">
+                                        <tr>
+                                            <th>ANIMAL ID</th>
+                                            <td>`+data[0].int_AnimalId+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>ALIAS/PET NAME</th>
+                                            <td>`+data[0].str_Alias+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PET TAG</th>
+                                            <td>`+(data[0].str_PetTagNo!=""? data[0].str_PetTagNo : "none")+`</td>
+                                        </tr>
+                                       <tr>
+                                            <th>ANIMAL SPECIES</th>
+                                            <td>`+(data[0].int_AnimalSpecies==0? "Dog": "Cat")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>BREED</th>
+                                            <td>`+data[0].str_BreedName+`</td>
+                                        </tr>
+                                       <tr>
+
+                                            <th>SEX</th>
+                                            <td>`+(data[0].int_Sex==0? "Male": "Female")+`</td>
+                                        </tr>
+                                        <tr>
+                                            <th>COLOR PATTERN</th>
+                                            <td>`+data[0].str_Description+`</td>
+                                        </tr>
+                                        <tr >
+                                            <th>DATE APPREHENDED</th>
+                                            <td>`+MMMMDDYYYY(data[0].dtm_DateTimeApprehension)+`</td>
+                                             
+                                        </tr>
+                                        <tr>
+                                             <th>BARANGAY APPREHENDED</th>
+                                            <td>`+data[0].str_BarangayName+`</td>
+                                        </tr>
+                                        
+                                    </table>
+
+                        </div>
+                        <div class="col-sm-2"></div>
+                        </div>
+                  `);
+
+                $('#euthanasiaModal').modal('toggle');
+              });
+              }
+            </script>

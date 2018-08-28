@@ -25,12 +25,12 @@ var toPass=[]   ;
 <% 
 var allCages=fid.concat(fic.concat(fdo.concat(fco)));
 allCages.forEach(function(i){ %>
-        toPass.push(JSON.parse('{"cage": '+<%=i.CageId %>+', "animal": '+<%= i.Animal %>+'}'))
+        toPass.push(JSON.parse('{"cage": '+<%=i.CageId %>+', "animal": '+<%= i.Animal %>+',"cageNum": '+<%=i.int_CageNumber %>+'}'))
 <% }); %>
     
 </script>
                   <div >
-                     <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>
                            <tr>
                               <th>ALIAS</th>
@@ -64,7 +64,7 @@ var cageType="";
                                   <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
                                     <option>unassign</option>
                                     <% ca_fid.forEach(function (x) { %>
-                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
                                             <%= x.int_CageNumber %>
                                         </option>
                                         <% }); %>
@@ -77,7 +77,7 @@ var cageType="";
                                <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
                                     <option>unassign</option>
                                     <% ca_fic.forEach(function (x) { %>
-                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
                                             <%= x.int_CageNumber %>
                                         </option>
                                         <% }); %>
@@ -90,7 +90,7 @@ var cageType="";
                                <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
                                     <option>unassign</option>
                                     <% ca_fdo.forEach(function (x) { %>
-                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
                                             <%= x.int_CageNumber %>
                                         </option>
                                         <% }); %>
@@ -103,7 +103,7 @@ var cageType="";
                                   <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
                                     <option>unassign</option>
                                     <% ca_fco.forEach(function (x) { %>
-                                        <option value='<%= x.CageId %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
                                             <%= x.int_CageNumber %>
                                         </option>
                                         <% }); %>
@@ -142,7 +142,7 @@ var cageType="";
    </div>
 </div>
 <form action="/CVO_CageAssignments/place" method="POST" id="finalCageAssignmentForm">
-<input type="text" id="toPass" name="finalCageAssignment" >
+<input type="hidden" id="toPass" name="finalCageAssignment" >
 </form>
 <script>
 document.getElementById('toPass').value=JSON.stringify(toPass);
@@ -185,7 +185,8 @@ document.getElementById('toPass').value=JSON.stringify(toPass);
     toPass.forEach(function(i,ctr){
  
         if(i.animal==x){
-            toPass[ctr].cage=y;
+            toPass[ctr].cage=y.split(",")[0];
+            toPass[ctr].cageNum=y.split(",")[1];
         }
     });
       document.getElementById('toPass').value=JSON.stringify(toPass)

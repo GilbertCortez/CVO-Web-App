@@ -1,0 +1,47 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("vaccination_list").className="active";
+document.getElementById("walkinvac_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <section >
+            
+            <div class="row clearfix">
+                <div >
+                <div class="block-header">
+                WALK-IN VACCINATION
+                </div>
+                    <div class="card">
+                      
+                        <div class="body">
+ 
+              
+                            
+                  
+                                        <%- include('./tabs/walkin.ejs') -%>
+                                
+
+                                
+
+                              
+                            </div>
+                        </div>
+           
+                                 
+                    </div>
+                </div>
+
+            
+    
+
+       
+       
+
+
+       
+    </section>
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

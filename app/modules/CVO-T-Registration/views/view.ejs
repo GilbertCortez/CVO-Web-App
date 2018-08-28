@@ -1,45 +1,28 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
     <script>
-        document.getElementById("registration_list").className = "active";
+
         document.getElementById("transaction_list").className = "active";
+        document.getElementById('reg_list').className="active";
     </script>
-
-
-
-
-
     <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  
+        <div class="col-sm-12">
+        <div class="block-header">
+                REGISTRATION
+        </div>
             <div class="card">
 
                 <div class="body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#home_with_icon_title" data-toggle="tab">
-                                <i class="material-icons">home</i> REGISTRATION
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#profile_with_icon_title" data-toggle="tab">
-                                <i class="material-icons">face</i> PRE-REGISTERED PET OWNERS
-                            </a>
-                        </li>
-
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
-                            <button type="button" class="btn btn-block btn-lg btn-primary waves-effect" data-toggle="modal" data-target="#requirements"><i class="material-icons">add</i>PET OWNER REGISTRATION</button><br><br>
+                  
+                            <button type="button" class="btn btn-block btn-lg btn-primary waves-effect" data-toggle="modal" data-target="#por_requirements" ><i class="material-icons">add</i>PET OWNER REGISTRATION</button><br><br>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Date Registered</th>
-                                            <th>Barangay</th>
+                                            <th>Registration Pet Owner Name</th>
+                                
+                                   
                                             <th>Phone Number</th>
                                             <th>Email</th>
                                             <th style="width:20%">Action</th>
@@ -51,19 +34,11 @@
                                                 <td>
                                                     <%= i.int_PetOwnerId %>
                                                 </td>
-                                                <td>
+                                                <td style="width:200px">
                                                     <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
                                                 </td>
-                                                <%
-                              var d= (i.dat_DateRegistered+"").split(' ');
-                              
-                              %>
-                                                    <td>
-                                                        <%= d[1]+" "+d[2]+", "+d[3] %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_BarangayName %>
-                                                    </td>
+                                   
+                                               
                                                     <td>
                                                         <%= i.str_PhoneNo %>
                                                     </td>
@@ -72,95 +47,13 @@
                                                     </td>
                                                     <td>
                                                         <div class="row" align="center">
-                                                            <form action="/CVO_PetRegistration" method="POST" id="petregistration<%= i.int_PetOwnerId %>">
-                                                                <input type="hidden" value='<%= JSON.stringify(i) %>' name="currentPetOwner" id="currentPetOwner">
-                                                                <input type="hidden" value='Registration' name="cameFrom">
-                                                            </form>
+                                                            
                                                             <form method="POST" id="petownerprofile<%= i.int_PetOwnerId %>" action="/CVO_PetOwnerProfile"><input type="hidden" name="currentpetowner" value='<%= JSON.stringify(i) %>'> </form>
                                                             <a onclick="document.getElementById('petownerprofile<%= i.int_PetOwnerId %>').submit();"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                    <i class="material-icons">remove_red_eye</i>
+                                                                    <i class="material-icons">remove_red_eye</i>PROFILE
                                                                 </button></a>
-                                                            <a onclick="document.getElementById('petregistration<%= i.int_PetOwnerId %>').submit();"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">
-                                                                    <i class="material-icons">add</i>
-                                                                </button></a>
-                                                        </div>
-                                                    </td>
-                                            </tr>
-                                            <% });  %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
-
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Appointment Date</th>
-                                            <th>Name</th>
-
-                                            <th>Barangay</th>
-                                            <th>Phone Number</th>
-                                            <th>Email</th>
-                                            <th style="width:20%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%  pr.forEach(function (i){ %>
-                                            <tr>
-                                                <% 
-                           function MMMMDDYYYY(i){
-                               var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                               var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',  'September', 'October', 'November', 'December'];
-                              var now = new Date(i);
-                              return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-                        
-                              }
-                              function HHSS(i){
-                              var now = new Date(i);
-                                 var hour=now.getHours();
-                                 var minutes=now.getMinutes();
-                                 var time="AM";
-
-                                 if(hour==12 && minutes==0){
-                                    time="NN";
-                                 }
-                                 else if(hour>12 && hour!=0){
-                                    time="PM";
-                                    hour-=12;
-                                 }
-                                 else if(hour==0){
-                                    hour=12;
-                                 }
-
-
-                                 return hour+":"+(("0"+minutes).slice(-2))+" "+time;
-
-                              } 
-                           %>
-                                                    <td>
-                                                        <%= MMMMDDYYYY(i.dat_DateRegistered)+" "+HHSS(i.dat_DateRegistered) %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%= i.str_BarangayName %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_PhoneNo %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_Email %>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row" align="center">
-
-
-                                                            <a onclick="document.getElementById('currentpetowner').value='<%= JSON.stringify(i) %>'; document.getElementById('preregForm').submit();"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">
-                                                                    REGISTER
+                                                            <a onclick="prreq('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">
+                                                                    <i class="material-icons">pets</i>REGISTER PET
                                                                 </button></a>
                                                         </div>
                                                     </td>
@@ -170,55 +63,66 @@
                                 </table>
                             </div>
                         </div>
-                        <form method="POST" action="/CVO_OwnerRegistration/preregistered" id="preregForm">
-                            <input type="hidden" name="currentpetowner" id="currentpetowner" value="">
-                        </form>
+                 
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+  
 
 
 
 
 
-    <div class="modal fade" id="requirements" tabindex="-1" role="dialog">
+    <div class="modal fade" id="por_requirements" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-blue">
-                    <h4 class="modal-title" id="defaultModalLabel">Pet Owner Registration Requirements</h4>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <h4>Does the Registrant brings the following?</h4>
-                        <a class="btn btn-primary waves-effect" onclick="checkAllRequirements()"><i class="material-icons">check</i> CHECK ALL</a>
-                        <a class="btn btn-gray waves-effect" onclick="uncheckAllRequirements()"><i class="material-icons">clear</i> UNCHECK ALL</a>
+               <div class="modal-header bg-blue">
+                <center>
+                        <h4>PET OWNER REGISTRATION REQUIREMENTS CHECKLIST</h4>
+                        
                     </center>
-                    <br>
-                    <br>
+               </div>
+                <div class="modal-body">
+                   
+                   <br>
                     <div class="input-group input-group-lg">
-
+                            <table class="table table-striped table-bordered">
+                            <tr>
+                            <div style="float:right">
+                            <a class="btn btn-link waves-effect btn-sm" onclick="POR_checkAllRequirements()"><i class="material-icons">check</i> CHECK ALL</a>
+                        <a class="btn btn-link waves-effect btn-sm" onclick="POR_uncheckAllRequirements()"><i class="material-icons">clear</i> UNCHECK ALL</a>
+                        </div>
+                            </tr>
+                            <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Purpose</th>
+                            </tr>
                         <% porequ.forEach(function(i,ctr){ %>
+<tr>
+                            <td width="5px"><div class="switch" align="center">
+                                                                    <label><input type="checkbox" id="po_requirements_<%=ctr %>"><span class="lever switch-col-blue"></span></td>
+                           <td> <label for="po_requirements_<%=ctr %>"><%= i.str_Description %></label></td>
+                            <td><%= i.str_Purpose %></td>
+                            </tr>                         
+                               <% }); %>
+                            </table>
 
-                            <input type="checkbox" class="filled-in" id="po_requirements_<%=ctr %>">
-                            <label for="po_requirements_<%=ctr %>"><%= i.str_Description %>
-                                    <font color="blue"><small> (<%= i.str_Purpose %>)</small></font></label>
-                            <br><br>
-                            <% }); %>
                     </div>
                     <div class="modal-footer">
-                        <a href="/CVO_OwnerRegistration"></a>
-                        <button type="button" class="btn btn-primary waves-effect" onclick="petOwnerRequirements();">PROCEED</button>
-                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        <center>
+                        <button type="button" class="btn btn-primary btn-lg waves-effect" onclick="POR_Requirements();">PROCEED</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </center>
                     </div>
                 </div>
             </div>
         </div>
-
-
+</div>
+        
+        
         <script>
-            function petOwnerRequirements() {
+            function POR_Requirements() {
                 var toSubmit = true;
                 for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
                     if (document.getElementById('po_requirements_' + i).checked == false) {
@@ -232,7 +136,7 @@
                 }
             }
 
-            function checkAllRequirements() {
+            function POR_checkAllRequirements() {
 
                 for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
                     document.getElementById('po_requirements_' + i).checked = "checked";
@@ -240,7 +144,7 @@
                 }
             }
 
-            function uncheckAllRequirements() {
+            function POR_uncheckAllRequirements() {
 
                 for (var i = <%= porequ.length %> - 1; i >= 0; i--) {
                     document.getElementById('po_requirements_' + i).checked = "";
@@ -250,55 +154,94 @@
 
             }
         </script>
+           <form action="/CVO_PetRegistration" method="POST" id="petregistration">
+                                                                <input type="hidden" value='' name="currentPetOwner" id="currentPetOwner">
+                                                                <input type="hidden" value='Registration' name="cameFrom">
+                                                            </form>
+<div class="modal fade" id="pr_requirements" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                <center>
+                        <h4>PET REGISTRATION REQUIREMENTS CHECKLIST</h4>
+                        
+                    </center>
+               </div>
+                <div class="modal-body">
+                   
+                   <br>
+                    <div class="input-group input-group-lg">
+                            <table class="table table-striped table-bordered">
+                            <tr>
+                            <div style="float:right">
+                            <a class="btn btn-link waves-effect btn-sm" onclick="PR_checkAllRequirements()"><i class="material-icons">check</i> CHECK ALL</a>
+                        <a class="btn btn-link waves-effect btn-sm" onclick="PR_uncheckAllRequirements()"><i class="material-icons">clear</i> UNCHECK ALL</a>
+                        </div>
+                            </tr>
+                            <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Purpose</th>
+                            </tr>
+                        <% prequ.forEach(function(i,ctr){ %>
+<tr>
+                            <td width="5px"><div class="switch" align="center">
+                                                                    <label><input type="checkbox" id="pr_requirements_<%=ctr %>"><span class="lever switch-col-blue"></span></label></td>
+                           <td> <label for="pr_requirements_<%=ctr %>"><%= i.str_Description %></label></td>
+                            <td><%= i.str_Purpose %></td>
+                            </tr>                         
+                               <% }); %>
+                            </table>
 
-        <div class="modal fade" id="requirementsPetReg" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-blue">
-                        <h4 class="modal-title" id="defaultModalLabel">Pet Registration Requirements</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h4>Does the Pet Owner brings the following?</h4>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                <label for="ig_checkbox">Requirement#1</label>
-                            </span>
-
-                            <label class="form-label"></label>
-                        </div>
-                        <h5>Does the Pet to be registered have undergo Vaccination?</h5>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                <label for="ig_checkbox">YES</label>
-                            </span>
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                <label for="ig_checkbox">NO</label>
-                            </span>
-                            <label class="form-label"></label>
-                        </div>
-                        <h5>Does the Pet Owner brings the Certificate of Vaccination?</h5>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                <label for="ig_checkbox">YES</label>
-                            </span>
-                            <span class="input-group-addon">
-                                <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                <label for="ig_checkbox">NO</label>
-                            </span>
-                            <label class="form-label"></label>
-                        </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="/CVO_PetRegistration"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        <center>
+                        <button type="button" class="btn btn-primary btn-lg waves-effect" onclick="PR_Requirements();">PROCEED</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </center>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
+    <script>
+            function prreq(x){
+          
+                document.getElementById('currentPetOwner').value=x;
+                $('#pr_requirements').modal('toggle');
+            }
+            function PR_Requirements() {
+                var toSubmit = true;
+                for (var i = <%= prequ.length %> - 1; i >= 0; i--) {
+                    if (document.getElementById('pr_requirements_' + i).checked == false) {
+                        toSubmit = false;
+                    }
+                }
+                if (toSubmit == false) {
+                    swal("Warning", "Requirements should be completed", "warning")
+                } else {
+                   document.getElementById('petregistration').submit();
+                }
+            }
+
+            function PR_checkAllRequirements() {
+
+                for (var i = <%= prequ.length %> - 1; i >= 0; i--) {
+                    document.getElementById('pr_requirements_' + i).checked = "checked";
+
+                }
+            }
+
+            function PR_uncheckAllRequirements() {
+
+                for (var i = <%= prequ.length %> - 1; i >= 0; i--) {
+                    document.getElementById('pr_requirements_' + i).checked = "";
+
+
+                }
+
+            }
+        </script>
 
 
         <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

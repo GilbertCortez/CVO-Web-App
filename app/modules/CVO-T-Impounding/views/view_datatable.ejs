@@ -1,8 +1,8 @@
-<div class="table-responsive" style="">
+<div class="table-responsive" style="max-height: 500px">
                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                        <thead>
                                            <tr>
-                                               <th>ID</th>
+                                               <th>Cage Number</th>
                                                <th>Cage Classification</th>
                                                <th>Status</th>
                                                <th>Action</th>
@@ -18,12 +18,23 @@
                                        <tbody>
                                          <% AllCages.forEach(function(i){ %>
                                            <tr>
-                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');"><%= i.int_CageId %></td>
-                                               <% if(i.int_CageType == 0){ %>
-                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');">For Animal Impounding</td>
-                                               <% } else { %>
-                                               <td onclick="iteratingCage('<%= JSON.stringify(i) %>');">For Animal Observation</td>
-                                               <% } %>
+                                               <td onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);"><%= i.int_CageNumber %></td>
+                                               <% var cageType="";
+                                         if(i.int_CageType==0){
+                                          cageType="For Impounded Dogs";
+                                         }
+                                         else if(i.int_CageType == 1){
+                                          cageType="For Impounded Cats";
+                                         }
+                                         else if(i.int_CageType== 2){
+                                          cageType="For Dog Observation";
+                                         }
+                                         else{
+                                           cageType="For Cat Observation";
+                                         }
+                                         %>
+                                               <td onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);"><%= cageType %></td>
+                                             
 
                                                <% if(i.int_Status == 1){ %>
                                                  <td><div class="switch" align="center">
@@ -42,8 +53,8 @@
                                                    <div align="center">
 
 
-                                                        <a onclick="iteratingCage('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                               <i class="material-icons">mode_edit</i>
+                                                        <a onclick="iterateCage(<%= i.int_CageId %>,<%= i.int_CageNumber %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                               <i class="material-icons">apps</i>
                                                        </button></a>
                                                    </div>
                                                </td>

@@ -1,0 +1,80 @@
+    <div class="modal fade" id="sched" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width:1000px">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <h4 class="modal-title" id="defaultModalLabel">SCHEDULE VACCINATION</h4>
+                        </div>
+                        <div class="modal-body">
+ <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height:350px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Pet ID</th>
+                                                            <th>Pet Name</th>
+                                                            <th>Breed</th>
+                                                            <th>Pet Owner ID</th>
+                                                            <th>Pet Owner Name</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                        
+                                                        <% pe.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_PetId %></td>
+                                                            <td><%= i.str_PetName %></td>
+                                                            <td><%= i.str_BreedName %></td>
+                                                            <td><%= i.int_PetOwnerId %></td>
+                                                            <td><%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %></td>
+                                                            <td style="width:200px">
+                                                                <div align="center">
+                                                                
+                                                                   
+                                                                   
+                                                                   <a onclick="schedule(<%= i.int_PetId %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
+                                                                            <i class="material-icons">schedule</i>SCHEDULE
+                                                                    </button>
+                                                                   </a>
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                             
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            
+                                            <form action="/CVO_VaccinationScheduling" method="POST" id="scheduleForm">
+                                          <input type="hidden" name="currentPetId" id="petId3">
+                                              
+                                            </form>
+                                           
+                                            <script>
+                                               
+                                                function schedule(x){
+                                                    document.getElementById('petId3').value=x;
+                                                    document.getElementById('scheduleForm').submit();
+                                                }
+                                            </script>
+
+                                          
+                            
+               
+                        </div>
+                        <div class="modal-footer">
+                    
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+       

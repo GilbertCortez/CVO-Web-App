@@ -1,8 +1,8 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("impounding_list").className="active";
+
 document.getElementById("timpounding").className="active";
-document.getElementById("transaction_list").className="active";
+document.getElementById("maintenance_list").className="active";
 
 </script>
 
@@ -15,9 +15,12 @@ document.getElementById("transaction_list").className="active";
         <div class="card" >
               
             <div class="body" >
-             
+              <a data-toggle="modal" data-target="#add">
+            <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="material-icons">add</i>ADD NEW IMPOUNDING SITE
+            </button></a><br><br>
                                    
-                                            <div class="table-responsive" style="max-height:550px;min-height:550px;" >
+                                            <div class="table-responsive" style="max-height:470px;min-height:470px;" >
                                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" >
                                                     <thead>
                                                         <tr>
@@ -69,5 +72,5 @@ document.getElementById("transaction_list").className="active";
 
 
 
-
+  <%- include('./addImpoundingSite.ejs') -%>    
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

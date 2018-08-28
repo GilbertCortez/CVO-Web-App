@@ -6,18 +6,13 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 router.get('/',  (req,res)=>{
-	db.query(`SELECT * FROM Breed`,(err, results, fields) => {
-		if(err){
-			console.log(err);
-		}
-		else {
-			render(results);
-		}
+	db.query(`SELECT * FROM Breed`,(err, breed) => {
+		db.query(`SELECT DISTINCT int_BreedId FROM animal`,(err,usedBreed)=>{
+		res.render('CVO-M-AnimalBreed/views/view', {breed: breed,usedBreed:usedBreed});
+	});
 	});
 
-	function render(breed) {
-		res.render('CVO-M-AnimalBreed/views/view', {breed: breed});
-	}
+	
 });
 
 router.post('/add', (req, res)=>{
@@ -48,7 +43,23 @@ router.post('/update', (req, res)=>{
 	});
 });
 
+router.post('/updateStatus', (req, res)=>{
+	db.query('UPDATE breed SET int_Status='+req.body.status+' WHERE int_BreedId='+req.body.id,(err)=>{
+		if(err){
+			res.send("ERROR")
+		}
+		else{
+			res.send("SUCCESS")
+		}
+	})
+});
 
+router.post('/deleteBreed', (req, res)=>{
+	console.log(req.body.id)
+	db.query(`DELETE FROM breed WHERE int_BreedId = ${req.body.id}`,(err)=>{
+		console.log(err)
+	})
+});
 
 cb.post('/add',  (req,res)=>{
 	 var id=req.sanitize(req.body.id.trim());

@@ -1,0 +1,158 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("NewRedemption").className="active";
+document.getElementById("redemption_list").className="active";
+document.getElementById("transaction_list").className="active";
+</script>
+
+  <div class="row clearfix">
+        
+               
+                    <div class="card bg-blue col-sm-3" style="min-height:590">
+                        
+                        <div class="body">
+                         
+                         <center>
+                         <font color="white">
+            <i class="material-icons" style="font-size: 120px;">search</i>
+            <br><h4>ADVANCE PET SEARCH</h4><hr></font></center>
+                       <table style="width: 100%; ">
+                                        
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>PET TAG</th>
+                                            <td id="petinfo2">
+                                            
+                                            </td>
+                                        </tr>
+                                       <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>ANIMAL SPECIES</th>
+                                            <td id="petinfo6">
+                                              
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>BREED</th>
+                                            <td id="petinfo4">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>SEX</th>
+                                            <td id="petinfo5">
+                                              
+                                            </td>
+                                        </tr>
+                                       <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>COLOR PATTERN</th>
+                                            <td id="petinfo6">
+                                              
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>DATE LOST</th>
+                                            <td id="petinfo6">
+                                              
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>TIME LOST</th>
+                                            <td id="petinfo6">
+                                              
+                                            </td>
+                                        </tr>
+                                    </table>
+                        
+                        </div>
+                    </div>
+                   <div class="col-sm-9" >
+              <div class="col-sm-12">
+              <div class="col-sm-12"  style="overflow: auto;max-height:590px;min-height:590px;border:dashed #2196F3 5px;padding:10px;" >
+
+              <div id="ajxLoader" style="display:none"> 
+              <br><br><br><br><br><br><br><br><br>
+               <div style="background-image: url('/images/preloader.gif');background-repeat: no-repeat;background-size: 200px;background-position: center;" >
+               <br><br><br><br><br><br><br><br><br><br>
+             </div>
+
+               </div>
+            <div id="filteredAnimal">
+              
+            
+              
+                </div>
+            </div>
+            </div>
+
+
+                </div>
+          <div class="modal fade" id="viewAnimal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document" style="width:90%;">
+      <div class="modal-content">
+         <div class="modal-body"  style="min-height:550px;" >
+           
+         
+            
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-primary waves-effect" href="/CVO_Adoption/AdoptionApplicationForm">PROCEED</a><button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+       <script>
+       var filterPost=
+{
+            numberOfFinalists: "2",
+            filters: {
+                int_AnimalSpecies: "any",
+                int_BreedId: "any",
+                int_ColorDescriptionId: "any",
+                int_Sex: "any",
+                int_HealthStatus: "any"
+            }
+          }
+        ;
+            applyFilter();
+            function applyFilter(){
+             
+              $('#filteredAnimal').empty();
+          
+                document.getElementById('ajxLoader').style.display="block";
+
+
+              setTimeout(function(){  
+                    $.post("/CVO_Adoption/Filtering",{filter: JSON.stringify(filterPost)},function(data){
+           
+                  var toAppend="";
+                  data.forEach(function(i){
+  
+                  toAppend+=`  <div class="col-sm-3" >
+                    <div class="card" style="min-height:309px">
+                       
+                        <div class="body">
+                        <img src="/Animals/`+i.str_AnimalPicturePath+`" width="100%"/><br>
+                            <h4 align="center">NAME</h4>
+                            <center>
+                            <p>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+` | `+(i.str_BreedName)+` </p>
+                            <p>`+i.str_Description+` | `+(i.int_Sex==0?"Male":"Female")+` </p>
+                            <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
+                            </center>
+                            <center>
+                            <a class="btn btn-primary waves-effect" onclick="viewAnimal()">VIEW</a></center>
+                        </div>
+                    </div>
+                </div>`;
+              });
+                  document.getElementById('ajxLoader').style.display="none";
+                  $('#filteredAnimal').append(toAppend);
+              });
+              }, 600);
+            }
+            function viewAnimal(){
+              $('#viewAnimal').modal('toggle'); 
+            }
+       </script>
+
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

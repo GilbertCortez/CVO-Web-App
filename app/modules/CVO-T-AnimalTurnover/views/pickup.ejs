@@ -1,0 +1,79 @@
+
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("pickup").className="active";
+    document.getElementById("animalturnover_list").className="active";
+    document.getElementById("transaction_list").className="active";
+</script>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="block-header">
+<h2>ANIMAL PICK UP FOR TURNOVER</h2>
+</div>
+        <div class="card">
+           
+            <div class="body"  >
+         <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height:380px">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th>Batch ID</th>
+                                                            <th>Pickup Date</th>
+                                                            <th>Organization Name</th>
+                                                            <th>Email</th>
+                                                            <th>Telephone Number</th>
+                                                            <th>Cellphone Number</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                   
+                                                         <% 
+                                                    function MMMMDDYYYY(i){
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                                                    batch.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_BatchOfAnimalTurnOver %></td>
+                                                              <td width="60px"><%= MMMMDDYYYY(i.dat_DateOfPickUp) %></td>
+                                                            <td><%= i.str_OrganizationName %></td>
+                                                            <td><%= i.str_Email %></td>
+                                                            <td><%= i.str_TelephoneNumber %></td>
+                                                            <td><%= i.str_CellphoneNumber %></td>
+                                                           
+                                                            <td>
+                                                                <div align="center">
+                                                                
+                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="" onclick="choose()">
+                                                                            <i class="material-icons">get_app</i>PICKUP
+                                                                    </a>
+                                                                   
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                          <% }); %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                  
+            </div>
+        </div>
+    </div>
+
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

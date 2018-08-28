@@ -1,0 +1,195 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+
+document.getElementById("utilities_list").className="active";
+document.getElementById("operationConstraints_list").className="active";
+
+</script>
+               
+                <div class="col-sm-4">
+                        <div class="block-header">
+                                <h2>VACCINATION PER DAY</h2>
+                            </div>
+                    <div class="card">
+                        <div class="body">
+                                <form method="POST" action="/CVO_OperationConstraints/VaccinationPerDay" id="form_vaccinationperday">
+                                <div class="form-group form-float" >
+                                    <label class="form-label">Number of Vaccination per Day</label>
+                                    <div class="form-group form-float">
+                                    <div class="form-line" id="line_vaccinationperday">
+                                        <input type="number" id="vaccination_number" class="form-control" name="vaccination_number" required="" aria-required="true" onkeypress="updateVaccineTyping()" value=<%=results[0].int_NumberOfVaccination%>>
+                                    </div>
+                                    <label id="required-vaccinationperday" class="error" style="display: block;">This field is required.</label>
+                                 </div>
+                                </div>
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation1()">UPDATE</button> 
+                                </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                        <div class="block-header">
+                                <h2>ADOPTION PER HOUSEHOLD</h2>
+                            </div>
+                    <div class="card">
+                        <div class="body">
+                            <form action="/CVO_OperationConstraints/AdoptionPerHousehold" method="POST" id="form_adoptionperhousehold">
+                                <div class="form-group form-float" >
+                                    <label class="form-label">Number of Pet Adoption per Household</label>
+                                    <div class="form-line" id="adoptionperhousehold_line">
+                                        <input type="number" class="form-control" name="adoptionperhousehold" id="adoptionperhousehold" onkeypress="adoptionperhousehold_typing()" required="" aria-required="true" value=<%=adoption[0].int_NumberOfAdoption%>>
+                                    </div>
+                                    <label id="required-adoptionperhousehold" class="error" style="display:block;">This field is required.</label>
+                                </div>
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation3()" >UPDATE</button>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-sm-4">
+                        <div class="block-header">
+                                <h2>IMPOUNDED ANIMAL PERIODS</h2>
+                            </div>
+                    <div class="card">
+                        <div class="body">
+                                <form action="/CVO_OperationConstraints/ImpoundedAnimalPeriods" method="POST" id=form_periods>
+                                <div class=" col-sm-6">
+                                <div class="form-group form-float">
+                                    
+                                    <label class="form-label">Claiming Period</label>
+                                    <div class="form-line" id="claimingperiod_line">
+                                        <input type="number" class="form-control" name="claiming_period" id="claiming_period" required="" aria-required="true" onkeypress="claimingperiod_typing()" value=<%=periods[0].int_ClaimingPeriod%>>
+                                    </div>
+                                    <label id="required-claiming_period" class="error" style="display:block;">This field is required.</label>
+                                </div>
+                                </div>
+                                <div class=" col-sm-6">
+                                <div class="form-group form-float">
+                                    <label class="form-label">Adoption Period</label>
+
+                                    <div class="form-line" id="adoptionperiod_line">
+                                        <input type="number" class="form-control" name="adoption_period" id="adoption_period" required="" aria-required="true" onkeypress="adoptionperiod_typing()" value=<%=periods[0].int_AdoptionPeriod%>>
+                                    </div>
+
+                                    <label id="required-adoption_period" class="error" style="display:block;">This field is required.</label>
+                                </div>
+                                </div>
+                                <br>
+                                <center><button class="btn btn-primary waves-effect" type="button" onclick="validation2()">UPDATE</button> 
+                                </form> 
+                        </div>
+                    </div>
+                </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
+
+ <script>
+     document.getElementById('required-adoptionperhousehold').style.display='none';
+
+     function adoptionperhousehold_typing(){
+        $('#adoptionperhousehold_line').removeClass('error');
+        $('required-adoptionperhousehold').style.display = 'none';
+     }
+
+     function validation3(){
+        var toSubmit=true;
+        if(document.getElementById('adoptionperhousehold').value.trim()==""){
+          toSubmit=false;
+          $('#adoptionperhousehold_line').addClass("error");
+          document.getElementById('required-adoptionperhousehold').style.display='block';
+        }
+
+        if(toSubmit==true){
+          swal({
+            title: "Are you sure you want to update adoption per household?",
+            icon: "/images/alert_question.png",
+            buttons: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                  document.getElementById('form_adoptionperhousehold').submit();
+            }
+          });
+        }
+      }
+ </script>
+<script>
+
+document.getElementById('required-claiming_period').style.display='none';
+document.getElementById('required-adoption_period').style.display='none';
+
+function claimingperiod_typing(){
+    $("#claimingperiod_line").removeClass("error") 
+    $("#required-claiming_period").style.display = 'none';
+}
+
+function adoptionperiod_typing(){
+    $("#adoptionperiod_line").removeClass("error") 
+    $("#required-adoption_period").style.display = 'none';
+}
+
+function validation2(){
+          var toSubmit=true;
+          if(document.getElementById('claiming_period').value.trim()==""){
+            toSubmit=false;
+            $('#claimingperiod_line').addClass("error");
+            document.getElementById('required-claiming_period').style.display='block';
+          }
+
+          if(document.getElementById('adoption_period').value.trim()==""){
+            toSubmit=false;
+            $('#adoptionperiod_line').addClass("error");
+            document.getElementById('required-adoption_period').style.display='block';
+          }
+
+          if(toSubmit==true){
+            swal({
+              title: "Are you sure you want to update impounded animal periods?",
+              icon: "/images/alert_question.png",
+              buttons: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                    document.getElementById('form_periods').submit();
+              }
+            });
+          }
+        }
+</script>
+<script>
+
+document.getElementById('required-vaccinationperday').style.display='none';
+
+
+function updateVaccineTyping(){
+    $('#line_vaccinationperday').removeClass("error");
+    document.getElementById('required-vaccinationperday').style.display='none';
+}
+
+
+function validation1(){
+   var toSubmit = true;
+  if(document.getElementById('vaccination_number').value.trim()==""){
+    toSubmit = false;
+    $('#line_vaccinationperday').addClass("error");
+    document.getElementById('required-vaccinationperday').style.display='block';
+  }
+
+  if(toSubmit == true){
+    swal({
+      title: "Are you sure you want to update number of vaccination per day?",
+      icon: "/images/alert_question.png",
+      buttons:true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+            document.getElementById('form_vaccinationperday').submit();
+      }
+    });
+  }
+}
+</script>
+
+    

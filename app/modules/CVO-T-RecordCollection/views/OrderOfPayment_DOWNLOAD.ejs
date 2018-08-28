@@ -67,14 +67,14 @@
                 <table width="100%" style="border: 1px solid gray">
 
                     <tr>
-                        <th width="50%"></th>
-                        <td style="text-align:right">
-                            <h6>
+                        <th width="50%"><h6>
                                 <%= od[0].str_Email %>
                                     <h6>
                                         <h6>
                                             <%= od[0].str_Address %>
-                                                <h6>
+                                                <h6></th>
+                        <td style="text-align:left">
+                            
                         </td>
                     </tr>
 
@@ -129,17 +129,17 @@
                     </tr>
                     <% var total=0; br.forEach(function(i,ctr){ total+=i.dec_Amount; %>
                      <tr>
-                        <td style="border: 1px solid grey"><%= ctr+1 %></td>
-                          <td style="border: 1px solid grey">
+                        <td style="border: 1px solid grey;"><%= ctr+1 %></td>
+                          <td style="border: 1px solid grey;">
                               <%= i.str_Description %>
                           </td>
-                            <td style="border: 1px solid grey"><%= i.dec_Amount %></td>
+                            <td style="border: 1px solid grey;text-align:right">&#8369;<%= i.dec_Amount.toFixed(2) %></td>
                     </tr>
                     <% }); %>
                      
                      <tr>
-                        <th class="bg-grey" colspan="2" style="border: 1px solid grey">TOTAL</th>
-                          <td style="border: 1px solid grey"><%= total %></td>
+                        <th class="bg-grey" colspan="2" style="border: 1px solid grey;text-align:right">TOTAL</th>
+                          <td style="border: 1px solid grey;text-align:right">&#8369;<%= total.toFixed(2) %></td>
                       
                     </tr>
 

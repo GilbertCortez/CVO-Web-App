@@ -1,5 +1,5 @@
  <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height:350px">
                                                     <thead>
                                                         <tr>
                                                             <th>Pet ID</th>
@@ -26,19 +26,16 @@
                                                             <td><%= i.str_BreedName %></td>
                                                             <td><%= i.int_PetOwnerId %></td>
                                                             <td><%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %></td>
-                                                            <td>
+                                                            <td style="width:200px">
                                                                 <div align="center">
                                                                 
-                                                                    <a  onclick="conduct(<%= i.int_PetId %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
-                                                                            <i class="material-icons">add</i>Conduct
+                                                                    <a  onclick="document.getElementById('petId1').value=<%= i.int_PetId %>;$('#v_requirements').modal('toggle');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="CONDUCT VACCINATION">
+                                                                            <i class="material-icons">local_hospital</i>CONDUCT
                                                                     </button>
                                                                    </a>
-                                                                   <a onclick="schedule(<%= i.int_PetId %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Schedule Vaccination">
-                                                                            <i class="material-icons">add</i>Schedule
-                                                                    </button>
-                                                                   </a>
-                                                                   <a onclick="record(<%= i.int_PetId %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Record Vaccination">
-                                                                            <i class="material-icons">add</i>Record
+                                                                   
+                                                                   <a onclick="record(<%= i.int_PetId %>);"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="RECORD VACCINATION">
+                                                                            <i class="material-icons">insert_drive_file</i>RECORD
                                                                     </button>
                                                                    </a>
                                                                     
@@ -66,11 +63,7 @@
                                             </form>
                                            
                                             <script>
-                                                function conduct(x){
-                                                  
-                                                    document.getElementById('petId1').value=x;
-                                                    document.getElementById('conductForm').submit();
-                                                }
+                                               
                                                 function record(x){
                                                     document.getElementById('petId2').value=x;
                                                    document.getElementById('recordForm').submit();
@@ -80,3 +73,85 @@
                                                     document.getElementById('scheduleForm').submit();
                                                 }
                                             </script>
+
+
+       <div class="modal fade" id="v_requirements" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                <center>
+                        <h4>ANTI-RABIES VACCINATION REQUIREMENTS CHECKLIST</h4>
+                        
+                    </center>
+               </div>
+                <div class="modal-body">
+                   
+                   <br>
+                    <div class="input-group input-group-lg">
+                            <table class="table table-striped table-bordered">
+                            <tr>
+                            <div style="float:right">
+                            <a class="btn btn-link waves-effect btn-sm" onclick="V_checkAllRequirements()"><i class="material-icons">check</i> CHECK ALL</a>
+                        <a class="btn btn-link waves-effect btn-sm" onclick="V_uncheckAllRequirements()"><i class="material-icons">clear</i> UNCHECK ALL</a>
+                        </div>
+                            </tr>
+                            <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Purpose</th>
+                            </tr>
+                        <% vrequ.forEach(function(i,ctr){ %>
+<tr>
+                            <td width="5px"><div class="switch" align="center">
+                                                                    <label><input type="checkbox" id="v_requirements_<%=ctr %>"><span class="lever switch-col-blue"></span></label></td>
+                           <td> <label for="pr_requirements_<%=ctr %>"><%= i.str_Description %></label></td>
+                            <td><%= i.str_Purpose %></td>
+                            </tr>                         
+                               <% }); %>
+                            </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                        <button type="button" class="btn btn-primary btn-lg waves-effect" onclick="V_Requirements();">PROCEED</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CANCEL</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <script>
+           
+            function V_Requirements() {
+                var toSubmit = true;
+                for (var i = <%= vrequ.length %> - 1; i >= 0; i--) {
+                    if (document.getElementById('v_requirements_' + i).checked == false) {
+                        toSubmit = false;
+                    }
+                }
+                if (toSubmit == false) {
+                    swal("Warning", "Requirements should be completed", "warning")
+                } else {
+                   document.getElementById('conductForm').submit();
+                }
+            }
+
+            function V_checkAllRequirements() {
+
+                for (var i = <%= vrequ.length %> - 1; i >= 0; i--) {
+                    document.getElementById('v_requirements_' + i).checked = "checked";
+
+                }
+            }
+
+            function V_uncheckAllRequirements() {
+
+                for (var i = <%= vrequ.length %> - 1; i >= 0; i--) {
+                    document.getElementById('v_requirements_' + i).checked = "";
+
+
+                }
+
+            }
+        </script>

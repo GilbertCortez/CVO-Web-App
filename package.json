@@ -22,6 +22,7 @@
   "homepage": "https://github.com/PUP-CCIS/express-boilerplate#readme",
   "dependencies": {
     "async": "^2.5.0",
+    "async-waterfall": "^0.1.5",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "consolidate": "^0.14.5",

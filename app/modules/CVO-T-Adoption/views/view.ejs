@@ -1,328 +1,140 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
 document.getElementById("adoption_list").className="active";
+document.getElementById("NewApplication").className="active";
 document.getElementById("transaction_list").className="active";
-
 </script>
 
   <div class="row clearfix">
-                <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
-                        
-                            <h2>ANIMALS FOR ADOPTION</h2>
-                           <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">remove_red_eye</i>
-                                    </a>
-                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=false;document.getElementById('datatable').hidden=true;">Tiled </a></li>
-                                        <li><a href="javascript:void(0);" onclick="document.getElementById('tiledpicture').hidden=true;document.getElementById('datatable').hidden=false;">Data Table</a></li>
-                                       
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                        <div  id="datatable">
-                       
-                   
-                     
-                          <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Animal ID</th>
-                                                            <th>Alias</th>
-                                                            <th>Apprehended in</th>
-                                                            <th>Apprehension Date</th>
-                                                            <th>Impounding Site</th>
-                                                             <th>Cage Classification</th>
-                                                             <th>Cage Number</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>MingMing</td>
-                                                        
-                                                            <td>Concepcion</td>
-                                                            <td>01/23/2018</td>
-                                                            <td>Concepcion(Site ID:1)</td>
-                                                            <td>Monday</td>
-                                                            <td>12</td>
-                                                            <td>
-                                                                <div align="center">
-                                                                    <a data-target="#PetInfo" data-toggle="modal"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                            <i class="material-icons">add</i>Adopt
-                                                                    </button>
-                                                                   </a>
-                                                                  
-                                                            
-                                                              
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
-             
-                
-                        
-                        </div>
-
-                         <div id="tiledpicture" hidden>
-                          <div class="row" style="padding:20px">
-                         <% for(var xy=0; xy<5; xy++){ %>
-                          
-                    <div class="card">
-                       <div class="header bg-blue">
-                            <h2>
-                                Doglas McArthur <small>34 Years Old</small>
-                            </h2>
-                            
-                        </div>
-                        <div class="body">
-                        <table align="center">
-                        <tr>
-                        <td>
-                           <img src="/images/douglas.jpg" width="250"/></td>
-                           <td>
-                            <table class="table table-striped">
-                             <tr>
-                                  <td><strong>ANIMAL ID:</strong></td>
-                                  <td>#1</td>
-                                </tr>   
-                                <tr>
-                                  <td><strong>ALIAS:</strong></td>
-                                  <td>Doglas McArthur</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>COLOR PATTERN:</strong></td>
-                                  <td>Full White</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BREED:</strong></td>
-                                  <td>Spitz</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>SEX:</strong></td>
-                                  <td>Male</td>
-                                </tr>
-                                
-                                </table>          
-                        </td>
-                        </tr>
-                        </table>
-							<center><button type="button" class="btn btn-primary waves-effect" data-target="#PetInfo" data-toggle="modal">ADOPT ME</button></center>
-                        </div>
-               </div>
-                           	<% } %>  
-                      
-                       
-                 </div>
-                        
-                   
-                   
+        <div class="block-header">
+                <h2>NEW APPLICATION</h2>
+         </div>
+         <div class="card" style="min-height: 570px; ">
+             <div class="body">
+             <div class="col-sm-6">
+                <a class="btn btn-block btn-lg btn-primary waves-effect" href="/CVO_Adoption/PetFinder"><i class="material-icons">add</i>NEW ADOPTION APPLICATION (NON-CITIZEN)</a>
                 </div>
-            </div>
-     </div></div></div></div></div></div>
+                <div class="col-sm-6">
+                <a class="btn btn-block btn-lg btn-primary waves-effect" href="/CVO_Adoption/PetFinder"><i class="material-icons">add</i>NEW ADOPTION APPLICATION (CITIZEN)</a>
+                </div>
+                <br><br>
+                   <ul class="nav nav-tabs" role="tablist">
+                     <li role="presentation" class="active">
+                            <a href="#profile_with_icon_title" data-toggle="tab">
+                                <i class="material-icons">face</i> ADOPTER(NON-CITIZEN)
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a href="#home_with_icon_title" data-toggle="tab">
+                                <i class="material-icons">home</i> REGISTERED PET OWNERS
+                            </a>
+                        </li>
+                      
 
+                    </ul>
 
-
-
-       <div >
-                <div >
-                    <div class="card">
-                        <div class="header  bg-blue">
-                            <h2>FOR CUSTOMER INTELLIGENCE</h2>
-                        </div>
-                        <div class="body">
-                          
-                           
-                              <div class="table-responsive">
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Animal ID</th>
-                                                            <th>Adopter</th>
-                                                            <th>Alias</th>
-                                                          
-                                                            <th>Impounding Site</th>
-                                                             <th>Cage Classification</th>
-                                                             <th>Cage Number</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                 <!--   <tfoot>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Description</th>
-                                                            <th>Price</th>
-                                                        </tr> 
-                                                    </tfoot> -->
-                                                    <tbody>
-                        
-                                                        <tr>
-                                                             <td>1</td>
-                                                              <td>Xander Pijan</td>
-                                                            <td>MingMing</td>
-                                                           
-                                                         
-                                                            <td>Concepcion(Site ID:1)</td>
-                                                            <td>Monday</td>
-                                                            <td>12</td>
-                                                            <td>
-                                                                <div align="center">
-                                                                   <a href="CVO_ApprovedAdoptionApplication"><button type="button" class="btn btn-primary waves-effect">APPROVE</button></a>
+                    <!-- Tab panes -->
+                    <div class="tab-content" >
+                     <div role="tabpanel" class="tab-pane fade in active" id="profile_with_icon_title">
+                      <div  >
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" > 
+                                    <thead>
+                                        <tr>
+                                          
+                                            <th>Name</th>
+                                            <th>Date Registered</th>
+                                            <th>Barangay</th>
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% [].forEach(function (i){ %>
+                                            <tr>
+                                            
+                                                <td>
+                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                                </td>
+                                                <%
+                              var d= (i.dat_DateRegistered+"").split(' '); %>
+                                                    <td>
+                                                        <%= d[1]+" "+d[2]+", "+d[3] %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_BarangayName %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_PhoneNo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_Email %>
+                                                    </td>
+                                                    <td>
+                                                       <a class="btn btn-primary btn-s" href=""><i class="material-icons">note_add</i></a>
+                                                    </td>
+                                            </tr>
+                                            <% });  %>
+                                    </tbody>
+                                </table>
+                            </div>
+                     </div>
+                        <div role="tabpanel" class="tab-pane fade in" id="home_with_icon_title" >
                          
-                           <a href="CVO_Adoption"><button type="button" class="btn btn-primary waves-effect">DISAPPROVE</button></a>
-                                                                  
-                                                            
-                                                              
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                             
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                            <div  >
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" > 
+                                    <thead>
+                                        <tr>
+                                          
+                                            <th>Name</th>
+                                            <th>Date Registered</th>
+                                            <th>Barangay</th>
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% po.forEach(function (i){ %>
+                                            <tr>
+                                            
+                                                <td>
+                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                                </td>
+                                                <%
+                              var d= (i.dat_DateRegistered+"").split(' '); %>
+                                                    <td>
+                                                        <%= d[1]+" "+d[2]+", "+d[3] %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_BarangayName %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_PhoneNo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_Email %>
+                                                    </td>
+                                                    <td>
+                                                       <a class="btn btn-primary btn-small" href=""><i class="material-icons">note_add</i></a>
+                                                    </td>
+                                            </tr>
+                                            <% });  %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
                         
-                        </div>
-                    </div>
-                </div>
-            </div>
-         <div class="modal fade" id="PetInfo" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">View Impounded Animal For Adoption Details</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                        
-                              <img src="/images/douglas.jpg"/>
-                              <table class="table table-striped">
-                              <tr>
-                                  <td><strong>NAME:</strong></td>
-                                  <td>Whitey Houston</td>
-                                </tr>
+                    </div>      
+              </div>
+          </div>
+</div>
+<script>
+    function newAdoption(){
 
-                      
-                                <tr>
-                                  <td><strong>COLOR PATTERN:</strong></td>
-                                  <td>Full White</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>BREED:</strong></td>
-                                  <td>Spitz</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>SEX:</strong></td>
-                                  <td>Male</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>APREHENDED IN BARANGAY:</strong></td>
-                                  <td>Sto. Nino 1</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>APREHENSION DATE:</strong></td>
-                                  <td>01/27/2018</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>IMPOUNDING SITE:</strong></td>
-                                  <td>Concepcion</td>
-                                </tr>
-                                <tr>
-                                  <td><strong>CAGE NUMBER:</strong></td>
-                                  <td>127</td>
-                                </tr>
-                              
-                                
-                                
-
-                                
-                                
-                              </table>
-
-                        </div>
-                        <div class="modal-footer">
-                           <a data-target="#adoptionrequirements" data-toggle="modal" data-dismiss="modal"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-         <div class="modal fade" id="adoptionrequirements" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">View Impounded Animal Details</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                        
-                             
-                            <h4>Does the Adopter brings the following?</h4>
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#1</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#2</label>
-                                        </span>
-                                         <span class="input-group-addon">
-                                            <input type="checkbox" class="filled-in" id="ig_checkbox">
-                                            <label for="ig_checkbox">Requirement#3</label>
-                                        </span>
-                                        <label class="form-label"></label>
-                                  
-
-                        </div>
-                        <div class="modal-footer">
-                           <a href="CVO_AdoptionApplicationForm"><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-              <div class="modal fade" id="adoptionform" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-blue">
-                            <h4 class="modal-title" id="defaultModalLabel">ADOPTION APPLICATION FORM</h4>
-                        </div>
-                        <div class="modal-body" align="center">
-                        
-                             
-                            <h4>Does the Adopter brings the following?</h4>
-                                    
-                                  
-
-                        </div>
-                        <div class="modal-footer">
-                           <a ><button type="button" class="btn btn-link waves-effect">PROCEED</button></a>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
+    }
+</script>        
              
 
 

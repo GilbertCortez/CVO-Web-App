@@ -1,0 +1,197 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("impounding_list").className="active";
+   document.getElementById("surrenderanimal").className="active";
+   document.getElementById("transaction_list").className="active";
+   document.title="Cage Assignments";
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header" >
+      <h2>
+         CAGE ASSIGNMENTS
+      </h2>
+   </div>
+   <div class="card">
+   <div class="modal-header">
+         <div style="float:right"> 
+                  <a type="button" class="btn btn-lg btn-primary waves-effect" onclick="submitAssignments();" >PLACE ALL</a>  &nbsp;
+                  <a href="/CVO_SurrenderAnimal/SurrenderedAnimals" type="button"  class="btn btn-lg btn-primary waves-effect" >BACK</a> &nbsp;
+         </div>
+
+      </div>
+    <div class="body">
+    <script>
+var toPass=[]   ;
+<% 
+var allCages=fid.concat(fic.concat(fdo.concat(fco)));
+console.log(allCages)
+allCages.forEach(function(i){ %>
+
+        toPass.push(JSON.parse('{"cage": '+<%=i.CageId %>+', "animal": '+<%= i.Animal %>+',"cageNum": '+<%=i.int_CageNumber %>+'}'))
+<% }); %>
+  
+</script>
+                  <div >
+                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead>
+                           <tr>
+                              <th>ALIAS</th>
+                              <th>ANIMAL BREED</th>
+                              <th>ANIMAL SPECIES</th>
+                              <th>SEX</th>
+                              <th>COLOR PATTERN</th>
+                              <th>PET TAG</th>
+                              <th>VAN CAGE NUMBER</th>
+                              <th>CAGE NUMBER</th>
+                              <th>CAGE TYPE</th>
+                          
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <% 
+
+                           allCages.forEach(function(i){ %>
+                           <tr>
+                              <td><%= i.str_Alias %></td>
+                              <td><%= i.str_BreedName %></td>
+                              <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat" %></td>
+                              <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                              <td><%= i.str_Description %></td>
+                              <td><%= i.str_PetTagNo != null && i.str_PetTagNo != ""? i.str_PetTagNo  : "NONE"; %></td>
+                              <td><%= i.int_VanCageId %></td>
+                              <td> <% 
+var cageType="";
+                              if(i.int_CageType==0){
+                               %>
+                                  <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fid.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
+
+                                </select>
+                               <%
+                               }
+                               else  if(i.int_CageType==1){
+                               %>
+                               <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fic.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
+
+
+                                </select>
+                               <% }
+                               
+                               else  if(i.int_CageType==2){ %>
+                               <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fdo.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
+
+
+                                </select>
+                               <% }
+                              else  if(i.int_CageType==3){
+                               %>
+                                  <select class="form-control show-tick" data-live-search="true" id="<%= i.Animal %>" onchange="updateToPass(this.id,this.value)" >
+                                    <option>unassign</option>
+                                    <% ca_fco.forEach(function (x) { %>
+                                        <option value='<%= x.CageId %>,<%= x.int_CageNumber %>' <% if(x.CageId==i.CageId){ %>selected<% } %>>
+                                            <%= x.int_CageNumber %>
+                                        </option>
+                                        <% }); %>
+
+
+                                </select>
+                               <%
+                               }
+                               %></td>
+                              <td><% 
+                               if(i.int_CageType==0){
+                               cageType="For Impounded Dogs"
+                               }
+                               else  if(i.int_CageType==1){
+                               cageType="For Impounded Cats"
+                               }
+                               else  if(i.int_CageType==2){
+                               cageType="For Dog Observation"
+                               }
+                              else  if(i.int_CageType==3){
+                              cageType="For Cat Observation"
+                               }
+                               %><%= cageType %></td>
+                              
+                           </tr>
+                           <% }); %>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+         
+         
+         <br>
+         
+      </div>
+   </div>
+</div>
+<form action="/CVO_SurrenderAnimal/place" method="POST" id="finalCageAssignmentForm">
+<input type="hidden" id="toPass" name="finalCageAssignment" >
+</form>
+<script>
+document.getElementById('toPass').value=JSON.stringify(toPass);
+  function submitAssignments(){
+
+     
+    toPass.forEach(function(i){
+        if(i.cage=="unassign"){
+         swal({
+  title: "Unassigned Apprehended Animal/s.",
+  text: "After confirmation, some of the Apprehended animal will not be placed due to selection of 'unassign' option.",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    document.getElementById('finalCageAssignmentForm').submit();
+  } 
+});
+        }
+        else{
+            swal({
+  title: "Placing Animal on Cages.",
+  text: "After confirmation, cage assignments will be recorded. Any changes ",
+  icon: "info",
+  buttons: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    document.getElementById('finalCageAssignmentForm').submit();
+  } 
+});
+
+        }
+    });
+  } 
+  function updateToPass(x,y){
+
+    toPass.forEach(function(i,ctr){
+ 
+        if(i.animal==x){
+            toPass[ctr].cage=y.split(",")[0];
+            toPass[ctr].cageNum=y.split(",")[1];
+        }
+    });
+      document.getElementById('toPass').value=JSON.stringify(toPass)
+  }
+</script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%> 

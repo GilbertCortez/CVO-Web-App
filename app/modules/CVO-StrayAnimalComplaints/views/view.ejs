@@ -2,18 +2,20 @@
 <script>
 document.getElementById("complaints_list").className="active";
 
-
 </script>
-
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <div class="block-header">
                             <h2>Stray Animal Complaints</h2>
                         </div>
-                    <div class="card">
-                     
+                    <div class="card">                     
                         <div class="body">
-                          <a class="btn btn-primary btn-block">+ADD STRAY ANIMAL COMPLAINTS</a><br>
-                              <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="340px">
+                                <a data-toggle="modal" data-target="#add">
+                                        <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
+                                        <i class="material-icons">add</i>+ADD STRAY ANIMAL COMPLAINTS
+                                        </button></a>
+                                        <br><br><br>
+                                                <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="340px">
                                                     <thead>
                                                    
                                                         <tr>
@@ -29,28 +31,57 @@ document.getElementById("complaints_list").className="active";
                                                     </thead>
                                                
                                                     <tbody>
-                                                   
-                                                        <tr>
-                                                            <td></td>
-                                                             <td></td>
-                                                              <td></td>
-                                                               <td></td>
-                                                                <td></td>
-                                                                 <td></td>
-                                                                  <td></td>
-                                                     
-                                                            <td >
+                                                            <% 
+                                                                function MMMMDDYYYY(i){
+                                                                var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                                                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                                                var now = new Date(i);
+                                                                return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
                                                                
-                                                            </td>
+                                                              }
+                                       
+                                                            %>  
+                                                            <% 
+                                                                function HHSS(i){
+                                                                var now = new Date(i);
+                                                                   var hour=now.getHours();
+                                                                   var minutes=now.getMinutes();
+                                                                   var time="AM";
+                                                             
+                                                                   if(hour==12 && minutes==0){
+                                                                      time="NN";
+                                                                   }
+                                                                   else if(hour>12 && hour!=0){
+                                                                      time="PM";
+                                                                      hour-=12;
+                                                                   }
+                                                                   else if(hour==0){
+                                                                      hour=12;
+                                                                   }
+                                                                   return hour+":"+(("0"+minutes).slice(-2))+" "+time;
+                                                             
+                                                             } %>
+                                                        <% complaint.forEach(function (i) { %>                                                  
+                                                        <tr>
+                                                            <td><%= MMMMDDYYYY(i.dtm_DateTimeOfComplaint) + " " + HHSS(i.dtm_DateTimeOfComplaint)%></td>
+                                                             <td><%= i.str_Statement%></td>
+                                                              <td><%= i.str_BarangayName%></td>
+                                                               <td><%= i.str_LocationDetails%></td>
+                                                                <td><%= i.str_ComplainantName%></td>
+                                                                 <td><%= i.str_ContactNumber%></td>
+                                                                  <td></td>
+                                                                    <td >
+                                                               
+                                                                    </td>
                                                         </tr>
-                                                        
+                                                        <% }); %>
                                                     </tbody>
                                                 </table>
+                                </div>
                         </div>
                     </div>
                 </div>
-     
 
 
-
+<%- include('./addAnimalComplaint.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

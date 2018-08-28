@@ -9,9 +9,9 @@
 <div class="block-header">
 <h2>APPREHENSION</h2>
 </div>
-        <div class="card">
+        <div class="card col-sm-8">
            
-            <div class="body">
+            <div class="body" >
          
                         
                     <div class="col-sm-12">
@@ -24,7 +24,7 @@
                          <br><br>
                          <center><h3>Apprehended Animals</h3></center>
                              <div>
-                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height: 250px">
                                                     <thead>
                                                    
                                                         <tr>
@@ -42,8 +42,8 @@
                                                     <tbody>
                                                      <% ap.forEach(function(i){ %>
                                                         <tr>
-                                                            <td><%= i.int_VanCageNumber %></td>
-                                                              <td><%= i.str_PetTagNo %></td>
+                                                            <td><%= i.int_VanId+"-"+i.int_VanCageNumber %></td>
+                                                              <td><%= i.str_PetTagNo != "" ? i.str_PetTagNo : "NONE";  %></td>
                                                            <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat"; %></td>
                                                            <td><%= i.str_BreedName %></td>
                                                            <td><%= i.str_Description %></td>
@@ -70,6 +70,37 @@
                 </div>
             </div>
         </div>
+         <div class="col-sm-4">
+         <div class="card" style="min-height: 555px">
+         <br><br><br>
+         <div class="body">
+         <center><h3>TODAY'S APPREHENSION</h3></center><hr>
+         <div class="table-responsive">
+         <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th width="10px">
+                        Apprehended Animals
+                        </th>
+                        <td>
+                      
+                        </td>
+                        </tr>
+                    </tbody>
+         </table>
+          <a class="btn btn-primary btn-block waves-effect"><i class="material-icons">pets</i>VIEW APPREHENDED ANIMALS</a><br><br>
+           <a class="btn btn-primary btn-block waves-effect"><i class="material-icons">remove_red_eye</i>VIEW CAGE ASSIGNMENTS</a>
+         </div>
+         </div>
+         </div>
+         </div>
+
     </div>
 <form action="/CVO_CageAssignments" method="POST" id="cageAssignment">
     <input type="hidden" name="impoundingSiteId" id="impoundingSiteId">

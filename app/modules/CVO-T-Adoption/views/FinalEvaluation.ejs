@@ -1,0 +1,79 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("adoption_list").className="active";
+document.getElementById("NewApplication").className="active";
+document.getElementById("transaction_list").className="active";
+
+</script>
+
+  <div class="row clearfix">
+
+          <div class="col-sm-3">
+             <div class="card bg-white" style="min-height: 600px">
+             <div class="body">
+                <center><h3>ADOPTION APPLICATION FINAL EVALUATION</h3></center><hr><br><br><br>
+                <a class="btn  btn-block bg-blue" id="wz1"><i class="material-icons">remove_red_eye</i><h6> VIEW ADOPTION APPLICATION SUMMARY</h6></a>
+                
+               
+             </div>
+             </div>
+
+          </div>
+                <div class="col-sm-9">
+                
+                    <div class="card" style="min-height: 600px">
+                        
+                        <div class="body">
+                  <h4>ADOPTION APPLICATION FINAL EVALUATION FORM</h4>
+                  <hr>
+                  <label class="form-label">Date and Time of Evaluation </label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="datetime-local" class="form-control" name="" >
+                                    </div>
+                                </div> 
+                                       <label class="form-label">Adoption Application Result</label>
+                                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="capable" type="radio" value=0 id="forYes" checked="">
+                  <label for="forYes">Approved</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="capable" type="radio" value=1 id="forNo" >
+                  <label for="forNo">Disapproved</label>
+                  </span>
+                  
+               </div>
+
+                                 <label class="form-label">Evaluation Remarks</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="10" class="form-control" name="" autofocus=""></textarea>
+                                    </div>
+                                </div> 
+                                     <br>
+                     <div class="col-sm-9"></div>
+                     <div class="col-sm-3">
+                     
+                             <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="proceed();">PROCEED</a>
+                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+                      </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+       
+
+<script>
+
+function proceed(){
+         
+
+  swal("ORDER OF PAYMENT")
+}
+           
+              
+
+</script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

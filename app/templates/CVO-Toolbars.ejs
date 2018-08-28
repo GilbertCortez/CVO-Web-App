@@ -73,40 +73,103 @@
                   <span>Transaction</span>
                   </a>
                   <ul class="ml-menu">
-                     <li id="registration_list" >
-                        <a href="/CVO_Registration">Registration</a>
+                     
+                  
+                           
+                           <li id="reg_list">
+                              <a href="/CVO_Registration">Registration</a>
+                           </li>
+                      
+                           
+                       
+                        <li id="vaccination_list">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Vaccination
+                        </a>
+                        <ul class="ml-menu">
+                     <li id="walkinvac_list" >
+                        <a href="/CVO_Vaccination/WalkIn">Walk-in Vaccination</a>
                      </li>
-                     <li id="vaccination_list" >
-                        <a href="/CVO_Vaccination">Vaccination</a>
+                      <li id="schedvac" >
+                        <a href="/CVO_Vaccination/Scheduled">Schedule Vaccination</a>
+                     </li>
+                      </ul>
                      </li>
                      <li id="impounding_list">
                         <a href="javascript:void(0);" class="menu-toggle">
                         Impounding
                         </a>
                         <ul class="ml-menu">
-                           <li id="timpounding">
-                              <a href="/CVO_Impounding">Impounding Site</a>
-                           </li>
+                        
                            <li id="apprehension">
                               <a href="/CVO_Apprehension">Apprehension</a>
                            </li>
                            <li id="surrenderanimal">
-                              <a href="/CVO_SurrenderAnimal">Surrender Animal</a>
+                              <a href="/CVO_SurrenderAnimal/SurrenderedAnimals">Surrender Animal</a>
                            </li>
-                           
+                           <li id="animalreleasing">
+                              <a href="/CVO_AnimalReleasing">Animal Releasing</a>
+                           </li>
+
                         </ul>
                      </li>
                      <li id="redemption_list">
-                        <a href="/CVO_Redemption">Redemption</a>
+                   
+                         <a href="javascript:void(0);" class="menu-toggle">
+                        Redemption
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="NewRedemption">
+                              <a href="/CVO_Redemption/New">New Redemption</a>
+                           </li>
+                           <li id="PendingRedemption">
+                              <a href="/CVO_Redemption/Pending">Pending Redemption</a>
+                           </li>
+                     
+                           
+                        </ul>
                      </li>
+                    
                      <li id="adoption_list">
-                        <a href="/CVO_Adoption">Adoption</a>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Adoption
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="NewApplication">
+                              <a href="/CVO_Adoption">New Adoption</a>
+                           </li>
+                           <li id="PendingApplication">
+                              <a href="/CVO_Adoption/Pending">Pending Application</a>
+                           </li>
+                     
+                           
+                        </ul>
                      </li>
                      <li id="record_list">
                         <a href="/CVO_RecordCollection">Collection</a>
                      </li>
-                     <li id="animalturnover_list">
-                        <a href="">Animal Turnover</a>
+          
+
+                      <li id="animalturnover_list">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Animal Turnover
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="newturnover">
+                              <a href="/CVO_AnimalTurnover/New">New Turnover</a>
+                           </li>
+                           <li id="pendingturnover">
+                              <a href="/CVO_AnimalTurnover/Pending">Pending Turnovers</a>
+                           </li>
+                           <li id="pickup">
+                              <a href="/CVO_AnimalTurnover/Pickup">Pickup</a>
+                           </li>
+                     
+                           
+                        </ul>
+                     </li>
+                     <li id="transferofownership_list">
+                        <a href="/CVO_TransferOfOwnership">Transfer Of Pet Ownership</a>
                      </li>
                   </ul>
                </li>
@@ -116,6 +179,9 @@
                   <span>Maintenance</span>
                   </a>
                   <ul class="ml-menu">
+                  <li id="petowners_list">
+                        <a href="">Pet Owner</a>
+                     </li>
                      <li id="animal_list">
                         <a href="javascript:void(0);" class="menu-toggle">
                         Animal
@@ -146,8 +212,8 @@
                         <a href="/CVO_Location">Location(Barangay)</a>
                      </li>
 
-                     <li id="impoundingsite_list">
-                        <a href="/CVO_ImpoundingSite">Impounding Site</a>
+                     <li id="timpounding">
+                              <a href="/CVO_Impounding">Impounding Site</a>
                      </li>
                      <li id="van_list">
                         <a href="/CVO_Van">Van</a>
@@ -176,11 +242,36 @@
                   </ul>
                </li>
                <li id="query_list">
-                  <a href="/CVO_Query" >
+                  <a href="javascript:void(0);" class="menu-toggle" >
                   <i class="material-icons">list</i>
                   <span>Query</span>
                   </a>
+                  <ul class="ml-menu">
+                 
+                    <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Registration</a>
+                     </li>
+                     <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Vaccination</a>
+                     </li>
+                     <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Redemption</a>
+                     </li>
+                     <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Adoption</a>
+                     </li>
+                      <li id="euthanized_q">
+                        <a href="/CVO_Q_Euthanisa">Euthanasia</a>
+                     </li>
+                     <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Collection</a>
+                     </li>
+                     <li id="registeredpetowner_q">
+                        <a href="/CVO_Query">Animal Turnover</a>
+                     </li>
+                     </ul>
                </li>
+                
                <li id="email_list">
                   <a href="/CVO_Email" >
                   <i class="material-icons">mail</i>
@@ -193,6 +284,7 @@
                   <span>Stray Animals Complaints</span>
                   </a>
                </li>
+
                 <li id="certification_list">
                   <a href="" >
                   <i class="material-icons">print</i>
@@ -208,17 +300,11 @@
                      <li id="employees_list">
                         <a href="/CVO_Employees">Employees</a>
                      </li>
-                     <li id="vaccinationperday_list">
-                        <a href="/CVO_VaccinationPerDay">Vaccination Per Day</a>
+                      <li id="operationConstraints_list">
+                        <a href="/CVO_OperationConstraints">Operation Constraints</a>
                      </li>
                      <li id="office_list">
                         <a href="/CVO_Office">Office Information</a>
-                     </li>
-                     <li id="impoundedanimalperiods_list">
-                        <a href="/CVO_ImpoundedAnimalPeriods">Impounded Animals Periods</a>
-                     </li>
-                     <li id="adoptionperhousehold_list">
-                        <a href="/CVO_AdoptionPerHousehold">Adoption Per Household</a>
                      </li>
                      <li id="FAQ_list">
                         <a href="/CVO_FAQs">FAQs</a>

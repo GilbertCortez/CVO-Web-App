@@ -11,18 +11,21 @@ document.getElementById("transaction_list").className="active";
 
 
 
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="block-header">
+<h2>SURRENDERING DETAILS</h2>
+</div>
         <div class="card" >
           
             <div class="body">
-            <form id="form_validation" method="POST" novalidate="novalidate">
-            <h4 >Surrendering Details</h4><hr>
-            <h4 class="col-sm-12">Concerned Citizen Name</h4>
+            <form id="surrenderedAnimal" method="POST" action="/CVO_SurrenderAnimal/record"  enctype="multipart/form-data" >
+            <h4 >Concerned Citizen Information</h4><hr>
             <div class="col-sm-4">
                                         <label class="form-label">First Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="Firstname" autocomplete="off" >
                                         
                                        </div>
                                 </div>
@@ -31,7 +34,7 @@ document.getElementById("transaction_list").className="active";
                                         <label class="form-label">Middle Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="Middlename" autocomplete="off" >
                                         
                                        </div>
                                 </div>
@@ -40,17 +43,17 @@ document.getElementById("transaction_list").className="active";
                                         <label class="form-label">Last Name</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="Lastname" autocomplete="off" >
                                         
                                        </div>
                                 </div>
                                 </div>
-                                <h4 class="col-sm-12">Concerned Citizen Contact Details</h4>
+                               
                                   <div class="col-sm-6">
                                         <label class="form-label">Contact Number</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="Contact" autocomplete="off" >
                                         
                                        </div>
                                 </div>
@@ -59,7 +62,7 @@ document.getElementById("transaction_list").className="active";
                                         <label class="form-label">Email Address</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="Email" autocomplete="off" >
                                         
                                        </div>
                                 </div>
@@ -68,7 +71,7 @@ document.getElementById("transaction_list").className="active";
             
             <h4>Surrendered Animal Details</h4><hr>
             <div class="col-sm-4">
-                     <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
+                     <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); "style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="300" height="300" /><br><br><br>
                      <script type="text/javascript">
                         function readURL(input) {
                             if (input.files && input.files[0]) {
@@ -96,7 +99,7 @@ document.getElementById("transaction_list").className="active";
                         <label class="form-label">Pet Tag</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="pettag" autocomplete="off" >
                                     </div>
                                 </div>
                                 </div>
@@ -104,126 +107,142 @@ document.getElementById("transaction_list").className="active";
                         <label class="form-label">Animal Alias</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="name"  >
+                                        <input type="text" class="form-control" name="alias"  >
                                     </div>
                                 </div>
                                 </div>
-                                 <div class="col-sm-4">
-                                <label class="form-label">Animal Breed</label>
-                                <div class="form-group form-float">
-              
-                                        <select class="form-control show-tick" data-live-search="true">
-                                         <option>select</option>
-                                        <option>Breed#1</option>
-                                        <option>Breed#2</option>
-                                        <option>Breed#3</option>
-                                        <option>Breed#4</option>
-                                        <option>Breed#5</option>
-                                        
-                                     
-                                    </select>
-                               
-                                </div>
-                                </div>
- <div class="col-sm-4">
-                                        <label class="form-label">Animal Species</label>
-                                <div class="form-group form-float">
-                                
-                                        <select class="form-control show-tick" data-live-search="true">
-                                         <option>select</option>
-                                        <option>Dog</option>
-                                         <option>Cat</option>
-                                        
-                                     
-                                    </select>
-                                    
-                                </div>
-                                </div>
-                                 <div class="col-sm-4">
+                                <div class="col-sm-8">
+                         <div class="col-sm-6">
+                      <label class="form-label">Species</label>
+                  <div class="demo-radio-button" align="center">
+                     <input type="radio" class="with-gap" checked id="dog" name="species" onclick="dogBreedChange();">
+                     <label for="dog">Dog</label>
+                     <input type="radio" id="cat" class="with-gap" name="species"  onclick="catBreedChange();">
+                     <label for="cat">Cat</label>
+                  </div>
+                  </div>
+                    <div class="col-sm-6" id="BreedField">
+                  
+                  </div>
+                    <script>
+                    dogBreedChange();
+                    function dogBreedChange(){
+                      
+                       var dogBreedSelectField="";
+                    <% br.forEach(function (i) { if(i.int_AnimalSpecies==0){ console.log(i)%>
+                     dogBreedSelectField+=`<option value='<%= i.int_BreedId %>' ><%= i.str_BreedName %></option>`;
+                     <% } }); %>
+                    
+                    $('#BreedField').empty();
+                    $('#BreedField').append(`
+                        <label class="form-label">Breed</label>
+                   <div class="form-group form-float">
+                    <div class="form-line" id="breed_line">
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
+                     <option>select</option>
+                     `+dogBreedSelectField+`
+                  </select>
+                   </div>
+                  <label id="breed_required" class="error" style="display:  none">This field is required.</label>
+                  </div>
+                      `);
+                  }
+                    function catBreedChange(){
+                      
+                       var catBreedSelectField="";
+
+                    <% br.forEach(function (i) { if(i.int_AnimalSpecies==1){ console.log(i)%>
+                     catBreedSelectField+=`<option value='<%= i.int_BreedId %>' ><%= i.str_BreedName %></option>`;
+                     <% } }); %>
+
+                    
+                    $('#BreedField').empty();
+                    $('#BreedField').append(`
+                        <label class="form-label">Breed</label>
+                   <div class="form-group form-float">
+                    <div class="form-line" id="breed_line">
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
+                     <option>select</option>
+                     `+catBreedSelectField+`
+                  </select>
+                   </div>
+                  <label id="breed_required" class="error" style="display:  none">This field is required.</label>
+                  </div>
+                      `);
+                  }
+                    </script>
+
+                    </div>
+ 
+                                 <div class="col-sm-2">
                                         <label class="form-label">Sex</label>
                                 <div class="form-group form-float">
                              
-                                        <select class="form-control show-tick" data-live-search="true">
+                                        <select class="form-control show-tick" data-live-search="true" name="sex">
                                          <option>select</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        
-                                     
+                                        <option value="0">Male</option>
+                                        <option value="1">Female</option>
                                     </select>
                                     
                                 </div>
                                 </div>
-                                 <div class="col-sm-4">
+                                 <div class="col-sm-3">
                                         <label class="form-label">Color Pattern</label>
                                 <div class="form-group form-float">
                                
-                                        <select class="form-control show-tick" data-live-search="true">
+                                        <select class="form-control show-tick" data-live-search="true" name="colorpattern">
                                          <option>select</option>
-                                        <option>Color Pattern#1</option>
-                                        <option>Color Pattern#2</option>
-                                        <option>Color Pattern#3</option>
-                                        <option>Color Pattern#4</option>
-                                        <option>Color Pattern#5</option>
+                                        <%  cp.forEach(function(i){ %>
+                                        <option value="<%= i.int_ColorPatternId %>"><%= i.str_Description %>  </option>
+                                        <% }); %>
                                         
                                      
                                     </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-3">
                                       <label class="form-label">Health Status</label>
                                 <div class="form-group form-float">
                               
-                                        <select class="form-control show-tick" data-live-search="true">
+                                        <select class="form-control show-tick" data-live-search="true" name="healthstatus">
                                          <option>select</option>
-                                        <option>Healthy</option>
-                                        <option>Sick</option>
-                                       
-                                        
-                                     
+                                        <option value="0">Healthy</option>
+                                        <option value="1">Sick</option>
+                      
                                     </select>
                                      
                                 </div>
                                 </div>
-                                 <div class="col-sm-6">
+                                 <div class="col-sm-4">
                                         <label class="form-label">Barangay Caught</label>
                                 <div class="form-group form-float">
                                    
-                                        <select class="form-control show-tick" data-live-search="true">
+                                        <select class="form-control show-tick" data-live-search="true" name="barangay">
                                          <option>select</option>
-                                        <option>Barangay#1</option>
-                                        <option>Barangay#2</option>
-                                        <option>Barangay#3</option>
-                                        <option>Barangay#4</option>
-                                        <option>Barangay#5</option>
+                                        <% ba.forEach(function(i){ %>
+                                        <option value="<%= i.int_BarangayId %>"><%= i.str_BarangayName %></option>
+                                        <% }); %>
                                         
                                      
                                     </select>
                                       
                                 </div>
                                 </div>
-                                 <div class="col-sm-3">
-                                        <label class="form-label">Date Caught</label>
+                                 <div class="col-sm-4">
+                                        <label class="form-label">Date & Time Caught</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="date" class="form-control" name="name" required="" aria-required="true">
+                                        <input type="datetime-local" class="form-control" name="dtmcaught" autocomplete="off">
                                         
                                        </div>
                                 </div>
                                 </div>
-                                <div class="col-sm-3">
-                                        <label class="form-label">Time Caught</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="time" class="form-control" name="name" required="" aria-required="true">
-                                        
-                                       </div>
-                                </div>
-                                </div>
+                              
                                  <div class="col-sm-12">
                                         <label class="form-label">Remarks</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="textarea" class="form-control" name="name" required=""  aria-required="true">
+                                        <input type="textarea" class="form-control" name="remarks" autocomplete="off">
                                         
                                        </div>
                                 </div>
@@ -232,7 +251,7 @@ document.getElementById("transaction_list").className="active";
                                         <br>
                                 <br><br><br>
                               
-                                <center><a  class="col-sm-12" data-toggle="modal" data-target="#cageAssignment"><button class="btn btn-primary waves-effect" >SUBMIT</button></a></center>
+                                <center><a  class="col-sm-12" onclick="document.getElementById('surrenderedAnimal').submit()"><button class="btn btn-primary waves-effect" >SUBMIT</button></a></center>
                                 </form>
                                 <div>&nbsp;</div> <div>&nbsp;</div>
                      

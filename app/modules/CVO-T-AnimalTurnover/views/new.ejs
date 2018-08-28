@@ -1,0 +1,224 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("newturnover").className="active";
+    document.getElementById("animalturnover_list").className="active";
+    document.getElementById("transaction_list").className="active";
+</script>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="block-header">
+<h2>NEW ANIMAL TURNOVER</h2>
+</div>
+        <div class="card">
+           
+            <div class="body"  >
+         <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height:380px">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Organization Name</th>
+                                                            <th>Email</th>
+                                                            <th>Telephone Number</th>
+                                                            <th>Cellphone Number</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
+                                                    <tbody>
+                                                        <% org.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_OrganizationId %></td>
+                                                            <td><%= i.str_OrganizationName %></td>
+                                                            <td><%= i.str_Email %></td>
+                                                            <td><%= i.str_TelephoneNumber %></td>
+                                                            <td><%= i.str_CellphoneNumber %></td>
+                                                            <td>
+                                                                <div align="center">
+                                                                
+                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="ADD BATCH" onclick="choose(<%= i.int_OrganizationId %>);iterateOrgInfo(`<%= JSON.stringify(i) %>`);">
+                                                                            <i class="material-icons">playlist_add</i>ADD BATCH
+                                                                    </a>
+                                                                   
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                        
+                  
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="modal fade" id="choose" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document" style="width:1400px;">
+      <div class="modal-content">
+      <div class="modal-header bg-blue">
+      <h3></h3>
+      </div>
+         <div class="modal-body">
+         <div class="col-sm-4 bg-blue" style="height:550px">
+             <div class="col-sm-5"><i class="material-icons" style="font-size: 150px;">group</i></div><div class="col-sm-7"><br><br><h2>Organization Information</h2></div>
+            <div class="col-sm-12"> <hr></div>
+             <table style="width: 100%; ">
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>ORGANIZATION ID</th>
+                                            <td id="orginfo1">
+                                               
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>ORGANIZATION NAME</th>
+                                            <td id="orginfo2">
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>EMAIL</th>
+                                            <td id="orginfo3">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>TELEPHONE NUMBER</th>
+                                            <td id="orginfo4">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>CELLPHONE NUMBER</th>
+                                            <td id="orginfo5">
+                                              
+                                            </td>
+                                        </tr>
+                                       
+                                    </table>
+
+         </div>
+         <div class="col-sm-8">
+         <div class="col-sm-9">
+             <form action="/CVO_AnimalTurnover/New" method="POST" id="animalturnoverform">
+    <input type="hidden" name="orgId" id="orgId">
+    <input type="hidden" name="animalsList" id="animalsList">
+       <label class="form-label">Date of Pickup</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="Date" class="form-control" name="dateOfPickup" >
+                                    </div>
+                                </div>
+</form>
+          
+         </div>
+         <div class="col-sm-3"><br><center><a class="btn btn-default waves-effect" onclick="chooseAll()">SELECT ALL</a>  <a class="btn bg-grey waves-effect" onclick="reset()">RESET</a></center></div>
+         <br><br>
+         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                    <thead>
+                                                   
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Impounding Site</th>
+                                                            <th>Cage Number</th>
+                                                            <th>Animal ID</th>
+                                                            <th>Species</th>
+                                                            <th>Breed</th>
+                                                            <th>Sex</th>
+                                                            <th>Color Pattern</th>
+                                                            <th>Health Status</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                               
+                                                    <tbody>
+                                                    <% forAdoption.forEach(function(i,ctr){ %>
+                                                        <tr>
+                                                            <td><div class="switch" align="center">
+                                                                    <label><input type="checkbox" id="choose_<%= ctr %>"><span class="lever switch-col-blue"></span></label>
+                                                                   
+                                                                </div></td>
+                                                            <td><%= i.str_BarangayName %></td>
+                                                            <td><%= i.int_CageNumber%></td>
+                                                            <td id="choose_<%= ctr %>_animal"><%= i.int_AnimalId %></td>
+                                                            <td><%= i.int_AnimalSpecies == 0 ? "Dog" : "Cat"; %></td>
+                                                            <td><%= i.str_BreedName %></td>
+                                                            <td><%= i.int_Sex == 0 ? "Male" : "Female" %></td>
+                                                            <td><%= i.str_Description %></td>
+                                                            <td><%= i.int_HealthStatus == 0 ? "Healthy" : "Sick" %></td>
+                                                        </tr>
+                                                  <% }); %>
+                                                    </tbody>
+                                                </table>
+            
+            
+           
+         </div>
+         </div>
+         <div class="modal-footer">
+            
+            <button type="button" class="btn btn-primary waves-effect" onclick="proceed()">PROCEED</button><button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<script>
+    function choose(x){
+        document.getElementById('orgId').value=x;
+        $('#choose').modal('toggle');
+    }
+    function chooseAll(){
+
+        for(var x=0;x<parseInt(<%= forAdoption.length %>);x++){
+          
+            document.getElementById('choose_'+x).checked="checked";
+        }
+    }
+    function reset(){
+
+        for(var x=0;x<parseInt(<%= forAdoption.length %>);x++){
+          
+            document.getElementById('choose_'+x).checked="";
+        }
+    }
+    function proceed(){
+        var toPass=[];
+
+         for(var x=0;x<parseInt(<%= forAdoption.length %>);x++){
+          
+            if(document.getElementById('choose_'+x).checked){
+                toPass.push(document.getElementById('choose_'+x+'_animal').innerHTML)
+            }
+        }
+        document.getElementById('animalsList').value=toPass;
+        if(document.getElementById('animalsList').value.length==0){
+            swal("There's no animal selected")
+        }
+        else{
+        document.getElementById('animalturnoverform').submit();
+        }
+    }
+    function iterateOrgInfo(x){ 
+
+        document.getElementById('orginfo1').innerHTML=JSON.parse(x).int_OrganizationId;
+        document.getElementById('orginfo2').innerHTML=JSON.parse(x).str_OrganizationName;
+        document.getElementById('orginfo3').innerHTML=JSON.parse(x).str_Email;
+        document.getElementById('orginfo4').innerHTML=JSON.parse(x).str_TelephoneNumber;
+        document.getElementById('orginfo5').innerHTML=JSON.parse(x).str_CellphoneNumber;
+    }
+</script>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

@@ -13,7 +13,18 @@ router.get('/',  (req,res)=>{
 });
 
 
+router.get('/charts/petandownerregistration',  (req,res)=>{
+  db.query(`SELECT COUNT(*) AS COU,MONTH(dat_DateRegistered) AS MON,YEAR(CURDATE()) AS YEA FROM petowner WHERE YEAR(dat_DateRegistered)=YEAR(CURDATE()) GROUP BY MONTH(dat_DateRegistered) `,(err,petowner)=>{
+  	db.query(`SELECT COUNT(*) AS COU,MONTH(dat_DateRegistered) AS MON,YEAR(CURDATE()) AS YEA FROM pet WHERE YEAR(dat_DateRegistered)=YEAR(CURDATE()) GROUP BY MONTH(dat_DateRegistered) `,(err,pet)=>{
+	res.render('CVO-Dashboard/views/petandownerregistration.ejs',{petowner:petowner,pet:pet});
+      })    
+  	  })  
+});
+
+
 
 
 
 exports.CVO_Dashboard= router;
+
+

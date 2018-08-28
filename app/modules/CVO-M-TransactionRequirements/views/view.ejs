@@ -62,6 +62,7 @@
                 swal("Added", 'You successfully added Requirement/s.', "success").then((value) => {
                     location.reload();
                 });
+
             }
         });
     }
@@ -87,7 +88,7 @@ function remove(i,x) {
                     url: '/CVO_TransactionRequirements/remove',
                     success: function(data) {
                         swal("Removed", 'You successfully removed the requirement.', "success").then((value) => {
-                            location.reload();
+                            $("#"+i).remove();
                         });
                     }
                 });

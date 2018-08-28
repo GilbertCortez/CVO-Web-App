@@ -52,19 +52,19 @@ var uploadPet = multer({
 
 
 router.get('/', (req, res) => {
+     db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='1'`, (err, prequirements) => {
     db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='0'`, (err, porequirements) => {
         db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 1`, (err, petowners) => { console.log(err)
-            db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 0`, (err, prereg) => {
-                
                 res.render('CVO-T-Registration/views/view.ejs', {
                     po: petowners,
-                    pr: prereg,
-                    porequ: porequirements
+                    porequ: porequirements,
+                    prequ: prequirements
                 });
-            });
+           });
         });
     });
 });
+
 
 //OWNER REGISTRATION
 router1.get('/', (req, res) => {
@@ -118,6 +118,7 @@ router1.post('/preregistered/recording', uploadOwner.any(), (req, res) => {
             });
         });
     });
+    
     let HelperOptions = {
         from: '"City Veterenary Office-Marikina" <gilbert230709@gmail.com',
         to: 'gilbert230709@gmail.com',
@@ -201,7 +202,7 @@ router1.post('/checkNumber', (req, res) => {
 
 
 router2.post('/', uploadPet.any(), (req, res) => {
-    db.query('SELECT * FROM breed', (err, breed) => {
+    db.query('SELECT * FROM breed ORDER BY str_BreedName', (err, breed) => {
         db.query('SELECT * FROM colorpattern', (err, colorpattern) => {
             if (req.body.cameFrom == "Pet Owner Registration") {
                 res.render('CVO-T-Registration/views/petregistration.ejs', {

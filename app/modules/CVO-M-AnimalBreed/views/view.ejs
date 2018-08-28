@@ -18,18 +18,8 @@
          </div>
          <br>
          <div class="row clearfix">
-            <div >
-               <!-- Nav tabs -->
-               <ul class="nav nav-tabs tab-nav-right" role="tablist" >
-                  <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>ALL</a></li>
-                  <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>DOGS</a></li>
-                  <li role="presentation" class=""><a href="#profile_animation_3" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>CATS</a></li>
-               </ul>
-               <!-- Tab panes -->
-               <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane animated pulse active" id="home_animation_2">
-                     <div class="body">
-                        <div class="table-responsive">
+            <div class="body">
+                              <div class="table-responsive">
                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                               <thead>
                                  <tr>
@@ -42,7 +32,7 @@
                               </thead>
                               <tbody>
                                  <% breed.forEach(function (i) { %>
-                                 <tr>
+                                 <tr id="<%= i.int_BreedId%>">
                                     <td><%= i.int_BreedId%></td>
                                     <td><%= i.str_BreedName%></td>
 
@@ -52,18 +42,30 @@
                                     <td>Cat</td>
                                     <% } %>
                                    <td>
- <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Yes</span>
-                                                                </div></td>
+                                   <% if (i.int_Status == 1) { %>
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_BreedId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_BreedId%>">YES</small>
+                                                                </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_BreedId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_BreedId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+
+
+                                                                </td>
                                     <td>
                                        <div align="center">
                                           <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
                                           <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                           <i class="material-icons">mode_edit</i>
                                           </button></a>
-                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                       
+                                          <button type="button" onclick="deleteBreed('<%=i.int_BreedId %>')" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete" <% usedBreed.forEach(function(x){  if(i.int_BreedId==x.int_BreedId){%> disabled <% }})  %>>
                                                                             <i class="material-icons">delete</i></button>
+                                         
 
                                        </div>
                                     </td>
@@ -72,96 +74,35 @@
                               </tbody>
                            </table>
                         </div>
-                     </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane animated pulse" id="profile_animation_2">
-                     <div class="body">
-                        <div class="table-responsive">
-                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                              <thead>
-                                 <tr>
-                                    <th>ID</th>
-                                    <th>Dog Breed Name</th>
-                                    <th>Active?</th>
-                                    <th>Action</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <% breed.forEach(function (i) { %>
-                                 <% if (i.int_AnimalSpecies == 0) { %>
-                                 <tr>
-                                    <td><%= i.int_BreedId%></td>
-                                    <td><%= i.str_BreedName%></td>
-                                    <td>
- <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Yes</span>
-                                                                </div></td>
-                                    <td>
-                                       <div align="center">
-                                          <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
-                                          <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                          <i class="material-icons">mode_edit</i>
-                                          </button></a>
-                                           <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                            <i class="material-icons">delete</i></button>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <% } %>
-                                 <% }); %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane animated pulse" id="profile_animation_3">
-                     <div class="body">
-                        <div class="table-responsive">
-                           <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                              <thead>
-                                 <tr>
-                                    <th>ID</th>
-                                    <th>Cat Breed Name</th>
-                                    <th>Active?</th>
-                                    <th>Action</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <% breed.forEach(function (i) { %>
-                                 <% if (i.int_AnimalSpecies == 1) { %>
-                                 <tr>
-                                    <td><%= i.int_BreedId%></td>
-                                    <td><%= i.str_BreedName%></td>
-                                    <td>
- <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Yes</span>
-                                                                </div></td>
-                                    <td>
-                                       <div align="center">
-                                          <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
-                                          <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
-                                          <i class="material-icons">mode_edit</i>
-                                          </button></a>
-                                           <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                            <i class="material-icons">delete</i></button>
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 <% } %>
-                                 <% }); %>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
       </div>
    </div>
 </div>
+
+<script>
+function statUpdate(x){
+
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_AnimalBreed/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_AnimalBreed/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+function deleteBreed(x){
+   $.post("/CVO_AnimalBreed/deleteBreed",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+
+</script>
 
 <%- include('./addAnimalBreed.ejs') -%>
 <%- include('./updateAnimalBreed.ejs') -%>

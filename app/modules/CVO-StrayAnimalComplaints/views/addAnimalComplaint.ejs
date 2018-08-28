@@ -1,0 +1,155 @@
+<div class="modal fade" id="add" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                 <h4 class="modal-title" id="defaultModalLabel">ADD NEW STRAY ANIMAL COMPLAIN</h4>
+            </div>
+            <div class="modal-body">
+                    <form id="form_complaints" method="POST" action="/CVO_StrayAnimalComplaints/add">
+                        <div class="container-fluid" style="width:100%">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="form-label">Statement</label>
+                                        <div class="form-group form-float">
+                                            <div class="form-line" id="statement_line">
+                                                <input type="text" class="form-control" name="statement" id="statement" onkeypress="statement_typing()">
+                                            </div>
+                                        <label id="required-statement" class="error" style="display: block;">This field is required.</label>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="form-label">Date & Time of Complaint</label>
+                                        <div class="form-group form-float" class="col-sm-4">
+                                            <div class="form-line" id="datetime_line">
+                                                <input type="datetime-local" class="form-control" name="datetime" id="datetime" onclick="datetime_typing()">
+                                            </div>
+                                        <label id="required-datetime" class="error" style="display: block;">This field is required.</label>
+                                        </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="form-label">Barangay</label>
+                                        <div class="form-group form-float">
+                                            <select style="width:100%" name="barangay" id="barangay" onchange="barangay_select()">
+                                                <option value="select">Select</option>
+                                                <% baragay.forEach(function (i) { %>
+                                                <option value=<%=i.int_BarangayId%>><%=i.str_BarangayName%></option>
+                                                <% }) %>
+                                            </select>
+                                        <label id="required-barangay" class="error" style="display: block;">This field is required.</label>
+                                        </div>
+                                </div>     
+                                <div class="col-sm-4">
+                                    <label class="form-label">Location Details</label>
+                                        <div class="form-group form-float" class="col-sm-4">
+                                            <div class="form-line" id="location_line">
+                                                <input type="text" class="form-control" name="location" id="location" onkeypress="location_typing()">
+                                            </div>
+                                        <label id="required-location" class="error" style="display: block;">This field is required.</label>
+                                        </div>
+                                </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="form-label">Complainant</label>
+                                        <div class="form-group form-float">
+                                            <div class="form-line" id="complainant_line">
+                                                <input type="text" class="form-control" name="complainant" id="complainant">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label">Contact Number</label>
+                                        <div class="form-group form-float">
+                                            <div class="form-line" id="contactnumber_line">
+                                                <input type="text" class="form-control" name="contactnum" id="contactnum">
+                                            </div>
+                                        </div>
+                                </div> 
+                                
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-link waves-effect" onclick="validation()">SUBMIT</button>
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('required-statement').style.display="none";
+    document.getElementById('required-barangay').style.display="none";
+    document.getElementById('required-datetime').style.display="none";
+    document.getElementById('required-location').style.display="none";
+    
+    function statement_typing(){
+    $('#statement_line').removeClass("error");
+    document.getElementById('required-statement').style.display="none";
+    }
+    
+    function datetime_typing(){
+    $('#datetime_line').removeClass("error");
+    document.getElementById('required-datetime').style.display="none";
+    }
+
+    function location_typing(){
+    $('#location_line').removeClass("error");
+    document.getElementById('required-location').style.display="none";
+    }
+
+    function barangay_select(){
+    $('#barangay_line').removeClass("error");
+    document.getElementById('required-barangay').style.display="none";
+    }
+
+    
+function validation(){
+    var toSubmit=true;
+    if(document.getElementById('statement').value.trim()==""){
+        toSubmit=false;
+        $('#statement_line').addClass("error");
+        document.getElementById('required-statement').style.display='block';
+    }
+    
+    if(document.getElementById('datetime').value.trim()==""){
+        toSubmit=false;
+        $('#datetime_line').addClass("error");
+        document.getElementById('required-datetime').style.display='block';
+        }
+
+    if(document.getElementById('location').value.trim()==""){
+        toSubmit=false;
+        $('#location_line').addClass("error");
+        document.getElementById('required-location').style.display='block';
+    }
+
+    if(document.getElementById('barangay').value == "select"){
+        toSubmit=false;
+        $('#barangay_line').addClass("error");
+        document.getElementById('required-barangay').style.display='block';
+    }
+    
+    if(toSubmit==true){
+        swal({
+        title: "Are you sure you want to add new stray animal complaint?",
+        icon: "/images/alert_question.png",
+        buttons: true,
+        })
+        .then((willDelete) => {
+         if (willDelete) {
+        document.getElementById('form_complaints').submit();
+            }
+        });
+    }
+}
+</script>
+    
+    
+    
+                

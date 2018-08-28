@@ -1,0 +1,211 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+document.getElementById("adoption_list").className="active";
+document.getElementById("NewApplication").className="active";
+document.getElementById("transaction_list").className="active";
+</script>
+<script>
+var filterPost=
+{
+            numberOfFinalists: "2",
+            filters: {
+                int_AnimalSpecies: "any",
+                int_BreedId: "any",
+                int_ColorDescriptionId: "any",
+                int_Sex: "any",
+                int_HealthStatus: "any"
+            }
+          }
+        ;
+        
+</script>
+
+
+        <div class="block-header">
+                <h2>SEARCH FOR PET TO ADOPT</h2>
+         </div>
+           <div class="col-sm-2">
+   
+       
+            <div class="card bg-blue" style="min-height:550px;padding:5px;padding-left: 5px">
+                <center>
+                <h3>Filter</h3>
+                </center>
+                <div >
+                <div class="card bg-default" style="min-height:400px;padding:5px;padding-left: 5px;color:grey;">
+
+                <label class="form-label">Animal Species</label>
+                  <div class="form-group">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="f1" onchange="filterPost.filters.int_AnimalSpecies=this.value;">
+                           <option value='any'>Any</option>
+                           <option value='0'>Dog</option>
+                           <option value='1'>Cat</option>
+                        </select>
+                     </div>
+                  </div>
+             
+                   <label class="form-label">Animal Breed</label>
+                  <div class="form-group">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="f2"  onchange="filterPost.filters.int_BreedId=this.value;">
+                           <option value='any'>Any</option>
+                           <option value='0'></option>
+                  
+                        </select>
+                     </div>
+                  </div>    
+                
+                     <label class="form-label">Color Pattern</label>
+                  <div class="form-group">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="f3"   onchange="filterPost.filters.int_ColorPatternId=this.value;">
+                           <option value='any'>Any</option>
+                           <% cp.forEach(function(i){ %>
+                           <option value='<%= i.int_ColorPatternId %>'><%= i.str_Description %></option>
+                           <% }); %>
+                         
+                        </select>
+                     </div>
+                  </div>
+
+                   <label class="form-label">Sex</label>
+                  <div class="form-group">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="f4"    onchange="filterPost.filters.int_Sex=this.value;">
+                           <option value='any'>Any</option>
+                           <option value='0'>Male</option>
+                           <option value='1'>Female</option>
+                        </select>
+                     </div>
+                  </div>
+                   <label class="form-label">Health Status</label>
+                  <div class="form-group">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="f5"   onchange="filterPost.filters.int_HealthStatus=this.value;" >
+                           <option value='any'>Any</option>
+                           <option value='0'>Healthy</option>
+                           <option value='1'>Sick</option>
+                        </select>
+                     </div>
+                  </div>
+
+                </div>
+               <center> <a class="btn btn-default" onclick="applyFilter();">APPLY</a><a class="btn bg-grey" onclick="resetFilter()">RESET</a></center>
+                </div>
+                <br>
+            </div>
+            </div>
+       
+          <div class="col-sm-10" >
+              <div class="col-sm-12"> <a class="btn btn-primary btn-lg">SHOW</a> <a class="btn btn-primary btn-lg">SORT BY</a> <a class="btn btn-primary btn-lg">DOGS ONLY</a> <a class="btn btn-primary btn-lg">CATS ONLY</a></div>
+              <div class="col-sm-12"  style="overflow: auto;max-height:545px;min-height:545px;border:dashed #2196F3 5px;padding:10px;" >
+
+              <div id="ajxLoader" style="display:none"> 
+              <br><br><br><br><br><br><br><br><br>
+               <div style="background-image: url('/images/preloader.gif');background-repeat: no-repeat;background-size: 200px;background-position: center;" >
+               <br><br><br><br><br><br><br><br><br><br>
+             </div>
+
+               </div>
+            <div id="filteredAnimal">
+              
+            
+              
+                </div>
+            </div>
+            </div>
+
+<div class="modal fade" id="viewAnimal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document" style="width:90%;">
+      <div class="modal-content">
+         <div class="modal-body"  style="min-height:550px;" >
+           
+         
+            
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="adoptAnimal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document" style="width:90%;">
+      <div class="modal-content">
+         <div class="modal-body"  style="min-height:550px;" >
+           
+         
+            
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-primary waves-effect" href="/CVO_Adoption/AdoptionApplicationForm">PROCEED</a><button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+            <script>
+            function viewAnimal(){
+                $('#viewAnimal').modal('toggle');
+            }
+             function adoptAnimal(){
+                $('#adoptAnimal').modal('toggle');
+            }
+
+              applyFilter();
+            function applyFilter(){
+             
+              $('#filteredAnimal').empty();
+          
+                document.getElementById('ajxLoader').style.display="block";
+
+
+              setTimeout(function(){  
+                    $.post("/CVO_Adoption/Filtering",{filter: JSON.stringify(filterPost)},function(data){
+           
+                  var toAppend="";
+                  data.forEach(function(i){
+  
+                  toAppend+=`  <div class="col-sm-3" >
+                    <div class="card" style="min-height:379px">
+                       
+                        <div class="body">
+                        <img src="/Animals/`+i.str_AnimalPicturePath+`" width="100%"/><br>
+                            <h4 align="center">NAME</h4>
+                            <center>
+                            <p>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+` | `+(i.str_BreedName)+` </p>
+                            <p>`+i.str_Description+` | `+(i.int_Sex==0?"Male":"Female")+` </p>
+                            <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
+                            </center>
+                            <center><a class="btn bg-grey waves-effect" onclick="viewAnimal()   ">VIEW</a><a class="btn btn-primary waves-effect" onclick="adoptAnimal()">ADOPT</a></center>
+                        </div>
+                    </div>
+                </div>`;
+              });
+                  document.getElementById('ajxLoader').style.display="none";
+                  $('#filteredAnimal').append(toAppend);
+              });
+              }, 600);
+            }
+              function resetFilter(){
+                filterPost=
+            {
+            numberOfFinalists: "100",
+            filters: {
+                int_AnimalSpecies: "any",
+                int_BreedId: "any",
+                int_ColorDescriptionId: "any",
+                int_Sex: "any",
+                int_HealthStatus: "any"
+            }
+          }
+        ;
+
+          swal("PLEASE DO THIS")
+              }
+            </script>
+                      
+             
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

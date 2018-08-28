@@ -6,9 +6,9 @@ var db = require('../../lib/database')();
 // router.use(authMiddleware.noAuthed);
 
 
-router.get('/',  (req,res)=>{
+router.get('/petownerregistration',  (req,res)=>{
   
-	res.render('CVO-Query/views/view.ejs');
+	res.render('CVO-Query/views/petownerregistration.ejs');
           
 });
 

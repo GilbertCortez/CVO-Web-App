@@ -40,25 +40,28 @@
       }
 
     </style>
-      <script>
-$(document).ready(function(){
-     $( "input" ).keyup(function() {
-        var eleme=this;
-        var map = {
-    '&': '',
-    '<': '',
-    '>': '',
-    '"': '',
-  };
+      <style>
+.ajxloader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: ajxspin .5s linear infinite; /* Safari */
+  animation: ajxspin .5s linear infinite;
+}
 
-    var newtxt=eleme.value.replace(/[&<>"']/g, function(m) { return map[m]; });
-    document.getElementById(eleme.id).value=newtxt;
-});
-     });
+/* Safari */
+@-webkit-keyframes ajxspin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
 
-   
-   
-    </script>
+@keyframes ajxspin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/css/themes/all-themes.css" rel="stylesheet" />
 
@@ -70,6 +73,7 @@ $(document).ready(function(){
                 font-size: 15px;
             }
     </style>
+    
     
 </head>
 <%- include('./CVO-Toolbars.ejs') -%>

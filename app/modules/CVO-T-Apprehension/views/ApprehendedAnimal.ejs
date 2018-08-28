@@ -6,13 +6,14 @@
     </script>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="block-header">
+                        <h2>APPREHENDED ANIMAL</h2>
+        </div>               
         <div class="card">
 
             <div class="body">
                 <form id="ApprehendedAnimalForm" method="POST" action="/CVO_ApprehendedAnimal" enctype="multipart/form-data">
-                    <center>
-                        <h3>Apprehended Animal</h3>
-                        <hr><br></center>
+                   
                     <div class="col-sm-4" align="center">
                         <img src="../../images/animalPicture.jpg" onclick="$('#idpic').trigger('click'); " style="cursor: pointer;border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="200" height="200" /><br><br><br>
                         <script type="text/javascript">
@@ -55,22 +56,63 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
-                        <label class="form-label">Animal Breed</label>
-                        <div class="form-group form-float">
-
-                            <div class="form-line">
-                                <select class="form-control show-tick" data-live-search="true" name="breed" >
-                                    <option>select</option>
-                                    <% br.forEach(function (i) { %>
-                                        <option value='<%= i.int_BreedId %>'>
-                                            <%= i.str_BreedName %>
-                                        </option>
-                                        <% }); %>
-
-
-                                </select>
-                            </div>
-                        </div>
+                         <div class="col-sm-6">
+                      <label class="form-label">Species</label>
+                  <div class="demo-radio-button" align="center">
+                     <input type="radio" class="with-gap" checked id="dog" name="species" onclick="dogBreedChange();">
+                     <label for="dog">Dog</label>
+                     <input type="radio" id="cat" class="with-gap" name="species"  onclick="catBreedChange();">
+                     <label for="cat">Cat</label>
+                  </div>
+                  </div>
+                    <div class="col-sm-6" id="BreedField">
+                  
+                  </div>
+                    <script>
+                    dogBreedChange();
+                    function dogBreedChange(){
+                      
+                       var dogBreedSelectField="";
+                    <% br.forEach(function (i) { if(i.int_AnimalSpecies==0){%>
+                     dogBreedSelectField+=`<option value='<%= i.int_BreedId %>' ><%= i.str_BreedName %></option>`;
+                     <% } }); %>
+                    
+                    $('#BreedField').empty();
+                    $('#BreedField').append(`
+                        <label class="form-label">Breed</label>
+                   <div class="form-group form-float">
+                    <div class="form-line" id="breed_line">
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
+                     <option>select</option>
+                     `+dogBreedSelectField+`
+                  </select>
+                   </div>
+                  <label id="breed_required" class="error" style="display:  none">This field is required.</label>
+                  </div>
+                      `);
+                  }
+                    function catBreedChange(){
+                      
+                       var catBreedSelectField="";
+                    <% br.forEach(function (i) { if(i.int_AnimalSpecies==1){%>
+                     catBreedSelectField+=`<option value='<%= i.int_BreedId %>' ><%= i.str_BreedName %></option>`;
+                     <% } }); %>
+                    
+                    $('#BreedField').empty();
+                    $('#BreedField').append(`
+                        <label class="form-label">Breed</label>
+                   <div class="form-group form-float">
+                    <div class="form-line" id="breed_line">
+                  <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
+                     <option>select</option>
+                     `+catBreedSelectField+`
+                  </select>
+                   </div>
+                  <label id="breed_required" class="error" style="display:  none">This field is required.</label>
+                  </div>
+                      `);
+                  }
+                    </script>
                     </div>
 
 

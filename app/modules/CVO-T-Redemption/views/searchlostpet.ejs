@@ -1,0 +1,299 @@
+<div class="modal fade" id="searchlostpet" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document" style="width:1400px;">
+      <div class="modal-content">
+    
+         <div class="modal-body">
+         <div class="col-sm-4 bg-blue" style="height:620px">
+             <div class="col-sm-4"><i class="material-icons" style="font-size: 120px;">pets</i></div><div class="col-sm-7"><br><br><h3>PET INFORMATION</h3></div>
+            <div class="col-sm-12"> <hr></div>
+             <table style="width: 100%; ">
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>PET ID</th>
+                                            <td id="petinfo1">
+                                               
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>PET TAG</th>
+                                            <td id="petinfo2">
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>PET NAME</th>
+                                            <td id="petinfo3">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>BREED</th>
+                                            <td id="petinfo4">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>SEX</th>
+                                            <td id="petinfo5">
+                                              
+                                            </td>
+                                        </tr>
+                                       <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>COLOR PATTERN</th>
+                                            <td id="petinfo6">
+                                              
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                    <center><h3>IMPOUNDING DETAILS</h3></center>
+               
+
+            <div class="body table-responsive">
+                            <table class="table" style="color:white;">
+                                
+                                <tbody id="impoundingDetails">
+                                   
+                                     
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+         </div>
+         <div class="col-sm-8">
+                
+
+                        
+                          <h3>INTERVIEW DETAILS</h3><hr>
+                          <form method="POST" action="/CVO_Redemption/type1" id="interviewDetails">
+                              <input type="hidden" name="petOwnerId" id="petOwnerId">
+                              <input type="hidden" name="animalId" id="animalId">
+                          <div class="col-sm-12">
+                         <label class="form-label">Date and Time Lost</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="Datetime-local" class="form-control" name="datetimelost" >
+                                    </div>
+                                </div>
+                                </div>
+                                   <div class="col-sm-12">
+                         <label class="form-label">Reason</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="5" class="form-control" name="reason" ></textarea>
+                                    </div>
+                                </div>
+                                </div>
+                                  <div class="col-sm-12">
+                         <label class="form-label">Interview Remarks</label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="5" class="form-control" name="interviewremarks" ></textarea>
+                                    </div>
+                                </div>
+                                </div>
+     <div class="col-sm-12">
+                                <label class="form-label">Interview Result</label>
+                          <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="interviewresult" type="radio" value=1 id="forYes" checked="">
+                  <label for="forYes">Approved</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="interviewresult" type="radio" id="forNo" value=0  >
+                  <label for="forNo">Disapproved</label>
+                  </span>
+                  
+               </div>
+                </div>
+                </form>
+         </div>
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary waves-effect" onclick="proceedInterview()" >PROCEED</button>
+           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+    function proceedInterview(){
+      $('#interviewDetails').submit()
+    }
+</script>
+
+
+<div class="modal fade" id="confirmlostpet" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" style="width:1200px;">
+      <div class="modal-content">
+            <div class="modal-header bg-blue">
+            <h4>PLEASE CONFIRM IF THIS IS THE LOST PET</h4>
+            </div>
+         <div class="modal-body" >
+            <input type="hidden" id="verifyPetId">
+            <div id="verifyBody">
+              
+            </div>
+         </div>
+         <div class="modal-footer">
+         <a class="btn btn-primary btn-lg " onclick="verifyYes()">YES</a>
+            <a class="btn  btn-lg bg-grey" onclick="verifyNo()">NO</a>
+         </div>
+         </div>
+         </div>
+         </div>
+
+         <div class="modal fade" id="proceedTo" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" >
+      <div class="modal-content">
+            <div class="modal-header bg-blue">
+            <h4>PROCEED TO...</h4>
+            </div>
+         <div class="modal-body" style="min-height:500px">
+         
+         <div class="col-sm-6">
+            <div class="btn bg-grey btn-block waves-effect" style="height:470px" onclick="alert('UI FOR SEARCHI PET')">
+            <br><br>
+            <i class="material-icons" style="font-size: 120px;">search</i>
+            <br><br><br><h2>ADVANCE</h2><h2>PET SEARCH</h2></div>
+            </div>
+            <div class="col-sm-6">
+            <a class="btn bg-grey btn-block waves-effect"  style="height:470px" onclick="alert('generate order of visitation')"><br><br><i class="material-icons" style="font-size: 120px;">apps</i><br><br><br><h2>IMPOUNDING</h2><h2>SITE VISITATION</h2></a>
+           
+           </div>
+         </div>
+        
+        
+     
+         </div>
+         </div>
+         </div>
+
+
+<script>
+function searchForLostPet(x){
+  //if nasa impounding
+  $.post('/CVO_Redemption/New/getPetDetails',{id:x},function(data){
+    if(data=="NONE"){
+      alert("CANNOT FIND")
+    }else{
+     document.getElementById('animalId').value=data.impoundedAnimal[0].int_AnimalId;
+ 
+          document.getElementById('verifyPetId').value=x;
+          $('#verifyBody').empty();
+          $('#verifyBody').append(`
+             <div class="col-sm-6">
+            <div class="block-header"><h2>LOST PET INFORMATION</h2></div>
+              <table class="table table-striped">
+                  <tr >
+                  <th colspan="2" ><center>
+                  <img src="/Pets`+data.petDetails[0].str_AnimalPicturePath+`" width="200" height="200" style="border:4px;border-style:solid;border-color:#2196f3" />
+                  </center>
+                  </th>
+                  </tr>
+                  <tr>
+                      <th>Pet Tag Number</th>
+                      <td>`+data.petDetails[0].str_PetTagNo+`</td>
+                  </tr>
+                   <tr>
+                      <th>Animal Species</th>
+                      <td>`+(data.petDetails[0].int_AnimalSpecies==0?"Dog":"Cat")+`</td>
+                  </tr>
+                   <tr>
+                      <th>Breed</th>
+                      <td>`+data.petDetails[0].str_BreedName+`</td>
+                  </tr>
+                   <tr>
+                      <th>Sex</th>
+                      <td>`+(data.petDetails[0].int_Sex==0?"Male":"Female")+`</td>
+                  </tr>
+                   <tr>
+                      <th>Color Pattern</th>
+                      <td>`+data.petDetails[0].str_Description+`</td>
+                  </tr>
+
+              </table>
+              </div>
+            <div class="col-sm-6">
+            <div class="block-header"><h2>SEARCH RESULT</h2></div>
+              <table class="table table-striped">
+                  <tr >
+                  <th colspan="2" ><center>
+                  <img src="/Animals`+data.impoundedAnimal[0].str_AnimalPicturePath+`"width="200" height="200" style="border:4px;border-style:solid;border-color:#2196f3" />
+                  </center>
+                  </th>
+                  </tr>
+                  <tr>
+                      <th>Pet Tag Number</th>
+                      <td>`+data.impoundedAnimal[0].str_PetTagNo+`</td>
+                  </tr>
+                   <tr>
+                      <th>Animal Species</th>
+                      <td>`+(data.impoundedAnimal[0].int_AnimalSpecies==0?"Dog":"Cat")+`</td>
+                  </tr>
+                   <tr>
+                      <th>Breed</th>
+                      <td>`+data.impoundedAnimal[0].str_BreedName+`</td>
+                  </tr>
+                   <tr>
+                      <th>Sex</th>
+                      <td>`+(data.impoundedAnimal[0].int_Sex==0?"Male":"Female")+`</td>
+                  </tr>
+                   <tr>
+                      <th>Color Pattern</th>
+                      <td>`+data.impoundedAnimal[0].str_Description+`</td>
+                  </tr>
+
+              </table>
+              </div>
+            `);
+          $('#choose').modal('hide');
+         $('#confirmlostpet').modal('toggle');
+   
+   
+}
+  })
+}
+function verifyYes(){
+
+  $.post('/CVO_Redemption/New/getPetDetails',{id:document.getElementById('verifyPetId').value},function(data){
+ document.getElementById('petinfo1').innerHTML=data.petDetails[0].int_PetId;
+    document.getElementById('petinfo2').innerHTML=data.petDetails[0].str_PetTagNo;
+    document.getElementById('petinfo3').innerHTML=data.petDetails[0].str_PetName;
+    document.getElementById('petinfo4').innerHTML=data.petDetails[0].str_BreedName;
+    document.getElementById('petinfo5').innerHTML=data.petDetails[0].int_Sex == 0? "Male":"Female";
+    document.getElementById('petinfo6').innerHTML=data.petDetails[0].str_Description;
+   
+    $('#impoundingDetails').empty();
+    $('#impoundingDetails').append(`
+       <tr>
+                                        <th scope="row">Impounding Site</th>
+                                        <td>Concepcion 1(ID: 2)</td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Impounding Cage Number</th>
+                                        <td>2</td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Number of Times Impounded</th>
+                                        <td>1</td>
+       
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Current Impounded Animal Period</th>
+                                        <td>For Redemption(Claimable)</td>
+                                        
+                                    </tr>
+      `);
+$('#confirmlostpet').modal('hide');
+  $('#searchlostpet').modal('toggle');
+});
+}
+function verifyNo(x){
+  $('#confirmlostpet').modal('hide');
+ $('#proceedTo').modal('toggle');
+}
+</script>
