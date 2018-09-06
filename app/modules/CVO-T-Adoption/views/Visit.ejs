@@ -1,0 +1,176 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("adoption_list").className="active";
+   document.getElementById("PendingApplication").className="active";
+   document.getElementById("transaction_list").className="active";
+</script>
+<div class="row clearfix">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header">
+      <h2>IMPOUNDING SITE VISITATION FOR ADOPTION</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+      
+         <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="390px">
+            <thead>
+               <tr>
+                  <th>Transaction ID</th>
+                  <th>Adopter Name</th>
+                  <th>Adopter Type</th>
+                  <th>Transaction Start Date</th>
+                  <th >Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <% 
+                  function MMMMDDYYYY(i){
+                  
+                   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                   var now = new Date(i);
+                   return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  isv.forEach(function(i){ %>
+               <tr>
+                  <td><%= i.int_AdoptionTransactionId %></td>
+                  <td><%= i.AdopterName %></td>
+                  <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                  <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                  <td >
+                     <center><a class="btn bg-blue waves-effect" onclick="assess('<%= i.int_AdoptionTransactionId %>');"><i class="material-icons">assignment_turned_in</i>ASSES</a></center>
+                  </td>
+               </tr>
+               <% }); %>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="assess" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" style="width:1400px">
+      <div class="modal-content" >
+         <div class="modal-header bg-blue">
+            <h4>CHOOSE ANIMAL</h4>
+         </div>
+         <div class="modal-body" style="min-height:220px">
+            <div class="col-sm-2">
+               <label class="form-label">Impounding Site</label>
+               <div class="form-group">
+                  <div class="form-line">
+                     <select class="form-control show-tick" data-live-search="true"  onchange="changeImpoundingSite(this.value)"   >
+                        <% als.forEach(function (x) { 
+                           %>
+                        <option value='<%= x.int_ImpoundingSiteId %>' >
+                           <%= x.str_BarangayName %>(ID: <%= x.int_ImpoundingSiteId  %>) 
+                        </option>
+                        <% }); %>
+                     </select>
+                  </div>
+               </div>
+               <label class="form-label">Cage</label>
+               <div class="form-group">
+                  <div class="form-line" id="selectCageTransfer">
+                     <select class="form-control"  id="CageTransferring" onchange="changecage(this.value);">
+                        <% AllCages.forEach(function(i){ 
+                           var cageType="";
+                             if(i.int_CageType==0){
+                              cageType="For Impounded Dogs";
+                             }
+                             else if(i.int_CageType == 1){
+                              cageType="For Impounded Cats";
+                             }
+                             else if(i.int_CageType== 2){
+                              cageType="For Dog Observation";
+                             }
+                             else{
+                               cageType="For Cat Observation";
+                             }
+                           %>
+                        <option value='<%= i.int_CageId %>' >
+                           <%= i.int_CageNumber %>(<%= cageType %>)
+                        </option>
+                        <% }); %>
+                     </select>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-10" style="min-height:510px" >
+               <div class="col-sm-12"  style="overflow: auto;max-height:400px;min-height:500px;border:dashed #2196F3 5px;padding:10px;" >
+                  <div id="filteredAnimal">
+                  </div>
+                    <div id="ajxLoader" style="display:none"> 
+              <br><br><br><br><br><br>
+               <div style="background-image: url('/images/preloader.gif');background-repeat: no-repeat;background-size: 200px;background-position: center;" >
+               <br><br><br><br><br><br><br><br><br><br>
+             </div>
+
+               </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-primary waves-effect" onclick="">PROCEED</a>
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+<input type="text" id="adoptionTransactionId">
+<script>
+    changecage(1);
+   function assess(x){
+    $('#adoptionTransactionId').val(x)
+      $('#assess').modal('toggle');
+   }
+    function changeImpoundingSite(x){
+        $.post("/CVO_Impounding/Cages/getCagesInImpoundingSite",{id:x},function(data){
+          
+          var cageSelection=`<select class="form-control show-tick" data-live-search="true" id="CageTransferring" onchange="changecage(this.value);">`;
+          data.forEach(function(q){
+              cageSelection+=`<option value='`+q.int_CageId+`' >`+q.int_CageNumber+`( `+(determineCage(q.int_CageType))+` )</option>`;
+          });
+            cageSelection+=`</select>`;
+          
+          $("#selectCageTransfer").children().remove();
+          $("#selectCageTransfer").append(cageSelection)
+          
+        });
+      }
+      
+    function changecage(x){
+  
+       $('#filteredAnimal').empty();
+        document.getElementById('ajxLoader').style.display="block";
+      $.post("/CVO_Adoption/AnimalOnCage",{id: x},function(data){
+
+                  var toAppend="";
+                  data.forEach(function(i){
+   
+                  toAppend+=`  <div class="col-sm-3" >
+                    <div class="card" style="min-height:379px">
+                       
+                        <div class="body">
+                        <img src="/Animals/`+i.str_AnimalPicturePath+`" width="100%"/><br>
+                            <h4 align="center">NAME</h4>
+                            <center>
+                            <p>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+` | `+(i.str_BreedName)+` </p>
+                            <p>`+i.str_Description+` | `+(i.int_Sex==0?"Male":"Female")+` </p>
+                            <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
+                            </center>
+                            <center><a class="btn btn-primary waves-effect" onclick="adoptAnimal(`+i.int_AnimalId+`)">ADOPT</a></center>
+                        </div>
+                    </div>
+                </div>`;
+              });
+                     document.getElementById('ajxLoader').style.display="none";
+                  $('#filteredAnimal').append(toAppend);
+                    
+              });
+    }
+    function adoptAnimal(x){
+        window.location.href="/CVO_Adoption/ChooseAnimal?Animal="+x+"&TransactionId="+$('#adoptionTransactionId').val();
+    }
+</script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

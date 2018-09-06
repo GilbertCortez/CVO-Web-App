@@ -26,16 +26,20 @@ document.getElementById("transaction_list").className="active";
                         <div class="body">
                   <h4>ADOPTION APPLICATION INTERVIEW FORM</h4>
                   <hr>
+                  <form action='/CVO_Adoption/Interview' method="POST" id="interviewForm">
+                   <input type="hidden" name="adopterId" value="<%= adopterDetails.AdopterId %>">
+            <input type="hidden" name="adopterType" value="<%= adopterDetails.AdopterType %>">
+             <input type="hidden" name="transactionId" value="<%= adopterDetails.TransactionId %>">
                   <label class="form-label">Date and Time of Interview </label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="datetime-local" class="form-control" name="" >
+                                        <input type="datetime-local" class="form-control" name="dtmInterview" >
                                     </div>
                                 </div> 
                                  <label class="form-label">Interview Remarks</label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <textarea rows="10" class="form-control" name="" autofocus=""></textarea>
+                                        <textarea rows="10" class="form-control" name="interviewRemarks" autofocus=""></textarea>
                                     </div>
                                 </div> 
                              <label class="form-label">Is the Adoption Application needs to include Home Visit?</label>
@@ -50,6 +54,7 @@ document.getElementById("transaction_list").className="active";
                   </span>
                   
                </div>
+               </form>
                <br>
                      <div class="col-sm-9"></div>
                      <div class="col-sm-3">
@@ -67,16 +72,12 @@ document.getElementById("transaction_list").className="active";
 <script>
 
 function proceed(){
-          if(document.getElementsByName('homevisit')[0].checked){
-            window.location.href="/CVO_Adoption/Pending"
-}
-else{
+
    swal({
-                 title: "PROCEED TO FINAL EVALUATION?",
+                 title: "SUBMIT INTERVIEW FORM?",
                  icon: "/images/alert_question.png",
                  buttons: {
                    yes: "YES",
-                   no: "NO",
                    cancel: "CANCEL",
 
   
@@ -86,17 +87,15 @@ else{
                })
                .then((decision) => {
                  if (decision==="yes") {
-                      window.location.href="/CVO_Adoption/FinalEvaluation"
+                     document.getElementById('interviewForm').submit();
                  }
-                 else if(decision==="no"){
-                      window.location.href="/CVO_Adoption/Pending"
-                 }
+                
                  else if(decision==="cancel"){
                 swal.close()
                  }
                
                })
-               }
+               
 }
            
               

@@ -86,7 +86,7 @@
                      </script>
                      <div>
                         <div class="form-line">
-                           <label class="form-label">Pet Picture</label>
+                           <label class="form-label">Pet Picture<font color="red">*</font></label>
                           
                             <div class="form-group form-float">
                            <div class="form-line" id="petPicture_line">
@@ -105,7 +105,7 @@
                   <div class="col-sm-8">
                   <div class="col-sm-6">
                   <label class="form-label">
-                     Pet Name 
+                     Pet Name <font color="red">*</font>
                      <p class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="To generate a pet name, just click the 'cached' icon on the right part of the Pet Name Field." >&#9432;</p>
                   </label>
                   <div class="form-group form-float">
@@ -125,7 +125,7 @@
                   <div class="col-sm-6">
 
                   <input type="hidden" value="0" id="sex" name="sex">
-                  <label class="form-label">Sex</label>
+                  <label class="form-label">Sex<font color="red">*</font></label>
                   <div class="demo-radio-button" align="center">
                      <input type="radio" class="with-gap" checked id="male" name="radio_3" onclick="document.getElementById('sex').value='0';document.getElementById('modal_Sex').value='Male';">
                      <label for="male">Male</label>
@@ -135,7 +135,7 @@
                   </div>
                    <div class="col-sm-12"></div>
                    <div class="col-sm-6">
-                      <label class="form-label">Species</label>
+                      <label class="form-label">Species<font color="red">*</font></label>
                   <div class="demo-radio-button" align="center">
                      <input type="radio" class="with-gap" checked id="dog" name="species" onclick="dogBreedChange();">
                      <label for="dog">Dog</label>
@@ -157,7 +157,7 @@
                     
                     $('#BreedField').empty();
                     $('#BreedField').append(`
-                        <label class="form-label">Breed</label>
+                        <label class="form-label">Breed<font color="red">*</font></label>
                    <div class="form-group form-float">
                     <div class="form-line" id="breed_line">
                   <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
@@ -178,7 +178,7 @@
                     
                     $('#BreedField').empty();
                     $('#BreedField').append(`
-                        <label class="form-label">Breed</label>
+                        <label class="form-label">Breed<font color="red">*</font></label>
                    <div class="form-group form-float">
                     <div class="form-line" id="breed_line">
                   <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
@@ -195,7 +195,7 @@
            
                 
                   <div class="col-sm-3">
-                  <label class="form-label">Color Pattern</label>
+                  <label class="form-label">Color Pattern<font color="red">*</font></label>
                     <div class="form-group form-float">
                     <div class="form-line" id="ColorPattern_line">
                   <select class="form-control show-tick" id="ColorPattern" name="ColorPattern" data-live-search="true" onchange='required_validate(this);document.getElementById("modal_colorPattern").value=$("#ColorPattern option[value="+this.value+"]").text();'>
@@ -228,7 +228,7 @@
                      
                      %>
                      <div class="col-sm-12">
-                  <label class="form-label">Birthday</label>
+                  <label class="form-label">Birthday<font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line" id="birthday_line">
                         <input type="date" class="form-control" max="<%= yyyymmdd %>" id="birthday" name="birthday" onchange="required_validate(this);document.getElementById('modal_Birthday').value=this.value;">
@@ -236,7 +236,7 @@
                      <label id="birthday_required" class="error" style="display: none">This field is required.</label>
                      </div>
                      <div class="col-sm-12"></div>
-                  <label class="form-label">Pet Tag Number</label>
+                  <label class="form-label">Pet Tag Number<font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line" id="pettag_line">
                         <input type="text" class="form-control"  name="pettag" id="pettag"  autocomplete="off" onkeyup="required_validate(this)"  onchange="document.getElementById('modal_petTag').value=this.value;">
@@ -375,6 +375,15 @@
 <form method="POST" action="/CVO_VaccinationRecording" id="vaccinationRecording">
    <input type="hidden" value="<%= currentPet %>" name="currentPetId" />
 </form>
+<style>
+  .swal-button-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+          justify-content: center;
+  
+}
+</style>
 <script>
 
    swal({

@@ -30,7 +30,7 @@ router1.post('/New',(req,res)=>{
 });
 
 router1.get('/Pending',(req,res)=>{
-	db.query(`SELECT * FROM batchofanimalturnover  bat JOIN organization o ON bat.int_OrganizationId = o.int_OrganizationId`,(err,batch)=>{
+	db.query(`SELECT * FROM batchofanimalturnover  bat JOIN organization o ON bat.int_OrganizationId = o.int_OrganizationId WHERE bat.int_Status=1`,(err,batch)=>{
 		db.query(`CALL SelectAnimalForAdoptionWithDetails()`,(err,forAdoption)=>{
 		res.render("CVO-T-AnimalTurnover/views/pending.ejs",{batch:batch,forAdoption:forAdoption[0]})
 	});
@@ -39,12 +39,23 @@ router1.get('/Pending',(req,res)=>{
 
 router1.get('/Pickup',(req,res)=>{
 
-	db.query(`SELECT * FROM batchofanimalturnover  bat JOIN organization o ON bat.int_OrganizationId = o.int_OrganizationId`,(err,batch)=>{
+	db.query(`SELECT * FROM batchofanimalturnover  bat JOIN organization o ON bat.int_OrganizationId = o.int_OrganizationId WHERE bat.int_Status=1`,(err,batch)=>{
 		res.render("CVO-T-AnimalTurnover/views/pickup.ejs",{batch:batch})
 	});
 
 	
 });
+
+router1.get('/Pickup/summary?:batchId=?',(req,res)=>{
+	console.log(req.query.batchId)
+	db.query(`UPDATE batchofanimalturnover SET int_Status=2 WHERE int_BatchOfAnimalTurnOver=${req.query.batchId}`,(err)=>{ console.log(err)
+	db.query(`SELECT * FROM animalsforturnover aft JOIN animal a ON aft.int_AnimalId=a.int_AnimalId  JOIN colorpattern cp ON a.int_ColorPatternId = cp.int_ColorPatternId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN lodginghistory lh ON a.int_AnimalId=lh.int_AnimalId JOIN cage c ON lh.int_CageId=c.int_CageId JOIN impoundingsite imp ON c.int_ImpoundingSite=imp.int_ImpoundingSiteId JOIN barangay ba ON imp.int_BarangayId=ba.int_BarangayId WHERE int_BatchOfAnimalTurnOver=${req.query.batchId} AND lh.int_lodgingStatus=0 `,(err,animals)=>{
+	res.render("CVO-T-AnimalTurnover/views/pickupsummary.ejs",{animals:animals})
+	})
+});
+	
+});
+
 
 
 

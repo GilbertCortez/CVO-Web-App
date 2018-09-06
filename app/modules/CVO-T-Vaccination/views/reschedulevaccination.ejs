@@ -1,0 +1,188 @@
+  
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+
+<script>
+
+document.getElementById("vaccination_list").className="active";
+document.getElementById("transaction_list").className="active";
+
+
+</script>
+
+
+    <section >
+            
+            <div class="row clearfix">
+                <div >
+                <div class="block-header">
+                            <h2>RESCHEDULE VACCINATION</h2>
+                        </div>
+                    <div class="card">
+                        
+                        <div class="body">
+       
+               <link rel='stylesheet' href='/fullcalendar/fullcalendar.css' />                   
+                     
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+<div id='calendar' class="col-sm-6"></div>
+<div id='appointmentTime' class="col-sm-6">
+    <h2>Appointment Time</h2>
+    <center><p id="choosenDate">please select a date on the calendar..</p></center>
+
+</div>
+</div>
+<script src="/PrettifyDate/PrettifyDate.js"></script>
+<script src='/fullcalendar/lib/jquery.min.js'></script>
+<script src='/fullcalendar/lib/moment.min.js'></script>
+<script src='/fullcalendar/fullcalendar.js'></script>
+<script >
+swal("Please select a date of appointment in the calendar!");
+
+    $(function() {
+
+  // page is now ready, initialize the calendar...
+
+  $('#calendar').fullCalendar({
+   
+     height: 400,
+     contentHeight: 450,
+     businessHours: {
+      dow: '<%= daysOfWeek %>'.split(",")
+    },
+    events: [
+    {
+      start: '2018-07-20',
+      end: '2018-07-20',
+       overlap: true,
+      rendering: 'background',
+      color: '#ff9f89',
+       selectable:false
+    }
+  ],
+   
+
+
+     dayClick: function(date) {
+     
+          $.ajax({
+                                              type: 'POST',
+                                              dataType: "json",
+                                              data: { id: date.format() },
+                                                          url: '/CVO_VaccinationScheduling/getSlots',
+                                                          success: function(data) {
+
+                                                          
+                                                               //alert(JSON.stringify(data));
+                                                               $('#appointmentTime').empty();
+                                                                $('#appointmentTime').append(`<h2>Appointment Time</h2>`);
+                                                               $('#appointmentTime').append( `<center><h4 id="choosenDate">`+MMMMDDYYYY(date.format())+`</h4></center><hr>`);
+                                                               data.forEach(function(i,x){
+                                                               
+                                                              
+                                                              if(i.totalSlots-i.takenSlots<=0){
+                                                                $('#appointmentTime').append(`<button class="btn btn-danger btn-lg btn-block waves-effect" type="button"  disabled>`+i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+0+` Slots)</button>`);
+                                                              }else{
+                                                                $('#appointmentTime').append(`<a class="btn btn-primary btn-lg btn-block waves-effect" 
+                                                                                            onclick='summaryOfAppointment(`+JSON.stringify(i)+`,"`+date.format()+`");'>`
+                                                                                            +i.hour+`-`+("0"+(parseInt((i.hour).split(":")[0])+1)).slice(-2)+`:`+(i.hour).split(":")[1]+`(`+(i.totalSlots-i.takenSlots)+
+                                                                                            ` Slots)</a>`);
+                                                            }
+
+                                                            });
+                                                          }
+                                                      });
+     },
+     validRange: function(nowDate) {
+    return {
+      start: nowDate
+    
+    }
+   
+    ;
+
+  }
+
+
+
+  })
+
+});
+</script>   
+
+                                <br>
+
+                                <center>
+                            
+                                <a href="/CVO_Vaccination/Scheduled"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a></center>
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+    </section>
+
+<form action="/CVO_Vaccination/Scheduled/reschedule/recording" method="POST" id="schedulingForm">
+  <input type="hidden" name="selectedDate" id="selectedDate">
+  <input type="hidden" name="vaccinationId" value="<%= JSON.parse(vaccDetails).int_VaccinationId %>" >
+    <input type="hidden" name="petId" value="<%= JSON.parse(vaccDetails).int_PetId %>" >
+</form>
+<script>
+function summaryOfAppointment(i,dateSelected){
+
+        swal({
+          title: "Book this schedule?",
+          text: MMMMDDYYYY(dateSelected)+" "+i.hour,
+          icon: "info",
+          buttons: ["NO","YES"],
+ 
+        })
+        .then((Proceed) => {
+          if (Proceed) {
+          document.getElementById('selectedDate').value=dateSelected+" "+i.hour+":00";
+            document.getElementById('schedulingForm').submit();
+          } else {
+            
+          }
+        });
+}
+</script>
+
+
+
+<!-- FOOTER -->
+   
+ </div>
+    </section>
+
+
+
+    <!-- Bootstrap Core Js -->
+    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="../../plugins/node-waves/waves.js"></script>
+
+    
+
+    <!-- Custom Js -->
+    <script src="../../js/admin.js"></script>
+    <script src="../../js/pages/tables/jquery-datatable.js"></script>
+        <!-- Custom Js -->
+   <script src="../../js/pages/ui/tooltips-popovers.js"></script>
+
+
+    <!-- Demo Js -->
+    <script src="../../js/demo.js"></script>
+</body>
+
+</html>
+
+   

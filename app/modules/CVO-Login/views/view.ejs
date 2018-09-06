@@ -25,21 +25,21 @@
     <link href="../../css/style.css" rel="stylesheet">
 </head>
 
-<body class="login-page" style="background-image: url('images/loginBackground.jpg'); background-repeat: no-repeat;background-size: 1300px;">
+<body class="login-page bg-blue">
     <div class="login-box">
         <div class="logo">
             <img src="../../images/image-gallery/CVO_LogoWhite.png" width="100%"/>
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST">
+                <form action="/CVO_Login/login" method="POST" id="loginform">
                     <div class="msg">Employee Login</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
+                            <input type="text" class="form-control" name="email" placeholder="Email Address" value="espinjustine@gmail.com" required autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -47,13 +47,13 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control" name="password" placeholder="Password" value="just" required>
                         </div>
                     </div>
                     <div class="row">
                        <div class="col-xs-4"></div>
                         <div class="col-xs-4">
-                            <a class="btn btn-block bg-blue waves-effect" href="/CVO_Dashboard">LOGIN</a>
+                            <a class="btn btn-block bg-blue waves-effect" onclick="document.getElementById('loginform').submit();">LOGIN</a>
                         </div>
                     </div>
                  

@@ -88,7 +88,7 @@
             </table>
                 </center>
             </div>
-            <center><button class="btn btn-lg btn-primary">DONE</button></center><br><br>
+            <center><button class="btn btn-lg btn-primary" onclick="done()">DONE</button></center><br><br>
             </div>
 </section>
 
@@ -118,6 +118,15 @@
 
 <iframe name="my_iframe" id="my_iframe"  width="112%"  frameborder="0" style="display:none" ></iframe>
 <script>
+function done(){
+  swal({
+  title: "Done!",
+  text: "Transaction is now closed!",
+  icon: "success",
+  buttons: false
+});
+   setTimeout(function(){ window.location.href="/CVO_Dashboard"; }, 1000);
+}
 function printCertPO(){
   
      document.getElementById('my_iframe').style.display="block"

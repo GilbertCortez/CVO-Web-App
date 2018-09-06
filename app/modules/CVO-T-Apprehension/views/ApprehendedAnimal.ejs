@@ -32,7 +32,7 @@
                         </script>
                         <div align="center">
                             <div class="form-line">
-                                <label class="form-label">Animal Picture</label>
+                                <label class="form-label">Animal Picture<font color="red">*</font></label>
                                 <input type="file" name="myimage" id="idpic" onchange="readURL(this);" />
                             </div>
                         </div>
@@ -47,17 +47,23 @@
                             </div>
                         </div>
                     </div>
+                     <script type="text/javascript" src="PetNameGenerator/petNameGenerator.js"></script>
                     <div class="col-sm-4">
-                        <label class="form-label">Animal Alias</label>
+                        <label class="form-label">Animal Alias<font color="red">*</font></label>
+                      
                         <div class="form-group form-float">
+                          <div class="input-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" name="alias" autocomplete="off">
+                                <input type="text" class="form-control" name="alias" id="petName" autocomplete="off">
                             </div>
-                        </div>
+                             <span class="input-group-addon"><i class="material-icons" style="cursor:hand;" data-toggle="tooltip" data-placement="top" title="Generate a Pet Name" onclick="document.getElementById('petName').value= generateAnimalName();">cached</i></span>
+                        </div></div>
+
                     </div>
+
                     <div class="col-sm-8">
                          <div class="col-sm-6">
-                      <label class="form-label">Species</label>
+                      <label class="form-label">Species<font color="red">*</font></label>
                   <div class="demo-radio-button" align="center">
                      <input type="radio" class="with-gap" checked id="dog" name="species" onclick="dogBreedChange();">
                      <label for="dog">Dog</label>
@@ -79,7 +85,7 @@
                     
                     $('#BreedField').empty();
                     $('#BreedField').append(`
-                        <label class="form-label">Breed</label>
+                        <label class="form-label">Breed<font color="red">*</font></label>
                    <div class="form-group form-float">
                     <div class="form-line" id="breed_line">
                   <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
@@ -100,7 +106,7 @@
                     
                     $('#BreedField').empty();
                     $('#BreedField').append(`
-                        <label class="form-label">Breed</label>
+                        <label class="form-label">Breed<font color="red">*</font></label>
                    <div class="form-group form-float">
                     <div class="form-line" id="breed_line">
                   <select class="form-control show-tick" id="breed" name="breed" data-live-search="true" onchange='speciesIterate();required_validate(this); document.getElementById("modal_Breed").value=$("#breed option[value="+this.value+"]").text(); ' >
@@ -117,7 +123,7 @@
 
 
                     <div class="col-sm-4">
-                        <label class="form-label">Sex</label>
+                        <label class="form-label">Sex<font color="red">*</font></label>
                         <div class="form-group form-float">
 
                             <div class="form-line">
@@ -132,7 +138,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <label class="form-label">Color Pattern</label>
+                        <label class="form-label">Color Pattern<font color="red">*</font></label>
                         <div class="form-group form-float">
 
                             <div class="form-line">
@@ -150,7 +156,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <label class="form-label">Health Status</label>
+                        <label class="form-label">Health Status<font color="red">*</font></label>
 
                         <div class="form-group form-float">
                             <div class="form-line">
@@ -166,7 +172,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label">Barangay Caught</label>
+                        <label class="form-label">Barangay Caught<font color="red">*</font></label>
                         <div class="form-group form-float">
 
                             <div class="form-line">
@@ -186,7 +192,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <label class="form-label">Time Caught</label>
+                        <label class="form-label">Time Caught<font color="red">*</font></label>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <input type="time" class="form-control" name="timeApprehended" autocomplete="off">
@@ -195,7 +201,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label">Van Cage Number</label>
+                        <label class="form-label">Van Cage Number<font color="red">*</font></label>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <select class="form-control show-tick" data-live-search="true" name="vanCageId" >
@@ -211,7 +217,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label">Enforcer</label>
+                        <label class="form-label">Enforcer<font color="red">*</font></label>
                         <div class="form-group form-float">
 
                             <div class="form-line">
@@ -227,7 +233,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <label class="form-label">Remarks</label>
+                        <label class="form-label">Remarks<font color="red">*</font></label>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <input type="textarea" class="form-control" name="remarks" autocomplete="off">

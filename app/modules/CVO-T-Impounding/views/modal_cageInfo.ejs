@@ -110,18 +110,20 @@
       else if(y==1){
         kindOfAnimal="/CVO_Impounding/Cages/getApprehendedAnimalDetails";
       }
+
       var medicationTable="";
       $.post("/CVO_Impounding/Cages/getAnimalMedical",{id:x},function(med){
               med.forEach(function(i,ctr){
                    medicationTable+=`<tr><td>`+(ctr+1)+`</td><td>`+i.str_Description+`</td><td>`+(MMMMDDYYYY(i.dtm_DateTimeOfOccurence))+`</td><td>`+(i.str_LastName+", "+i.str_FirstName+" "+i.str_MiddleName)+`</td></tr>`;
               });
+
           });
       $.post(kindOfAnimal,{id:x},function(data){
          var lodgingHistoryTable="";
        
          data.forEach(function(i,ctr){
 
-             lodgingHistoryTable+=`<tr><th scope="row">`+(ctr+1)+`</th><td>`+MMMMDDYYYY(data[0].dtm_DateTimeApprehension)+`</td><td>`+data[0].str_LastName+`, `+data[0].str_FirstName+` `+data[0].str_MiddleName+`</td><td><center><a class="btn btn-primary" onclick="swal('`+i.str_Remarks+`')"><i class="material-icons">info</i></a></center></td></tr>`;
+             lodgingHistoryTable+=`<tr><th scope="row">`+(ctr+1)+`</th><td>`+MMMMDDYYYY(data[0].dtm_DateTimeOfOccurence)+`</td><td><center>`+i.str_Remarks+`</center></td></tr>`;
          })
 
           
@@ -188,7 +190,7 @@
                                         <th>#</th>
                                         
                                         <th>Date Occured</th>
-                                        <th>Employee Involved</th>
+                                       
                                         <th>Lodging Description</th>
                                     </tr>
                                 </thead>
@@ -235,6 +237,7 @@
     transfer: "TRANSFER CAGE",
     medical: "MEDICATION",
     euthanize: "EUTHANIZE",
+     deceased: "DECEASED",
     cancel: "CANCEL"
    },
    icon: "info"
@@ -253,6 +256,10 @@
       
    case "euthanize":
       euthanasia(x,y);
+      break;
+
+       case "deceased":
+      alert("NOT YET WORKING");
       break;
     
    }

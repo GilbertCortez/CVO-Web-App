@@ -279,13 +279,7 @@ router3.post('/', (req, res) => {
         });
     });
 });
-router3.post('/getVaccinationHistory', (req, res) => {
-    console.log(req.body.id)
-    db.query(`SELECT * FROM vaccination v JOIN vaccine va ON v.int_VaccineId=va.int_VaccineId WHERE v.int_PetId=${req.body.id}`, (err, vaccinationHistory) => {
-        console.log(err)
-        res.json(vaccinationHistory);
-    });
-});
+
 
 exports.CVO_Registration = router;
 exports.CVO_OwnerRegistration = router1;

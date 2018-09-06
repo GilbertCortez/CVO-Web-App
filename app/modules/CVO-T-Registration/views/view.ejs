@@ -20,9 +20,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Registration Pet Owner Name</th>
-                                
-                                   
+                                            <th>Registered Pet Owner Name</th>
                                             <th>Phone Number</th>
                                             <th>Email</th>
                                             <th style="width:20%">Action</th>
@@ -49,9 +47,6 @@
                                                         <div class="row" align="center">
                                                             
                                                             <form method="POST" id="petownerprofile<%= i.int_PetOwnerId %>" action="/CVO_PetOwnerProfile"><input type="hidden" name="currentpetowner" value='<%= JSON.stringify(i) %>'> </form>
-                                                            <a onclick="document.getElementById('petownerprofile<%= i.int_PetOwnerId %>').submit();"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
-                                                                    <i class="material-icons">remove_red_eye</i>PROFILE
-                                                                </button></a>
                                                             <a onclick="prreq('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet Registration">
                                                                     <i class="material-icons">pets</i>REGISTER PET
                                                                 </button></a>

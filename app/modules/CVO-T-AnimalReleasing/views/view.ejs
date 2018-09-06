@@ -52,7 +52,7 @@
                                                     <td><%= i.str_Description %></td>
                                                     <td><%= i.int_Sex==0?"Male": "Female"; %></td>
                                                     <td><center><a class="btn btn-primary"><i class="material-icons">photo</i></a></center></td>
-                                                    <td><center><a class="btn btn-primary " onclick="alert('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
+                                                    <td><center><a class="btn btn-primary " onclick="redempRelease('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
                                                     </tr>
                                                       <% }); %>
                                                     </tbody>
@@ -78,16 +78,18 @@
                                                     </thead>
                                                
                                                     <tbody>
+                                                    <% fa.forEach(function(i){ %>
                                                     <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><%= i.str_BarangayName+"(ID: "+i.int_ImpoundingSiteId+")" %></td>
+                                                    <td><%= i.int_CageNumber %></td>
+                                                    <td><%= i.int_AnimalSpecies==0? "Dog":"Cat"; %></td>
+                                                    <td><%= i.str_BreedName %></td>
+                                                    <td><%= i.str_Description %></td>
+                                                    <td><%= i.int_Sex==0?"Male": "Female"; %></td>
                                                     <td><center><a class="btn btn-primary"><i class="material-icons">photo</i></a></center></td>
-                                                    <td><center><a class="btn btn-primary "><i class="material-icons">reply</i>ASSESS</a></center></td>
+                                                    <td><center><a class="btn btn-primary " onclick="redempRelease('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
                                                     </tr>
+                                                      <% }); %>
                                                     </tbody>
                                                 </table>
                                         
@@ -97,23 +99,56 @@
                     <div class="table-responsive">
                                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height: 300px">
                                                     <thead>
-                                                   
+
                                                         <tr>
                                                             <th>Batch ID</th>
-                                                            <th>Date Of Pickup</th>
-                                                           <th>Organization Name</th>
-                                                            <th >Action</th>
+                                                            <th>Pickup Date</th>
+                                                            <th>Organization Name</th>
+                                                            <th>Email</th>
+                                                            <th>Telephone Number</th>
+                                                            <th>Cellphone Number</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                               
+                                                 <!--   <tfoot>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Description</th>
+                                                            <th>Price</th>
+                                                        </tr> 
+                                                    </tfoot> -->
                                                     <tbody>
-                                                    <tr>
-                                                    
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><center><a class="btn btn-primary "><i class="material-icons">reply</i>RELEASE</a></center></td>
-                                                    </tr>
+                                                   
+                                                         <% 
+                                                    function MMMMDDYYYY(i){
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                                                    batch.forEach(function(i){ %>
+                                                        <tr>
+                                                            <td><%= i.int_BatchOfAnimalTurnOver %></td>
+                                                              <td width="60px"><%= MMMMDDYYYY(i.dat_DateOfPickUp) %></td>
+                                                            <td><%= i.str_OrganizationName %></td>
+                                                            <td><%= i.str_Email %></td>
+                                                            <td><%= i.str_TelephoneNumber %></td>
+                                                            <td><%= i.str_CellphoneNumber %></td>
+                                                           
+                                                            <td>
+                                                                <div align="center">
+                                                                
+                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="" href="CVO_AnimalReleasing/release/animalturnover?batchId=<%= i.int_BatchOfAnimalTurnOver%>">
+                                                                            <i class="material-icons">reply</i>RELEASE ANIMALS
+                                                                    </a>
+
+                                                                   
+                                                              
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                          <% }); %>
                                                     </tbody>
                                                 </table>
                                         
@@ -126,7 +161,19 @@
             </div>
         </div>
 
+<script>
+  function redempRelease(x){
 
+    $.post("/CVO_AnimalReleasing/release/redemption",{id:x},function(data){
+      if(data="SUCCESS"){
+      window.location.reload()
+      }
+      else{
+
+      }
+    })
+  }
+</script>
 
 
  

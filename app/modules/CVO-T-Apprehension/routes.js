@@ -14,9 +14,10 @@ var munkres = require('munkres-js');
 router1.get('/',  (req,res)=>{
   	db.query(`SELECT *,aa.int_AnimalId AS Animal FROM apprehendedanimal aa JOIN animal a ON aa.int_AnimalId=a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId JOIN vancage vc ON aa.int_VanCageId =vc.int_VanCageId JOIN van v ON vc.int_VanId=v.int_VanId WHERE  a.int_AnimalId NOT IN (SELECT int_AnimalId FROM lodginghistory)`,(err,apprehended)=>{
   		db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId   GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSites)=>{
-
-	res.render('CVO-T-Apprehension/views/Apprehension.ejs',{ap:apprehended, is:impoundingSites});
-		});
+	db.query(`SELECT COUNT(*) as Totapp FROM apprehendedanimal WHERE date(dtm_DateTimeApprehension)=date(now()) `,(err,allApprehended)=>{
+  	console.log(allApprehended)
+	res.render('CVO-T-Apprehension/views/Apprehension.ejs',{ap:apprehended, is:impoundingSites,aa:allApprehended[0].Totapp});
+		});});
         });
 });
 
@@ -52,7 +53,12 @@ router2.get('/',  (req,res)=>{
 router2.post('/',upload.any(),  (req,res)=>{
 
 					
-
+function formatDate(date) {
+    var year = date.getFullYear().toString();
+    var month = (date.getMonth() + 101).toString().substring(1);
+    var day = (date.getDate() + 100).toString().substring(1);
+    return year + "-" + month + "-" + day;
+} 
 		var BreedId=req.body.breed;
 		var Sex=req.body.sex;
 		var ColorPatternId=req.body.ColorPattern;
@@ -63,11 +69,11 @@ router2.post('/',upload.any(),  (req,res)=>{
 		var PetTag=req.body.pettag;
 		var Alias=req.body.alias;
 		var VanCageId=req.body.vanCageId;
-		var DateTimeApprehension="2018-06-07 "+req.body.timeApprehended+":00";
+		var DateTimeApprehension=(formatDate(new Date()))+" "+req.body.timeApprehended+":00";
 		var EmployeeId=req.body.employee;
 		var Remarks=req.body.remarks;
 
-		console.log(req.body);
+		console.log(DateTimeApprehension);
     	db.query(`INSERT INTO animal(int_BreedId, int_Sex, int_ColorPatternId, str_AnimalPicturePath, int_AnimalStatus,int_HealthStatus) VALUES (${BreedId},${Sex},${ColorPatternId},'${AnimalPicturePath}',1,${HealthStatus})`,(err,animalId)=>{console.log(err);
           db.query(`INSERT INTO apprehendedanimal(int_AnimalId, int_BarangayId, str_PetTagNo, str_Alias, int_VanCageId, dtm_DateTimeApprehension, int_EmployeeId, str_Remarks) VALUES (${animalId.insertId},${BarangayId},"${PetTag}","${Alias}",${VanCageId},"${DateTimeApprehension}",${EmployeeId},"${Remarks}")`,(err,result)=>{console.log(err);
            res.send(`<html><body><script src="sweetalert/dist/sweetalert.min.js"></script> <style>body{font-family: "Trebuchet MS";}tr{font-size: 15px;}.swal-overlay{background-color: rgba(66, 134, 244, 0.90);}</style> <script>swal({title: "Added Apprehended Animal!",text: "Apprehended Animal Details is successfully recorded.",icon: "success",button: true,closeOnClickOutside: false,}).then((willDelete) => {if (willDelete) {swal({title: "Add Another Apprehended Animal?",text: "Do you wish to add another Apprehended Animal Details?",icon: "/images/alert_question.png",buttons: {YES: "YES",NO: "NO",},closeOnClickOutside: false,width: '800px',}).then((decision) => {if (decision==="YES") {window.location.href="/CVO_ApprehendedAnimal" }else if(decision==="NO"){window.location.href="/CVO_Apprehension"}})}});</script></body></html>`); 
@@ -211,8 +217,9 @@ router3.post('/place',  (req,res)=>{
 		}
 	});
 	console.log(QUERY)
-	db.query(QUERY,(err)=>{ console.log(err)
-		res.render("CVO-T-Apprehension/views/CageAssignmentSummary.ejs",{cageAssign:req.body.finalCageAssignment})
+	db.query(QUERY,(err)=>{ 
+		res.redirect('/CVO_Apprehension')
+		//res.render("CVO-T-Apprehension/views/CageAssignmentSummary.ejs",{cageAssign:req.body.finalCageAssignment})
 	}) 
 });
 

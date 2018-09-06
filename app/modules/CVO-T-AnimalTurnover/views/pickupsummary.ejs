@@ -1,0 +1,65 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("pickup").className="active";
+    document.getElementById("animalturnover_list").className="active";
+    document.getElementById("transaction_list").className="active";
+   document.title="ANIMAL FOR PICKUP SUMMARY";
+ 
+</script>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header" >
+      <h2>
+         ANIMAL FOR PICKUP SUMMARY
+      </h2>
+   </div>
+   <div class="card">
+  <div class="modal-header">
+         <div style="float:right"> 
+                  
+                  <a href="/CVO_Apprehension" type="button"  class="btn btn-lg btn-primary waves-effect" >CLOSE</a> &nbsp;
+         </div>
+
+      </div>
+    <div class="body">
+    
+                  <div >
+                     <table class="table table-bordered table-striped table-hover js-exportable dataTable">
+                        <thead>
+                           <tr>
+
+                              <th>ANIMAL BREED</th>
+                              <th>ANIMAL SPECIES</th>
+                              <th>SEX</th>
+                              <th>COLOR PATTERN</th>
+                            
+                              <th>IMPOUNDING SITE</th>
+                              <th>CAGE NUMBER</th>
+                           
+                          
+                           </tr>
+                        </thead>
+                        <tbody>
+                        <% animals.forEach(function(i){ %>
+                        <tr>
+
+                              <td><%= i.str_BreedName %></td>
+                              <td><%= i.int_AnimalSpecies==0?"Dog":"Cat" %></td>
+                              <td><%= i.int_Sex==0?"Male":"Female" %></td>
+                              <td><%= i.str_Description %></td>
+                              <td><%= i.str_BarangayName+"(ID: "+i.int_ImpoundingSiteId+")" %></td>
+                              <td><%= i.int_CageNumber %></td>
+                              </tr>
+                              <% }) %>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+         
+         
+         <br>
+         
+      </div>
+   </div>
+</div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%> 

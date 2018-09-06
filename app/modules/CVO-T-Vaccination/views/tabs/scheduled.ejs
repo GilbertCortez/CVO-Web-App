@@ -2,7 +2,7 @@
                                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="min-height:300px">
                                                     <thead>
                                                         <tr>
-                                                         
+                                                            <th>Date</th>
                                                             <th>Time</th>
                                                             <th>Pet Id</th>
                                                             <th>Pet Name</th>
@@ -19,9 +19,17 @@
                                                         </tr> 
                                                     </tfoot> -->
                                                     <tbody>
-                                                    <% sv.forEach(function(i){ %>
+                                                    <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                       sv.forEach(function(i){ %>
                                                         <tr>
-                                                      
+                                                            <td><%= MMMMDDYYYY(i.Date) %></td>
                                                             <td><%= i.Time %></td>
                                                             <td><%= i.int_PetId %></td>
                                                             <td><%= i.str_PetName%></td>
@@ -35,11 +43,11 @@
                                                                             <i class="material-icons">local_hospital</i>CONDUCT
                                                                     </button>
                                                                    </a>
-                                                                   <a data-toggle="modal" data-target="#schedule"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="SCHEDULE VACCINATION">
+                                                                   <a data-toggle="modal" data-target="#schedule"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="RESCHEDULE VACCINATION" onclick="resched(<%= JSON.stringify(i) %>);">
                                                                             <i class="material-icons">schedule</i>RESCHEDULE
                                                                     </button>
                                                                    </a>
-                                                                  <button type="button" class="btn btn-grey waves-effect" data-toggle="tooltip" data-placement="top" title="CANCEL VACCINATION">
+                                                                  <button type="button" class="btn btn-grey waves-effect" data-toggle="tooltip" data-placement="top" title="CANCEL VACCINATION" onclick="cancelSched(<%= i.int_VaccinationId %>)">
                                                                             <i class="material-icons">cancel</i>CANCEL
                                                                     </button>
                                                                    
@@ -51,7 +59,38 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <script>
+                                                function cancelSched(x){
+                                                 swal({
+  title: "Cancel Scheduled Appointment?",
+  text: "Once confirmed, Scheduled Appointment will be cancelled.",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Poof! Your imaginary file has been deleted!", {
+      icon: "success",
+    });
+     $.post("/CVO_Vaccination/Scheduled/delete",{id:x},function(data){
+                                                        if(data=="SUCCESS"){
+                                                            location.reload();
+                                                        }
+                                                    });
+  } 
+});
+                                                   
+                                                }
+                                                function resched(x){
+                                                    document.getElementById('vaccination').value=JSON.stringify(x);
+                                                    document.getElementById('reschedForm').submit();
+                                                }
 
+                                            </script>
+                                            <form action="/CVO_Vaccination/Scheduled/reschedule" method="POST" id="reschedForm">
+                                             <input type="hidden" name="vaccination" id="vaccination">
+                                            </form>
                                             <form action="/CVO_VaccinationConducting" method="POST" id="conductForm">
                                                 <input type="hidden" name="currentPetId" id="petId1">
                                                 <input type="hidden" name="lastPaymentId" value="NONE">

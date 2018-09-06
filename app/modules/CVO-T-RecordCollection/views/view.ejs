@@ -16,16 +16,14 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs tab-nav-right" role="tablist" >
                      <li role="presentation" class="active"><a href="#home_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">list</i>UNPAID <span class="badge bg-cyan"><%= un.length %></span></a> </li>
-                     <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false"><i class="material-icons">check</i>PAID</a></li>
+                 
                   </ul>
                   <!-- Tab panes -->
                   <div class="tab-content">
                      <div role="tabpanel" class="tab-pane animated fadeInRight active" id="home_animation_2">
                         <%- include('./unpaid.ejs') -%>
                      </div>
-                     <div role="tabpanel" class="tab-pane animated fadeInRight" id="profile_animation_2">
-                        <%- include('./paid.ejs') -%>
-                     </div>
+                 
                   </div>
                </div>
             </div>
@@ -92,6 +90,7 @@
                <div class="form-line" id="DateOfPayment_line">
                   <input type="date" class="form-control" id="DateOfPayment" name="DateOfPayment" autocomplete="off"  onchange="required_validate(this)">
                </div>
+               <script>document.getElementById('DateOfPayment').valueAsDate = new Date();</script>
                <label id="DateOfPayment_required" class="error" style="display: none;">This field is required.</label>
             </div>
             </form>

@@ -6,7 +6,7 @@ var path = require('path');
 
 
 var bodyParser = require('body-parser');
-var session = require('express-session');
+var sessions = require('express-session');
 
 //For Sanitation of Data
 var expressSanitizer = require('express-sanitizer');
@@ -18,10 +18,11 @@ module.exports = app => {
     //For Sanitation of data
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+     app.use(sessions({
+        secret: 'WQcptX3p4W'
+    }));
+
     app.use(expressSanitizer()); // this line follows bodyParser() instantiations
-
-
-
     app.set('port', process.argv[2] || process.env.PORT || 3000);
 
     app.engine('html', require('ejs').renderFile);
@@ -35,13 +36,9 @@ module.exports = app => {
 
     app.use(serveStatic(path.join(path.dirname(path.dirname(__dirname)), 'public')));
    app.use(serveStatic(path.join(path.dirname(path.dirname(__dirname)), '../images')));
-    app.use(session({
-        resave: false,
-        saveUninitialized: true,
-        secret: 'WQcptX3p4W'
-    }));
+    
+   
+    
 
-    app.use(bodyParser.json());
-
-    app.use(bodyParser.urlencoded({ extended: true }));
+ 
 }
