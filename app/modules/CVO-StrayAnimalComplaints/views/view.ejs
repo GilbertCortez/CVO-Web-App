@@ -11,7 +11,7 @@ document.getElementById("complaints_list").className="active";
                         <div class="body">
                                 <a data-toggle="modal" data-target="#add">
                                         <button type="button" class="edit btn btn-primary btn-block waves-effect" data-toggle="tooltip" data-placement="top" title="Add">
-                                        <i class="material-icons">add</i>+ADD STRAY ANIMAL COMPLAINTS
+                                        <i class="material-icons">add</i>ADD STRAY ANIMAL COMPLAINTS
                                         </button></a>
                                         <br><br><br>
                                                 <div class="table-responsive">
@@ -25,8 +25,8 @@ document.getElementById("complaints_list").className="active";
                                                            <th>Location Details</th>
                                                            <th>Complainant</th>
                                                            <th>Contact Number</th>
-                                                           <th>Recommended Action</th>
-                                                            <th >Action Taken</th>
+                                                        
+                                                            <th >Action</th>
                                                         </tr>
                                                     </thead>
                                                
@@ -67,12 +67,14 @@ document.getElementById("complaints_list").className="active";
                                                              <td><%= i.str_Statement%></td>
                                                               <td><%= i.str_BarangayName%></td>
                                                                <td><%= i.str_LocationDetails%></td>
-                                                                <td><%= i.str_ComplainantName%></td>
-                                                                 <td><%= i.str_ContactNumber%></td>
-                                                                  <td></td>
-                                                                    <td >
+                                                                <td><%= i.str_ComplainantName != "undefined"? i.str_ComplainantName : "NONE" %></td>
+                                                                 <td><%= i.str_ContactNumber != "undefined"? i.str_ContactNumber: "NONE"%></td>
                                                                
+                                                                    <td >
+                                                                    <center>
+                                                                  <a class="btn btn-primary waves-effect" onclick="recordActionTaken('<%= i.int_ComplaintId %>','<%= i.str_Statement %>')"><i class="material-icons">assignment</i>RECORD ACTION TAKEN</a>
                                                                     </td>
+                                                                    </center>
                                                         </tr>
                                                         <% }); %>
                                                     </tbody>
@@ -81,7 +83,22 @@ document.getElementById("complaints_list").className="active";
                         </div>
                     </div>
                 </div>
-
+<script>
+  function recordActionTaken(x,y){
+    swal("Statement: "+y,"Action Taken:", {
+  content: "input",
+})
+.then((value) => {
+      if(value!="" && value!=null){
+      $.post('/CVO_StrayAnimalComplaints/record',{id1:x,id2:value},function(data){
+        if(data=="SUCCESS"){
+            window.location.reload()    
+        }
+      })
+    }
+});
+  }
+</script>
 
 <%- include('./addAnimalComplaint.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

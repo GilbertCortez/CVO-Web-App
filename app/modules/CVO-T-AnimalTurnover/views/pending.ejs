@@ -52,6 +52,9 @@
                                                              <td width="15%"><%= MMMMDDYYYY(i.dat_DateOfPickUp) %></td>
                                                             <td width="20%">
                                                                 <div align="center">
+                                                                <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="VIEW ANIMALS FOR TURNOVER">
+                                                                            <i class="material-icons">remove_red_eye</i>
+                                                                    </a>
                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="ADD ANIMALS" onclick="choose_add(<%= i.int_OrganizationId %>);iterateOrgInfo_add(`<%= JSON.stringify(i) %>`);">
                                                                             <i class="material-icons">add_box</i>
                                                                     </a>

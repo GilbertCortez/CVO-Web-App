@@ -42,5 +42,15 @@ router.post('/add', (req, res)=>{
     });
 });
 
-
+router.post('/record',(req,res)=>{
+    db.query(`UPDATE complaint SET str_ActionTaken='${req.body.id2}', int_Status=1 WHERE int_ComplaintId=${req.body.id1}`,(err)=>{
+        if(err){
+            console.log(err)
+            res.send('ERROR');
+        }
+        else{
+            res.send('SUCCESS');
+        }
+    })
+})
 exports.CVO_StrayAnimalComplaints= router;

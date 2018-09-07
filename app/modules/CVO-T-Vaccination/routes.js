@@ -25,6 +25,7 @@ router.get('/WalkIn', (req, res) => {
  
 
 router.get('/Scheduled', (req, res) => {
+    
      db.query(`SELECT * FROM pet p JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId=b.int_BreedId `, (err, pets) => {
              db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='3'`, (err, vrequirements) => {
      
@@ -35,12 +36,72 @@ router.get('/Scheduled', (req, res) => {
                         sv: scheduledVaccination,
                         pe: pets,
                         vrequ: vrequirements
+                      
         });
                     });
     });
          });
 });
+  
+router.post('/Scheduled/reschedule/recording',(req,res)=>{
+    db.query(`UPDATE vaccination SET dtm_DateTimeOfVaccination='${req.body.selectedDate}' WHERE int_VaccinationId=${req.body.vaccinationId}`,(err)=>{ console.log(err)
+        db.query(`SELECT *, TIME(dtm_DateTimeOfVaccination) as time FROM vaccination WHERE int_VaccinationId= ${req.body.vaccinationId}`,(err,appointDetails)=>{
+        db.query(`SELECT * FROM office`,(err,officeDetails)=>{
+                    db.query(`CALL SelectPetDetails(${req.body.petId})`,(err,petDetails)=>{
+                        res.render('CVO-T-Vaccination/views/SummaryOfVaccinationAppointmentSchedule.ejs',{ad:appointDetails,od:officeDetails,pd:petDetails[0],empName: "Gilbert Critica Cortez"});
+                    });    
+                });    
+    });
+    })
+});
+router.post('/Scheduled/reschedule',(req,res)=>{
+     db.query(`SELECT * FROM office`,(err,offi)=>{
+    db.query(`SELECT * FROM vaccinationperday`,(err,numVac)=>{
+    db.query(`SELECT * FROM (SELECT COUNT(*)< ${numVac[0].int_NumberOfVaccination}  as result, dtm_DateTimeOfVaccination  FROM vaccination WHERE int_Status=0 GROUP BY dtm_DateTimeOfVaccination) a WHERE result=0 `,(err,totalSchedule)=>{
+var availableDay="";
 
+      offi[0].str_DayAvailability.split(",").forEach(function(day,ctr){
+        if(ctr!=0){
+            availableDay+=",";
+        }
+        if(day=="Sun"){
+            availableDay+="0";
+        }
+        else if(day=="Mon"){
+            availableDay+="1";
+        }
+        else if(day=="Tue"){
+            availableDay+="2";
+        }
+        else if(day=="Wed"){
+            availableDay+="3";
+        }
+        else if(day=="Thu"){
+            availableDay+="4";
+        }
+        else if(day=="Fri"){
+            availableDay+="5";
+        }
+        else if(day=="Sat"){
+            availableDay+="6";
+        }
+      });
+    res.render('CVO-T-Vaccination/views/reschedulevaccination.ejs',{vaccDetails:req.body.vaccination,  daysOfWeek:availableDay})
+})
+  });
+    });
+ });
+router.post('/Scheduled/delete', (req, res) => {
+
+    db.query(`DELETE FROM vaccination WHERE int_VaccinationId=${req.body.id}`,(err)=>{
+        if(err){
+            res.send("ERROR")
+        }
+        else{
+            res.send("SUCCESS")
+        }
+    })
+});
 
 //RECORDING
 router1.post('/', (req, res) => {
@@ -59,7 +120,7 @@ router1.post('/recording', (req, res) => {
 
     db.query(`INSERT INTO vaccination( int_PetId, dtm_DateTimeOfVaccination, int_VaccineId, str_LotNo, int_Status, int_EmployeeId) VALUES (${req.body.currentPetId},'${req.body.vaccinationdate}'+' 00:00:00',${req.body.vaccine},${req.body.lotNumber},3,1)`, (err, vaccines) => {
         console.log(err)
-        res.redirect('/CVO_Vaccination');
+        res.redirect('/CVO_Vaccination/Scheduled');
     });
 });
 
@@ -239,7 +300,7 @@ router3.post('/recording', (req, res) => {
         db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE p.int_PaymentId=${x}`,(err,breakdown)=>{
         db.query(`CALL SelectPetDetailsWithPetOwnerDetails( ${y} )`,(err,petdetails)=>{
         db.query(`SELECT * FROM office`,(err,officeDetails)=>{
-            res.render('CVO-T-RecordCollection/views/OrderOfPayment_DOWNLOAD.ejs',{br:breakdown,od:officeDetails,empName: "Gilbert Critica Cortez", payor:petdetails[0][0]});
+            res.render('CVO-T-RecordCollection/views/OrderOfPayment_DOWNLOAD.ejs',{br:breakdown,od:officeDetails,empName: "Gilbert Critica Cortez", payor:petdetails[0][0].str_PetOwnerLastName+", "+petdetails[0][0].str_PetOwnerFirstName+" "+petdetails[0][0].str_PetOwnerMiddleName});
         });   
         });
         });

@@ -2,12 +2,13 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-blue">
-                 <h4 class="modal-title" id="defaultModalLabel">ADD NEW STRAY ANIMAL COMPLAIN</h4>
+                 <h4 class="modal-title" id="defaultModalLabel">ADD NEW STRAY ANIMAL COMPLAINT</h4>
             </div>
             <div class="modal-body">
                     <form id="form_complaints" method="POST" action="/CVO_StrayAnimalComplaints/add">
                         <div class="container-fluid" style="width:100%">
-                            <div class="row">
+                        <h4>COMPLAINT DETAILS</h4><hr>
+                            <div class="col-sm-12">
                                 <div class="col-sm-12">
                                     <label class="form-label">Statement</label>
                                         <div class="form-group form-float">
@@ -19,7 +20,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <label class="form-label">Date & Time of Complaint</label>
                                         <div class="form-group form-float" class="col-sm-4">
@@ -50,10 +51,12 @@
                                         <label id="required-location" class="error" style="display: block;">This field is required.</label>
                                         </div>
                                 </div>
-
-                            <div class="row">
+                                </div>
+                                <br><br><br>
+                                    <h4>COMPLAINANT DETAILS</h4><hr>
+                            <div class="col-sm-12">
                                 <div class="col-sm-6">
-                                    <label class="form-label">Complainant</label>
+                                    <label class="form-label">Complainant Name</label>
                                         <div class="form-group form-float">
                                             <div class="form-line" id="complainant_line">
                                                 <input type="text" class="form-control" name="complainant" id="complainant">
@@ -70,11 +73,11 @@
                                 </div> 
                                 
                                 <div class="modal-footer">
-                                        <button type="button" class="btn btn-link waves-effect" onclick="validation()">SUBMIT</button>
+                                        <button type="button" class="btn btn-primary waves-effect" onclick="validation()">SUBMIT</button>
                                         <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                 </form>
             </div>

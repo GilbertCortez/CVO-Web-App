@@ -12,8 +12,8 @@ var sortJsonArray = require('sort-json-array');
 
 router1.get('/',  (req,res)=>{
  	       db.query(`SELECT * FROM barangay`, (err, barangay, fields) => {
- 	 db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding, SUM(Derived.Max) as Total FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber as Max, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId   GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSites)=>{
-			console.log(err)
+ 	 db.query(`SELECT *, COUNT(AvailableSlots ) AS AvailableCagePerImpounding, SUM(Derived.Max) as Total FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber as Max, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSites)=>{
+			console.log(impoundingSites)
 		res.render('CVO-T-Impounding/views/view.ejs',{ ba:barangay,is:impoundingSites});
 	});
   });       
@@ -81,12 +81,14 @@ router1.post('/Cages',  (req,res)=>{
             db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=1`, (err, forimpoundingcats, fields) => {
             	db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=2`, (err, fordogsobservation, fields) => {
             		db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.impoundingsite} AND int_CageType=3`, (err, forcatsobservation, fields) => {
-	              	   db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding, SUM(Derived.Max) as Total FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber as Max, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId   GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId WHERE i.int_ImpoundingSiteId = ${req.body.impoundingsite} GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSiteInfo)=>{
-                           db.query(`CALL SelectAnimalsForEuthanasia(${impoundingSiteInfo[0].int_ImpoundingSiteId})`,(err,animalForEuthanasia)=>{
+	              	   db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding, SUM(Derived.Max) as Total FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber as Max, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  WHERE l.int_LodgingStatus=0 GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId WHERE i.int_ImpoundingSiteId = ${req.body.impoundingsite} GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSiteInfo1)=>{ 
+                           db.query(`SELECT *, SUM(AvailableSlots ) AS AvailableCagePerImpounding, SUM(Derived.Max) as Total FROM(SELECT c.int_ImpoundingSite, c.int_MaxNumber as Max, c.int_MaxNumber-COUNT(l.int_AnimalId) as AvailableSlots FROM cage c  LEFT JOIN  lodginghistory l on c.int_CageId=l.int_CageId  GROUP BY c.int_CageId, c.int_ImpoundingSite ) AS derived JOIN impoundingsite i ON derived.int_ImpoundingSite=i.int_ImpoundingSiteId JOIN barangay b ON i.int_BarangayId=b.int_BarangayId WHERE i.int_ImpoundingSiteId = ${req.body.impoundingsite} GROUP BY i.int_ImpoundingSiteId`,(err,impoundingSiteInfo2)=>{
+                           db.query(`CALL SelectAnimalsForEuthanasia(${impoundingSiteInfo2[0].int_ImpoundingSiteId})`,(err,animalForEuthanasia)=>{
                             console.log(animalForEuthanasia[0]);
-                            res.render('CVO-T-Impounding/views/Cages.ejs',{afe:animalForEuthanasia[0],als: AllImpoundingSite, AllCages : allcages,  fid: forimpoundingdogs , fic: forimpoundingcats, fdo: fordogsobservation, fco: forcatsobservation, inf: impoundingSiteInfo });
+                            res.render('CVO-T-Impounding/views/Cages.ejs',{afe:animalForEuthanasia[0],als: AllImpoundingSite, AllCages : allcages,  fid: forimpoundingdogs , fic: forimpoundingcats, fdo: fordogsobservation, fco: forcatsobservation, inf1: impoundingSiteInfo1 ,inf2: impoundingSiteInfo2 });
             	       });
                          });
+                             });
                     });
                  });
             	});
@@ -120,11 +122,11 @@ router1.post('/Cages/getApprehendedAnimalDetails',  (req,res)=>{
 router1.post('/Cages/getSurrenderedAnimalDetails',  (req,res)=>{
 
  db.query(`CALL  SelectSurrenderedAnimalDetails('${req.body.id}');`,(err,results)=>{
+  console.log(results[0])
        res.json(results[0]);
     });
 });
 router1.post('/Cages/getAnimalMedical',  (req,res)=>{
-
  db.query(`SELECT * FROM medicalhistory mh JOIN employee e on mh.int_EmployeeId=e.int_EmployeeId WHERE mh.int_AnimalId=${req.body.id}`,(err,results)=>{
        res.json(results);
     });
@@ -138,10 +140,10 @@ db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${req.body.id}`, (err, a
 });
 router1.post('/Cages/Medication',(req,res)=>{
 
-    db.query(`INSERT INTO medicalhistory(int_AnimalId, str_Description, dtm_DateTimeOfOccurence,int_EmployeeId) VALUES (${req.body.id2},'${req.body.id1}',now(),0)`,(err)=>{
+    db.query(`INSERT INTO medicalhistory(int_AnimalId, str_Description, dtm_DateTimeOfOccurence,int_EmployeeId) VALUES (${req.body.id2},'${req.body.id1}',now(),1)`,(err)=>{
       if(err){
           res.send("ERROR")
-          console.log(err)
+  
       }
       else{
         res.send("SUCCESS")
@@ -201,7 +203,7 @@ router2.get('/',  (req,res)=>{
 var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../images/SurrenderedAnimal' )
+    cb(null, '../images/Animals' )
   },
   filename: function (req, file, cb) {
     cb(null, "SA" + '-' + Date.now()+".jpg")
@@ -385,7 +387,8 @@ router2.post('/place',  (req,res)=>{
   });
  
   db.query(QUERY,(err)=>{ console.log(err)
-    res.render("CVO-T-Impounding/views/CageAssignmentSummary.ejs",{cageAssign:req.body.finalCageAssignment})
+    res.redirect('/CVO_SurrenderAnimal/SurrenderedAnimals')
+    //res.render("CVO-T-Impounding/views/CageAssignmentSummary.ejs",{cageAssign:req.body.finalCageAssignment})
   }) 
 });
 

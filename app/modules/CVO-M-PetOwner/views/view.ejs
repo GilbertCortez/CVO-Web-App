@@ -1,0 +1,74 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("petowners_list").className="active";
+
+   document.getElementById("maintenance_list").className="active";
+</script>
+<div class="col-sm-12">
+   <div class="block-header">
+      <h2>PET OWNER</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+        
+         <div class="row clearfix">
+            <div class="body">
+                           <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Pet Owner Name</th>
+                                
+                                   
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                            <th>Active? </th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% po.forEach(function (i){ %>
+                                            <tr>
+                                                <td>
+                                                    <%= i.int_PetOwnerId %>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                                </td>
+                                   
+                                               
+                                                    <td>
+                                                        <%= i.str_PhoneNo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_Email %>
+                                                    </td>
+                                                    <td> <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
+                                                                    <span>Yes</span>
+                                                                </div></td>
+                                                    <td>
+                                                        <div class="row" align="center">
+                                                            
+                                                            <form method="POST" id="petownerprofile<%= i.int_PetOwnerId %>" action="/CVO_PetOwner/profile"><input type="hidden" name="currentpetowner" value='<%= JSON.stringify(i) %>'> </form>
+                                                            <a onclick="document.getElementById('petownerprofile<%= i.int_PetOwnerId %>').submit();"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="View">
+                                                                    <i class="material-icons">remove_red_eye</i>PROFILE
+                                                                </button></a>
+                                                           
+                                                        </div>
+                                                    </td>
+                                            </tr>
+                                            <% });  %>
+                                    </tbody>
+                                </table>
+                            </div>  
+                        
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

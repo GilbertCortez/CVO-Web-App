@@ -1,0 +1,224 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("transferofownership_list").className="active";
+
+   document.getElementById("transaction_list").className="active";
+</script>
+<div class="col-sm-12">
+   <div class="block-header">
+      <h2>TRANSFER OF PET OWNERSHIP</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+        
+         <div class="row clearfix">
+            <div class="body">
+                           <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Pet Owner Name</th>
+                                
+                                   
+                                            <th>Phone Number</th>
+                                            <th>Email</th>
+                                       
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% po.forEach(function (i){ %>
+                                            <tr>
+                                                <td>
+                                                    <%= i.int_PetOwnerId %>
+                                                </td>
+                                                <td style="width:200px">
+                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                                </td>
+                                   
+                                               
+                                                    <td>
+                                                        <%= i.str_PhoneNo %>
+                                                    </td>
+                                                    <td>
+                                                        <%= i.str_Email %>
+                                                    </td>
+                                                 
+                                                    <td>
+                                                        <div class="row" align="center">
+                                                            
+                                                            <form method="POST" id="petownerprofile<%= i.int_PetOwnerId %>" action="/CVO_PetOwner/profile"><input type="hidden" name="currentpetowner" value='<%= JSON.stringify(i) %>'> </form>
+                                                            <a onclick="chooselostpet('<%= i.int_PetOwnerId %>')"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="LIST OF PETS">
+                                                                    <i class="material-icons">pets</i>PETS
+                                                                </button></a>
+                                                           
+                                                        </div>
+                                                    </td>
+                                            </tr>
+                                            <% });  %>
+                                    </tbody>
+                                </table>
+                            </div>  
+                        
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="choose" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document" style="width:1400px;">
+      <div class="modal-content">
+      <div class="modal-header bg-blue">
+      <h3></h3>
+      </div>
+         <div class="modal-body" >
+         <div class="col-sm-4 bg-blue" style="height:550px" id="chooselostpetBody">
+         </div>
+         <div class="col-sm-8">
+                <h4>PETS</h4><hr>
+         
+        
+         <style>
+             #petSearch {
+  
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+         </style>
+<input type="text" id="petSearch" onkeyup="petSearch()" placeholder="Search pet..." >   
+<table id="myTable" class="table table-bordered table-striped table-hover">
+ 
+<tr>
+                                                                    <th>Pet ID</th>
+                                                                    <th>Pet Tag</th>
+                                                                    <th>Pet Name</th>
+                                                                    <th>Species</th>
+                                                                    <th>Breed</th>
+                                                                    <th>Sex</th>
+                                                                    <th>Color Pattern</th>
+
+                                                                    <th>Action</th>
+                                                                </tr>
+  
+  <tbody id="petTable">
+                                                <tr>
+                                                        <td>1</td>
+                                                        <td>KAL 1065</td>
+                                                         <td>Jumbo</td>
+                                                          <td>Aspin</td>
+                                                           <td>Male</td>
+                                                            <td>Black</td>
+                                                             <td><center><a class="btn btn-primary" onclick="$('#searchlostpet').modal('toggle');"><i class="material-icons">search</i>SEARCH</a></center></td>
+                                                </tr>
+                                                    </tbody>
+</table>
+            
+           
+         </div>
+         </div>
+         <div class="modal-footer">
+            
+           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+function petSearch() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("petSearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td1 = tr[i].getElementsByTagName("td")[0];
+    td2 = tr[i].getElementsByTagName("td")[1];
+    if (td1 || td2) {
+      if (td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+    
+  }
+}
+</script>
+
+<script>
+
+function chooselostpet(x){
+
+    $('#chooselostpetBody').empty();
+    $.post('/CVO_Redemption/New/getPetOwnerDetailsAndItsPets',{id: x},function(data){
+
+$('#chooselostpetBody').append(`
+
+             <div class="col-sm-5"><i class="material-icons" style="font-size: 150px;">account_circle</i></div><div class="col-sm-7"><br><br><h2>PET OWNER INFORMATION</h2></div>
+            <div class="col-sm-12"> <hr></div>
+             <table style="width: 100%; ">
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>NAME</th>
+                                            <td id="info1">
+                                               `+data.po[0].str_PetOwnerLastName+`, `+data.po[0].str_PetOwnerFirstName+` `+data.po[0].str_PetOwnerMiddleName+`
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>CELLPHONE NUMBER</th>
+                                            <td id="info2">
+                                            `+data.po[0].str_PhoneNo+`
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>EMAIL ADDRESS</th>
+                                            <td id="info3">
+                                                `+data.po[0].str_Email+`
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>COMPLETE ADDRESS</th>
+                                            <td id="info4">
+                                                `+data.po[0].str_CompleteAddress+`(`+data.po[0].str_BarangayName+`)
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                            <th>START YEAR OF STAY IN THE CITY</th>
+                                            <td id="info5">
+                                              `+data.po[0].dat_StartedYearOfStay+`
+                                            </td>
+                                        </tr>
+                                       
+                                    </table>
+
+       
+         
+    `);
+$('#petTable').empty()
+data.pets.forEach(function(i){
+$('#petTable').append(`
+ <tr>
+                                                        <td>`+i.int_PetId+`</td>
+                                                        <td>`+i.str_PetTagNo+`</td>
+                                                         <td>`+i.str_PetName+`</td>
+                                                         <td>`+(i.int_AnimalSpecies==0?"Dog":"Cat")+`</td>
+                                                          <td>`+i.str_BreedName+`</td>
+                                                           <td>`+(i.int_Sex==0?"Male":"Female")+`</td>
+                                                            <td>`+i.str_Description+`</td>
+                                                             <td><center><a class="btn btn-primary" onclick="transfer('`+i.int_PetId+`')"><i class="material-icons">transfer_within_a_station</i>TRANSFER PET OWNERSHIP</a></center></td>
+                                                </tr>
+
+    `);
+})
+$('#choose').modal('toggle');
+});
+
+}
+</script>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

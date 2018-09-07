@@ -80,16 +80,25 @@
                 <thead>
                 <tr>
                     <th>Date</th>
-                    <th></th>
+                    <% function formatDate(date) {
+    var year = date.getFullYear().toString();
+    var month = (date.getMonth() + 101).toString().substring(1);
+    var day = (date.getDate() + 100).toString().substring(1);
+    return year + "-" + month + "-" + day;
+} %>
+                    <th style="text-align: right"><%= 
+
+formatDate(new Date()); %></th>
                 </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <th width="10px">
+                        <th width="10px" >
                         Apprehended Animals
                         </th>
-                        <td>
-                      
+
+                        <td style="text-align: right">
+                        <%= aa %>
                         </td>
                         </tr>
                     </tbody>

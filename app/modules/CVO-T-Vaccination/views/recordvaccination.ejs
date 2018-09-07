@@ -178,7 +178,7 @@ document.getElementById("transaction_list").className="active";
                      }
                      
                      %>
-                                   <label class="form-label">Vaccination Date</label>
+                                   <label class="form-label">Vaccination Date<font color="red">*</font></label>
                                 <div class="form-group form-float">
                                     <div class="form-line" id="vaccinationdate_line">
                                         <input type="date" class="form-control" name="vaccinationdate" id="vaccinationdate" max="<%= yyyymmdd %>" name="vaccinationDate" onchange="required_validate(this)">
@@ -190,7 +190,7 @@ document.getElementById("transaction_list").className="active";
 
                                 <center>
                                 <a onclick="submitVaccinationRecordingForm();"><button class="btn btn-primary waves-effect" type="button">RECORD</button></a>&nbsp;
-                                <a href="/CVO_Vaccination"><button class="btn btn-primary waves-effect" type="button">BACK</button></a></center>
+                                <a href="/CVO_Vaccination/WalkIn"><button class="btn btn-primary waves-effect" type="button">BACK</button></a></center>
                                  </form>
                         </div>
                     </div>

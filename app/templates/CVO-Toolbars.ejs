@@ -29,7 +29,7 @@
          </div>
          <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-               <li class="pull-right"><a href="/CVO_Login" >  <i class="material-icons">input</i></a></li>
+               <li class="pull-right"><a href="/CVO_Login/logout" >  <i class="material-icons">input</i></a></li>
             </ul>
          </div>
       </div>
@@ -41,15 +41,15 @@
          <!-- User Info -->
          <div class="user-info">
             <div class="image">
-               <img src="/images/user.png" width="48" height="48" alt="User" />
+               <img src="/images/user.png" width="48" height="48" alt="User" id="userPicture"/>
             </div>
             <div class="info-container">
-               <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="color:white;"><strong> Gilbert Cortez</strong></font></div>
-               <div class="email"><font style="color:white;"><strong> gilbert@gmail.com</strong></font></div>
+               <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="color:white;"><strong> <div id="userName"></div></strong></font></div>
+               <div class="email"><font style="color:white;"><strong> <div id="userEmail"></div></strong></font></div>
                <div class="btn-group user-helper-dropdown" style="color:white;">
                   <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                   <ul class="dropdown-menu pull-right">
-                     <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                     <li><a href="javascript:void(0);"><i class="material-icons">lock</i>Change Password</a></li>
                      <li><a href="javascript:void(0);"><i class="material-icons">input</i>Logout</a></li>
                   </ul>
                </div>
@@ -136,10 +136,10 @@
                         </a>
                         <ul class="ml-menu">
                            <li id="NewApplication">
-                              <a href="/CVO_Adoption">New Adoption</a>
+                              <a href="/CVO_Adoption">Pet Adoption Application</a>
                            </li>
-                           <li id="PendingApplication">
-                              <a href="/CVO_Adoption/Pending">Pending Application</a>
+                           <li id="AdoptionVisit">
+                              <a href="/CVO_Adoption/Visit">Impounding Site Visitation</a>
                            </li>
                      
                            
@@ -169,7 +169,7 @@
                         </ul>
                      </li>
                      <li id="transferofownership_list">
-                        <a href="/CVO_TransferOfOwnership">Transfer Of Pet Ownership</a>
+                        <a href="/CVO_TransferOfPetOwnership">Transfer Of Pet Ownership</a>
                      </li>
                   </ul>
                </li>
@@ -180,7 +180,7 @@
                   </a>
                   <ul class="ml-menu">
                   <li id="petowners_list">
-                        <a href="">Pet Owner</a>
+                        <a href="/CVO_PetOwner">Pet Owner</a>
                      </li>
                      <li id="animal_list">
                         <a href="javascript:void(0);" class="menu-toggle">
@@ -221,7 +221,7 @@
 
                       <li id="requirement_list">
                         <a href="javascript:void(0);" class="menu-toggle">
-                        Requirement
+                        Requirements   
                         </a>
                         <ul class="ml-menu">
                           <li id="requirements_list">
@@ -248,8 +248,19 @@
                   </a>
                   <ul class="ml-menu">
                  
-                    <li id="registeredpetowner_q">
-                        <a href="/CVO_Query">Registration</a>
+                   
+                      <li id="registeredpetowner_q">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                        Registration
+                        </a>
+                        <ul class="ml-menu">
+                           <li id="petowner_q">
+                              <a href="/CVO_Query/PetOwnerRegistration?QueryType=2">Pet Owner</a>
+                           </li>
+                           <li id="pet_q">
+                              <a href="/PetRegistration">Pet</a>
+                           </li>
+                        </ul>
                      </li>
                      <li id="registeredpetowner_q">
                         <a href="/CVO_Query">Vaccination</a>
@@ -286,7 +297,7 @@
                </li>
 
                 <li id="certification_list">
-                  <a href="" >
+                  <a href="/CVO_Certification" >
                   <i class="material-icons">print</i>
                   <span>Certification</span>
                   </a>
@@ -336,3 +347,18 @@
    </section>
    <section class="content">
    <div class="container-fluid">
+   <script>
+   $.get( "/CVO_Login/getUser", function( data ) {
+
+             document.getElementById('userEmail').innerHTML=data[0].str_Email;
+             document.getElementById('userName').innerHTML=data[0].str_FirstName+" "+data[0].str_LastName;
+             document.getElementById('userPicture').src="/Employees"+data[0].str_IdPicturePath;
+
+            if(data[0].int_EmployeeType==1){
+               document.getElementById('userEmail').innerHTML="Apprehension Team Leader";
+            }
+            else  if(data[0].int_EmployeeType==2){
+               document.getElementById('userEmail').innerHTML="Caretaker";
+            }
+   });
+</script>

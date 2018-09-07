@@ -1,437 +1,339 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("adoption_list").className="active";
-document.getElementById("NewApplication").className="active";
-document.getElementById("transaction_list").className="active";
-
+   document.getElementById("adoption_list").className="active";
+   document.getElementById("NewApplication").className="active";
+   document.getElementById("transaction_list").className="active";
+   
 </script>
-
-  <div class="row clearfix">
-
-          <div class="col-sm-3">
-             <div class="card bg-white" style="min-height: 600px">
-             <div class="body">
-                <center><h3>ADOPTION APPLICATION FORM</h3></center><hr><br><br><br>
-                <a class="btn  btn-block bg-blue" id="wz1"><i class="material-icons">account_circle</i><h5> 1. PERSONAL INFORMATION</h5></a>
-                <a class="btn  btn-block bg-grey" id="wz2"><i class="material-icons">home</i><h5> 2. HOUSEHOLD INFORMATION</h5></a>
-                <a class="btn  btn-block bg-grey" id="wz3"><i class="material-icons">pets</i><h5> 3. PET HISTORY</h5></a>
-              <a class="btn  btn-block bg-grey" id="wz4"><i class="material-icons">list</i><h5> 4. ADOPTION SPECIFIC QUESTION</h5></a>
-               
-             </div>
-             </div>
-
-          </div>
-                <div class="col-sm-9">
-                
-                    <div class="card" style="min-height: 600px">
-                        
-                        <div class="body">
-                        <div id="personalinfo">
-                         <h4>Personal Information</h4><hr>
-                        <div class="col-sm-4">
-                          <label class="form-label">First Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                    </div>
-                    <div class="col-sm-4">
-                            <label class="form-label">Middle Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
- </div>
-                    <div class="col-sm-4">
-                              <label class="form-label">Last Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-
-                                </div>
-                                <div class="col-sm-12">
-                          <label class="form-label">Complete Address</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                    </div>
-                      <div class="col-sm-6">
-                        <label class="form-label">Type of Residence</label>
-                         <div class="form-group form-float">
-                         <div class="form-line" id="startYear_line">
-                        <select class="form-control show-tick" data-live-search="true" id="" name="">
-                          <option value="0">House</option>
-                           <option value="1">Condo</option>
-                          <option value="2">Rent</option>  
+<div class="row clearfix">
+   <div class="col-sm-3">
+      <div class="card bg-white" style="min-height: 600px">
+         <div class="body">
+            <center>
+               <h3>ADOPTION APPLICATION FORM</h3>
+            </center>
+            <hr>
+            <br><br><br>
+            <a class="btn  btn-block bg-blue" id="wz2">
+               <i class="material-icons">home</i>
+               <h5> 1. HOUSEHOLD INFORMATION</h5>
+            </a>
+            <a class="btn  btn-block bg-grey" id="wz3">
+               <i class="material-icons">pets</i>
+               <h5> 2. PET HISTORY</h5>
+            </a>
+            <a class="btn  btn-block bg-grey" id="wz4">
+               <i class="material-icons">list</i>
+               <h6> 3. ADOPTION SPECIFIC QUESTION</h6>
+            </a>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-9">
+      <div class="card" style="min-height: 600px">
+         <div class="body">
+            <div id="household">
+            <form action="/CVO_Adoption/AdoptionApplicationForm" method="POST" id="adoptionapplicationform">
+            <input type="hidden" name="adopterId" value="<%= adopterDetails.AdopterId %>">
+            <input type="hidden" name="adopterType" value="<%= adopterDetails.AdopterType %>">
+             <input type="hidden" name="transactionId" value="<%= adopterDetails.TransactionId %>">
+               <div class="col-sm-4">
+                  <label class="form-label">Occupation</label>
+                  <div class="form-group form-float">
+                     <div class="form-line" id="occupation_line">
+                        <select class="form-control show-tick" data-live-search="true" id="" name="occupation" >
+                           <option value="0">Employed Full Time</option>
+                           <option value="1">Employed Part Time</option>
+                           <option value="2">Unemployed</option>
+                           <option value="3">Retired</option>
+                           <option value="4">Student</option>
+                           <option value="5">Student</option>
                         </select>
-                        </div>
-                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
-                        </div>
                      </div>
-                     <div class="col-sm-6">
-                        <label class="form-label">Start Year of Stay in the City</label>
-                         <div class="form-group form-float">
-                         <div class="form-line" id="startYear_line">
-                        <select class="form-control show-tick" data-live-search="true" id="startYear" name="startYear"  onchange="required_validate(this);document.getElementById('modal_StartYear').value=this.value;">
-                           <option>select</option>
-                           <% var curryear=(new Date()).getFullYear(); for(var x=0;x<=100;x++){ %>
-                           <option value='<%= curryear %>'><%= curryear %></option>
-                           <% curryear--; } %>
-                        </select>
-                        </div>
-                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
-                        </div>
-                     </div>
-
-                            <div class="col-sm-6">
-                              <label class="form-label">Email Address</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-
-                                </div>
-                                  <div class="col-sm-6">
-                              <label class="form-label">Contact Number</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-
-                                </div>
-
-                 
-                     
-                     <div class="col-sm-9"></div>
-                     <div class="col-sm-3">
-                    
-                             <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="piDone();">NEXT</a>
-                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
-                      </div>
-                        </div>
-
-                      <div id="household">
-                         <div class="col-sm-4">
-                        <label class="form-label">Occupation</label>
-                         <div class="form-group form-float">
-                         <div class="form-line" id="startYear_line">
-                        <select class="form-control show-tick" data-live-search="true" id="" name="" >
-                           <option>select</option>
-                               <option>Employed Full Time</option>
-                           <option>Employed Part Time</option>
-                           <option>Unemployed</option>
-                           <option>Retired</option>
-                           <option>Student</option>
-                        </select>
-                        </div>
-                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
-                        </div>
-                     </div>
-                     <div class="col-sm-8">
-                              <label class="form-label">Other Occupation(Specify)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name=""  >
-                                    </div>
-                                </div> 
-                     </div>
-                     <div class="col-sm-4">
-                        <label class="form-label">Monthly Income</label>
-                         <div class="form-group form-float">
-                         <div class="form-line" id="startYear_line">
-                        <select class="form-control show-tick" data-live-search="true" id="" name="" >
-                           <option>select</option>
-                           <option>less than 5,000</option>
-                           <option>5,001 to 10,000</option>
-                           <option>10,001 to 20,000</option>
-                           <option>20,001 to 40,000</option>
-                           <option>40,001 to 50,000</option>
-                           <option>50,001 above</option>
-                        </select>
-                        </div>
-                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
-                        </div>
-                     </div>
-                      <div class="col-sm-4">
-                        <label class="form-label">Source of Income</label>
-                         <div class="form-group form-float">
-                         <div class="form-line" id="startYear_line">
-                        <select class="form-control show-tick" data-live-search="true" id="" name="" >
-                           <option>select</option>
-                            <option>Work Salary and Wages</option>
-                            <option>Business Net Income</option>
-                            <option>Family Support</option>
-                            <option>Unemployment Compensation</option>
-                            <option>Others</option>
-                        </select>
-                        </div>
-                        <label id="startYear_required" class="error" style="display: none;">This field is required.</label>
-                        </div>
-                     </div>
-                       <div class="col-sm-4">
-                              <label class="form-label">Other Source of Income(Specify)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div> 
-                     </div>
-                      <br>
-                     <h4>Household Information</h4><hr>
-                    
-
-                    
-                     <div class="col-sm-12">
-                     <div class="col-sm-6">
-                              <label class="form-label">How many children? (7 years old below)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                      </div>
-                       <div class="col-sm-6">
-                              <label class="form-label">How many teenagers? (12 - 17 years old)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                      </div>
-                       <div class="col-sm-6">
-                              <label class="form-label">How many youth? (18 - 21 years old)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                      </div>
-                       <div class="col-sm-6">
-                              <label class="form-label">How many adult? (25 years old above)</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                     
-                     </div>
-                     </div>
-                      <div class="col-sm-4"></div>
-                     <div class="col-sm-4"></div>
-                     <div class="col-sm-4">
-                     <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="hhBack()" >BACK</a>
-                             <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="hhDone();">NEXT</a>
-                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
-                      </div>
-                     </div>
-                     <div id="pethistory">
-                       <h4>Pet History</h4><hr>
-                     <div class="col-sm-12">
-                     <div class="col-sm-6">
-                              <label class="form-label">Current Number of Dogs?</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                      </div>
-                       <div class="col-sm-6">
-                              <label class="form-label">Current Number of Cats?</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="" >
-                                    </div>
-                                </div>
-                      </div>
-                       
-                     </div>
-                      <label class="form-label">Have you ever had a Pet Euthanized?</label>
-                          <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=0 id="peteuthanizeforYes">
-                  <label for="forYes">Yes</label>
-                  </span>
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=1 id="peteuthanizeforNo" checked="">
-                  <label for="forNo">No</label>
-                  </span>
-                  
+                  </div>
                </div>
-                       <label class="form-label">Have you ever surrendered a Pet?</label>
-                          <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=0 id="peteuthanizeforYes">
-                  <label for="forYes">Yes</label>
-                  </span>
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=1 id="peteuthanizeforNo" checked="">
-                  <label for="forNo">No</label>
-                  </span>
-                  
+               <div class="col-sm-8">
+                  <label class="form-label">Other Occupation(Specify)</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <input type="text" class="form-control" name="otherOccupation"  >
+                     </div>
+                  </div>
                </div>
-                        <label class="form-label">Have you ever lost a Pet?</label>
-                            <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=0 id="peteuthanizeforYes">
-                  <label for="forYes">Yes</label>
-                  </span>
-                  <span class="input-group-addon">
-                  <input name="peteuthanize" type="radio" value=1 id="peteuthanizeforNo" checked="">
-                  <label for="forNo">No</label>
-                  </span>
-                  
+               <div class="col-sm-4">
+                  <label class="form-label">Monthly Income</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" name="monthlyIncome" >
+                           <option value="0" >less than 5,000</option>
+                           <option value="1">5,001 to 10,000</option>
+                           <option value="2">10,001 to 20,000</option>
+                           <option value="3">20,001 to 40,000</option>
+                           <option value="4">40,001 to 50,000</option>
+                           <option value="5">50,001 above</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <label class="form-label">Source of Income</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <select class="form-control show-tick" data-live-search="true" id="" name="sourceOfIncome" >
+                           <option value="0">Work Salary and Wages</option>
+                           <option value="1">Business Net Income</option>
+                           <option value="2">Family Support</option>
+                           <option value="3">Unemployment Compensation</option>
+                           <option value="4">Others</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <label class="form-label">Other Source of Income(Specify)</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <input type="text" class="form-control" name="otherSourceOfIncome" >
+                     </div>
+                  </div>
                </div>
                <br>
-                                    <div class="col-sm-4"></div>
-                     <div class="col-sm-4"></div>
-                     <div class="col-sm-4">   
-                     <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="phBack()" >BACK</a>
-                             <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="phDone();">NEXT</a>
-                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
-                      </div>
-                                  </div>
-                                  <div id="adoptionspecificquestion">
-                                <h4>Adoption Specific Questions</h4><hr>
-<div class="col-sm-12">
-                              <label class="form-label">Reason for adoption?</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <textarea rows="5" class="form-control" name="" ></textarea>
-                                    </div>
-                                </div> </div>
-                                <div class="col-sm-12">
-                    <label class="form-label">Can you ensure that you can keep your pet indoor or inside your house yard?</label>
-                          <div class="input-group input-group-lg">
+               <h4>Household Information</h4>
+               <hr>
+               <div class="col-sm-12">
+                  <div class="col-sm-6">
+                     <label class="form-label">How many children? (11 years old below)</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfChildren" value=0>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <label class="form-label">How many teenagers? (12 - 17 years old)</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfTeenagers" value=0>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <label class="form-label">How many youth? (18 - 24 years old)</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfYouth" value=0>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <label class="form-label">How many adult? (25 years old above)</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfAdult" value=0>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4">
+                  <a type="button" class="btn bg-grey btn-lg waves-effect" disabled >BACK</a>
+                  <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="hhDone();">NEXT</a>
+                  &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+               </div>
+            </div>
+            <div id="pethistory">
+               <h4>Pet History</h4>
+               <hr>
+               <div class="col-sm-12">
+                  <div class="col-sm-6">
+                     <label class="form-label">Current Number of Dogs?</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfDogs" value=0>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <label class="form-label">Current Number of Cats?</label>
+                     <div class="form-group form-float">
+                        <div class="form-line">
+                           <input type="number" class="form-control" name="noOfCats" value=0>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <label class="form-label">Have you ever had a Pet Euthanized?</label>
+               <div class="input-group input-group-lg">
                   <span class="input-group-addon">
-                  <input name="homevisit" type="radio" value=0 id="forYes" checked="">
-                  <label for="forYes">Yes</label>
+                  <input name="petEuthanize" type="radio" value=0 id="peteuthanizeforYes">
+                  <label for="peteuthanizeforYes">Yes</label>
                   </span>
                   <span class="input-group-addon">
-                  <input name="homevisit" type="radio" value=1 id="forNo" >
-                  <label for="forNo">No</label>
+                  <input name="petEuthanize" type="radio" value=1 id="peteuthanizeforNo" checked="">
+                  <label for="peteuthanizeforNo">No</label>
                   </span>
-                  
-               </div></div>
-
-                               <div class="col-sm-12">
-                              <label class="form-label">How is your home suitably prepared for a pet?</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <textarea rows="3" class="form-control" name="" ></textarea>
-                                    </div>
-                                </div> </div>
-                                          <div class="col-sm-4"></div>
-                     <div class="col-sm-4"></div>
-                     <div class="col-sm-4">
-                     <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="aafBack()" >BACK</a>
-                             <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="proceed();">PROCEED</a>
-                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
-                      </div>
-                          </div>
-
-                                
-                                
-                </div>
+               </div>
+               <label class="form-label">Have you ever surrendered a Pet?</label>
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="petSurrendered" type="radio" value=0 id="petsurrenderedforYes">
+                  <label for="petsurrenderedforYes">Yes</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="petSurrendered" type="radio" value=1 id="petsurrenderedforNo" checked="">
+                  <label for="petsurrenderedforNo">No</label>
+                  </span>
+               </div>
+               <label class="form-label">Have you ever lost a Pet?</label>
+               <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="lostPet" type="radio" value=0 id="petlostforYes">
+                  <label for="petlostforYes">Yes</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="lostPet" type="radio" value=1 id="petlostforNo" checked="">
+                  <label for="petlostforNo">No</label>
+                  </span>
+               </div>
+               <br>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4">   
+                  <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="phBack()" >BACK</a>
+                  <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="phDone();">NEXT</a>
+                  &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+               </div>
             </div>
+            <div id="adoptionspecificquestion">
+               <h4>Adoption Specific Questions</h4>
+               <hr>
+               <div class="col-sm-12">
+                  <label class="form-label">Reason for adoption?</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <textarea rows="5" class="form-control" name="reasonForAdoption" ></textarea>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12">
+                  <label class="form-label">Can you ensure that you can keep your pet indoor or inside your house yard?</label>
+                  <div class="input-group input-group-lg">
+                     <span class="input-group-addon">
+                     <input name="ensurePetIndoor" type="radio" value=0 id="petindoorforYes" checked="">
+                     <label for="petindoorforYes">Yes</label>
+                     </span>
+                     <span class="input-group-addon">
+                     <input name="ensurePetIndoor" type="radio" value=1 id="petindoorforNo" >
+                     <label for="petindoorforNo">No</label>
+                     </span>
+                  </div>
+               </div>
+               <div class="col-sm-12">
+                  <label class="form-label">How is your home suitably prepared for a pet?</label>
+                  <div class="form-group form-float">
+                     <div class="form-line">
+                        <textarea rows="3" class="form-control" name="homeDescription" ></textarea>
+                     </div>
+                  </div>
+               </div>
+               </form>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4">
+                  <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="aafBack()" >BACK</a>
+                  <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="proceed();">PROCEED</a>
+                  &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+               </div>
             </div>
-            </div>
-
-       
-
+         </div>
+      </div>
+   </div>
+</div>
 <script>
-document.getElementById('household').style.display="none";
-document.getElementById('pethistory').style.display="none";
-document.getElementById('adoptionspecificquestion').style.display="none";
-function proceed(){
-  
-               swal({
-                 title: "PROCEED TO INTERVIEW?",
-                 icon: "/images/alert_question.png",
-                 buttons: {
-                   yes: "YES",
-                   no: "NO",
-                   cancel: "CANCEL",
-
-  
-                 },
-              closeOnClickOutside: false,
-                  width: '800px',
-               })
-               .then((decision) => {
-                 if (decision==="yes") {
-                      window.location.href="/CVO_Adoption/Interview"
-                 }
-                 else if(decision==="no"){
-                      window.location.href="/CVO_Adoption/Pending"
-                 }
-                 else if(decision==="cancel"){
-                swal.close()
-                 }
-               
-               })
-               }
-
-               function piDone(){
-                document.getElementById('personalinfo').style.display="none";
-                document.getElementById('household').style.display="block";
-                $('#wz1').removeClass('bg-blue');   
-                $('#wz1').addClass('bg-grey'); 
-                $('#wz2').removeClass('bg-grey');    
-                $('#wz2').addClass('bg-blue'); 
-               
-               }
-               function hhBack(){
-                 document.getElementById('personalinfo').style.display="block";
-                document.getElementById('household').style.display="none";
-                $('#wz2').removeClass('bg-blue');   
-                $('#wz2').addClass('bg-grey'); 
-                $('#wz1').removeClass('bg-grey');    
-                $('#wz1').addClass('bg-blue');
-               }
-               function hhDone(){
-               
-                document.getElementById('household').style.display="none";
-                document.getElementById('pethistory').style.display="block";
+   document.getElementById('pethistory').style.display="none";
+   document.getElementById('adoptionspecificquestion').style.display="none";
+   function proceed(){
+     
+                  swal({
+                    title: "SUBMIT ADOPTION APPLICATION FORM?",
+                    icon: "/images/alert_question.png",
+                    buttons: {
+                      yes: "YES",
+                   
+                      cancel: "CANCEL",
+   
+     
+                    },
+                 closeOnClickOutside: false,
+                     width: '800px',
+                  })
+                  .then((decision) => {
+                    if (decision==="yes") {
+                           document.getElementById('adoptionapplicationform').submit();
+                    }
+                  
+                    else if(decision==="cancel"){
+                   swal.close()
+                    }
+                  
+                  })
+                  }
+   
+                  function piDone(){
+                   document.getElementById('personalinfo').style.display="none";
+                   document.getElementById('household').style.display="block";
+                   $('#wz1').removeClass('bg-blue');   
+                   $('#wz1').addClass('bg-grey'); 
+                   $('#wz2').removeClass('bg-grey');    
+                   $('#wz2').addClass('bg-blue'); 
+                  
+                  }
+                  function hhBack(){
+                    document.getElementById('personalinfo').style.display="block";
+                   document.getElementById('household').style.display="none";
                    $('#wz2').removeClass('bg-blue');   
-                $('#wz2').addClass('bg-grey'); 
-                $('#wz3').removeClass('bg-grey');    
-                $('#wz3').addClass('bg-blue');
-               }
-               function phBack(){
-                 document.getElementById('pethistory').style.display="none";
-                document.getElementById('household').style.display="block";
-                 $('#wz3').removeClass('bg-blue');   
-                $('#wz3').addClass('bg-grey'); 
-                $('#wz2').removeClass('bg-grey');    
-                $('#wz2').addClass('bg-blue');
-               }
-               function phDone(){
+                   $('#wz2').addClass('bg-grey'); 
+                   $('#wz1').removeClass('bg-grey');    
+                   $('#wz1').addClass('bg-blue');
+                  }
+                  function hhDone(){
+                  
+                   document.getElementById('household').style.display="none";
+                   document.getElementById('pethistory').style.display="block";
+                      $('#wz2').removeClass('bg-blue');   
+                   $('#wz2').addClass('bg-grey'); 
+                   $('#wz3').removeClass('bg-grey');    
+                   $('#wz3').addClass('bg-blue');
+                  }
+                  function phBack(){
+                    document.getElementById('pethistory').style.display="none";
+                   document.getElementById('household').style.display="block";
+                    $('#wz3').removeClass('bg-blue');   
+                   $('#wz3').addClass('bg-grey'); 
+                   $('#wz2').removeClass('bg-grey');    
+                   $('#wz2').addClass('bg-blue');
+                  }
+                  function phDone(){
+                  
+                   document.getElementById('pethistory').style.display="none";
+                   document.getElementById('adoptionspecificquestion').style.display="block";
+                      $('#wz3').removeClass('bg-blue');   
+                   $('#wz3').addClass('bg-grey'); 
+                   $('#wz4').removeClass('bg-grey');    
+                   $('#wz4').addClass('bg-blue');
+
+                  }
+                   function aafBack(){
+                    document.getElementById('adoptionspecificquestion').style.display="none";
+                   document.getElementById('pethistory').style.display="block";
+                    $('#wz4').removeClass('bg-blue');   
+                   $('#wz4').addClass('bg-grey'); 
+                   $('#wz3').removeClass('bg-grey');    
+                   $('#wz3').addClass('bg-blue');
+                  }
                
-                document.getElementById('pethistory').style.display="none";
-                document.getElementById('adoptionspecificquestion').style.display="block";
-                   $('#wz3').removeClass('bg-blue');   
-                $('#wz3').addClass('bg-grey'); 
-                $('#wz4').removeClass('bg-grey');    
-                $('#wz4').addClass('bg-blue');
-               }
-                function aafBack(){
-                 document.getElementById('adoptionspecificquestion').style.display="none";
-                document.getElementById('pethistory').style.display="block";
-                 $('#wz4').removeClass('bg-blue');   
-                $('#wz4').addClass('bg-grey'); 
-                $('#wz3').removeClass('bg-grey');    
-                $('#wz3').addClass('bg-blue');
-               }
-            
-
-
+   
+   
 </script>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

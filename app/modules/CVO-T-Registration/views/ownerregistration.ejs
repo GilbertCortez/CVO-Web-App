@@ -46,7 +46,7 @@
                         </script>
                         <div>
                            <div class="form-line">
-                              <label class="form-label">Pet Owner Picture</label>
+                              <label class="form-label">Pet Owner Picture<font color="red">*</font></label>
                                     <div class="form-group form-float">
                            <div class="form-line" id="petOwnerPicture_line">
                               <input type="file" name="petOwnerPicture" id="petOwnerPicture" onchange="readURL(this);" accept="image/*" />
@@ -64,7 +64,7 @@
                   </div>
                   <div class="col-sm-8">
                      <div class="col-md-4">
-                        <label class="form-label">First Name</label>
+                        <label class="form-label">First Name<font color="red">*</font></label>
                         <div class="form-group form-float">
                            <div class="form-line" id="FName_line">
                               <input type="text" class="form-control" id="FName" name="FName" autocomplete="off" onkeyup="required_validate(this)" onchange="document.getElementById('modal_Name').value=this.value+' '+$('#MName').val()+' '+$('#LName').val();">
@@ -81,7 +81,7 @@
                         </div>
                      </div>
                      <div class="col-md-4">
-                        <label class="form-label">Last Name</label>
+                        <label class="form-label">Last Name<font color="red">*</font></label>
                         <div class="form-group form-float" >
                            <div class="form-line" id="LName_line">
                               <input type="text" class="form-control" id="LName" name="LName" onkeyup="required_validate(this)"  autocomplete="off"  onchange="document.getElementById('modal_Name').value=$('#FName').val()+' '+$('#MName').val()+' '+this.value;">
@@ -91,7 +91,7 @@
                      </div>
                      <div class="col-sm-12"></div>
                      <div class="col-sm-6">
-                        <label class="form-label">Cellphone Number</label>
+                        <label class="form-label">Cellphone Number<font color="red">*</font></label>
                         <div class="form-group form-float" >
                            <div class="form-line" id="CellphoneNumber_line">
                               <input type="text" class="form-control" id="CellphoneNumber" name="CellphoneNumber" onkeyup="required_validate(this);validate_Phone();" autocomplete="off" onchange="document.getElementById('modal_CellphoneNumber').value=this.value;">
@@ -102,7 +102,7 @@
                         </div>
                      </div>
                      <div class="col-sm-6">
-                        <label class="form-label">Email Address</label>
+                        <label class="form-label">Email Address<font color="red">*</font></label>
                         <div class="form-group form-float">
                            <div class="form-line" id="emailAddress_line">
                                <input type="text" class="form-control" id="emailAddress" name="emailAddress" onkeyup="validate_email();" autocomplete="off" onchange="document.getElementById('modal_EmailAddress').value=this.value;">
@@ -114,7 +114,7 @@
                      </div>
                      <div class="col-sm-12"></div>
                      <div class="col-sm-6">
-                        <label class="form-label">Barangay</label>
+                        <label class="form-label">Barangay<font color="red">*</font></label>
                           <div class="form-group form-float">
                          <div class="form-line" id="barangay_line">
                         <select class="form-control show-tick" id="barangay" name="barangay"  data-live-search="true"  onchange='required_validate(this);document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
@@ -128,7 +128,7 @@
                         </div>
                      </div>
                      <div class="col-sm-6">
-                        <label class="form-label">Start Year of Stay in the City</label>
+                        <label class="form-label">Start Year of Stay in the City<font color="red">*</font></label>
                          <div class="form-group form-float">
                          <div class="form-line" id="startYear_line">
                         <select class="form-control show-tick" data-live-search="true" id="startYear" name="startYear"  onchange="required_validate(this);document.getElementById('modal_StartYear').value=this.value;">
@@ -143,7 +143,7 @@
                      </div>
                      <br><br><br>
                      <div class="col-sm-12">
-                        <label class="form-label">Complete Address</label>
+                        <label class="form-label">Complete Address<font color="red">*</font></label>
                         <div class="form-group form-float">
                            <div class="form-line" id="completeAddress_line">
                               <input type="text" class="form-control" id="completeAddress" name="completeAddress" onkeyup="required_validate(this)" autocomplete="off" onchange="document.getElementById('modal_CompleteAddress').value=this.value;">

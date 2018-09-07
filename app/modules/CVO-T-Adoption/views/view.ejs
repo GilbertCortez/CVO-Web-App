@@ -1,141 +1,499 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("adoption_list").className="active";
-document.getElementById("NewApplication").className="active";
-document.getElementById("transaction_list").className="active";
+   document.getElementById("adoption_list").className="active";
+   document.getElementById("NewApplication").className="active";
+   document.getElementById("transaction_list").className="active";
+   
 </script>
-
-  <div class="row clearfix">
-        <div class="block-header">
-                <h2>NEW APPLICATION</h2>
+<div class="row clearfix">
+   <div class="block-header">
+      <h2>ADOPTION</h2>
+   </div>
+   <div class="card" style="min-height: 530px; ">
+      <div class="body">
+         <div class="col-sm-12">
+            <a class="btn btn-block btn-lg btn-primary waves-effect" onclick="newAdoption()"><i class="material-icons">pets</i>NEW PET ADOPTION</a>
          </div>
-         <div class="card" style="min-height: 570px; ">
-             <div class="body">
-             <div class="col-sm-6">
-                <a class="btn btn-block btn-lg btn-primary waves-effect" href="/CVO_Adoption/PetFinder"><i class="material-icons">add</i>NEW ADOPTION APPLICATION (NON-CITIZEN)</a>
-                </div>
-                <div class="col-sm-6">
-                <a class="btn btn-block btn-lg btn-primary waves-effect" href="/CVO_Adoption/PetFinder"><i class="material-icons">add</i>NEW ADOPTION APPLICATION (CITIZEN)</a>
-                </div>
-                <br><br>
-                   <ul class="nav nav-tabs" role="tablist">
-                     <li role="presentation" class="active">
-                            <a href="#profile_with_icon_title" data-toggle="tab">
-                                <i class="material-icons">face</i> ADOPTER(NON-CITIZEN)
-                            </a>
-                        </li>
-                        <li role="presentation" >
-                            <a href="#home_with_icon_title" data-toggle="tab">
-                                <i class="material-icons">home</i> REGISTERED PET OWNERS
-                            </a>
-                        </li>
-                      
+         <br><br>
+         <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+               <a href="#tb1" data-toggle="tab">
+               IMPOUNDING SITE VISITATION
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb2" data-toggle="tab">
+               FOR ADOPTION APPLICATION
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb3" data-toggle="tab">
+               FOR INTERVIEW
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb4" data-toggle="tab">
+               FOR HOME VISITATION
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb5" data-toggle="tab">
+               FOR FINAL EVALUATION
+               </a>
+            </li>
+         </ul>
+         <!-- Tab panes -->
+         <div class="tab-content" >
+            <div role="tabpanel" class="tab-pane fade in active" id="tb1">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="200px">
+                     <thead>
+                        <tr>
+                           <th>Transaction ID</th>
+                           <th>Adopter Name</th>
+                           <th>Adopter Type</th>
+                           <th>Transaction Start Date</th>
+                           <th >Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% 
+                        function MMMMDDYYYY(i){
 
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content" >
-                     <div role="tabpanel" class="tab-pane fade in active" id="profile_with_icon_title">
-                      <div  >
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" > 
-                                    <thead>
-                                        <tr>
-                                          
-                                            <th>Name</th>
-                                            <th>Date Registered</th>
-                                            <th>Barangay</th>
-                                            <th>Phone Number</th>
-                                            <th>Email</th>
-                                            <th style="width:20%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% [].forEach(function (i){ %>
-                                            <tr>
-                                            
-                                                <td>
-                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
-                                                </td>
-                                                <%
-                              var d= (i.dat_DateRegistered+"").split(' '); %>
-                                                    <td>
-                                                        <%= d[1]+" "+d[2]+", "+d[3] %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_BarangayName %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_PhoneNo %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_Email %>
-                                                    </td>
-                                                    <td>
-                                                       <a class="btn btn-primary btn-s" href=""><i class="material-icons">note_add</i></a>
-                                                    </td>
-                                            </tr>
-                                            <% });  %>
-                                    </tbody>
-                                </table>
-                            </div>
-                     </div>
-                        <div role="tabpanel" class="tab-pane fade in" id="home_with_icon_title" >
-                         
-                            <div  >
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" > 
-                                    <thead>
-                                        <tr>
-                                          
-                                            <th>Name</th>
-                                            <th>Date Registered</th>
-                                            <th>Barangay</th>
-                                            <th>Phone Number</th>
-                                            <th>Email</th>
-                                            <th style="width:20%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% po.forEach(function (i){ %>
-                                            <tr>
-                                            
-                                                <td>
-                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
-                                                </td>
-                                                <%
-                              var d= (i.dat_DateRegistered+"").split(' '); %>
-                                                    <td>
-                                                        <%= d[1]+" "+d[2]+", "+d[3] %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_BarangayName %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_PhoneNo %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_Email %>
-                                                    </td>
-                                                    <td>
-                                                       <a class="btn btn-primary btn-small" href=""><i class="material-icons">note_add</i></a>
-                                                    </td>
-                                            </tr>
-                                            <% });  %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                   
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
                         
-                    </div>      
-              </div>
-          </div>
+                       }
+                        isv.forEach(function(i){ %>
+                        <tr>
+                           <td><%= i.int_AdoptionTransactionId %></td>
+                           <td><%= i.AdopterName %></td>
+                           <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                           <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                           <td >
+                              <center><a class="btn bg-grey waves-effect"><i class="material-icons">cancel</i>CANCEL</a></center>
+                           </td>
+                        </tr>
+                        <% }); %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+             <div role="tabpanel" class="tab-pane fade in" id="tb2">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="200px">
+                     <thead>
+                        <tr>
+                           <th>Transaction ID</th>
+                           <th>Adopter Name</th>
+                           <th>Adopter Type</th>
+                           <th>Transaction Start Date</th>
+                           <th >Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% 
+                        function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        faa.forEach(function(i){ %>
+                        <tr>
+                           <td><%= i.int_AdoptionTransactionId %></td>
+                           <td><%= i.AdopterName %></td>
+                           <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                           <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                           <td >
+                              <center><a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/AdoptionApplicationForm?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">assignment</i>ADOPTION APPLICATION FORM</a> <a class="btn bg-grey waves-effect"><i class="material-icons">cancel</i>CANCEL</a></center>
+                           </td>
+                        </tr>
+                        <% }); %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+               <div role="tabpanel" class="tab-pane fade in" id="tb3">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="200px">
+                     <thead>
+                        <tr>
+                           <th>Transaction ID</th>
+                           <th>Adopter Name</th>
+                           <th>Adopter Type</th>
+                           <th>Transaction Start Date</th>
+                           <th >Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% 
+                        function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        fi.forEach(function(i){ %>
+                        <tr>
+                           <td><%= i.int_AdoptionTransactionId %></td>
+                           <td><%= i.AdopterName %></td>
+                           <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                           <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                           <td >
+                              <center><a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/Interview?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">group</i>INTERVIEW</a> <a class="btn bg-grey waves-effect"><i class="material-icons">cancel</i>CANCEL</a></center>
+                           </td>
+                        </tr>
+                        <% }); %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+             <div role="tabpanel" class="tab-pane fade in" id="tb4">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="200px">
+                     <thead>
+                        <tr>
+                           <th>Transaction ID</th>
+                           <th>Adopter Name</th>
+                           <th>Adopter Type</th>
+                           <th>Transaction Start Date</th>
+                           <th >Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% 
+                        function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        fhv.forEach(function(i){ %>
+                        <tr>
+                           <td><%= i.int_AdoptionTransactionId %></td>
+                           <td><%= i.AdopterName %></td>
+                           <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                           <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                           <td >
+                              <center><a class="btn bg-blue waves-effect"><i class="material-icons">remove_red_eye</i>VIEW ADOPTER DETAILS</a> <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/HomeVisit?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>RECORD HOME VISITATION DETAILS</a> <a class="btn bg-grey waves-effect"><i class="material-icons">cancel</i>CANCEL</a></center>
+                           </td>
+                        </tr>
+                        <% }); %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+             <div role="tabpanel" class="tab-pane fade in" id="tb5">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="200px">
+                     <thead>
+                        <tr>
+                           <th>Transaction ID</th>
+                           <th>Adopter Name</th>
+                           <th>Adopter Type</th>
+                           <th>Transaction Start Date</th>
+                           <th >Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% 
+                        function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        ffe.forEach(function(i){ %>
+                        <tr>
+                           <td><%= i.int_AdoptionTransactionId %></td>
+                           <td><%= i.AdopterName %></td>
+                           <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                           <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                           <td >
+                              <center><a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/FinalEvaluation?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>EVALUATE</a> <a class="btn bg-grey waves-effect"><i class="material-icons">cancel</i>CANCEL</a></center>
+                           </td>
+                        </tr>
+                        <% }); %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="newAdoption" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" >
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4>NEW PET ADOPTION</h4>
+         </div>
+         <div class="modal-body" style="min-height:100px">
+            <h5>Adopter Type</h5>
+            <hr>
+            <div class="demo-radio-button">
+               <input name="adoptertype" type="radio" class="with-gap radio-col-blue" value="1"  id="a1" checked=""  onclick="parehas();">
+               <label for="a1" onclick="parehas();">Registered Pet Owner</label><br>
+               <input name="adoptertype" type="radio" class="with-gap radio-col-blue" value="2"  id="a2" onclick="newLang();">
+               <label for="a2" onclick="newLang();">Unregistered Pet Owner</label><br>
+               <input name="adoptertype" type="radio" class="with-gap radio-col-blue" value="3"  id="a3" onclick="parehas();">
+               <label for="a3" onclick="parehas();">Non Citizen with Record</label><br>
+               <input name="adoptertype" type="radio" class="with-gap radio-col-blue" value="4"  id="a4" onclick="parehas();">
+               <label for="a4" onclick="parehas();">Non Citizen without Record</label>
+            </div>
+            <br>
+          
+          
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-primary waves-effect" onclick="proceed1();">PROCEED</a>
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade in" id="petOwners" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document"  >
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4>CHOOSE REGISTERED PET OWNER</h4>
+         </div>
+         <div class="modal-body" style="min-height:550px">
+            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" >
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                     <th>Date Registered</th>
+                     <th>Barangay</th>
+                     <th>Phone Number</th>
+                     <th>Email</th>
+                     <th style="width:20%">Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% po.forEach(function (i){ %>
+                  <tr>
+                     <td>
+                        <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                     </td>
+                     <%
+                        var d= (i.dat_DateRegistered+"").split(' '); %>
+                     <td>
+                        <%= d[1]+" "+d[2]+", "+d[3] %>
+                     </td>
+                     <td>
+                        <%= i.str_BarangayName %>
+                     </td>
+                     <td>
+                        <%= i.str_PhoneNo %>
+                     </td>
+                     <td>
+                        <%= i.str_Email %>
+                     </td>
+                     <td>
+                        <a class="btn btn-primary btn-small" ><i class="material-icons" onclick="proceed2('<%= i.int_PetOwnerId %>');">note_add</i></a>
+                     </td>
+                  </tr>
+                  <% });  %>
+               </tbody>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="petOwnerForm" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document"  >
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4>PET OWNER REGISTRATION FORM</h4>
+         </div>
+         <div class="modal-body" style="min-height:550px">
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="nonCitizen" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document"  >
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4>CHOOSE NON CITIZEN</h4>
+         </div>
+         <div class="modal-body" style="min-height:550px">
+                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" >
+               <thead>
+                  <tr>
+                     <th>Name</th>
+                
+                     <th>Address</th>
+                     <th>Phone Number</th>
+                     <th>Email</th>
+                     <th style="width:20%">Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% nc.forEach(function (i){ %>
+                  <tr>
+                     <td>
+                        <%= i.str_LastName+", "+i.str_FirstName+" "+i.str_MiddleName %>
+                     </td>
+                     
+                     <td>
+                        <%= i.str_CompleteAddress %>
+                     </td>
+                     <td>
+                        <%= i.str_PhoneNo %>
+                     </td>
+                     <td>
+                        <%= i.str_Email %>
+                     </td>
+                     <td>
+                        <a class="btn btn-primary btn-small" ><i class="material-icons" onclick="proceed2('<%= i.int_NonCitizenId %>');">note_add</i></a>
+                     </td>
+                  </tr>
+                  <% });  %>
+               </tbody>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="nonCitizenForm" tabindex="-1" role="dialog" >
+   <div class="modal-dialog modal-lg" role="document"  >
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h4>NON CITIZEN FORM</h4>
+         </div>
+         <div class="modal-body" style="min-height:300px">
+            <div class="col-sm-4">
+             <label class="form-label">First Name<font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC1" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+             <div class="col-sm-4">
+             <label class="form-label">Middle Name</label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC2" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+             <div class="col-sm-4">
+             <label class="form-label">Last Name<font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC3" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+            <div class="col-sm-12">
+             <label class="form-label">Complete Address<font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC4" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+            <div class="col-sm-6">
+             <label class="form-label">Cellphone Number<font color="red">*</font></label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC5" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+            <div class="col-sm-6">
+             <label class="form-label">Email Address</label>
+            <div class="form-group form-float">
+               <div class="form-line"  >
+                  <input type="text"  class="form-control" id="NC6" autocomplete="off" >
+               </div>
+                
+            </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+          <a class="btn btn-primary waves-effect" onclick="regNonCitizen()">PROCEED</a>
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
 </div>
 <script>
-    function newAdoption(){
+   function regNonCitizen(){
+      $.post("/CVO_Adoption/regNonCitizen",
+      {
+         id1:$('#NC1').val(),
+         id2:$('#NC2').val(),
+         id3:$('#NC3').val(),
+         id4:$('#NC4').val(),
+         id5:$('#NC5').val(),
+         id6:$('#NC6').val()
+      },
+      function(data){
+         window.location.href="/CVO_Adoption/NewPetAdoption?adoptertype=3"+"&adopterId="+data;  
+      }
+         )
+      }
+      
 
-    }
+   function newAdoption(){
+       $('#newAdoption').modal('toggle');
+   }
+   function proceed1(){
+       if($('input[name="adoptertype"]:checked').val()==1){
+          $('#petOwners').modal('toggle');
+       }
+       else if($('input[name="adoptertype"]:checked').val()==2){
+           window.location.href="/CVO_Registration"
+       }
+       else if($('input[name="adoptertype"]:checked').val()==3){
+           $('#nonCitizen').modal('toggle');
+       }
+       else if($('input[name="adoptertype"]:checked').val()==4){
+            $('#nonCitizenForm').modal('toggle');
+       }
+   }
+   function proceed2(x){
+      
+          window.location.href="/CVO_Adoption/NewPetAdoption?adoptertype="+$('input[name="adoptertype"]:checked').val()+"&adopterId="+x;  
+       
+   }
+   function newLang(){
+      $('#b2').attr("checked","")
+     $('#b1').attr("disabled","disabled")
+      $('#b2').attr("disabled","disabled")
+   }
+    function parehas(){
+     $('#b1').attr("disabled",false)
+      $('#b2').attr("disabled",false)
+   }
 </script>        
-             
-
-
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>
