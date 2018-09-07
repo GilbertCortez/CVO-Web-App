@@ -1,0 +1,128 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("query_list").className="active";
+   document.getElementById("impounding_q").className="active";
+   document.getElementById("petadoption_q").className="active";
+    document.title="Pets for Adoption";
+</script>
+<div class="">
+   <div class="block-header" >
+      <h2>
+         PETS FOR ADOPTION
+      </h2>
+   </div>
+   <div class="col-sm-4">
+      <div class="card" style="min-height: 570px">
+      <div class="header bg-blue">
+      <center><h2>QUERY</h2></center>
+      </div>
+         <div class="body">   
+
+            <h4>Query Type</h4>
+            <hr>
+            <center>
+            <div class="demo-radio-button" >
+               <input name="querytype" type="radio" class="with-gap radio-col-blue" value="1"  id="unconstrained" checked="" >
+               <label for="unconstrained">Unconstrained</label>
+               <input name="querytype" type="radio" class="with-gap radio-col-blue" value="2" id="constrained" >
+               <label for="constrained">Constrained</label>
+            </div>
+            </center>
+            <h4>Adoption Date Range</h4>
+            <hr>
+            <div class="col-sm-6">
+            <label class="form-label">Start Date</label>
+            <div class="form-group form-float">
+               <div class="form-line">
+                  <input type="date" class="form-control">
+               </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-6">
+            <label class="form-label">End Date</label>
+            <div class="form-group form-float">
+               <div class="form-line">
+                  <input type="date" class="form-control">
+               </div>
+            </div>
+            </div>
+            <h4>Species</h4>
+                <hr>
+                <center>
+                <div class="demo-radio-button" >
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="1"  id="dogs_v" checked="" >
+                    <label for="dogs">Dogs</label>
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="2" id="cats_v" >
+                    <label for="cats">Cats</label>
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="3" id="all_v" >
+                    <label for="all">All</label>
+                 </div>
+                </center>
+            <br>
+            <h4>Impounding Site</h4>
+                <hr>
+                  <div class="form-group form-float">
+                             <div class="form-line" id="barangay_line">
+                            <select class="form-control show-tick" id="barangay" name="barangay" multiple="" data-live-search="true"  onchange='required_validate(this);document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
+                               <option>All</option>
+                               <% site.forEach(function(i){ %>
+                               <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
+                               <% }); %>
+                            </select>
+                            </div>
+                           
+                            </div> 
+         </div>
+         <div class="footer">
+               <center>
+                  <a class="btn bg-blue waves-effect">APPLY</a>
+               </center>
+         </div>
+         <br>
+      </div>
+   </div>
+   <div class="col-sm-8">
+      <div class="card" style="min-height: 570px">
+         <div class="body">
+            <label class="form-label">EXPORT PETS FOR ADOPTION LIST</label>
+            <div class="body">
+               <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                     <thead>
+                        <tr>
+                           <th>ID</th>
+                           <th>Alias</th>
+                           <th>Species</th>
+                           <th>Breed</th>
+                           <th>Sex</th>
+                           <th>Color Pattern</th>
+                           <th>Animal Status</th>
+                           <th>Health Status</th>
+                           <th>Impounding Site</th>
+                           <th>Cage</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <!-- #END# Exportable Table -->
+         </div>
+      </div>
+   </div>
+</div>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

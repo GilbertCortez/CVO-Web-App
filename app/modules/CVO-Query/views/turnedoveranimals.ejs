@@ -1,0 +1,118 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("query_list").className="active";
+   document.getElementById("animalturnover_q").className="active";
+   document.getElementById("turnedoveranimals_q").className="active";
+    document.title="Turned Over Animals";
+</script>
+<div class="">
+   <div class="block-header" >
+      <h2>
+         TURNED OVER ANIMALS
+      </h2>
+   </div>
+   <div class="col-sm-4">
+      <div class="card" style="min-height: 570px">
+      <div class="header bg-blue">
+      <center><h2>QUERY</h2></center>
+      </div>
+         <div class="body">   
+
+            <h4>Query Type</h4>
+            <hr>
+            <center>
+            <div class="demo-radio-button" >
+               <input name="querytype" type="radio" class="with-gap radio-col-blue" value="1"  id="unconstrained" checked="" >
+               <label for="unconstrained">Unconstrained</label>
+               <input name="querytype" type="radio" class="with-gap radio-col-blue" value="2" id="constrained" >
+               <label for="constrained">Constrained</label>
+            </div>
+            </center>
+            <h4>Date Range</h4>
+            <hr>
+            <div class="col-sm-6">
+            <label class="form-label">Start Date</label>
+            <div class="form-group form-float">
+               <div class="form-line">
+                  <input type="date" class="form-control">
+               </div>
+            </div>
+            </div>
+            
+            <div class="col-sm-6">
+            <label class="form-label">End Date</label>
+            <div class="form-group form-float">
+               <div class="form-line">
+                  <input type="date" class="form-control">
+               </div>
+            </div>
+            </div>
+            <br>
+            <h4>Species</h4>
+                <hr>
+                <center>
+                <div class="demo-radio-button" >
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="1"  id="dogs_v" checked="" >
+                    <label for="dogs">Dogs</label>
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="2" id="cats_v" >
+                    <label for="cats">Cats</label>
+                    <input name="species_v" type="radio" class="with-gap radio-col-blue" value="3" id="all_v" >
+                    <label for="all">All</label>
+                 </div>
+                </center>
+            <br>
+         </div>
+         <div class="footer">
+               <center>
+                  <a class="btn bg-blue waves-effect">APPLY</a>
+               </center>
+         </div>
+         <br>
+      </div>
+   </div>
+   <div class="col-sm-8">
+      <div class="card" style="min-height: 570px">
+         <div class="body">
+            <label class="form-label">EXPORT TURNED OVER ANIMALS LIST</label>
+            <div class="body">
+               <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                     <thead>
+                        <tr>
+                           <th>Turned Over ID</th>
+                           <th>Batch of Animal turn over</th>
+                           <th>Organization</th>
+                           <th>Date picked up</th>
+                           <th>Date of pick up</th>
+                           <th>Animal ID</th>
+                           <th>Species</th>
+                           <th>Breed</th>
+                           <th>Color Pattern</th>
+                           <th>Sex</th>
+                           <th>Animal Status</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <!-- #END# Exportable Table -->
+         </div>
+      </div>
+   </div>
+</div>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>
