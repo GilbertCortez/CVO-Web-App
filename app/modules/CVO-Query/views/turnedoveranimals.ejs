@@ -11,11 +11,8 @@
          TURNED OVER ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -70,8 +67,8 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
-      <div class="card" style="min-height: 570px">
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">
             <label class="form-label">EXPORT TURNED OVER ANIMALS LIST</label>
             <div class="body">
@@ -89,23 +86,42 @@
                            <th>Breed</th>
                            <th>Color Pattern</th>
                            <th>Sex</th>
-                           <th>Animal Status</th>
+                           <th>Status</th>
                         </tr>
                      </thead>
                      <tbody>
+                         <% turnover.forEach(function (i) { %>
+                         <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_AnimalTurnOverId%></td>
+                           <td><%=i.int_BatchOfAnimalTurnOver%></td>
+                           <td><%=i.str_OrganizationName%></td>
+                           <td><%=MMMMDDYYYY(i.dat_DatePickedUp)%></td>
+                           <td><%=MMMMDDYYYY(i.dat_DateOfPickUp)%></td>
+                           <td><%=i.int_AnimalId%></td>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                            <td>Dog</td>
+                           <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>
+                            <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                           <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>
+                            <% } %>
+                           <td>Picked Up</td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

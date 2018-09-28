@@ -11,11 +11,8 @@
          PET REGISTRATION
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -34,7 +31,7 @@
             <label class="form-label">Start Date</label>
             <div class="form-group form-float">
                <div class="form-line">
-                  <input type="date" class="form-control">
+                  <input type="date" id="start" class="form-control">
                </div>
             </div>
             </div>
@@ -43,7 +40,7 @@
             <label class="form-label">End Date</label>
             <div class="form-group form-float">
                <div class="form-line">
-                  <input type="date" class="form-control">
+                  <input type="date" id="end" class="form-control">
                </div>
             </div>
             </div>
@@ -51,7 +48,7 @@
             <hr>
               <div class="form-group form-float">
                          <div class="form-line" id="barangay_line">
-                        <select class="form-control show-tick" id="barangay" name="barangay" multiple="" data-live-search="true"  onchange='required_validate(this);document.getElementById("modal_Barangay").value=$("#barangay option[value="+this.value+"]").text();'>
+                        <select class="form-control show-tick" id="barangay" name="barangay" multiple="" data-live-search="true">
                            <option>All</option>
                            <% ba.forEach(function(i){ %>
                            <option value='<%= i.int_BarangayId %>'><%= i.str_BarangayName %></option>
@@ -87,13 +84,24 @@
          </div>
          <div class="footer">
                <center>
-                  <a class="btn bg-blue waves-effect">APPLY</a>
+                  <a class="btn bg-blue waves-effect" onclick="apply()">APPLY</a>
+
+                  <script>
+                  
+                  function apply(){
+                    window.location.href="/CVO_Query/PetRegistration?QueryType=1&Barangay="+$('#barangay').val()+"&StartDate="+document.getElementById('start').value+"&EndDate="+document.getElementById('end').value+"Species="+document.getElementsByName("species")+"Status="+document.getElementsByName("status");
+                  }
+
+                  function getStatus(){
+                      
+                  }
+                  </script>
                </center>
          </div>
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
+   <div class="col-sm-12">
       <div class="card" style="min-height: 570px">
          <div class="body">
             <label class="form-label">EXPORT PET REGISTRATION LIST</label>
@@ -117,19 +125,59 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% pets.forEach(function (i) { %>
+                         <% function MMMMDDYYYY(i){
+                            
+                                    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                    var now = new Date(i);
+                                    return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();                       
+                            }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_PetId%></td>
+                           <td><%=i.str_PetName%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=MMMMDDYYYY(i.dat_DateRegistered)%></td>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                           <td>Dog</td>
+                           <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>
+                           <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                             <td>Female</td>
+                            <% } %>
+                           <td><%=MMMMDDYYYY(i.dat_Birthday)%></td>
+                            <% if (i.int_HealthStatus == 0) { %>
+                            <td>Healthy</td>
+                            <% } else if (i.int_HealthStatus == 1) { %>
+                             <td>Sick</td>
+                            <% } else if (i.int_HealthStatus == 2) { %>
+                            <td>Deceased</td>
+                            <% } else if (i.int_HealthStatus == 3) {%>
+                            <td>For Observation</td>
+                            <% } else if (i.int_HealthStatus == 4) { %>
+                            <td>Euthanized</td>
+                            <% } %>
+                            <% if (i.int_AnimalStatus == 1) { %>
+                            <td>Available</td>
+                            <% } else if (i.int_AnimalStatus == 2) { %>
+                             <td>Claimed</td>
+                            <% } else if (i.int_AnimalStatus == 3) { %>
+                            <td>Adopted</td>
+                            <% } else if (i.int_AnimalStatus == 4) {%>
+                            <td>Euthanized</td>
+                            <% } else if (i.int_AnimalStatus == 5) { %>
+                            <td>Surrendered</td>
+                            <% } else if (i.int_AnimalStatus == 6) { %>
+                            <td>Pet</td>
+                            <% } %>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

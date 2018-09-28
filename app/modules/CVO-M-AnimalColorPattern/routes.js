@@ -8,19 +8,11 @@ var db = require('../../lib/database')();
 
 router.get('/',  (req,res)=>{
 	db.query(`SELECT * from colorpattern`, (err, results, fields) => {
-		if(err){
-			console.log(error);
-			res.redirect('/CVO_AnimalColorPattern');
-		}
-		else {
-			render(results);
-		}
+	db.query(`SELECT DISTINCT int_ColorPatternId FROM animal`,(err,usedColor)=>{
+			
+		res.render('CVO-M-AnimalColorPattern/views/view', {color: results,usedColor:usedColor});
 	});
-
-	function render(color) {
-		res.render('CVO-M-AnimalColorPattern/views/view', {color: color});
-	}
-
+});
 });
 
 router.post('/add',  (req,res)=>{
@@ -50,6 +42,25 @@ router.post('/update',  (req,res)=>{
 			res.redirect('/CVO_AnimalColorPattern');
 	
 	}); 
+});
+
+router.post('/delete', (req, res)=>{
+	console.log(req.body.id)
+	db.query(`DELETE FROM colorpattern WHERE int_ColorPatternId = ${req.body.id}`,(err)=>{
+		console.log(err)
+	})
+});
+
+
+router.post('/updateStatus', (req, res)=>{
+	db.query('UPDATE colorpattern SET int_Status='+req.body.status+' WHERE int_ColorPatternId='+req.body.id,(err)=>{
+		if(err){
+			res.send("ERROR")
+		}
+		else{
+			res.send("SUCCESS")
+		}
+	})
 });
 
 ccp.post('/',  (req,res)=>{

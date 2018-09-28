@@ -1,0 +1,96 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("report_list").className="active";
+   document.getElementById("registration_report").className="active";
+</script>
+    <div class="col-sm-7">
+        <div class="card">
+            <div class="body">
+                 <iframe src="/CVO_Report/RegistrationAndVaccination/registrationforecast" scrolling="no" frameBorder="0" width="95%" height="51%"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="card">
+            <div class="body">
+                 <table class="table table-striped table-bordered" height="48%">
+                 <tr >
+                 <th colspan="4"  class="bg-blue" >
+                 <center>TOP 5 VACCINE</center>
+                 </th>
+
+                 </tr>
+                 <tr>
+                 <th>#</th>
+                 <th>Vaccine</th>
+                 <th>Immunity(YRS)</th>
+                 <th>Manufacturer</th>
+                 </tr>
+                 <% data2.forEach(function(i,ctr){ %>
+                 <tr>
+                 <th><%= ctr+1 %></th>
+                 <td><%= i.str_VaccineName %></td>
+                 <td><%= i.flt_YearsOfImmunity %></td>
+                 <td><%= i.str_Manufacturer %></td>
+                 </tr>
+                <% }) %>
+
+             
+                 </table>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-sm-8">
+        <div class="card">
+            <div class="body">
+                 <iframe src="/CVO_Dashboard/petandownerregistration" frameBorder="0" width="95%" height="50%" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="body">
+                 <iframe src="/CVO_Report/RegistrationAndVaccination/animalspecies" frameBorder="0" width="95%" height="50%" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+<div class="block-header">
+          
+            <h2>PET AND OWNER REGISTRATION MONTHLY REPORT</h2>
+          
+            </div>
+    <div class="card">
+            
+            <div class="body">
+                     <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-exportable">
+                                    <thead>
+                                        <tr class='bg-blue'>
+                                            <th>Month</th>
+                                            <th>Pet Registration</th>
+                                
+                                   
+                                            <th>Owner Registration</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% data1.forEach(function(i){ %>
+                                        <tr>
+                                                <td><%= i.MON %></td>
+                                                <td><%= i.poCOU %></td>
+                                                <td><%= i.pCOU %></td>
+                                        </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>  
+            </div>
+    </div>
+       
+    </div>
+
+  
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

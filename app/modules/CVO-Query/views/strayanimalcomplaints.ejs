@@ -10,11 +10,8 @@
          STRAY ANIMAL COMPLAINTS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -69,7 +66,7 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
+   <div class="col-sm-12">
       <div class="card" style="min-height: 570px">
          <div class="body">
             <label class="form-label">EXPORT STRAY ANIMAL COMPLAINTS LIST</label>
@@ -86,21 +83,35 @@
                            <th>Contact Number</th>
                            <th>Statement</th>
                            <th>Employee</th>
+                           <th>Status</th>
                            <th>Action Taken</th>
                         </tr>
                      </thead>
                      <tbody>
+                        <% complaint.forEach(function (i) { %>
+                        <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                         }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_ComplaintId%></td>
+                           <td><%=i.str_ComplainantName%></td>
+                           <td><%=i.str_BarangayName%></td>
+                           <td><%=i.str_LocationDetails%></td>
+                           <td><%=MMMMDDYYYY(i.dtm_DateTimeOfComplaint)%></td>
+                           <td><%=i.str_ContactNumber%></td>
+                           <td><%=i.str_Statement%></td>
+                           <% var employee = i.str_FirstName+" "+i.str_MiddleName+" "+i.str_LastName%>
+                           <td><%=employee%></td>
+                           <td><%=i.int_Status%></td>
+                           <td><%=i.str_ActionTaken%></td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

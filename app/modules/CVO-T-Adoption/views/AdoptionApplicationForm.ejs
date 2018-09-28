@@ -1,7 +1,7 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
    document.getElementById("adoption_list").className="active";
-   document.getElementById("NewApplication").className="active";
+
    document.getElementById("transaction_list").className="active";
    
 </script>
@@ -38,7 +38,7 @@
             <input type="hidden" name="adopterType" value="<%= adopterDetails.AdopterType %>">
              <input type="hidden" name="transactionId" value="<%= adopterDetails.TransactionId %>">
                <div class="col-sm-4">
-                  <label class="form-label">Occupation</label>
+                  <label class="form-label">Occupation <font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line" id="occupation_line">
                         <select class="form-control show-tick" data-live-search="true" id="" name="occupation" >
@@ -47,7 +47,7 @@
                            <option value="2">Unemployed</option>
                            <option value="3">Retired</option>
                            <option value="4">Student</option>
-                           <option value="5">Student</option>
+                           <option value="5">Others</option>
                         </select>
                      </div>
                   </div>
@@ -61,7 +61,7 @@
                   </div>
                </div>
                <div class="col-sm-4">
-                  <label class="form-label">Monthly Income</label>
+                  <label class="form-label">Monthly Income <font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line">
                         <select class="form-control show-tick" data-live-search="true" name="monthlyIncome" >
@@ -76,7 +76,7 @@
                   </div>
                </div>
                <div class="col-sm-4">
-                  <label class="form-label">Source of Income</label>
+                  <label class="form-label">Source of Income <font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line">
                         <select class="form-control show-tick" data-live-search="true" id="" name="sourceOfIncome" >
@@ -102,7 +102,7 @@
                <hr>
                <div class="col-sm-12">
                   <div class="col-sm-6">
-                     <label class="form-label">How many children? (11 years old below)</label>
+                     <label class="form-label">How many children? (11 years old below) <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfChildren" value=0>
@@ -110,7 +110,7 @@
                      </div>
                   </div>
                   <div class="col-sm-6">
-                     <label class="form-label">How many teenagers? (12 - 17 years old)</label>
+                     <label class="form-label">How many teenagers? (12 - 17 years old) <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfTeenagers" value=0>
@@ -118,7 +118,7 @@
                      </div>
                   </div>
                   <div class="col-sm-6">
-                     <label class="form-label">How many youth? (18 - 24 years old)</label>
+                     <label class="form-label">How many youth? (18 - 24 years old) <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfYouth" value=0>
@@ -126,7 +126,7 @@
                      </div>
                   </div>
                   <div class="col-sm-6">
-                     <label class="form-label">How many adult? (25 years old above)</label>
+                     <label class="form-label">How many adult? (25 years old above) <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfAdult" value=0>
@@ -147,7 +147,7 @@
                <hr>
                <div class="col-sm-12">
                   <div class="col-sm-6">
-                     <label class="form-label">Current Number of Dogs?</label>
+                     <label class="form-label">Current Number of Dogs? <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfDogs" value=0>
@@ -155,7 +155,7 @@
                      </div>
                   </div>
                   <div class="col-sm-6">
-                     <label class="form-label">Current Number of Cats?</label>
+                     <label class="form-label">Current Number of Cats? <font color="red">*</font></label>
                      <div class="form-group form-float">
                         <div class="form-line">
                            <input type="number" class="form-control" name="noOfCats" value=0>
@@ -163,7 +163,7 @@
                      </div>
                   </div>
                </div>
-               <label class="form-label">Have you ever had a Pet Euthanized?</label>
+               <label class="form-label">Have you ever had a Pet Euthanized? <font color="red">*</font></label>
                <div class="input-group input-group-lg">
                   <span class="input-group-addon">
                   <input name="petEuthanize" type="radio" value=0 id="peteuthanizeforYes">
@@ -174,7 +174,7 @@
                   <label for="peteuthanizeforNo">No</label>
                   </span>
                </div>
-               <label class="form-label">Have you ever surrendered a Pet?</label>
+               <label class="form-label">Have you ever surrendered a Pet? <font color="red">*</font></label>
                <div class="input-group input-group-lg">
                   <span class="input-group-addon">
                   <input name="petSurrendered" type="radio" value=0 id="petsurrenderedforYes">
@@ -185,7 +185,7 @@
                   <label for="petsurrenderedforNo">No</label>
                   </span>
                </div>
-               <label class="form-label">Have you ever lost a Pet?</label>
+               <label class="form-label">Have you ever lost a Pet? <font color="red">*</font></label>
                <div class="input-group input-group-lg">
                   <span class="input-group-addon">
                   <input name="lostPet" type="radio" value=0 id="petlostforYes">
@@ -209,7 +209,7 @@
                <h4>Adoption Specific Questions</h4>
                <hr>
                <div class="col-sm-12">
-                  <label class="form-label">Reason for adoption?</label>
+                  <label class="form-label">Reason for adoption? <font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line">
                         <textarea rows="5" class="form-control" name="reasonForAdoption" ></textarea>
@@ -217,7 +217,7 @@
                   </div>
                </div>
                <div class="col-sm-12">
-                  <label class="form-label">Can you ensure that you can keep your pet indoor or inside your house yard?</label>
+                  <label class="form-label">Can you ensure that you can keep your pet indoor or inside your house yard? <font color="red">*</font></label>
                   <div class="input-group input-group-lg">
                      <span class="input-group-addon">
                      <input name="ensurePetIndoor" type="radio" value=0 id="petindoorforYes" checked="">
@@ -230,7 +230,7 @@
                   </div>
                </div>
                <div class="col-sm-12">
-                  <label class="form-label">How is your home suitably prepared for a pet?</label>
+                  <label class="form-label">How is your home suitably prepared for a pet? <font color="red">*</font></label>
                   <div class="form-group form-float">
                      <div class="form-line">
                         <textarea rows="3" class="form-control" name="homeDescription" ></textarea>
@@ -243,7 +243,7 @@
                <div class="col-sm-4">
                   <a type="button" class="btn bg-grey btn-lg waves-effect" onclick="aafBack()" >BACK</a>
                   <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="proceed();">PROCEED</a>
-                  &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+                  &nbsp;<a href="/CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
                </div>
             </div>
          </div>

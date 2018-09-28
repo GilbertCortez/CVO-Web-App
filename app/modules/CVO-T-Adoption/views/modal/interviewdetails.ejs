@@ -1,0 +1,42 @@
+<a class="btn  btn-block bg-blue" onclick="$('#interviewdetails').modal('toggle');"><i class="material-icons">speaker_notes</i><h6> VIEW INTERVIEW DETAILS</h6></a><br>
+                <div class="modal fade" id="interviewdetails" tabindex="-1" role="dialog" >
+                 <div class="modal-dialog modal-lg" role="document"  >
+                    <div class="modal-content">
+                     
+                       <div class="modal-body" style="min-height:300px">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                              <th colspan="2" class="bg-blue"><center>INTERVIEW DETAILS</center></th>
+                            </tr>
+
+                            <tr>
+                              <th>Date and Time of Interview</th>
+                              <td id="id_Modal1"></td>
+                            </tr>
+
+                             <tr>
+                              <th>Interview Remarks</th>
+                              <td id="id_Modal2"></td>
+                            </tr>
+
+                             
+                              <!-- <tr>
+                              <th>Employee Involved</th>
+                              <td id="id_Modal"></td>
+                            </tr> -->
+                            
+                            </table>
+                       </div>
+                       <div class="modal-footer">
+                        
+                          <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+<script>
+  $.post('/CVO_Adoption/getInterviewDetails',{id:<%= adopterDetails.TransactionId %> },function(data){
+    $('#id_Modal1').text(data[0].dtm_DateTimeOfInterview);
+    $('#id_Modal2').text(data[0].str_InterviewRemarks);
+  })
+</script>

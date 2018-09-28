@@ -7,7 +7,7 @@ var db = require('../../lib/database')();
 
 
 router.get('/',  (req,res)=>{
-	db.query(`SELECT *, COUNT(*) as total FROM van v JOIN vancage vc ON v.int_VanId=vc.int_VanId GROUP BY v.int_VanId`,(err, van)=>{
+	db.query(`SELECT *, COUNT(*) as total, v.int_Status vanStat FROM van v JOIN vancage vc ON v.int_VanId=vc.int_VanId GROUP BY v.int_VanId`,(err, van)=>{
      res.render('CVO-M-Van/views/view.ejs',{van:van});
 });
 });
@@ -37,5 +37,15 @@ router.post('/add',  (req,res)=>{
 });
 
 
+router.post('/updateStatus', (req, res)=>{
+	db.query('UPDATE van SET int_Status='+req.body.status+' WHERE int_VanId='+req.body.id,(err)=>{
 
+		if(err){
+			res.send("ERROR")
+		}
+		else{
+			res.send("SUCCESS")
+		}
+	})
+});
 exports.CVO_Van= router;

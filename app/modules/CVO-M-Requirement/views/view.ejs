@@ -44,7 +44,28 @@ document.getElementById("maintenance_list").className="active";
             </div>
         </div>
     </div>
+<script>
+function statUpdate(x){
 
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_Requirement/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_Requirement/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+function deleteRequirements(x){
+   $.post("/CVO_Requirement/delete",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+</script>
  <%- include('./addRequirement.ejs') -%>
   
  <%- include('./update.ejs') -%>

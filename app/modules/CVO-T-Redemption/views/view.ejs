@@ -1,82 +1,466 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
-document.getElementById("NewRedemption").className="active";
-document.getElementById("redemption_list").className="active";
-document.getElementById("transaction_list").className="active";
+    document.getElementById("redemption_list").className="active";
+   document.getElementById("transaction_list").className="active";
 </script>
+<div class="row clearfix">
+    <div>
+        <div class="block-header">
+            <h2>REDEMPTION</h2>
+        </div>
+        <div class="card">
+            <div class="body">
+                <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" onclick="$('#pr_requirements').modal('toggle');"><i class="material-icons">pets</i>NEW PET REDEMPTION</a>
+                <br><br>
+                 <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+               <a href="#tb0" data-toggle="tab">
+                  ALL <span class="badge <% if(rt.length!=0) {%> bg-blue <% }%>"><%= rt.length %></span>
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb1" data-toggle="tab">
+               IMPOUNDING SITE VISITATION <span class="badge <% if(fv.length!=0) {%> bg-blue <% }%>"><%= fv.length %></span>
+               </a>
+            </li>
+          
+            <li role="presentation" >
+               <a href="#tb2" data-toggle="tab">
+               FOR INTERVIEW <span class="badge <% if(fi.length!=0) {%> bg-blue <% }%>"><%= fi.length %></span>
+               </a>
+            </li>
+          
+         </ul>
+         <!-- Tab panes -->
+         <div class="tab-content" >
+            <div role="tabpanel" class="tab-pane fade in active" id="tb0">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="250px">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Owner of the Lost Pet</th>
+                             <th>Owner Type</th>
+                            <th>Transaction Start Date</th>
+                           
+                            <th>Stage</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <%
+                  function MMMMDDYYYY(i){
+                  
+                  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                  var now = new Date(i);
+                  return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  %> 
+                    <tbody>
+                        <% rt.forEach(function(i){ %>
+                        <tr>
+                            <td>
+                                <%= i.int_RedemptionTransactionId %>
+                            </td>
 
-  <div class="row clearfix">
-                <div >
-                <div class="block-header">
-                            <h2>REDEMPTION</h2>
-                        </div>
-                    <div class="card">
-                        
-                        <div class="body">
-                         <div class="col-sm-4">
-                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>UNREGISTERED PET OWNER</a>
-                           </div>
-                           <div class="col-sm-4">
-                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">search</i>NON-MARIKINA CITIZEN</a>
-                           </div>
-                           <div class="col-sm-4">
-                          <a type="button" class="btn btn-block btn-lg btn-primary waves-effect" ><i class="material-icons">apps</i>SEARCH PET BY IMPOUNDING SITE AND CAGE</a>
-                           </div>
-                           </a><br><br><br>
-                           <h4>Registered Pet Owner</h4><hr>
-                                <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Pet Owner Name</th>
-                                
-                                   
-                                            <th>Phone Number</th>
-                                            <th>Email</th>
-                                            <th style="width:20%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% po.forEach(function (i){ %>
-                                            <tr>
-                                                <td>
-                                                    <%= i.int_PetOwnerId %>
-                                                </td>
-                                                <td style="width:200px">
-                                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
-                                                </td>
-                                   
-                                               
-                                                    <td>
-                                                        <%= i.str_PhoneNo %>
-                                                    </td>
-                                                    <td>
-                                                        <%= i.str_Email %>
-                                                    </td>
-                                                    <td>
-                                                        <div class="row" align="center">
-                                                         <a  onclick="chooselostpet('<%= i.int_PetOwnerId %>');" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="CHOOSE LOST PET">
-                                                                            <i class="material-icons">pets</i>PETS
-                                                                    </a>
-                                                                 
-                                                        </div>
-                                                    </td>
-                                            </tr>
-                                            <% });  %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        
-                        </div>
-                    </div>
+                            <td>
+                                <%= i.ownerName %>
+                            </td>
+                            <td>
+                                <%= i.int_OwnerStatus==0?"Pet Owner":"Non Citizen" %>
+                            </td>
+                            <td>
+                                <%= MMMMDDYYYY(i.dtm_DateTimeOfRedemption) %>
+                            </td>
+                            
+                            <td>
+                                <%= i.int_RedemptionResult==2? "IMPOUNDING SITE VISITATION": "INTERVIEW" %>
+                            </td>
+                            <td>
+                            <% if(i.int_RedemptionResult==2){ %>
+                              <center><a class="btn bg-grey waves-effect" onclick="cancelRedemption('<%= i.int_RedemptionTransactionId %>')"><i class="material-icons">cancel</i></a></center>
+                            <% }else { %>
+                            <center>
+                             <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Redemption/Interview?ownerId=<%=i.ownerId %>&ownerType=<%= i.int_OwnerStatus %>&TransactionId=<%= i.int_RedemptionTransactionId %>'"><i class="material-icons">group</i></a> <a class="btn bg-grey waves-effect" onclick="cancelRedemption('<%= i.int_RedemptionTransactionId %>')"><i class="material-icons">cancel</i></a></center>
+                            <% } %>
+
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+               </div>
+            </div>
+             <div role="tabpanel" class="tab-pane fade in " id="tb1">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="250px">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Owner of the Lost Pet</th>
+                             <th>Owner Type</th>
+                            <th>Transaction Start Date</th>
+                
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <%
+                  function MMMMDDYYYY(i){
+                  
+                  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                  var now = new Date(i);
+                  return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  %> 
+                    <tbody>
+                        <% fv.forEach(function(i){ %>
+                        <tr>
+                            <td>
+                                <%= i.int_RedemptionTransactionId %>
+                            </td>
+
+                            <td>
+                                <%= i.ownerName %>
+                            </td>
+                            <td>
+                                <%= i.int_OwnerStatus==0?"Pet Owner":"Non Citizen" %>
+                            </td>
+                            <td>
+                                <%= MMMMDDYYYY(i.dtm_DateTimeOfRedemption) %>
+                            </td>
+                          
+                            <td>
+                                    <center><a class="btn bg-grey waves-effect" onclick="cancelRedemption('<%= i.int_RedemptionTransactionId %>')"><i class="material-icons">cancel</i>CANCEL</a></center>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+               </div>
+            </div>
+                <div role="tabpanel" class="tab-pane fade in " id="tb2">
+               <div  >
+                  <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="250px">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Owner of the Lost Pet</th>
+                             <th>Owner Type</th>
+                            <th>Transaction Start Date</th>
+                           
+                    
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <%
+                  function MMMMDDYYYY(i){
+                  
+                  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                  var now = new Date(i);
+                  return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  %> 
+                    <tbody>
+                        <% fi.forEach(function(i){ %>
+                        <tr>
+                            <td>
+                                <%= i.int_RedemptionTransactionId %>
+                            </td>
+
+                            <td>
+                                <%= i.ownerName %>
+                            </td>
+                            <td>
+                                <%= i.int_OwnerStatus==0?"Pet Owner":"Non Citizen" %>
+                            </td>
+                            <td>
+                                <%= MMMMDDYYYY(i.dtm_DateTimeOfRedemption) %>
+                            </td>
+                 
+                            <td>
+                                    <center>
+
+                                        <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Redemption/Interview?ownerId=<%=i.ownerId %>&ownerType=<%= i.int_OwnerStatus %>&TransactionId=<%= i.int_RedemptionTransactionId %>'"><i class="material-icons">group</i>INTERVIEW</a> 
+                                    <a class="btn bg-grey waves-effect" onclick="cancelRedemption('<%= i.int_RedemptionTransactionId %>')"><i class="material-icons">cancel</i>CANCEL</a></center>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+               </div>
+            </div>
+               
+               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newRedemption" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h4>NEW PET REDEMPTION</h4>
+            </div>
+            <div class="modal-body" style="min-height:100px">
+                <h5>Owner of the Lost Pet Type</h5>
+                <hr>
+                <div class="demo-radio-button">
+                    <input name="ownerType" type="radio" class="with-gap radio-col-blue" value="0" id="ot0" checked="">
+                    <label for="ot0">Pet Owner</label><br>
+                    <input name="ownerType" type="radio" class="with-gap radio-col-blue" value="1" id="ot1">
+                    <label for="ot1">Non Citizen</label><br>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary waves-effect" onclick="chooseOwner();">PROCEED</a>
+                <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="registeredPetOwner" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1200px">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h4>PET OWNER</h4>
+            </div>
+            <div class="modal-body" style="min-height:100px">
+                <a class="btn btn-primary btn-block btn-lg waves-effect" onclick="window.location.href='/CVO_Registration'">UNREGISTERED PET OWNER</a>
+                <br><br>
+                <h4>Registered Pet Owner</h4>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Pet Owner Name</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% po.forEach(function (i){ %>
+                            <tr>
+                                <td>
+                                    <%= i.int_PetOwnerId %>
+                                </td>
+                                <td >
+                                    <%= i.str_PetOwnerLastName+", "+i.str_PetOwnerFirstName+" "+i.str_PetOwnerMiddleName %>
+                                </td>
+                                <td>
+                                    <%= i.str_PhoneNo %>
+                                </td>
+                                <td>
+                                    <%= i.str_Email %>
+                                </td>
+                                <td width="300px">
+                                    <div class="row" align="center">
+                                        <a onclick="chooselostpet('<%= i.int_PetOwnerId %>');" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="CHOOSE LOST PET">
+                                            <i class="material-icons">pets</i>PETS
+                                        </a>
+                                        <a class="btn btn-primary btn-small" onclick="orderOfVisitation('<%= i.int_PetOwnerId %>');"><i class="material-icons" >apps</i>IMPOUNDING SITE VISITATION</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% });  %>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="choose" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="width:1400px;">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h3></h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-4 bg-blue" style="height:550px" id="chooselostpetBody">
+                </div>
+                <div class="col-sm-8">
+                    <h4>PETS</h4>
+                    <hr>
+                    <style>
+                        #petSearch {
+                  background-position: 10px 10px;
+                  background-repeat: no-repeat;
+                  width: 100%;
+                  font-size: 16px;
+                  padding: 12px 20px 12px 40px;
+                  border: 1px solid #ddd;
+                  margin-bottom: 12px;
+                  }
+               </style>
+                    <input type="text" id="petSearch" onkeyup="petSearch()" placeholder="Search lost pet...">
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th>Pet ID</th>
+                            <th>Pet Tag</th>
+                            <th>Pet Name</th>
+                            <th>Breed</th>
+                            <th>Sex</th>
+                            <th>Color Pattern</th>
+                            <th>Action</th>
+                        </tr>
+                        <tbody id="petTable">
+                            <tr>
+                                <td>1</td>
+                                <td>KAL 1065</td>
+                                <td>Jumbo</td>
+                                <td>Aspin</td>
+                                <td>Male</td>
+                                <td>Black</td>
+                                <td>
+                                    <center><a class="btn btn-primary" onclick="$('#searchlostpet').modal('toggle');"><i class="material-icons">search</i>SEARCH</a></center>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+ function cancelRedemption(x){
+    swal({
+      title: "Cancel Redemption Transaction?",
+      text: "Once cancelled, Redemption Transaction will be deleted!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $.post('/CVO_Redemption/CancelRedemption',{id:x},function(data){
+      window.location.reload();
+    })
+      } else {
+        
+      }
+    });
+    
+  }
+    function petSearch() {
+     var input, filter, table, tr, td, i;
+     input = document.getElementById("petSearch");
+     filter = input.value.toUpperCase();
+     table = document.getElementById("myTable");
+     tr = table.getElementsByTagName("tr");
+     for (i = 0; i < tr.length; i++) {
+       td1 = tr[i].getElementsByTagName("td")[0];
+       td2 = tr[i].getElementsByTagName("td")[1];
+       if (td1 || td2) {
+         if (td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+           tr[i].style.display = "";
+         } else {
+           tr[i].style.display = "none";
+         }
+       }
        
+     }
+   }
+</script>
+<input type="hidden" id="petOwnerId">
+<script>
+    function chooselostpet(x) {
 
- 
-<%- include('./chooselostpet.ejs') -%>
-<%- include('./searchlostpet.ejs') -%>
+        document.getElementById('petOwnerId').value = x;
+        $('#chooselostpetBody').empty();
+        $.post('/CVO_Redemption/getPetOwnerDetailsAndItsPets', {
+            id: x
+        }, function(data) {
 
+            $('#chooselostpetBody').append(`
+                <div class="col-sm-5"><i class="material-icons" style="font-size: 150px;">account_circle</i></div><div class="col-sm-7"><br><br><h2>PET OWNER INFORMATION</h2></div>
+               <div class="col-sm-12"> <hr></div>
+                <table style="width: 100%; ">
+                                           <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                               <th>NAME</th>
+                                               <td id="info1">
+                                                  ` + data.po[0].str_PetOwnerLastName + `, ` + data.po[0].str_PetOwnerFirstName + ` ` + data.po[0].str_PetOwnerMiddleName + `
+                                               </td>
+                                           </tr>
+                                           <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                               <th>CELLPHONE NUMBER</th>
+                                               <td id="info2">
+                                               ` + data.po[0].str_PhoneNo + `
+                                               </td>
+                                           </tr>
+                                           <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                               <th>EMAIL ADDRESS</th>
+                                               <td id="info3">
+                                                   ` + data.po[0].str_Email + `
+                                               </td>
+                                           </tr>
+                                           <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                               <th>COMPLETE ADDRESS</th>
+                                               <td id="info4">
+                                                   ` + data.po[0].str_CompleteAddress + `(` + data.po[0].str_BarangayName + `)
+                                               </td>
+                                           </tr>
+                                           <tr style="border-bottom: 1px solid #ddd;color: white;height: 30px;padding: 3px;">
+                                               <th>START YEAR OF STAY IN THE CITY</th>
+                                               <td id="info5">
+                                                 ` + data.po[0].dat_StartedYearOfStay + `
+                                               </td>
+                                           </tr>
+                                          
+                                       </table>
+   
+          
+            
+       `);
+            $('#petTable').empty()
+            data.pets.forEach(function(i) {
+                $('#petTable').append(`
+                                    <tr>
+                                        <td>` + i.int_PetId + `</td>
+                                        <td>` + i.str_PetTagNo + `</td>
+                                        <td>` + i.str_PetName + `</td>
+                                        <td>` + i.str_BreedName + `</td>
+                                        <td>` + i.int_Sex + `</td>
+                                        <td>` + i.str_Description + `</td>
+                                        <td><center><a class="btn btn-primary" onclick="searchForLostPet('` + i.int_PetId + `')"><i class="material-icons">search</i>SEARCH BY PET TAG</a></center></td>
+                                    </tr>
+   
+                                  `);
+            })
+            $('#choose').modal('toggle');
+        });
 
+    }
+</script>
+<script>
+    function chooseOwner() {
+      if($('input[name="ownerType"]:checked').val()==0){
+        $('#registeredPetOwner').modal('toggle');
+      }
+      else{
+       $('#nonCitizen').modal('toggle');
+      }
+    }
+    function orderOfVisitation(x){
+        window.location.href="/CVO_Redemption/OrderOfVisitation?ownerId="+x+"&ownerType="+$('input[name="ownerType"]:checked').val();      
+    }
+</script>
+<%- include('./noncitizen.ejs') -%>
+<%- include('./requirements.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

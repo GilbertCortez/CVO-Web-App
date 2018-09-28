@@ -13,7 +13,7 @@ document.getElementById("van_list").className="active";
         <div class="block-header" >
 
                 <h2>
-              Van
+             VAN
                 </h2>
             </div>
         <div class="card">
@@ -72,10 +72,18 @@ document.getElementById("van_list").className="active";
                                                              <%= i.total %>
                                                             </td>
                                                             <td>
-                                                             <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
+                                                              <% if (i.vanStat == 1) { %>
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_VanId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_VanId%>">YES</small>
                                                                 </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_VanId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_VanId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+
                                                             </td>
                                                             <td>
                                                             <center>
@@ -106,7 +114,29 @@ document.getElementById("van_list").className="active";
             </div>
         </div>
     </div>
+<script>
+function statUpdate(x){
 
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_Van/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_Van/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+function deleteBreed(x){
+   $.post("/CVO_AnimalBreed/deleteBreed",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+
+</script>
      <%- include('./addVan.ejs') -%>
 
 

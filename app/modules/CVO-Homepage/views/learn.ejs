@@ -1,26 +1,35 @@
-<%- include('../../../templates/CVO-Homepage-NavBar.ejs') -%>
-                <!-- Basic Examples -->
-                <br><br><br><br>
-            <div class="container-fluid">
-                <div class="row" style="height:100%">
-                    <div class="col-md-4">
-                        <img src="../../images/noIdPicture.jpg" height="50%" width="100%" style="border:2px solid black"/>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h1>Topic</h1>
-                                <small>datetime posted:</small>
-                            </div>
-                            <div class="body">
-                                <p>Article Content ... </p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ <%- include('./header.ejs') -%>
+
+ <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url(/websitePart/images/bg_34.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center">
+            <div class="col-md-7 col-sm-12 ftco-animate">
+     
+              <h1 class="mb-3">Learn</h1>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+ <section class="ftco-section-2" id="article">
+    
+      <div>
+        <div class="section-2-blocks-wrapper row no-gutters">
+          <div class="img col-sm-12 col-md-6" style="background-image: url('/Articles<%= learn[0].str_ImagePath %>');" data-aos="fade-right">
+            
+          </div>
+          <div class="text col-md-6">
+            <div class="text-inner align-self-start" data-aos="fade-up">
+              
+              <h3><%= learn[0].str_Topic %></h3>
+              <p><%= learn[0].str_Content %></p>
 
-                <!-- #END# Basic Examples -->
-                <%- include('../../../templates/CVO-Homepage-Footer.ejs') -%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include('./footer.ejs') -%>

@@ -1,0 +1,105 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("impounding_list").className="active";
+   document.getElementById("Visitation").className="active";
+   document.getElementById("transaction_list").className="active";
+</script>
+<div class="row clearfix">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+   <div class="block-header">
+      <h2>IMPOUNDING SITE VISITATION</h2>
+   </div>
+   <div class="card">
+      <div class="body">
+       <ul class="nav nav-tabs" role="tablist">
+       <li role="presentation" class="active">
+               <a href="#tb0" data-toggle="tab">
+                  ADOPTION <span class="badge <% if(ad.length!=0) {%> bg-blue <% }%>"><%= ad.length %></span>
+               </a>
+            </li>
+            <li role="presentation" >
+               <a href="#tb1" data-toggle="tab">
+               REDEMPTION<span class="badge <% if(rd.length!=0) {%> bg-blue <% }%>"><%= rd.length %></span>
+               </a>
+            </li>
+            </ul>
+           <div class="tab-content" >
+            <div role="tabpanel" class="tab-pane fade in active" id="tb0">
+         <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="390px">
+            <thead>
+               <tr>
+                  <th>Transaction ID</th>
+                  <th>Adopter Name</th>
+                  <th>Adopter Type</th>
+                  <th>Transaction Start Date</th>
+                  <th >Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <% 
+                  function MMMMDDYYYY(i){
+                  
+                   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                   var now = new Date(i);
+                   return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  ad.forEach(function(i){ %>
+               <tr>
+                  <td><%= i.int_AdoptionTransactionId %></td>
+                  <td><%= i.AdopterName %></td>
+                  <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
+                  <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
+                  <td width="150px">
+                     <center><a class="btn bg-blue waves-effect" onclick="assessAdoption('<%= i.int_AdoptionTransactionId %>');"><i class="material-icons">assignment_turned_in</i>ASSES</a></center>
+                  </td>
+               </tr>
+               <% }); %>
+            </tbody>
+         </table>
+         </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tb1">
+         <table class="table table-bordered table-striped table-hover js-basic-example dataTable" height="390px">
+            <thead>
+               <tr>
+                  <th>Transaction ID</th>
+                  <th>Owner Name</th>
+                  <th>Owner Type</th>
+                  <th>Transaction Start Date</th>
+                  <th >Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <% 
+                  function MMMMDDYYYY(i){
+                  
+                   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                   var now = new Date(i);
+                   return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                  
+                  }
+                  rd.forEach(function(i){ %>
+               <tr>
+                  <td><%= i.int_RedemptionTransactionId %></td>
+                  <td><%= i.ownerName %></td>
+                  <td><%= (i.int_OwnerStatus==0? "Pet Owner": "Non Citizen") %></td>
+                  <td><%= MMMMDDYYYY(i.dtm_DateTimeOfRedemption) %></td>
+                  <td width="150px">
+                     <center><a class="btn bg-blue waves-effect" onclick="assessRedemption('<%= i.int_RedemptionTransactionId %>');"><i class="material-icons">assignment_turned_in</i>ASSES</a></center>
+                  </td>
+               </tr>
+               <% }); %>
+            </tbody>
+         </table>
+         </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<%- include('./assessingAdoption.ejs') -%>
+<%- include('./assessingRedemption.ejs') -%>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

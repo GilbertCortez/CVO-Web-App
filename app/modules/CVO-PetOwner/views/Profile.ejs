@@ -1,0 +1,91 @@
+<%- include('../../../templates/CVO-PetOwner-Head.ejs') -%>
+<script>
+    document.getElementById("Profile_list").className = "active";
+</script>
+
+
+<div class="col-sm-4" align="center">
+
+</div>
+<%
+                                    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                    var now = new Date(user.dat_DateRegistered);
+                                    %>
+<div class="col-sm-12">
+<div class="block-header">
+   <h2> PET OWNER PROFILE</h2>
+</div>
+<div class="card">
+    <div class="body" style="min-height:340px">
+    <div class="col-sm-4">
+         <center> <img src="/PetOwners<%= user.str_PetOwnerPicturePath %>" style="border:4px;border-style:solid;border-color:#2196f3" id="blah" src="#" alt="your image" width="300" height="300" /></center>
+    </div>
+<div class="col-sm-8">
+        <table class="table table-stiped table-bordered" style="width:100%">
+            <tr class="bg-grey">
+                <th>
+                Pet Owner Id
+                </th>
+                <td> 
+                #<%= user.int_PetOwnerId %>
+                </td>
+            </tr>
+             <tr>
+                <th>
+                Name
+                </th>
+                <td> 
+                <%= user.str_PetOwnerLastName+", "+user.str_PetOwnerFirstName+" "+user.str_PetOwnerMiddleName %>
+                </td>
+            </tr>
+            <tr class="bg-grey">
+                <th>
+                Complete Address
+                </th>
+                <td> 
+                <%= user.str_CompleteAddress %>(
+        <%= user.str_BarangayName %>)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                Email
+                </th>
+                <td> 
+                 <%= user.str_Email %>
+                </td>
+            </tr>
+            <tr class="bg-grey">
+                <th>
+                Phone Number
+                </th>
+                <td> 
+                <%= user.str_PhoneNo %>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                Stayed in the City since
+                </th>
+                <td> 
+                 <%= user.dat_StartedYearOfStay %>
+                </td>
+            </tr>
+ <tr class="bg-grey">
+                <th>
+                Date of Registration
+                </th>
+                <td> 
+                <%=  months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() %>
+                </td>
+            </tr>
+        </table>
+     </div>
+    </div>
+</div>
+
+</div>
+
+
+<%- include('../../../templates/CVO-PetOwner-Footer.ejs') -%>

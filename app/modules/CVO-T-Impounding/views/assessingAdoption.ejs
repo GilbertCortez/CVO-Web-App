@@ -1,0 +1,110 @@
+
+<div class="modal fade" id="assessAdoption" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" style="width:1400px">
+      <div class="modal-content" >
+         <div class="modal-header bg-blue">
+            <h4>CHOOSE ANIMAL FOR ADOPTION</h4>
+         </div>
+         <div class="modal-body" style="min-height:220px">
+            <div class="col-sm-2">
+               <label class="form-label">Impounding Site</label>
+               <div class="form-group">
+                  <div class="form-line">
+                     <select class="form-control show-tick" data-live-search="true"  onchange="changeImpoundingSiteAdoption(this.value)"   >
+                        <% als.forEach(function (x) { 
+                           %>
+                        <option value='<%= x.int_ImpoundingSiteId %>' >
+                           <%= x.str_BarangayName %>(ID: <%= x.int_ImpoundingSiteId  %>) 
+                        </option>
+                        <% }); %>
+                     </select>
+                  </div>
+               </div>
+             
+            </div>
+            <div class="col-sm-10" style="min-height:510px" >
+               <div class="col-sm-12"  style="overflow: auto;max-height:400px;min-height:500px;border:dashed #2196F3 5px;padding:10px;" >
+                  <div id="filteredAnimalAdoption">
+                  </div>
+                    <div id="ajxLoaderAdoption" style="display:none"> 
+              <br><br><br><br><br><br>
+               <div style="background-image: url('/images/preloader.gif');background-repeat: no-repeat;background-size: 200px;background-position: center;" >
+               <br><br><br><br><br><br><br><br><br><br>
+             </div>
+
+               </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+    
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+<input type="hidden" id="adoptionTransactionId">
+<script>
+    changeImpoundingSiteAdoption(1);
+   
+   
+   function assessAdoption(x){
+    $('#adoptionTransactionId').val(x)
+      $('#assessAdoption').modal('toggle');
+   }
+    function changeImpoundingSiteAdoption(x){
+       $('#filteredAnimal').empty();
+        document.getElementById('ajxLoaderAdoption').style.display="block";
+      $.post("/CVO_Impounding/Assess/Adoption",{id: x},function(data){
+
+                  var toAppend="";
+                  data.forEach(function(i){
+            
+                  toAppend+=`  <div class="col-sm-3" >
+                    <div class="card" style="min-height:379px">
+                       
+                        <div class="body">
+                        <img src="/Animals/`+i.str_AnimalPicturePath+`" width="100%"/><br>
+                          
+                            <h5 align="center">CAGE#`+i.int_CageNumber+`</h5>
+                            <center>
+                            <p>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+` | `+(i.str_BreedName)+` </p>
+                            <p>`+i.str_Description+` | `+(i.int_Sex==0?"Male":"Female")+` </p>
+                            <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
+
+                            </center>
+                            <center><a class="btn btn-primary waves-effect" onclick="adoptAnimal(`+i.int_AnimalId+`)">CHOOSE</a></center>
+                        </div>
+                    </div>
+                </div>`;
+              });
+               document.getElementById('ajxLoaderAdoption').style.display="none";
+                  $('#filteredAnimalAdoption').append(toAppend);
+                    
+              });
+      }
+
+      
+   
+    function adoptAnimal(x){
+       swal({
+      title: "Adopt this Impounded Animal?",
+      text: "Upon confirmation, chosen Impounded Animal will be updated as reserved for Adoption!",
+      icon: "info",
+      buttons: true,
+  
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        window.location.href="/CVO_Adoption/ChooseAnimal?Animal="+x+"&TransactionId="+$('#adoptionTransactionId').val();
+
+      } else {
+        
+      }
+    });
+        
+    }
+</script>

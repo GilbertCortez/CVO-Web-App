@@ -9,7 +9,19 @@ exports.noAuthed = (req, res, next) => {
         
     }
     else{
+        
         res.redirect('/CVO_Login');
+    }
+     return next();
+}
+
+exports.noAuthedPetOwner = (req, res, next) => {
+    if (req.session && req.session.user && Object.keys(req.session.user).length > 0) {
+        
+    }
+    else{
+        
+        res.redirect('/PetOwner_Login');
     }
      return next();
 }

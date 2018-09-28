@@ -71,6 +71,17 @@ EXPLANATION OF POST ACTION: CVO_ImpoundingSite
 3. Iinsert sa table na cage  yung mga cages
 */
 
+router1.get('/Visitation',  (req,res)=>{
+ db.query(`SELECT * FROM impoundingsite i JOIN barangay b ON i.int_BarangayId=b.int_BarangayId `, (err, AllImpoundingSite, fields) => { console.log(err)
+     db.query(`SELECT * FROM cage WHERE int_ImpoundingSite = ${AllImpoundingSite[0].int_ImpoundingSiteId}`, (err, allcages, fields) => {
+        db.query(`SELECT int_RedemptionTransactionId, int_PetOwnerId AS ownerId,int_OwnerStatus, concat(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName) AS ownerName,dtm_DateTimeOfRedemption, int_RedemptionResult FROM redemptiontransaction  rt JOIN petowner po ON rt.int_OwnerId=po.int_PetOwnerId WHERE   int_RedemptionResult=2 AND int_OwnerStatus=0  UNION  SELECT int_RedemptionTransactionId, int_NonCitizenId AS ownerId, int_OwnerStatus, concat(str_LastName,", ",str_FirstName," ",str_MiddleName) AS ownerName,dtm_DateTimeOfRedemption,int_RedemptionResult FROM redemptiontransaction rt JOIN noncitizen nc ON rt.int_OwnerId=nc.int_NonCitizenId WHERE   int_RedemptionResult=2 AND int_OwnerStatus=1`, (err, rd) => {
+         db.query(`SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=0 AND int_Stage=0) a JOIN (SELECT int_PetOwnerId, CONCAT(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName ) AS AdopterName FROM petowner) po ON a.int_AdopterId=po.int_PetOwnerId  UNION SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=1 AND int_Stage=0) a JOIN (SELECT int_NonCitizenId, CONCAT(str_LastName,", ",str_FirstName," ",str_MiddleName ) AS AdopterName FROM noncitizen) nc ON a.int_AdopterId=nc.int_NonCitizenId`,(err,impoundingsitevisitation)=>{
+          res.render('CVO-T-Impounding/views/Visitation.ejs',{ad:impoundingsitevisitation, rd:rd, als:AllImpoundingSite, AllCages:allcages});
+         });
+                 });
+    });
+    });
+});
 
 
 router1.post('/Cages',  (req,res)=>{
@@ -392,8 +403,47 @@ router2.post('/place',  (req,res)=>{
   }) 
 });
 
-exports.CVO_Impounding=router1;
 
+router1.post('/Assess/Redemption',  (req,res)=>{
+  db.query(`SELECT *,
+ DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) as LodgingDays,
+(SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as ClaimingPeriod, 
+(SELECT int_AdoptionPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as AdoptionPeriod,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM animalsforturnover),"YES","NO") as InAnimalTurnover,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM adoptiontransaction),"YES","NO") as InAdoptionTransaction
+FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId 
+WHERE lh.int_LodgingStatus <> 2  AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
+  console.log(forRedemption)
+  res.json(forRedemption);
+})
+
+});
+
+
+router1.post('/Assess/Adoption',  (req,res)=>{
+console.log('HI')
+  db.query(`SELECT *,
+ DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) as LodgingDays,
+(SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as ClaimingPeriod, 
+(SELECT int_AdoptionPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as AdoptionPeriod,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM animalsforturnover),"YES","NO") as InAnimalTurnover,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM adoptiontransaction),"YES","NO") as InAdoptionTransaction
+FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId 
+WHERE lh.int_LodgingStatus <> 2  AND  DATEDIFF(now(),lh.dtm_DateTimeOfOccurence)>(SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1)   AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
+  console.log(forRedemption)
+  res.json(forRedemption);
+})
+
+});
+
+router1.get('/Visitation/Choose/Redemption',(req,res)=>{
+    db.query(`UPDATE redemptiontransaction SET int_RedemptionResult=3,int_AnimalId=${req.query.AnimalId} WHERE int_RedemptionTransactionId=${req.query.TransactionId}`,(err)=>{
+      console.log(err);
+      res.redirect('/CVO_Impounding/Visitation')
+    });
+});
+
+exports.CVO_Impounding=router1;
 exports.CVO_SurrenderAnimal=router2;
 
 

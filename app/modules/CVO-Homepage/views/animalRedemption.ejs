@@ -1,0 +1,117 @@
+<%- include('./header.ejs') -%>
+
+<section class="home-slider owl-carousel">
+        <div class="slider-item" style="background-image: url(/websitePart/images/bg_34.jpg);" data-stellar-background-ratio="0.5">
+          <div class="overlay"></div>
+          <div class="container">
+            <div class="row slider-text align-items-center">
+              <div class="col-md-7 col-sm-12 ftco-animate">
+       
+                <h1 class="mb-3">Redemption</h1>
+                <p>Find your missing pet here</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+   <section class="ftco-section-2" id="animalRedemption">
+      
+        <div>
+          <div class="section-2-blocks-wrapper row no-gutters">
+            <div class="img col-sm-12 col-md-6" style="background-image: url('/Animals<%= redemption[0].str_AnimalPicturePath %>');" data-aos="fade-right">
+              
+            </div>
+            <div class="text col-md-6">
+              <div class="text-inner align-self-start" data-aos="fade-up">
+                <% function MMMMDDYYYY(i){
+                    
+                                             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                             var now = new Date(i);
+                                             return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                                            
+                                           }
+                    
+        
+        function PRETTYTIME(i){//HH:SS To HH:SS PM/AM
+                                var splitTime=i.split(":");
+                                var prettytime="";
+                                if(splitTime[0]==12){
+                                    prettytime=("12"+":"+splitTime[1]+" NN");
+                                }
+                                else if(splitTime[0]>12 ){
+                                    prettytime=((splitTime[0]-12)+":"+splitTime[1]+" PM");
+                                }
+                                else{
+                                     prettytime=splitTime[0]+":"+splitTime[1]+" AM";
+                                }
+                                
+                                return prettytime;
+        } 
+        function HHSS(i){
+            var now = new Date(i);
+               var hour=now.getHours();
+               var minutes=now.getMinutes();
+               var time="AM";
+         
+               if(hour==12 && minutes==0){
+                  time="NN";
+               }
+               else if(hour>12 && hour!=0){
+                  time="PM";
+                  hour-=12;
+               }
+               else if(hour==0){
+                  hour=12;
+               }
+         
+         
+               return hour+":"+(("0"+minutes).slice(-2))+" "+time;
+         
+         }%>
+                <h3>Name: <%= redemption[0].str_Alias%></h3>
+                <p>Pet Tag Number: <%= redemption[0].str_PetTagNo%></p>
+                <p>Species: <%= redemption[0].int_AnimalSpecies==0? "Dog": "Cat"%></p>
+                <p>Breed: <%= redemption[0].str_BreedName%></p>
+                <p>Color Pattern: <%= redemption[0].str_Description%></p>
+                <p>Sex: <%= redemption[0].int_Sex==0? "Male": "Female" %></p>
+                <p>Remarks: <%=redemption[0].str_Remarks%></p>
+                <p>Date Apprehended: <%=(MMMMDDYYYY(redemption[0].dtm_DateTimeApprehension)) + " " + (HHSS(redemption[0].dtm_DateTimeApprehension))%></p>
+                <p>Apprehended from Barangay: <%=redemption[0].str_BarangayName%></p>
+                <p>Impounded to Impunding Site: <%=redemption[0].int_ImpoundingSiteId%></p>
+                <p>Impounded to Cage Number: <%=redemption[0].int_CageNumber%></p>
+                <p>Days in Impounding Site: <%= days[0].DAYS%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <br>
+      <section class="ftco-section-2">
+            <div class="container">
+              <div class="row pt-5">
+                <div class="col-md-12 text-center mb-5 pt-5" data-aos="fade-up">
+                    <h1> How to Claim your Impounded Pet</h1>
+                  <p>
+                        Step 1: Have a generetad order of visitation to visit impounding site and cage to check the animal
+                        <br>
+                        Step 2: Go to the impounding site and bring the generated order of visitation and bring the following: 
+                        <br>
+                        2 Valid IDs
+                        <br>
+                        Proof of Pet Ownership (eg: Pet Ownership Certificate)
+                        <br>
+                        Step 3: Redeem the lost pet and pay the fee
+                        <br>
+                        <br>
+                        <br>
+                        NOTE: Please claim lost pet before the claiming days are over, if the pet isn't claimed, the pet is will be offered for adoption    
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+<%- include('./footer.ejs') -%>

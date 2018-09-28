@@ -1,7 +1,6 @@
 <%- include('../../../templates/CVO-Head-Location.ejs') -%>
 <script>
 document.getElementById("adoption_list").className="active";
-document.getElementById("NewApplication").className="active";
 document.getElementById("transaction_list").className="active";
 
 </script>
@@ -12,7 +11,8 @@ document.getElementById("transaction_list").className="active";
              <div class="card bg-white" style="min-height: 600px">
              <div class="body">
                 <center><h3>ADOPTION APPLICATION INTERVIEW</h3></center><hr><br><br><br>
-                <a class="btn  btn-block bg-blue" id="wz1"><i class="material-icons">remove_red_eye</i><h6> VIEW ADOPTION APPLICATION FORM</h6></a>
+              <%- include('./modal/personalinfo.ejs') -%>
+              <%- include('./modal/adoptionapplication.ejs') -%>
                 
                
              </div>
@@ -30,19 +30,29 @@ document.getElementById("transaction_list").className="active";
                    <input type="hidden" name="adopterId" value="<%= adopterDetails.AdopterId %>">
             <input type="hidden" name="adopterType" value="<%= adopterDetails.AdopterType %>">
              <input type="hidden" name="transactionId" value="<%= adopterDetails.TransactionId %>">
-                  <label class="form-label">Date and Time of Interview </label>
+                  <label class="form-label">Date and Time of Interview <font color="red">*</font></label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="datetime-local" class="form-control" name="dtmInterview" >
+                                        <input type="datetime-local" class="form-control" name="dtmInterview" id="dtmInterview" >
                                     </div>
                                 </div> 
-                                 <label class="form-label">Interview Remarks</label>
+                                  <script>
+                              function zeroPadded(val) {
+                                if (val >= 10)
+                                  return val;
+                                else
+                                  return '0' + val;
+                              }
+                              var d = new Date();
+                               document.getElementById('dtmInterview').value = (d.getFullYear()+"-"+zeroPadded(d.getMonth() + 1)+"-"+zeroPadded(d.getDate())+"T"+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+                                </script>
+                                 <label class="form-label">Interview Remarks <font color="red">*</font></label>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <textarea rows="10" class="form-control" name="interviewRemarks" autofocus=""></textarea>
                                     </div>
                                 </div> 
-                             <label class="form-label">Is the Adoption Application needs to include Home Visit?</label>
+                             <label class="form-label">Is the Adoption Application needs to include Home Visit? <font color="red">*</font></label>
                                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">
                   <input name="homevisit" type="radio" value=0 id="forYes">
@@ -60,14 +70,13 @@ document.getElementById("transaction_list").className="active";
                      <div class="col-sm-3">
                      
                              <a type="button" class="btn btn-primary btn-lg waves-effect" onclick="proceed();">PROCEED</a>
-                                &nbsp;<a href="CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
+                                &nbsp;<a href="/CVO_Adoption" type="button" class="btn btn-link waves-effect">CANCEL</a>
                       </div>
                 </div>
             </div>
             </div>
             </div>
 
-       
 
 <script>
 

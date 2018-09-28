@@ -1,0 +1,66 @@
+<%- include('./header.ejs') -%>
+    <!-- END nav -->
+    
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url('/websitePart/images/bg_12.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text align-items-center">
+            <div class="col-md-7 col-sm-12 ftco-animate">
+            
+              <h1 class="mb-3">Redemption</h1>
+                <p><strong><a href="#">Lost Pet? Find it here!</a></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <section class="ftco-section-2" id="article">
+    
+      <div>
+        <div class="section-2-blocks-wrapper row no-gutters">
+          
+            
+          </div>
+          <div class="text col-md-6">
+            <div class="text-inner align-self-start" data-aos="fade-up">
+              
+             
+             
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+    <br><br>
+     <center><h3>Animal for Redemption</h3></center>
+     <div class="row" style="padding:50px">
+    <% fr.forEach(function(i){ %>
+      <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="blog-single.html" class="block-20" style="background-image: url('/Animals<%= i.str_AnimalPicturePath %>');">
+              </a>
+              <div class="text p-4">
+               
+                <center><h3 class="heading"><font color="blue">Pet Name</font></h3></center>
+                <h6 ><font color="gray"> Species:</font><%= i.int_Species==0? "Dog": "Cat" %></h6>
+                <h6 ><font color="gray"> Breed:</font> <%= i.str_BreedName %></h6>
+                 <h6 ><font color="gray"> Color Pattern:</font> <%= i.str_Description %></h6>
+                 <h6 ><font color="gray"> Sex:</font> <%= i.int_Sex ==0?"Male":"Female" %></h6>
+                 <h6 ><font color="gray"> Health Status:</font> <%= i.int_HealthStatus==0?"Healthy": "Sick" %></h6>
+                  
+                <p class="clearfix">
+                  <center><a href="/CVO_Homepage/Redemption/Animal?id=<%= i.int_AnimalId %>" class="btn btn-primary">Claim</a></center>
+                </p>
+              </div>
+            </div>
+          </div>
+      <% }); %>
+      </div>
+    </section>
+
+
+<%- include('./footer.ejs') -%>

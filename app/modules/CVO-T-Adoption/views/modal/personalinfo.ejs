@@ -1,0 +1,56 @@
+ <a class="btn  btn-block bg-blue" onclick="$('#personalinfo').modal('toggle');"><i class="material-icons">account_circle</i><h6> VIEW PERSONAL INFORMATION</h6></a><br>
+                <div class="modal fade" id="personalinfo" tabindex="-1" role="dialog" >
+                 <div class="modal-dialog modal-lg" role="document"  >
+                    <div class="modal-content">
+                     
+                       <div class="modal-body" style="min-height:300px">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                              <th colspan="2" class="bg-blue"><center>PERSONAL INFORMATION</center></th>
+                            </tr>
+
+                            <tr>
+                              <th>Name</th>
+                              <td id="pi_Modal1"></td>
+                            </tr>
+
+                             <tr>
+                              <th>Adopter Type</th>
+                              <td id="pi_Modal2"></td>
+                            </tr>
+
+                             <tr>
+                              <th>Cellphone Number</th>
+                              <td id="pi_Modal3"></td>
+                            </tr>
+                              <tr>
+                              <th>Email Address</th>
+                              <td id="pi_Modal4"></td>
+                            </tr>
+                            <tr>
+                              <th>Complete Address</th>
+                              <td id="pi_Modal5"></td>
+                            </tr>
+                            </table>
+                       </div>
+                       <div class="modal-footer">
+                        
+                          <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+<script>
+  $.post('/CVO_Adoption/getPersonalInformation',{id1: <%= adopterDetails.AdopterId %>,id2:  <%= adopterDetails.AdopterType %> },function(data){
+      $('#pi_Modal1').text(data[0].AdopterName);
+      if(<%= adopterDetails.AdopterType %>==0){
+       $('#pi_Modal2').text("Pet Owner");
+     }else{
+      $('#pi_Modal2').text("Non Citizen");
+     }
+       $('#pi_Modal3').text(data[0].str_PhoneNo);
+       $('#pi_Modal4').text(data[0].str_Email);
+       $('#pi_Modal5').text(data[0].str_CompleteAddress);
+
+  });
+</script>

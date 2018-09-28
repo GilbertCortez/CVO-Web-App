@@ -1,0 +1,68 @@
+<%- include('./header.ejs') -%>
+  
+<section class="ftco-section-2" id="animalAdoption">
+        
+          <div><%- include('./header.ejs') -%>
+            
+            <section class="home-slider owl-carousel">
+                    <div class="slider-item" style="background-image: url(/websitePart/images/bg_34.jpg);" data-stellar-background-ratio="0.5">
+                      <div class="overlay"></div>
+                      <div class="container">
+                        <div class="row slider-text align-items-center">
+                          <div class="col-md-7 col-sm-12 ftco-animate">
+                   
+                            <h1 class="mb-3">Adoption</h1>
+                            <p>Find your new family here</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+              
+               <section class="ftco-section-2" id="animalAdoption">
+                  
+                    <div>
+                      <div class="section-2-blocks-wrapper row no-gutters">
+                        <div class="img col-sm-12 col-md-6" style="background-image: url('/Animals<%= adoption[0].str_AnimalPicturePath %>');" data-aos="fade-right">
+                          
+                        </div>
+                        <div class="text col-md-6">
+                          <div class="text-inner align-self-start" data-aos="fade-up">
+                            <h3>Name: <%= adoption[0].str_Alias%></h3>
+                            <p>Species: <%= adoption[0].int_AnimalSpecies==0? "Dog": "Cat"%></p>
+                            <p>Breed: <%= adoption[0].str_BreedName%></p>
+                            <p>Color Pattern: <%= adoption[0].str_Description%></p>
+                            <p>Sex: <%= adoption[0].int_Sex==0? "Male": "Female" %></p>
+                            <p>Health Status: <%=adoption[0].int_HealthStatus==0? "Healthy":"Sick"%></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+            
+                  <br>
+                  <section class="ftco-section-2">
+                        <div class="container">
+                          <div class="row pt-5">
+                            <div class="col-md-12 text-center mb-5 pt-5" data-aos="fade-up">
+                                <h1> Steps in adoption</h1>
+                              <p>
+                                    Step 1: Visit City Veterinary Office-Marikina to view the animal
+                                    <br>
+                                    Step 2: Bring the requirements and undergo Interview and fill up Adoption Application Form    
+                                    <br>
+                                    2 Valid IDs
+                                    <br>
+                                    <br>
+                                    Step 3: Wait for adoption result
+                                    <br>
+                                    Step 4: Bring your pet home and pay the fee 
+                                    <br>
+                                    <br>
+                                    NOTE: for Adopters from Marikina City, you must first register yourself and your pet in CVO and have your pet vaccinated against rabies before going home    
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+<%- include('./footer.ejs') -%>

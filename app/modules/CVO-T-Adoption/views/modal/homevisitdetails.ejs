@@ -1,0 +1,50 @@
+ <a class="btn  btn-block bg-blue"  id="homevisitbtn" onclick="$('#homevisitdetails').modal('toggle');"><i class="material-icons">home</i><h6> VIEW HOME VISIT DETAILS</h6></a>
+                <div class="modal fade" id="homevisitdetails" tabindex="-1" role="dialog" >
+                 <div class="modal-dialog modal-lg" role="document"  >
+                    <div class="modal-content">
+                     
+                       <div class="modal-body" style="min-height:300px">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                              <th colspan="2" class="bg-blue"><center>HOME VISIT DETAILS</center></th>
+                            </tr>
+
+                            <tr>
+                              <th>Date and Time of Home Visit</th>
+                              <td id="hvd_Modal1"></td>
+                            </tr>
+
+                              <tr>
+                              <th>Is the House of the Adopter is capable of having pets?</th>
+                              <td id="hvd_Modal2"></td>
+                            </tr>
+
+                             <tr>
+                              <th>Home Visit Remarks</th>
+                              <td id="hvd_Modal3"> </td>
+                            </tr>
+
+                             
+                          
+                            
+                            </table>
+                       </div>
+                       <div class="modal-footer">
+                        
+                          <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+
+  <script>
+  $.post('/CVO_Adoption/getHomeVisitDetails',{id:<%= adopterDetails.TransactionId %> },function(data){
+    if(data[0].dtm_DateTimeOfHomeVisit == null){
+      $('#homevisitbtn').attr('disabled','disabled');
+       $('#homevisitbtn').attr('onclick','swal("Home Visitation is not applicable in this Adoption Transaction.")');
+    }
+    $('#hvd_Modal1').text(data[0].dtm_DateTimeOfHomeVisit);
+    $('#hvd_Modal2').text(data[0].int_HomeVisitStatus==0?"YES":"NO");
+    $('#hvd_Modal3').text(data[0].str_HomeVisitRemarks);
+  });
+</script>

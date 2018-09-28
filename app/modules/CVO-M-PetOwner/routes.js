@@ -9,7 +9,6 @@ router.get('/',  (req,res)=>{
  db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 1`, (err, petowners) => { console.log(err)
                 res.render('CVO-M-PetOwner/views/view.ejs', {
                     po: petowners
-                
                 });
            });
         });

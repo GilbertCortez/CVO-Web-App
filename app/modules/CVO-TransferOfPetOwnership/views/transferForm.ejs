@@ -1,0 +1,61 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("transferofownership_list").className="active";
+
+   document.getElementById("transaction_list").className="active";
+</script>
+<div class="col-sm-4">
+            <div class="card">
+                <div class="body" style="min-height:610px">
+                 <center><h3>TRANSFER OF PET OWNERSHIP FORM</h3></center>
+                  <hr>
+                  <br><br><br>
+                    <a class="btn  btn-block bg-blue btn-lg" onclick="$('#adoptionapplication  ').modal('toggle');"><i class="material-icons">pets</i><h6> VIEW PET INFORMATION</h6></a><br>
+                  <a class="btn  btn-block bg-blue btn-lg" onclick="$('#adoptionapplication  ').modal('toggle');"><i class="material-icons">account_box</i><h6> VIEW CURRENT OWNER INFORMATION</h6></a><br>
+                  <a class="btn  btn-block bg-blue btn-lg" onclick="$('#adoptionapplication  ').modal('toggle');"><i class="material-icons">account_box</i><h6> VIEW RECEIVER INFORMATION</h6></a><br>
+                </div>
+            </div>
+        </div>
+
+            <div class="col-sm-8">
+        <div class="card">
+            <div class="body" style="min-height:610px">
+              <form method="POST" action="/CVO_TransferOfPetOwnership/transferForm" id="transferForm">
+                              <input type="hidden" name="transferFrom" value="<%= trans.transferFrom %>" >
+                              <input type="hidden" name="transferTo" value="<%= trans.transferTo %>" >
+                              <input type="hidden" name="transferToType" value="<%= trans.transferToType %>" >
+                              <input type="hidden" name="pet" value="<%= trans.pet %>" >
+                          <div class="col-sm-12">
+                         <label class="form-label">Date and Time of Transfer <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="Datetime-local" class="form-control" name="datetimeoftransfer" >
+                                    </div>
+                                </div>
+                                </div>
+
+                                   <div class="col-sm-12">
+                         <label class="form-label">Reason of Transfer <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="17" class="form-control" name="reason" ></textarea>
+                                    </div>
+                                </div>
+                                </div>
+                                 
+    
+                </form>
+                <div align='right'>
+            <button type="button" class="btn btn-primary waves-effect" onclick="proceed()" >PROCEED</button>
+           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            function proceed(){
+                document.getElementById('transferForm').submit();
+            }
+    </script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

@@ -1,0 +1,67 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("report_list").className="active";
+   document.getElementById("adoption_report").className="active";
+</script>
+ <div class="col-sm-12">
+        <div class="card">
+        	<div class="header bg-white">
+        	<a class="btn btn-primary" onclick="print();">Print</a>
+        	</div>
+            <div class="body" id="report_body">
+                 <iframe src="/CVO_Report/Adoption/line" frameBorder="0" width="101%" height="50%" scrolling="no"></iframe>
+                 <br><br>
+                 <div class="table-responsive">
+                                <table class="table table-bordered table-striped ">
+                                    <thead>
+                                        <tr class="bg-blue">
+                                            <th>Month</th>
+                                            <th>Total Adopted Dogs</th>
+                                            <th>Total Adopted Cats</th>
+                                            <th>Montly Total</th>
+                                        </tr>
+                                        <tr>	
+                                        	<td>January</td>
+                                        	<td>23</td>
+                                        	<td>42</td>
+                                        	<td>65</td>
+                                        </tr>
+                                          <tr>	
+                                        	<td>February</td>
+                                        	<td>34</td>
+                                        	<td>52</td>
+                                        	<td>86</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>  
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/jsPDF/dist/jspdf.debug.js"></script>
+    <script type="text/javascript" src="/html2canvas.js"></script>
+    <script type="text/javascript" src="/jsPDF/examples/js/basic.js"></script>
+    <script>
+    function print(){
+        var doc = new jsPDF();
+      setTimeout(function(){
+        html2canvas(document.getElementById('report_body')).then(function(canvas) {
+            doc.addImage(canvas, 5, 1,340,200);
+          
+
+     var canvasImg = canvas.toDataURL("image/jpg");
+       document.write('<img src="'+canvasImg+'" target="_blank"width="100%">');
+       
+    
+
+  
+//doc.save("Pet_Owner_Certificate.pdf")
+        });}, 1000)
+     setTimeout(function(){ window.print()}, 1500)
+ }
+    
+    </script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

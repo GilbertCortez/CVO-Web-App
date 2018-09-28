@@ -1,0 +1,134 @@
+<div class="modal fade" id="nonCitizen" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h4>CHOOSE NON CITIZEN</h4>
+            </div>
+            <div class="modal-body" style="min-height:550px">
+                <a class="btn btn-primary btn-block waves-effect" onclick=" $('#nonCitizenForm').modal('toggle');">NEW NON CITIZEN</a><br><br>
+                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th style="width:20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% nc.forEach(function (i){ %>
+                        <tr>
+                            <td>
+                                <%= i.str_LastName+", "+i.str_FirstName+" "+i.str_MiddleName %>
+                            </td>
+
+                            <td>
+                                <%= i.str_CompleteAddress %>
+                            </td>
+                            <td>
+                                <%= i.str_PhoneNo %>
+                            </td>
+                            <td>
+                                <%= i.str_Email %>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-small" onclick="orderOfVisitation('<%= i.int_NonCitizenId %>');"><i class="material-icons" >apps</i>IMPOUNDING SITE VISITATION</a>
+                            </td>
+                        </tr>
+                        <% });  %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="nonCitizenForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <h4>NON CITIZEN FORM</h4>
+            </div>
+            <div class="modal-body" style="min-height:300px">
+                <div class="col-sm-4">
+                    <label class="form-label">First Name<font color="red">*</font></label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC1" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label">Middle Name</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC2" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-label">Last Name<font color="red">*</font></label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC3" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <label class="form-label">Complete Address<font color="red">*</font></label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC4" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label">Cellphone Number<font color="red">*</font></label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC5" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label">Email Address</label>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="NC6" autocomplete="off">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary waves-effect" onclick="regNonCitizen()">PROCEED</a>
+                <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function regNonCitizen() {
+        $.post("/CVO_Adoption/regNonCitizen", {
+                id1: $('#NC1').val(),
+                id2: $('#NC2').val(),
+                id3: $('#NC3').val(),
+                id4: $('#NC4').val(),
+                id5: $('#NC5').val(),
+                id6: $('#NC6').val()
+            },
+            function(data) {
+                window.location.href="/CVO_Redemption/OrderOfVisitation?ownerId="+data+"&ownerType="+$('input[name="ownerType"]:checked').val();
+            }
+        )
+    }
+</script>

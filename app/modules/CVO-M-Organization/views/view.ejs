@@ -13,7 +13,7 @@ document.getElementById("organization_list").className="active";
         <div class="block-header" >
 
                 <h2>
-               Organization
+               ORGANIZATION
                 </h2>
             </div>
         <div class="card">
@@ -47,7 +47,7 @@ document.getElementById("organization_list").className="active";
                                                               <th>Email</th>
                                                               <th>Telephone Number </th>
                                                             <th>Cellphone Number</th>
-                                                            
+                                                            <th>Active?</th>
 
 															<th>Action</th>
                                                         </tr>
@@ -61,18 +61,35 @@ document.getElementById("organization_list").className="active";
                                                     </tfoot> -->
                                                     <tbody>
                                                         <% organizations.forEach(function (i) { %>
-                                                         <tr>
+                                                         <tr id="<%= i.int_OrganizationId%>">
                                                              <td><%= i.int_OrganizationId%></td>
                                                              <td><%= i.str_OrganizationName%></td>
                                                              <td><%= i.str_Email%></td>
                                                              <td><%= i.str_TelephoneNumber%></td>
                                                              <td><%= i.str_CellphoneNumber%></td>
+                                                              <td>
+                                   <% if (i.int_Status == 1) { %>
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_OrganizationId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_OrganizationId%>">YES</small>
+                                                                </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_OrganizationId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_OrganizationId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+
+
+                                                                </td>
                                                              <td>
                                                                      <div align="center">
                                                                              <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
                                                                                  <button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                                                                     <i class="material-icons">mode_edit</i>
                                                                             </button></a>
+                                                                            <button type="button" onclick="deleteOrganization('<%=i.int_OrganizationId %>')" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete" <% usedOrganization.forEach(function(x){  if(i.int_OrganizationId==x.int_OrganizationId){%> disabled <% }})  %>>
+                                                                            <i class="material-icons">delete</i></button>
                                                                         </div>
                                                              </td>
                                                          </tr>          
@@ -89,7 +106,29 @@ document.getElementById("organization_list").className="active";
         </div>
     </div>
      
+<script>
+function statUpdate(x){
 
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_Organization/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_Organization/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+function deleteOrganization(x){
+   $.post("/CVO_Organization/delete",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+
+</script>
 
 <%- include('./addOrganization.ejs') -%>
 <%- include('./updateOrganization.ejs') -%>
