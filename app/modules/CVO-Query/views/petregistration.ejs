@@ -31,7 +31,11 @@
             <label class="form-label">Start Date</label>
             <div class="form-group form-float">
                <div class="form-line">
+<<<<<<< HEAD
                   <input type="date" id="startDate" class="form-control">
+=======
+                  <input type="date" id="start" class="form-control">
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                </div>
             </div>
             </div>
@@ -40,7 +44,11 @@
             <label class="form-label">End Date</label>
             <div class="form-group form-float">
                <div class="form-line">
+<<<<<<< HEAD
                   <input type="date" id="endDate" class="form-control">
+=======
+                  <input type="date" id="end" class="form-control">
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                </div>
             </div>
             </div>
@@ -87,6 +95,7 @@
                   <a class="btn bg-blue waves-effect" onclick="apply()">APPLY</a>
 
                   <script>
+<<<<<<< HEAD
 
                   function querytype(selected){
                       if (selected == 2){
@@ -108,6 +117,15 @@
                     else if ($('#unconstrained').is(':checked')) {
                         window.location.href="/CVO_Query/PetRegistration?QueryType=2";
                     }
+=======
+                  
+                  function apply(){
+                    window.location.href="/CVO_Query/PetRegistration?QueryType=1&Barangay="+$('#barangay').val()+"&StartDate="+document.getElementById('start').value+"&EndDate="+document.getElementById('end').value+"Species="+document.getElementsByName("species")+"Status="+document.getElementsByName("status");
+                  }
+
+                  function getStatus(){
+                      
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                   }
                   </script>
                </center>

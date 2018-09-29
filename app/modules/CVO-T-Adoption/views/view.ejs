@@ -12,7 +12,7 @@
    <div class="card" style="min-height: 530px; ">
       <div class="body">
          <div class="col-sm-12">
-            <a class="btn btn-block btn-lg btn-primary waves-effect" onclick="newAdoption()"><i class="material-icons">pets</i>NEW PET ADOPTION</a>
+            <a class="btn btn-block btn-lg btn-primary waves-effect" onclick=" $('#pa_requirements').modal('toggle');"><i class="material-icons">pets</i>NEW PET ADOPTION</a>
          </div>
          <br><br>
          <ul class="nav nav-tabs" role="tablist">
@@ -93,9 +93,15 @@
                               <% } %>
                            </td>
                               
+<<<<<<< HEAD
                            <td width="100px">
                   
                            <div align="right">
+=======
+                           <td width="200px">
+                  
+                           <div align="center">
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                               <% if(i.int_Stage==0){ %>
                                     
                               <% } else if(i.int_Stage==1){ %>
@@ -103,7 +109,11 @@
                               <% } else if(i.int_Stage==2){ %>
                                     <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/Interview?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">group</i></a> 
                               <% } else if(i.int_Stage==3){ %>
+<<<<<<< HEAD
                                      <a class="btn bg-blue waves-effect"><i class="material-icons">remove_red_eye</i>  </a> <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/HomeVisit?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>   </a> 
+=======
+                                   <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/HomeVisit?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>   </a> 
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                               <% } else if(i.int_Stage==4){ %>
                                    <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/FinalEvaluation?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">announcement</i></a> 
                               <% } %>
@@ -258,7 +268,11 @@
                            <td><%= (i.int_AdopterType==0? "Pet Owner": "Non Citizen") %></td>
                            <td><%= MMMMDDYYYY(i.dtm_DateTimeOfAdoptionTransaction) %></td>
                            <td >
+<<<<<<< HEAD
                               <center><a class="btn bg-blue waves-effect"><i class="material-icons">remove_red_eye</i>VIEW ADOPTER DETAILS</a> <a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/HomeVisit?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>RECORD HOME VISITATION DETAILS</a> <a class="btn bg-grey waves-effect" onclick="cancelAdoption('<%= i.int_AdoptionTransactionId %>')"><i class="material-icons">cancel</i>CANCEL</a></center>
+=======
+                              <center><a class="btn bg-blue waves-effect" onclick="window.location.href='/CVO_Adoption/HomeVisit?AdopterId=<%=i.int_AdopterId %>&AdopterType=<%= i.int_AdopterType %>&TransactionId=<%= i.int_AdoptionTransactionId %>'"><i class="material-icons">home</i>RECORD HOME VISITATION DETAILS</a> <a class="btn bg-grey waves-effect" onclick="cancelAdoption('<%= i.int_AdoptionTransactionId %>')"><i class="material-icons">cancel</i>CANCEL</a></center>
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                            </td>
                         </tr>
                         <% }); %>
@@ -546,9 +560,7 @@
       }
       
 
-   function newAdoption(){
-       $('#newAdoption').modal('toggle');
-   }
+
    function proceed1(){
        if($('input[name="adoptertype"]:checked').val()==1){
           $('#petOwners').modal('toggle');
@@ -576,4 +588,5 @@
       $('#b2').attr("disabled",false)
    }
 </script>        
+<%- include('./requirements.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

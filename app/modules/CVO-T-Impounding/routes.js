@@ -412,7 +412,28 @@ router1.post('/Assess/Redemption',  (req,res)=>{
 IF(lh.int_AnimalId in (SELECT int_AnimalId FROM animalsforturnover),"YES","NO") as InAnimalTurnover,
 IF(lh.int_AnimalId in (SELECT int_AnimalId FROM adoptiontransaction),"YES","NO") as InAdoptionTransaction
 FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId 
+<<<<<<< HEAD
 WHERE lh.int_LodgingStatus <> 2 AND DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) > ( SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
+=======
+WHERE lh.int_LodgingStatus <> 2  AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
+  console.log(forRedemption)
+  res.json(forRedemption);
+})
+
+});
+
+
+router1.post('/Assess/Adoption',  (req,res)=>{
+console.log('HI')
+  db.query(`SELECT *,
+ DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) as LodgingDays,
+(SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as ClaimingPeriod, 
+(SELECT int_AdoptionPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) as AdoptionPeriod,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM animalsforturnover),"YES","NO") as InAnimalTurnover,
+IF(lh.int_AnimalId in (SELECT int_AnimalId FROM adoptiontransaction),"YES","NO") as InAdoptionTransaction
+FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId 
+WHERE lh.int_LodgingStatus <> 2  AND  DATEDIFF(now(),lh.dtm_DateTimeOfOccurence)>(SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1)   AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
   console.log(forRedemption)
   res.json(forRedemption);
 })

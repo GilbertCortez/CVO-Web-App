@@ -1,0 +1,84 @@
+
+<html>
+
+<head>
+	<title>Line Chart</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="/charts/dist/Chart.bundle.js"></script>
+<script src="/charts/samples/utils.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<div style="width:600px">
+		<canvas id="chart1"></canvas>
+	</div>
+
+	<script>
+	
+		var dateFormat = 'MMMM DD YYYY';
+		var date = moment('April 01 2017', dateFormat);
+		var data = [1,2,3];
+		var labels = ['Oct','Nov','Dec'];//DATES
+	
+		var ctx = document.getElementById('chart1').getContext('2d');
+		ctx.canvas.width = 1000;
+		ctx.canvas.height = 540;
+		var color = Chart.helpers.color;
+		var cfg = {
+			type: 'bar',
+
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Pet',
+					backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+					borderColor: window.chartColors.blue,
+					data: data,
+					type: 'line',
+					pointRadius: 0,
+					fill: false,
+					lineTension: 0,
+					borderWidth: 2
+				}]
+			},
+			options: {
+				title: {
+                    display: true,
+                    text: 'PET REGISTRATION FORECAST'
+                },
+				scales: {
+					xAxes: [{
+						type: 'time',
+						distribution: 'series',
+						ticks: {
+							source: 'labels'
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Number of Registration'
+						}
+					}]
+				}
+			}
+		};
+		var chart = new Chart(ctx, cfg);
+		document.getElementById('update').addEventListener('click', function() {
+			var type = document.getElementById('type').value;
+			chart.config.data.datasets[0].type = type;
+			chart.update();
+		});
+	</script>
+</body>
+
+</html>

@@ -9,7 +9,7 @@
 <div class="block-header">
 <h2>APPREHENSION</h2>
 </div>
-        <div class="card col-sm-8">
+        <div class="card col-sm-12">
            
             <div class="body" >
          
@@ -70,45 +70,7 @@
                 </div>
             </div>
         </div>
-         <div class="col-sm-4">
-         <div class="card" style="min-height: 555px">
-         <br><br><br>
-         <div class="body">
-         <center><h3>TODAY'S APPREHENSION</h3></center><hr>
-         <div class="table-responsive">
-         <table class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <% function formatDate(date) {
-    var year = date.getFullYear().toString();
-    var month = (date.getMonth() + 101).toString().substring(1);
-    var day = (date.getDate() + 100).toString().substring(1);
-    return year + "-" + month + "-" + day;
-} %>
-                    <th style="text-align: right"><%= 
 
-formatDate(new Date()); %></th>
-                </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th width="10px" >
-                        Apprehended Animals
-                        </th>
-
-                        <td style="text-align: right">
-                        <%= aa %>
-                        </td>
-                        </tr>
-                    </tbody>
-         </table>
-          <a class="btn btn-primary btn-block waves-effect"><i class="material-icons">pets</i>VIEW APPREHENDED ANIMALS</a><br><br>
-           <a class="btn btn-primary btn-block waves-effect"><i class="material-icons">remove_red_eye</i>VIEW CAGE ASSIGNMENTS</a>
-         </div>
-         </div>
-         </div>
-         </div>
 
     </div>
 <form action="/CVO_CageAssignments" method="POST" id="cageAssignment">

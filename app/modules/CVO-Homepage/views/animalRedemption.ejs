@@ -76,7 +76,11 @@
                 <p>Breed: <%= redemption[0].str_BreedName%></p>
                 <p>Color Pattern: <%= redemption[0].str_Description%></p>
                 <p>Sex: <%= redemption[0].int_Sex==0? "Male": "Female" %></p>
+<<<<<<< HEAD
                 <p>Remarks: <%=remarks[0].str_Remarks%></p>
+=======
+                <p>Remarks: <%=redemption[0].str_Remarks%></p>
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                 <p>Date Apprehended: <%=(MMMMDDYYYY(redemption[0].dtm_DateTimeApprehension)) + " " + (HHSS(redemption[0].dtm_DateTimeApprehension))%></p>
                 <p>Apprehended from Barangay: <%=redemption[0].str_BarangayName%></p>
                 <p>Impounded to Impunding Site: <%=redemption[0].int_ImpoundingSiteId%></p>
@@ -99,9 +103,15 @@
                         <br>
                         Step 2: Go to the impounding site and bring the generated order of visitation and bring the following: 
                         <br>
+<<<<<<< HEAD
                         1. 2 Valid IDs
                         <br>
                         2. Proof of Pet Ownership (eg: Pet Ownership Certificate)
+=======
+                        2 Valid IDs
+                        <br>
+                        Proof of Pet Ownership (eg: Pet Ownership Certificate)
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                         <br>
                         Step 3: Redeem the lost pet and pay the fee
                         <br>

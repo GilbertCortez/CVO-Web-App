@@ -1,0 +1,76 @@
+
+<html>
+<head>
+			<script src="/charts/dist/Chart.bundle.js"></script>
+<script src="/charts/samples/utils.js"></script>
+</head>
+<body>
+
+     
+            <div  >
+                <center><canvas id="canvas" style="max-height:350px;max-width:700px" ></canvas></center>
+            </div>
+    
+
+     <script>
+
+        var config = {
+
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Adoption',
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                        20, 34, 23, 56, 7, 8, 99
+                    ],
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'ADOPTION MONTHLY REPORT'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Adoption'
+                        }
+                    }]
+                }
+            }
+        };
+        window.onload = function() {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+            
+           
+        };
+
+     
+    </script>
+
+
+</body>
+</html>

@@ -126,8 +126,18 @@
     })
     .then((willDelete) => {
       if (willDelete) {
+<<<<<<< HEAD
         swal("Instruct the Pet Owner to return in the Office for the Interview.")
           window.location.href="/CVO_Impounding/Visitation/Choose/Redemption?TransactionId="+   $('#redemptionTransactionId').val()+"&AnimalId="+x;
+=======
+        swal({title:"Instruct the Pet Owner to return in the Office for the Interview.",
+          closeOnClickOutside: false,}
+          )
+        .then((willDelete) => {
+         
+        window.location.href="/CVO_Impounding/Visitation/Choose/Redemption?TransactionId="+   $('#redemptionTransactionId').val()+"&AnimalId="+x; 
+      });
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
       } else {
         
       }

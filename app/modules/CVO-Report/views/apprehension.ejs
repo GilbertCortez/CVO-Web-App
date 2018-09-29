@@ -1,0 +1,100 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("report_list").className="active";
+   document.getElementById("apprehension_report").className="active";
+</script>
+
+ <div class="col-sm-8">
+                <div class="card" style="height:400px">
+                    <div class="body">
+                    <br>
+                     <iframe src="/CVO_Dashboard/apprehensionBar" frameBorder="0" width="100%" height="100%"></iframe>
+                    </div>
+                </div>
+         </div>
+
+         <div class="col-sm-4">
+        <div class="card">
+            <div class="body">
+                 <iframe src="/CVO_Report/Apprehension/animalspecies" frameBorder="0" width="95%" height="50%" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+
+     <div class="col-sm-8">
+<div class="block-header">
+          
+            <h2>MONTHLY APPREHENSION</h2>
+          
+            </div>
+    <div class="card">
+            
+            <div class="body">
+                     <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-exportable dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Barangay</th>
+                                            <th>Apprehended Dogs</th>
+											<th>Apprehended Cats</th>
+											<th>Total Apprehended Animal</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>  
+            </div>
+    </div>
+       
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="body">
+                 <table class="table table-striped table-bordered" height="48%">
+                 <tr >
+                 <th colspan="3"  class="bg-blue" >
+                 <center>TOP 5 BARANGGAY(Number of Apprehended Animals)</center>
+                 </th>
+
+                 </tr>
+                 <tr>
+                 <th>#1</th>
+                 <td>Vaccine 1</td>
+                 <td><a class="btn btn-primary waves-effect"><i class="material-icons">remove_red_eye</i></a></td>
+                 </tr>
+                 <tr>
+                 <th>#2</th>
+                 <td>Vaccine 2</td>
+                 <td><a class="btn btn-primary waves-effect"><i class="material-icons">remove_red_eye</i></a></td>
+                 </tr>
+             
+             <tr>
+                 <th>#3</th>
+                 <td>Vaccine 3</td>
+                 <td><a class="btn btn-primary waves-effect"><i class="material-icons">remove_red_eye</i></a></td>
+                 </tr>
+             
+             <tr>
+                 <th>#4</th>
+                 <td>Vaccine 4</td>
+                 <td><a class="btn btn-primary waves-effect"><i class="material-icons">remove_red_eye</i></a></td>
+                 </tr>
+             
+             <tr>
+                 <th>#5</th>
+                 <td>Vaccine 5</td>
+                 <td><a class="btn btn-primary waves-effect"><i class="material-icons">remove_red_eye</i></a></td>
+                 </tr>
+             
+
+             
+                 </table>
+            </div>
+        </div>
+    </div>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

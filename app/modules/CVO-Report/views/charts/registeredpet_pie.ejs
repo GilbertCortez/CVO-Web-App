@@ -1,0 +1,58 @@
+<html>
+
+<head>
+	<title>Pie Chart</title>
+	<script src="/charts/dist/Chart.bundle.js"></script>
+<script src="/charts/samples/utils.js"></script>
+</head>
+
+<body>
+
+	<div id="canvas-holder" style="width:240%;position: absolute;
+    right: -210px;
+    top: 0px;
+    z-index: -1;">
+		<canvas id="chart-area"></canvas>
+	</div>
+
+	<script>
+		
+		var config = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [
+						<%= data[0].COU %>,
+						<%= data[1].COU %>,
+						
+					],
+					backgroundColor: [
+						window.chartColors.blue,
+						window.chartColors.grey,
+					
+					],
+					label: 'Dataset 1'
+				}],
+				labels: [
+					'Dog',
+					'Cat'
+					
+				]
+			},
+			options: {
+				responsive: true,
+				title: {
+                    display: true,
+                    text: 'PET REGISTRATION'
+                },
+			}
+		};
+		window.onload = function() {
+			var ctx = document.getElementById('chart-area').getContext('2d');
+			window.myPie = new Chart(ctx, config);
+		};
+	
+	</script>
+</body>
+
+</html>

@@ -58,7 +58,11 @@
     function changeImpoundingSiteAdoption(x){
        $('#filteredAnimal').empty();
         document.getElementById('ajxLoaderAdoption').style.display="block";
+<<<<<<< HEAD
       $.post("/CVO_Adoption/AnimalOnCage",{id: x},function(data){
+=======
+      $.post("/CVO_Impounding/Assess/Adoption",{id: x},function(data){
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 
                   var toAppend="";
                   data.forEach(function(i){
@@ -76,7 +80,11 @@
                             <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
 
                             </center>
+<<<<<<< HEAD
                             <center><a class="btn btn-primary waves-effect" onclick="claimAnimal(`+i.int_AnimalId+`)">CHOOSE</a></center>
+=======
+                            <center><a class="btn btn-primary waves-effect" onclick="adoptAnimal(`+i.int_AnimalId+`)">CHOOSE</a></center>
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                         </div>
                     </div>
                 </div>`;
@@ -90,6 +98,25 @@
       
    
     function adoptAnimal(x){
+<<<<<<< HEAD
         window.location.href="/CVO_Adoption/ChooseAnimal?Animal="+x+"&TransactionId="+$('#adoptionTransactionId').val();
+=======
+       swal({
+      title: "Adopt this Impounded Animal?",
+      text: "Upon confirmation, chosen Impounded Animal will be updated as reserved for Adoption!",
+      icon: "info",
+      buttons: true,
+  
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        window.location.href="/CVO_Adoption/ChooseAnimal?Animal="+x+"&TransactionId="+$('#adoptionTransactionId').val();
+
+      } else {
+        
+      }
+    });
+        
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
     }
 </script>

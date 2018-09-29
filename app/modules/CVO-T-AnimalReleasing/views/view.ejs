@@ -37,7 +37,7 @@
                                                            <th>Breed</th>
                                                            <th>Color Pattern</th>
                                                            <th>Sex</th>
-                                                           <th>Picture</th>
+                                                           
                                                             <th >Action</th>
                                                         </tr>
                                                     </thead>
@@ -51,7 +51,7 @@
                                                     <td><%= i.str_BreedName %></td>
                                                     <td><%= i.str_Description %></td>
                                                     <td><%= i.int_Sex==0?"Male": "Female"; %></td>
-                                                    <td><center><a class="btn btn-primary"><i class="material-icons">photo</i></a></center></td>
+                                                    
                                                     <td><center><a class="btn btn-primary " onclick="redempRelease('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
                                                     </tr>
                                                       <% }); %>
@@ -72,7 +72,7 @@
                                                            <th>Breed</th>
                                                            <th>Color Pattern</th>
                                                            <th>Sex</th>
-                                                           <th>Picture</th>
+                         
                                                             <th >Action</th>
                                                         </tr>
                                                     </thead>
@@ -86,8 +86,8 @@
                                                     <td><%= i.str_BreedName %></td>
                                                     <td><%= i.str_Description %></td>
                                                     <td><%= i.int_Sex==0?"Male": "Female"; %></td>
-                                                    <td><center><a class="btn btn-primary"><i class="material-icons">photo</i></a></center></td>
-                                                    <td><center><a class="btn btn-primary " onclick="redempRelease('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
+                                          
+                                                    <td><center><a class="btn btn-primary " onclick="adoptionRelease('<%= i.int_AnimalId %>')"><i class="material-icons">reply</i>RELEASE</a></center></td>
                                                     </tr>
                                                       <% }); %>
                                                     </tbody>
@@ -139,7 +139,7 @@
                                                             <td>
                                                                 <div align="center">
                                                                 
-                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="" href="CVO_AnimalReleasing/release/animalturnover?batchId=<%= i.int_BatchOfAnimalTurnOver%>">
+                                                                   <a class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="" onclick="batchrelease('<%= i.int_BatchOfAnimalTurnOver%>');">
                                                                             <i class="material-icons">reply</i>RELEASE ANIMALS
                                                                     </a>
 
@@ -163,15 +163,93 @@
 
 <script>
   function redempRelease(x){
+swal({
+  title: "Release this Impounded Animal?",
+  text: "Once confirmed, Impounded Animal will be updated as Released!",
+  icon: "info",
+  buttons: true,
 
+})
+.then((willDelete) => {
+  if (willDelete) {
+   
     $.post("/CVO_AnimalReleasing/release/redemption",{id:x},function(data){
       if(data="SUCCESS"){
+         swal("Released Animal Recorded!", {
+      icon: "success",
+    }).then(function(){
       window.location.reload()
+    });
       }
       else{
 
       }
     })
+  } else {
+
+  }
+});
+    
+  }
+
+  function adoptionRelease(x){
+swal({
+  title: "Release this Impounded Animal?",
+  text: "Once confirmed, Impounded Animal will be updated as Released!",
+  icon: "info",
+  buttons: true,
+
+})
+.then((willDelete) => {
+  if (willDelete) {
+   
+    $.post("/CVO_AnimalReleasing/release/adoption",{id:x},function(data){
+      if(data="SUCCESS"){
+         swal("Released Animal Recorded!", {
+      icon: "success",
+    }).then(function(){
+      window.location.reload()
+    });
+      }
+      else{
+
+      }
+    })
+  } else {
+
+  }
+});
+    
+  }
+
+   function batchrelease(x){
+swal({
+  title: "Release Impounded Animals in this Batch?",
+  text: "Once confirmed, Impounded Animals will be updated as Released!",
+  icon: "info",
+  buttons: true,
+
+})
+.then((willDelete) => {
+  if (willDelete) {
+   
+    $.post("/CVO_AnimalReleasing/release/animalturnover",{id:x},function(data){
+      if(data="SUCCESS"){
+         swal("Released Animal Recorded!", {
+      icon: "success",
+    }).then(function(){
+      window.location.reload()
+    });
+      }
+      else{
+
+      }
+    })
+  } else {
+
+  }
+});
+    
   }
 </script>
 

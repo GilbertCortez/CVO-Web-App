@@ -1,81 +1,89 @@
-<!DOCTYPE HTML>
+
 <html>
 <head>
-<script>
-window.onload = function () {
-
-var options = {
-	animationEnabled: true,
-	theme: "light2",
-	
-	axisX:{
-		valueFormatString: "MMM"
-	},
-	axisY: {
-		title: "Number of Registration",
-		minimum: 0
-	},
-	toolTip:{
-		shared:true
-	},  
-	legend:{
-		cursor:"pointer",
-		verticalAlign: "bottom",
-		horizontalAlign: "left",
-		dockInsidePlotArea: true,
-		itemclick: toogleDataSeries
-	},
-	data: [{
-		type: "line",
-		showInLegend: true,
-		name: "Pet Registration",
-		markerType: "square",
-		xValueFormatString: "MMM YYYY",
-		color: "rgb(33,150,243)",
-		yValueFormatString: "#,##0",
-		dataPoints: [
-		<% petowner.forEach(function(i,ctr){ %>
-			<% if(ctr+1==petowner.length){ %>
-				{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  }
-				<% } else { %>
-			{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  },
-		<%} }); %>
-			
-		]
-	},
-	{
-		type: "line",
-		showInLegend: true,
-		name: "Owner Registration",
-		color: "grey",
-		yValueFormatString: "#,##0",
-		dataPoints: [
-			<% pet.forEach(function(i,ctr){ %>
-			<% if(ctr+1==petowner.length){ %>
-				{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  }
-				<% } else { %>
-			{ x: new Date(<%= i.YEA %>, <%= i.MON %>), y: <%= i.COU %>  },
-		<%} }); %>
-		]
-	}]
-};
-$("#chartContainer").CanvasJSChart(options);
-
-function toogleDataSeries(e){
-	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	} else{
-		e.dataSeries.visible = true;
-	}
-	e.chart.render();
-}
-
-}
-</script>
+			<script src="/charts/dist/Chart.bundle.js"></script>
+<script src="/charts/samples/utils.js"></script>
 </head>
 <body>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<div class="col-sm-8">
+        <div class="card">
+            <div class="body">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+     <script>
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Pet Owner',
+                    backgroundColor: window.chartColors.pink,
+                    borderColor: window.chartColors.pink,
+                    data: [
+                        <% data.forEach(function(i,ctr){ %>
+                          
+                            <%= i.poCOU+"," %>
+                        
+                        <% }); %>
+                    ],
+                    fill: false,
+                }, {
+                    label: 'Pet',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                      <% data.forEach(function(i,ctr){ %>
+                            <%= i.pCOU+"," %>
+                        <% }); %>
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'PET AND OWNER REGISTRATION'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Registration'
+                        }
+                    }]
+                }
+            }
+        };
+        window.onload = function() {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+            
+           
+        };
+
+     
+    </script>
+
+
 </body>
 </html>

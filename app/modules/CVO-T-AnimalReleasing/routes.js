@@ -21,22 +21,43 @@ router1.get('/',  (req,res)=>{
 });
 
 router1.post('/release/redemption',(req,res)=>{
-	db.query(`UPDATE animal SET int_AnimalStatus=2 WHERE int_AnimalId=${req.body.id};`,(err)=>{
+	
+				db.query(`UPDATE animal SET int_AnimalStatus=2 WHERE int_AnimalId=${req.body.id}`,(err)=>{ console.log(err)
+			db.query(`UPDATE lodginghistory SET int_LodgingStatus=2 WHERE int_LodgingStatus=0 AND int_AnimalId=${req.body.id}`,(err)=>{ 
 		if(err){
 			res.send("ERROR");
 		}
 		else{
 			res.send("SUCCESS");
 		}
-	})
+	});});
+});
+
+router1.post('/release/adoption',(req,res)=>{
+	
+				db.query(`UPDATE animal SET int_AnimalStatus=2 WHERE int_AnimalId=${req.body.id}`,(err)=>{ console.log(err)
+			db.query(`UPDATE lodginghistory SET int_LodgingStatus=2 WHERE int_LodgingStatus=0 AND int_AnimalId=${req.body.id}`,(err)=>{ 
+		if(err){
+			res.send("ERROR");
+		}
+		else{
+			res.send("SUCCESS");
+		}
+	});});
 });
 
 
-router1.get('/release/animalturnover?:batchId=?',  (req,res)=>{
-	db.query(`UPDATE batchofanimalturnover SET dat_DatePickedUp=now() WHERE int_BatchOfAnimalTurnOver=${req.query.batchId}`,(err)=>{
-		db.query(`UPDATE animal SET int_AnimalStatus=2 WHERE int_AnimalId IN (SELECT int_AnimalId FROM animalsforturnover WHERE int_BatchOfAnimalTurnOver=${req.query.batchId})`,(err)=>{ console.log(err)
-			db.query(`UPDATE lodginghistory SET int_LodgingStatus=2 WHERE int_LodgingStatus=0 AND int_AnimalId IN (SELECT int_AnimalId FROM animalsforturnover WHERE int_BatchOfAnimalTurnOver=${req.query.batchId})`,(err)=>{
-		res.redirect('/CVO_AnimalReleasing');
+
+router1.post('/release/animalturnover',  (req,res)=>{
+	db.query(`UPDATE batchofanimalturnover SET dat_DatePickedUp=now() WHERE int_BatchOfAnimalTurnOver=${req.body.id}`,(err)=>{ console.log(err)
+		db.query(`UPDATE animal SET int_AnimalStatus=2 WHERE int_AnimalId IN (SELECT int_AnimalId FROM animalsforturnover WHERE int_BatchOfAnimalTurnOver=${req.body.id})`,(err)=>{ console.log(err)
+			db.query(`UPDATE lodginghistory SET int_LodgingStatus=2 WHERE int_LodgingStatus=0 AND int_AnimalId IN (SELECT int_AnimalId FROM animalsforturnover WHERE int_BatchOfAnimalTurnOver=${req.body.id})`,(err)=>{ console.log(err)
+		if(err){
+			res.send("ERROR");
+		}
+		else{
+			res.send("SUCCESS");
+		}
 	});
 		});
 	});

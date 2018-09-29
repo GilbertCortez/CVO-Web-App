@@ -1,0 +1,118 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("record_list").className="active";
+   document.getElementById("transaction_list").className="active";
+</script>
+
+<section >
+<div class="block-header">
+<h2>TRANSACTION CLOSING</h2>
+</div>
+ <div class="card" style="min-height:580px">
+            <div class="body">
+            <h4>1. Produce the following documents:</h4><br>
+            
+            <center>
+             <table class="table table-striped table-bordered" style="max-width:800px">
+               <tr>
+                  <th>#</th>
+                  <th>Document</th>
+                  <th>Action <button class="btn btn-primary " onclick='downloadall()' style="float:right" ><i class="material-icons">move_to_inbox</i>DOWNLOAD ALL</button></th>
+               </tr>
+            
+               <tr>
+                  <td><strong>1</strong></td>
+                  <td>Transfer of Pet Ownership Certificate</td>
+                  <td><center><button class="btn btn-gray" onclick='printCertV()' ><i class="material-icons">print</i>PRINT</button>&nbsp;&nbsp;<button  class="btn btn-gray" onclick='downloadCertV()'><i class="material-icons">move_to_inbox</i>DOWNLOAD</button></center></td>
+               </tr>
+              
+            </table>
+                </center><br>
+
+                <h4>2. Certify each document with the Official Dry Seal or Official Stamp and Signature of City Veterinary Office Employee.</h4><br>
+              
+               
+                <h4>3. Release the following document/s to the Pet Owner:</h4>
+                <center><br>
+             <table class="table table-striped table-bordered" style="max-width:800px">
+               <tr>
+                  <th>#</th>
+                  <th>Document</th>
+
+               </tr>
+            
+               <tr>
+                  <td><strong>1</strong></td>
+                  <td>Transfer of Pet Ownership Certificate</td>
+            
+               </tr>
+             
+              
+               <tr>
+                  <td><strong>3</strong></td>
+                  <td>Official Receipt</td>
+            
+               </tr>
+             
+            </table>
+                </center>
+            </div>
+            <center><button onclick="done();" class="btn btn-lg btn-primary">DONE</button></center><br><br>
+            </div>
+</section>
+
+
+<form action="/CVO_RecordCollection/trylang" id="certvprint" method="get" target="my_iframe">
+  <input type="hidden"  name="vaccinationId" value='<%=  %>' />
+</form>
+
+<form action="/CVO_RecordCollection/Certv/download" id="certvdownload" method="post" target="my_iframe">
+  <input type="hidden"  name="vaccinationId" value='<%=  %>' />
+</form>
+
+<iframe name="my_iframe" id="my_iframe"  width="112%"  frameborder="0" style="display:none" ></iframe>
+<script>
+function done(){
+  swal({
+  title: "Done!",
+  text: "Transaction is now closed!",
+  icon: "success",
+  buttons: false
+});
+  
+  setTimeout(function(){ window.location.href="/CVO_Dashboard"; }, 1000);
+}
+function printCertV(){
+    
+     document.getElementById('my_iframe').style.display="block"
+    document.getElementById('certvprint').submit(); 
+   setTimeout( function(){ document.getElementById('my_iframe').style.display="none" }, 500)
+
+}
+function downloadCertV(){
+ 
+ document.getElementById('my_iframe').style.display="block"
+    document.getElementById('certvdownload').submit(); 
+   
+   setTimeout( function(){ document.getElementById('my_iframe').style.display="none" }, 500)
+}
+function downloadall(){
+swal({
+                        title: 'Downloading All Documents.',
+                        text: ' This will just take few seconds. ',
+                        icon: 'info',
+                        button: false,
+                        closeOnClickOutside: false,
+                        }) 
+
+     setTimeout( function(){ downloadCertV(); swal({
+                        title: 'Successful.',
+                        text: ' Documents are downloaded. ',
+                        icon: 'success',
+                        button: true,
+                        closeOnClickOutside: false,
+                        })  }, 500)
+
+}
+</script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

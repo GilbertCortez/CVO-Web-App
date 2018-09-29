@@ -1,0 +1,50 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+   document.getElementById("report_list").className="active";
+   document.getElementById("euthanasia_report").className="active";
+</script>
+<div class="col-sm-12">
+        <div class="card">
+        	<div class="header bg-white">
+        	<a class="btn bg-grey" onclick="apply();" >Apply</a><a class="btn btn-primary" onclick="print();" >Print</a>
+        	</div>
+            <div class="body" id="report_body">
+                 <iframe src="/CVO_Report/Euthanasia/line" frameBorder="0" width="101%" height="50%" scrolling="no"></iframe>
+                 <br><br>
+                 <div class="table-responsive">
+                                <table class="table table-bordered table-striped ">
+                                    <thead>
+                                        <tr class="bg-blue">
+                                            <th>Month</th>
+                                            <th>Total Euthanized Dogs</th>
+                                            <th>Total Euthanized Cats</th>
+                                            <th>Monthly Total</th>
+                                        </tr>
+                                        <tr>	
+                                        	<td>January</td>
+                                        	<td>23</td>
+                                        	<td>42</td>
+                                        	<td>65</td>
+                                        </tr>
+                                          <tr>	
+                                        	<td>February</td>
+                                        	<td>34</td>
+                                        	<td>52</td>
+                                        	<td>86</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>  
+            </div>
+        </div>
+    </div>
+   
+    <script>
+    function print(){
+       
+    
+    </script>
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

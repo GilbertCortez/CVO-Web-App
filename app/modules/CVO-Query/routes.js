@@ -17,6 +17,7 @@ router.get('/PetOwnerRegistration',  (req,res)=>{
 	 });
 	}
 	else if (req.query.QueryType == 1){
+<<<<<<< HEAD
 
 		console.log(req.query)
 		if (req.query.Barangay == 'all'){
@@ -39,11 +40,28 @@ router.get('/PetOwnerRegistration',  (req,res)=>{
 			})	
 		}
 	} 
+=======
+		var QUERY=`SELECT * FROM petowner po JOIN barangay b ON po.int_BarangayId=b.int_BarangayId
+		WHERE po.int_BarangayId IN (${req.query.Barangay}) AND po.dat_DateRegistered BETWEEN 
+		"${req.query.StartDate}" AND "${req.query.EndDate}"`;
+		db.query(QUERY,(err,results)=>{
+			if (err){
+				console.log(err)
+			} 
+			else { 
+				db.query('SELECT * FROM barangay', (err, barangay) => {
+			   res.render('CVO-Query/views/petownerregistration.ejs',{ba:barangay,re:results});
+			});
+		}
+		});
+	   } 
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/PetRegistration', (req,res)=>{
 	console.log(req.query);
 
+<<<<<<< HEAD
 
 	if (req.query.QueryType == 2){
 	var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId;`
@@ -59,6 +77,25 @@ router.get('/PetRegistration', (req,res)=>{
 		})
 	}
 	
+=======
+	if(req.query.queryType == 2) {
+	var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId;`
+	db.query(query, (err,pets)=>{
+	db.query('SELECT * FROM barangay', (err, barangay) => {
+			res.render('CVO-Query/views/petregistration.ejs',{pets:pets,ba:barangay});
+			})
+		})
+	}
+
+	else if (req.query.queryType == 1){
+		var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN barangay ba ON ba.int_BarangayId po.int_BarangayId WHERE p.dat_DateRegistered BETWEEN "${req.query.StartDate}" AND "${req.query.EndDate}" AND po.int_BarangayId IN (${req.query.Barangay}) AND b.int_AnimalSpecies = "${req.query.Species}" AND a.int_AnimalStatus = ${req.query.Status};`
+		db.query(query, (err,pets)=>{
+		db.query('SELECT * FROM barangay', (err, barangay) => {
+				res.render('CVO-Query/views/petregistration.ejs',{pets:pets,ba:barangay});
+				})
+			})
+	}
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/Vaccination', (req,res)=>{

@@ -39,7 +39,7 @@
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address" value="espinjustine@gmail.com" required autofocus>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="Email Address" value="" required autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -47,7 +47,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" value="just" required>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="" required>
                         </div>
                     </div>
                     <div class="row">
@@ -62,6 +62,13 @@
         </div>
     </div>
 
+ <div class="row" style="width:600px">
+    <a class="btn btn-default  waves-effect" onclick="$('#email').val('officestaff@gmail.com');$('#password').val('officestaff');"> Staff</a>
+    <a class="btn btn-default  waves-effect" onclick="$('#email').val('apprehensionteamleader@gmail.com');$('#password').val('apprehensionteamleader');">AppLeader</a>
+    <a class="btn btn-default  waves-effect" onclick="$('#email').val('caretaker@gmail.com');$('#password').val('caretaker');">Caretaker</a>
+    <a class="btn btn-default  waves-effect" onclick="$('#email').val('secretary@gmail.com');$('#password').val('secretary');">Secretary</a>
+    <a class="btn btn-default  waves-effect" onclick="$('#email').val('management@gmail.com');$('#password').val('management');">Management</a>
+    </div>
     <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
 

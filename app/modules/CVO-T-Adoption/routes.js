@@ -17,6 +17,10 @@ router.get('/',  (req,res)=>{
                 db.query(`SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=0 AND int_Stage=3) a JOIN (SELECT int_PetOwnerId, CONCAT(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName ) AS AdopterName FROM petowner) po ON a.int_AdopterId=po.int_PetOwnerId  UNION SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=1 AND int_Stage=3) a JOIN (SELECT int_NonCitizenId, CONCAT(str_LastName,", ",str_FirstName," ",str_MiddleName ) AS AdopterName FROM noncitizen) nc ON a.int_AdopterId=nc.int_NonCitizenId`,(err,forHomeVisit)=>{
               db.query(`SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=0 AND int_Stage=4) a JOIN (SELECT int_PetOwnerId, CONCAT(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName ) AS AdopterName FROM petowner) po ON a.int_AdopterId=po.int_PetOwnerId  UNION SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=1 AND int_Stage=4) a JOIN (SELECT int_NonCitizenId, CONCAT(str_LastName,", ",str_FirstName," ",str_MiddleName ) AS AdopterName FROM noncitizen) nc ON a.int_AdopterId=nc.int_NonCitizenId`,(err,forFinalEvaluation)=>{
                  db.query(`SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=0 AND int_Stage IN (0,1,2,3,4)) a JOIN (SELECT int_PetOwnerId, CONCAT(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName ) AS AdopterName FROM petowner) po ON a.int_AdopterId=po.int_PetOwnerId  UNION SELECT * FROM (SELECT * FROM adoptiontransaction WHERE int_AdopterType=1 AND int_Stage IN (0,1,2,3,4)) a JOIN (SELECT int_NonCitizenId, CONCAT(str_LastName,", ",str_FirstName," ",str_MiddleName ) AS AdopterName FROM noncitizen) nc ON a.int_AdopterId=nc.int_NonCitizenId`,(err,forAll)=>{
+<<<<<<< HEAD
+=======
+             db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='3'`, (err, parequ) => {
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
               db.query(`SELECT * FROM noncitizen`,(err,noncitizen)=>{
                 res.render('CVO-T-Adoption/views/view.ejs', {
                     fa:forAll,
@@ -26,8 +30,14 @@ router.get('/',  (req,res)=>{
                     faa:foradoptionapplication,
                     fi:forInterview,
                     fhv:forHomeVisit,
+<<<<<<< HEAD
                     ffe:forFinalEvaluation
             });});});
+=======
+                    ffe:forFinalEvaluation,
+                    parequ:parequ
+            });});});});
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
             });});
           });
           });

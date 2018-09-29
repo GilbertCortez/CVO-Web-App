@@ -2,8 +2,180 @@
 <script>
 document.getElementById("MyPets_list").className="active";
 </script>
+<<<<<<< HEAD
 
 </section>
+=======
+<div class="col-sm-12">
+<div class="block-header">
+   <h2> PETS</h2>
+</div>
+<div class="card">
+    <div class="body" style="min-height:560px">
+  <table class="table table-striped table-hover js-basic-example dataTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Pet ID</th>
+                                                                    <th>Pet Name</th>
+                                                                    <th>Species</th>
+                                                                    <th>Breed</th>
+                                                                    <th>Sex</th>
+                                                                    <th>Color Pattern</th>
+
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                         <!--   <tfoot>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Description</th>
+                                                                    <th>Price</th>
+                                                                </tr>
+                                                            </tfoot> -->
+                                                            <tbody>
+                                                              <% pe.forEach(function(i){ %>
+                                                                <tr>
+                                                                    <td><%= i.int_PetId %></td>
+                                                                    <td><%= i.str_PetName %></td>
+                                                                    <td><%= i.int_AnimalSpecies==0?"Dog":"Cat"%></td>
+                                                                    <td><%= i.str_BreedName %></td>
+                                                                    <td><% if(i.int_Sex==0){ %>Male<% }else{ %>Female<%  }%></td>
+                                                                    <td><%= i.str_Description %></td>
+
+
+                                                                    <td>
+                                                                        <div align="center">
+
+
+                                                                           <a data-toggle="modal" data-target="#pethistory" onclick="history('<%= JSON.stringify(i) %>');"><button type="button" class="btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Pet History">
+                                                                                    <i class="material-icons">history</i>HISTORY
+
+                                                                            </button>
+                                                                            </a>
+
+                                                                         
+
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }); %>
+                                                            </tbody>
+                                                        </table>
+</div>
+</div>
+</div>
+ <div class="modal fade" id="pethistory" tabindex="-1" role="dialog" >
+                      <div class="modal-dialog" role="document" style="width:70%;height:400px;outflow:scroll">
+                          <div class="modal-content">
+                            <div class="modal-header col-sm-12 bg-blue">
+
+                             <div class="col-sm-4" align="center">
+                                    <img id="modal_petPicture" style="border:4px;border-style:solid;border-color:white" id="blah" src="#" alt="your image" width="200" height="200" />
+                             </div>
+                             <div class="col-sm-8">
+                                 <h1 id="modal_petName"></h1>
+                                 <h3 id="modal_Birthday"></h3>
+                                 <i><h4 id="modal_DateRegistered"></h4></i>
+
+                          </div>
+
+                            </div>
+                              <div class="modal-body">
+                                           <div class="row clearfix">
+                          <div >
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs tab-nav-right" role="tablist" >
+                                  <li role="presentation" class="active"><a href="#home_animation_1" data-toggle="tab" aria-expanded="false">VACCINATION</a></li>
+                                  <!---<li role="presentation" class=""><a href="#profile_animation_1" data-toggle="tab" aria-expanded="false">MEDICAL</a></li>
+                                  <li role="presentation" class=""><a href="#home_animation_2" data-toggle="tab" aria-expanded="false">REDEMPTION</a></li>
+                                  <li role="presentation" class=""><a href="#profile_animation_2" data-toggle="tab" aria-expanded="false">IMPOUNDING</a></li>
+                                  <li role="presentation" class=""><a href="#profile_animation_3" data-toggle="tab" aria-expanded="false">ADOPTION</a></li>-->
+                                </ul> 
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+                                  <div role="tabpanel" class="tab-pane animated fadeIn active" id="home_animation_1">
+                                                                              <div class="body">
+                                                  <div>
+                                                      <table class="table table-striped table-hover" id="vaccinationHistoryTable">
+                                                          <thead class="bg-blue">
+                                                              <tr>
+                                                                  <th>ID</th>
+                                                                  <th>Date</th>
+                                                                  <th>Vaccine Name</th>
+                                                              
+                                                                  <th>Manufacturer</th>
+                                                                   <th>Lot Number</th>
+                                                               
+                                                              
+
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody id="vaccinationHistoryTableBody">
+
+                                                            
+
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div>  
+                                  </div>
+                           
+                              </div>
+                              <div class="modal-footer">
+
+                                  <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <script>
+function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+  function history(petId) {
+ 
+                     $('#modal_petPicture').attr('src', '/Pets'+JSON.parse(petId).str_AnimalPicturePath);
+                     $('#modal_petName').text(JSON.parse(petId).str_PetName+'(Pet Tag: '+JSON.parse(petId).str_PetTagNo+")");
+                      $('#modal_Birthday').text("Birthday: "+(MMMMDDYYYY(JSON.parse(petId).dat_Birthday)));
+                     $('#modal_DateRegistered').text("Registered Pet since "+MMMMDDYYYY(JSON.parse(petId).dat_DateRegistered));
+
+       $.post('/CVO_PetOwner/getVaccinationHistory',{ id: JSON.parse(petId).int_PetId },function(data) {
+
+                   $('#vaccinationHistoryTableBody').empty();
+            
+                   data.forEach(function(i){
+                    var classification="";
+                 
+                    
+                     $('#vaccinationHistoryTableBody').append(`
+                      <tr>
+                          <td>`+i.int_VaccinationId+`</td>
+                          <td>`+MMMMDDYYYY(i.dtm_DateTimeOfVaccination)+`</td>
+                          <td>`+i.str_VaccineName+`</td>
+                          <td>`+i.str_Manufacturer+`</td>
+                          <td>`+i.str_LotNo+`</td>
+                       
+                      </tr>
+
+                      `);
+
+               
+                      });
+
+                } 
+            );
+  }
+
+</script>
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 
 <%- include('../../../templates/CVO-PetOwner-Footer.ejs') -%>
   

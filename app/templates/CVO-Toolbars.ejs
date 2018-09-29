@@ -45,7 +45,7 @@
             </div>
             <div class="info-container">
                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="color:white;"><strong> <div id="userName"></div></strong></font></div>
-               <div class="email"><font style="color:white;"><strong> <div id="userEmail"></div></strong></font></div>
+               <div class=""><font style="color:white;"><strong> <div id="userEmail"></div></strong></font></div>
                <div class="btn-group user-helper-dropdown" style="color:white;">
                   <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                   <ul class="dropdown-menu pull-right">
@@ -334,6 +334,7 @@
                   </a>
                   <ul class="ml-menu">
                       
+<<<<<<< HEAD
                      <li id="">
                         <a href="">Registration</a>
                      </li>
@@ -345,6 +346,20 @@
                      </li>
                      
                      
+=======
+                    <li id="registration_report">
+                        <a href="/CVO_Report/RegistrationAndVaccination">Registration and Vaccination</a>
+                     </li>
+                     <li id="adoption_report">
+                        <a href="/CVO_Report/Adoption">Adoption</a>
+                     </li>
+                     <li id="euthanasia_report">
+                        <a href="/CVO_Report/Euthanasia">Euthanasia</a>
+                     </li>
+                     <li id="apprehension_report">
+                        <a href="/CVO_Report/Apprehension">Apprehension</a>
+                     </li>                     
+>>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                      
 
                 </ul>
@@ -404,17 +419,100 @@
    <section class="content">
    <div class="container-fluid">
    <script>
+   // /*
    $.get( "/CVO_Login/getUser", function( data ) {
 
              document.getElementById('userEmail').innerHTML=data[0].str_Email;
              document.getElementById('userName').innerHTML=data[0].str_FirstName+" "+data[0].str_LastName;
              document.getElementById('userPicture').src="/Employees"+data[0].str_IdPicturePath;
 
-            if(data[0].int_EmployeeType==1){
+            if(data[0].int_EmployeeType==0){
+               document.getElementById('userEmail').innerHTML="Office Staff";
+     $('#dash2').empty();
+                $('#dash3').empty();
+                $('#animalreleasing').empty();
+                $('#Visitation').empty();
+                $('#impounding_list').empty();
+                 $('#report_list').empty();
+           
+                
+              
+              
+            }
+            else if(data[0].int_EmployeeType==1){
                document.getElementById('userEmail').innerHTML="Apprehension Team Leader";
+                $('#dash1').empty();
+                  $('#dash3').empty();
+               $('#reg_list').empty();
+                $('#vaccination_list').empty();
+                $('#animalreleasing').empty();
+                $('#Visitation').empty();
+                $('#redemption_list').empty();
+                $('#adoption_list').empty();
+                $('#record_list').empty();
+                $('#animalturnover_list').empty();
+                $('#transferofownership_list').empty();
+                $('#complaints_list').empty();
+                $('#certification_list').empty();
+                $('#petowners_list').empty();
+                $('#animal_list').empty();
+                $('#antirabies_list').empty();
+                $('#location_list').empty();
+                $('#requirement_list').empty();
+                $('#transrequirements_list').empty();
+                $('#nature_list').empty();
+                $('#organization_list').empty();
+                $('#query_list').empty();
+                $('#utilities_list').empty();
+                $('#registration_report').empty();
+                $('#adoption_report').empty();
+                $('#euthanasia_report').empty();
+                 
             }
             else  if(data[0].int_EmployeeType==2){
                document.getElementById('userEmail').innerHTML="Caretaker";
+               $('#reg_list').empty();
+                $('#vaccination_list').empty();
+                $('#apprehension').empty();
+                $('#surrenderanimal').empty();
+                $('#report_list').empty();
+                $('#redemption_list').empty();
+                $('#adoption_list').empty();
+                $('#record_list').empty();
+                $('#animalturnover_list').empty();
+                $('#transferofownership_list').empty();
+                $('#van_list').empty();
+                $('#certification_list').empty();
+                $('#petowners_list').empty();
+                $('#animal_list').empty();
+                $('#antirabies_list').empty();
+                $('#location_list').empty();
+                $('#requirement_list').empty();
+                $('#transrequirements_list').empty();
+                $('#nature_list').empty();
+                $('#organization_list').empty();
+                $('#query_list').empty();
+                $('#utilities_list').empty();
+                $('#registration_report').empty();
+                $('#adoption_report').empty();
+                $('#euthanasia_report').empty();
+            $('#dash1').empty();
+            $('#dash2').empty();
             }
+            else  if(data[0].int_EmployeeType==3){
+               document.getElementById('userEmail').innerHTML="Secretary";
+                $('#dash2').empty();
+                $('#dash3').empty();
+            }
+             else  if(data[0].int_EmployeeType==4){
+               document.getElementById('userEmail').innerHTML="Management";
+             
+               $('#maintenance_list').empty();
+               $('#transaction_list').empty();
+               $('#utilities_list').empty();
+            }
+
+
    });
+   // */
 </script>
