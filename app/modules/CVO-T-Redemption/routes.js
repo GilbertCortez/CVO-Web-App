@@ -13,27 +13,17 @@ router.get('/', (req, res) => {
            db.query(`SELECT int_RedemptionTransactionId, int_PetOwnerId AS ownerId,int_OwnerStatus, concat(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName) AS ownerName,dtm_DateTimeOfRedemption, int_RedemptionResult FROM redemptiontransaction  rt JOIN petowner po ON rt.int_OwnerId=po.int_PetOwnerId WHERE   int_RedemptionResult=2 AND int_OwnerStatus=0  UNION  SELECT int_RedemptionTransactionId, int_NonCitizenId AS ownerId, int_OwnerStatus, concat(str_LastName,", ",str_FirstName," ",str_MiddleName) AS ownerName,dtm_DateTimeOfRedemption,int_RedemptionResult FROM redemptiontransaction rt JOIN noncitizen nc ON rt.int_OwnerId=nc.int_NonCitizenId WHERE   int_RedemptionResult =2 AND int_OwnerStatus=1`, (err, fv) => {
                 db.query(`SELECT int_RedemptionTransactionId, int_PetOwnerId AS ownerId,int_OwnerStatus, concat(str_PetOwnerLastName,", ",str_PetOwnerFirstName," ",str_PetOwnerMiddleName) AS ownerName,dtm_DateTimeOfRedemption, int_RedemptionResult FROM redemptiontransaction  rt JOIN petowner po ON rt.int_OwnerId=po.int_PetOwnerId WHERE   int_RedemptionResult=3 AND int_OwnerStatus=0  UNION  SELECT int_RedemptionTransactionId, int_NonCitizenId AS ownerId, int_OwnerStatus, concat(str_LastName,", ",str_FirstName," ",str_MiddleName) AS ownerName,dtm_DateTimeOfRedemption,int_RedemptionResult FROM redemptiontransaction rt JOIN noncitizen nc ON rt.int_OwnerId=nc.int_NonCitizenId WHERE   int_RedemptionResult=3 AND int_OwnerStatus=1`, (err, fi) => {
         db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE petowner.int_status = 1`, (err, petowners) => {
-<<<<<<< HEAD
-     
-=======
       db.query(`SELECT * FROM requirementspertransaction rpt JOIN requirements r ON rpt.int_RequirementsId=r.int_RequirementsId WHERE rpt.int_Transaction='4'`, (err, prrequ) => {
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
             db.query(`SELECT * FROM noncitizen`, (err, noncitizen) => {
                 res.render('CVO-T-Redemption/views/view.ejs', {
                     po: petowners,
                     rt: redemptionTransaction,
                     nc: noncitizen,
                     fv:fv,
-<<<<<<< HEAD
-                    fi:fi
-                });
-            });
-=======
                     fi:fi,
                     prrequ:prrequ
                 });
             }); });
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
                         });
                     });
         });
@@ -143,10 +133,6 @@ router.post('/Interview',(req,res)=>{
         });
         
     });
-<<<<<<< HEAD
-
-=======
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 
 
 

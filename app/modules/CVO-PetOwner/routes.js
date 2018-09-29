@@ -13,13 +13,6 @@ router.get('/Dashboard',(req,res)=>{
 });
 
 router.get('/Profile',(req,res)=>{
-<<<<<<< HEAD
-		res.render('CVO-PetOwner/views/Profile.ejs');
-});
-
-router.get('/Pets',(req,res)=>{
-		res.render('CVO-PetOwner/views/Pets.ejs');
-=======
 	db.query(`SELECT * FROM petowner JOIN barangay ON petowner.int_BarangayId=barangay.int_BarangayId WHERE int_PetOwnerId=${req.session.user[0].int_PetOwnerId}`, (err, user) => { 
 		res.render('CVO-PetOwner/views/Profile.ejs',{user:user[0]});
 	});
@@ -33,7 +26,6 @@ router.get('/Pets',(req,res)=>{
         });
     });
 		
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/Account',(req,res)=>{

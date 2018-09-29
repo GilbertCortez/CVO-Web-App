@@ -17,7 +17,6 @@ router.get('/PetOwnerRegistration',  (req,res)=>{
 	 });
 	}
 	else if (req.query.QueryType == 1){
-<<<<<<< HEAD
 
 		console.log(req.query)
 		if (req.query.Barangay == 'all'){
@@ -30,7 +29,7 @@ router.get('/PetOwnerRegistration',  (req,res)=>{
 			})	
 		}
 
-		else {
+		else if (req.query.Barangay != 'all'){
 			db.query(`SELECT * FROM petowner po JOIN barangay b ON po.int_BarangayId=b.int_BarangayId
 			WHERE po.int_BarangayId IN (${req.query.Barangay}) AND po.dat_DateRegistered BETWEEN 
 			"${req.query.StartDate}" AND "${req.query.EndDate}"`, (err, results)=>{
@@ -40,28 +39,11 @@ router.get('/PetOwnerRegistration',  (req,res)=>{
 			})	
 		}
 	} 
-=======
-		var QUERY=`SELECT * FROM petowner po JOIN barangay b ON po.int_BarangayId=b.int_BarangayId
-		WHERE po.int_BarangayId IN (${req.query.Barangay}) AND po.dat_DateRegistered BETWEEN 
-		"${req.query.StartDate}" AND "${req.query.EndDate}"`;
-		db.query(QUERY,(err,results)=>{
-			if (err){
-				console.log(err)
-			} 
-			else { 
-				db.query('SELECT * FROM barangay', (err, barangay) => {
-			   res.render('CVO-Query/views/petownerregistration.ejs',{ba:barangay,re:results});
-			});
-		}
-		});
-	   } 
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/PetRegistration', (req,res)=>{
 	console.log(req.query);
 
-<<<<<<< HEAD
 
 	if (req.query.QueryType == 2){
 	var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId;`
@@ -77,25 +59,6 @@ router.get('/PetRegistration', (req,res)=>{
 		})
 	}
 	
-=======
-	if(req.query.queryType == 2) {
-	var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId;`
-	db.query(query, (err,pets)=>{
-	db.query('SELECT * FROM barangay', (err, barangay) => {
-			res.render('CVO-Query/views/petregistration.ejs',{pets:pets,ba:barangay});
-			})
-		})
-	}
-
-	else if (req.query.queryType == 1){
-		var query=`SELECT * FROM animal a JOIN pet p ON a.int_AnimalId = p.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId = c.int_ColorPatternId JOIN petowner po ON p.int_PetOwnerId = po.int_PetOwnerId JOIN barangay ba ON ba.int_BarangayId po.int_BarangayId WHERE p.dat_DateRegistered BETWEEN "${req.query.StartDate}" AND "${req.query.EndDate}" AND po.int_BarangayId IN (${req.query.Barangay}) AND b.int_AnimalSpecies = "${req.query.Species}" AND a.int_AnimalStatus = ${req.query.Status};`
-		db.query(query, (err,pets)=>{
-		db.query('SELECT * FROM barangay', (err, barangay) => {
-				res.render('CVO-Query/views/petregistration.ejs',{pets:pets,ba:barangay});
-				})
-			})
-	}
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/Vaccination', (req,res)=>{
@@ -211,9 +174,14 @@ router.get('/StrayAnimalComplaints', (req,res)=>{
 });
 
 router.get('/TransferOfPetOwnership',(req, res)=>{
-	db.query(`SELECT tp.int_TransferOfPetOwnershipId, CONCAT(po.str_PetOwnerFirstName,' ',po.str_PetOwnerLastName,' ',po.str_PetOwnerMiddleName) AS 'Pet Owner', CONCAT(po.str_PetOwnerFirstName , ' ' , po.str_PetOwnerLastName , ' ' , po.str_PetOwnerMiddleName) AS 'Receiver', tp.str_Reason, p.str_PetTagNo, p.str_PetName, b.int_AnimalSpecies, b.str_BreedName, c.str_Description, a.int_Sex, tp.int_TransferStatus, CONCAT(e.str_FirstName,' ',e.str_MiddleName,' ',e.str_LastName) AS 'Employee' FROM transferofpetownership tp JOIN pet p ON tp.int_PetId = p.int_PetId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON c.int_ColorPatternId = a.int_ColorPatternId JOIN petowner po ON tp.int_PetOwnerId = po.int_PetOwnerId JOIN employee e ON tp.int_EmployeeId = e.int_EmployeeId WHERE int_TransferStatus = 0
+	db.query(`SELECT tp.int_TransferOfPetOwnershipId, CONCAT(po.str_PetOwnerFirstName,' ',po.str_PetOwnerLastName,' ',po.str_PetOwnerMiddleName) AS 'Pet Owner', CONCAT(po.str_PetOwnerFirstName , ' ' , po.str_PetOwnerLastName , ' ' , po.str_PetOwnerMiddleName) AS 'Receiver', tp.str_Reason, p.str_PetTagNo, p.str_PetName, b.int_AnimalSpecies, b.str_BreedName, c.str_Description, a.int_Sex, tp.int_TransferStatus, CONCAT(e.str_FirstName,' ',e.str_MiddleName,' ',e.str_LastName) AS 'Employee' FROM transferofpetownership tp JOIN pet p ON tp.int_PetId = p.int_PetId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON c.int_ColorPatternId = a.int_ColorPatternId JOIN petowner po ON tp.int_TransferFrom = po.int_PetOwnerId JOIN employee e ON tp.int_EmployeeId = e.int_EmployeeId WHERE int_TransferStatus = 0
 	UNION SELECT tp.int_TransferOfPetOwnershipId, CONCAT(po.str_PetOwnerFirstName,' ',po.str_PetOwnerLastName,' ',po.str_PetOwnerMiddleName) AS 'Pet Owner', CONCAT(nc.str_FirstName , ' ' , nc.str_MiddleName , ' ' , nc.str_MiddleName) AS 'Receiver', tp.str_Reason, p.str_PetTagNo, p.str_PetName, b.int_AnimalSpecies, b.str_BreedName, c.str_Description, a.int_Sex, tp.int_TransferStatus, CONCAT(e.str_FirstName,' ',e.str_MiddleName,' ',e.str_LastName) AS 'Employee' FROM transferofpetownership tp JOIN pet p ON tp.int_PetId = p.int_PetId JOIN animal a ON p.int_AnimalId = a.int_AnimalId JOIN breed b ON a.int_BreedId = b.int_BreedId JOIN colorpattern c ON c.int_ColorPatternId = a.int_ColorPatternId JOIN noncitizen nc ON tp.int_PetOwnerId = nc.int_NonCitizenId JOIN employee e ON tp.int_EmployeeId = e.int_EmployeeId JOIN petowner po ON po.int_PetOwnerId = p.int_PetOwnerId WHERE int_TransferStatus = 1`,(err,results)=>{
+		if (err){
+			console.log(err)
+		}
+		else {
 		res.render('CVO-Query/views/transferofpetownership.ejs',{tr:results});
+		}
 	});
 });
 

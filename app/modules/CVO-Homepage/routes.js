@@ -89,7 +89,6 @@ IF(lh.int_AnimalId in (SELECT int_AnimalId FROM animalsforturnover),"YES","NO") 
 IF(lh.int_AnimalId in (SELECT int_AnimalId FROM adoptiontransaction),"YES","NO") as InAdoptionTransaction
 FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId 
 WHERE lh.int_LodgingStatus <> 2 AND DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) > ( SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`,(err,forRedemption)=>{
-<<<<<<< HEAD
     db.query(`SELECT * from office`, (err, office) => {
         db.query(`SELECT app.str_Alias FROM lodginghistory lh JOIN cage ca ON lh.int_CageId = ca.int_CageId JOIN animal a  ON lh.int_AnimalId=a.int_AnimalId JOIN breed b on a.int_BreedId=b.int_BreedId JOIN colorpattern c ON a.int_ColorPatternId=c.int_ColorPatternId JOIN apprehendedanimal app ON app.int_AnimalId = a.int_AnimalId 
         WHERE lh.int_LodgingStatus <> 2 AND DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) > ( SELECT int_ClaimingPeriod FROM  impoundedanimalperiods WHERE int_PeriodId=1) AND lh.str_Remarks LIKE '%Impounded%' AND a.int_AnimalStatus=1`, (err, Animal)=>{
@@ -99,18 +98,6 @@ WHERE lh.int_LodgingStatus <> 2 AND DATEDIFF(now(),lh.dtm_DateTimeOfOccurence) >
                 Animal:Animal
             });}); 
         });
-=======
-
-
-    db.query(`SELECT * from office`, (err, office) => {
-        
-            	
-                res.render('CVO-Homepage/views/redemption.ejs', {
-                    fr:forRedemption,
-                    office: office
-                  
-                });});
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
             });
             });
      
@@ -121,14 +108,10 @@ console.log(req.query)
 db.query(`SELECT * FROM office`, (err,office)=>{
     db.query(`SELECT * FROM apprehendedanimal app JOIN animal a ON app.int_AnimalId = a.int_AnimalId JOIN breed b ON b.int_BreedId = a.int_BreedId JOIN colorpattern color ON color.int_ColorPatternId = a.int_ColorPatternId JOIN barangay ba ON ba.int_BarangayId = app.int_BarangayId JOIN lodginghistory lh ON lh.int_AnimalId = a.int_AnimalId JOIN cage c ON c.int_CageId = lh.int_CageId JOIN impoundingsite site ON site.int_ImpoundingSiteId = c.int_ImpoundingSite WHERE a.int_AnimalId = ${req.query.id}`,(err,redemption)=>{
         db.query(`SELECT DATEDIFF(now(),dtm_DateTimeApprehension) AS 'DAYS' from apprehendedanimal app JOIN animal a ON app.int_AnimalId = a.int_AnimalId WHERE a.int_AnimalId = ${req.query.id} AND a.int_AnimalStatus = 1`,(err, days)=>{
-<<<<<<< HEAD
             db.query(`SELECT str_Remarks FROM apprehendedanimal app WHERE app.int_AnimalId = ${req.query.id}`,(err, remarks) => {
                 res.render('CVO-Homepage/views/animalRedemption.ejs', {office:office,redemption:redemption,days:days,
                 remarks:remarks});
             });
-=======
-            res.render('CVO-Homepage/views/animalRedemption.ejs', {office:office,redemption:redemption,days:days});
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
         });
     });
 });

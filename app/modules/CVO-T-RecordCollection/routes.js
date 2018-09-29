@@ -10,29 +10,6 @@ var sortJsonArray = require('sort-json-array'); //FOR SORTING JSON
 
 router.get('/', (req, res) => {
     db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId WHERE p.int_PayorType=0 AND p.int_Status=0`, (err, registration) => {
-<<<<<<< HEAD
-  
-        db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId=6 AND p.int_PayorType=1 AND p.int_Status=0`,(err,adoption_PO)=>{
-        db.query(`SELECT *, concat(nc.str_LastName,", ",nc.str_FirstName," ",nc.str_MiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN noncitizen nc ON p.int_PayorId = nc.int_NonCitizenId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId=6 AND p.int_PayorType=2 AND p.int_Status=0`,(err,adoption_NC)=>{
-           db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId IN (3,4,5) AND p.int_PayorType=3 AND p.int_Status=0`,(err,redemption_PO)=>{
-        db.query(`SELECT *, concat(nc.str_LastName,", ",nc.str_FirstName," ",nc.str_MiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN noncitizen nc ON p.int_PayorId = nc.int_NonCitizenId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId IN (3,4,5) AND p.int_PayorType=4 AND p.int_Status=0`,(err,redemption_NC)=>{
-        //query for adoption payments
-        //query for redemption payments
-        //FOR MERGING AND SORTING SAMPLE TAPOS IPASA SA FRONT END
-
-        console.log(adoption_NC)
-        var adoption = {};
-        var redemption = {};
-        var unpaid = sortJsonArray(adoption_PO.concat(registration.concat(adoption_NC.concat(redemption_PO.concat(redemption_NC)))), 'int_PaymentId', 'des');
-        res.render('CVO-T-RecordCollection/views/view.ejs', {
-            un: unpaid
-        });
-    });
-    });
-       });
-    });
-    });
-=======
         db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId=6 AND p.int_PayorType=1 AND p.int_Status=0`, (err, adoption_PO) => {
             db.query(`SELECT *, concat(nc.str_LastName,", ",nc.str_FirstName," ",nc.str_MiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN noncitizen nc ON p.int_PayorId = nc.int_NonCitizenId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId=6 AND p.int_PayorType=2 AND p.int_Status=0`, (err, adoption_NC) => {
                 db.query(`SELECT *, concat(po.str_PetOwnerLastName,", ",po.str_PetOwnerFirstName," ",po.str_PetOwnerMiddleName) AS str_PayorName FROM payment p JOIN breakdown b ON p.int_PaymentId=b.int_PaymentId JOIN petowner po ON p.int_PayorId = po.int_PetOwnerId JOIN natureofcollection n ON b.int_NatureOfCollectionId=n.int_NatureOfCollectionId WHERE b.int_NatureOfCollectionId IN (3,4,5) AND p.int_PayorType=3 AND p.int_Status=0`, (err, redemption_PO) => {
@@ -52,7 +29,6 @@ router.get('/', (req, res) => {
             });
         });
     });
->>>>>>> 81cbae7d3cd079fbba609f2595d05ad3e43148da
 });
 
 router.get('/trylang', (req, res) => {
