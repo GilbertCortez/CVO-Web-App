@@ -10,11 +10,8 @@
          CLAIMED ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -81,8 +78,8 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
-      <div class="card" style="min-height: 570px">
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">
             <label class="form-label">EXPORT CLAIMED ANIMALS LIST</label>
             <div class="body">
@@ -92,9 +89,10 @@
                         <tr>
                            <th>Redemption ID</th>
                            <th>Date & Time of Redemption</th>
-                           <th>Owner Type</th>
+                           <th>Owner Status</th>
+                           <th>Owner</th>
                            <th>Pet Tag number</th>
-                           <th>Pet Name/Alias</th>
+                           <th>Pet Name</th>
                            <th>Species</th>
                            <th>Breed</th>
                            <th>Color Pattern</th>
@@ -103,18 +101,41 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% redemption.forEach(function (i) { %>
+                         <% function MMMMDDYYYY(i){
+
+                            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                            var now = new Date(i);
+                            return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                             }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_RedemptionTransactionId%></td>
+                           <td><%=MMMMDDYYYY(i.dtm_DateTimeOfRedemption)%></td>
+                           <% if (i.int_OwnerStatus == 0) { %>
+                            <td>Pet Owner</td>
+                            <% } else if (i.int_OwnerStatus == 1) { %>
+                            <td>Non-Citizen</td>    
+                            <% } %>
+                            <td><%=i.Owner%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=i.str_PetName%></td>
+                            <% if (i.int_AnimalSpecies == 0) { %>
+                            <td>Dog</td>
+                            <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>    
+                            <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>   
+                            <% } %> 
+                            <td>Claimed</td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

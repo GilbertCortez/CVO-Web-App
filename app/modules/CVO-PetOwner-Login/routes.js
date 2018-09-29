@@ -3,12 +3,18 @@ var express = require('express');
 var router = express.Router();
 var authMiddleware = require('../../core/auth');
 var db = require('../../lib/database')();
-router.use(authMiddleware.noAuthed);
+//router.use(authMiddleware.noAuthedPetOwner);
 
 
 router.get('/',  (req,res)=>{
-	       req.session.destroy(err => {
+	      
 	res.render('CVO-PetOwner-Login/views/view.ejs');
+        
+});
+
+router.get('/logout',  (req,res)=>{
+	       req.session.destroy(err => {
+	res.redirect('/PetOwner_Login')
           });
 });
 
@@ -16,26 +22,22 @@ router.post('/',  (req,res)=>{
 
   	var email=req.body.email;
   	var pass=req.body.password;
-	db.query(`SELECT * FROM petowner WHERE str_Email= "${email}" AND str_Password= MD5("${pass}")`,(err,result)=>{
+	db.query(`SELECT * FROM petowner WHERE str_Email= "${email}" AND str_Password= "${pass}"`,(err,result)=>{
 		if (result.length == 0 || result == 'undefined' || result == 'NULL'){
 			res.redirect("/PetOwner_Login");
 		}
 		else{
 
-		req.session.save(function(){
-					req.session.user={int_PetOwnerId : result[0]};
-					res.redirect('/PetOwner_MyPets');
-					console.log(req.session.user);
-		})
-				
-				
-	
+			req.session.userType=1;
+			req.session.user=result;
+			res.redirect('/PetOwner/Dashboard')
 	}
 		
 	});
           
 });
 
+	
 
 
 

@@ -9,7 +9,7 @@ var db = require('../../lib/database')();
 
 router.get('/',  (req,res)=>{
     db.query(`SELECT * FROM barangay`, (err,barangay)=>{
-        db.query(`SELECT * FROM complaint JOIN barangay on complaint.int_BarangayId = barangay.int_BarangayId`,(err,complaint)=>{
+        db.query(`SELECT * FROM complaint JOIN barangay on complaint.int_BarangayId = barangay.int_BarangayId WHERE complaint.int_Status=0`,(err,complaint)=>{
             if(err){
                 console.log(err)
             }

@@ -41,15 +41,27 @@
                               </thead>
                               <tbody>
                                  <% va.forEach(function(i){ %>
-                                 <tr>
+                                 <tr id="<%= i.int_VaccineId%>">
                                     <td><%= i.int_VaccineId %></td>
                                     <td><%= i.str_VaccineName %></td>
                                    
                                     <td><%= i.str_Manufacturer %></td>
-                                    <td> <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div></td>
+                                    <td> 
+                     
+                                        <% if (i.vacStat == 1) { %>
+
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_VaccineId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_VaccineId%>">YES</small>
+                                                                </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_VaccineId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_VaccineId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+
+                                    </td>
                                     <td>
                                        <div align="center">
                                           <a data-target="#edit" data-toggle="modal" onclick="modal_iteration('<%= JSON.stringify(i) %>');">
@@ -57,8 +69,9 @@
                                           <i class="material-icons">mode_edit</i>
                                           </button>
                                           </a>
-                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <button type="button" onclick="deleteVaccine('<%=i.int_VaccineId %>')" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete" <% usedVaccine.forEach(function(x){  if(i.int_VaccineId==x.int_VaccineId){%> disabled <% }})  %>>
                                                                             <i class="material-icons">delete</i></button>
+
 
                                        </div>
                                     </td>
@@ -77,6 +90,31 @@
       </div>
    </div>
 </div>
+
+<script>
+function statUpdate(x){
+
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_Vaccine/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_Vaccine/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+
+function deleteVaccine(x){
+   $.post("/CVO_Vaccine/delete",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+
+</script>
 <%- include('./addVaccine.ejs') -%>
 <%- include('./updateVaccine.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

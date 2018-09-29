@@ -8,12 +8,9 @@ var db = require('../../lib/database')();
 
 router.get('/',  (req,res)=>{
     db.query(`SELECT * FROM Organization`, (err, results, fields) => {
-        if (err){
-            console.log(err)
-        }
-        else{
-            res.render('CVO-M-Organization/views/view.ejs', {organizations:results});
-        }
+       db.query(`SELECT DISTINCT int_OrganizationId FROM batchofanimalturnover`,(err,usedOrganization)=>{ 
+            res.render('CVO-M-Organization/views/view.ejs', {organizations:results,usedOrganization:usedOrganization});
+        });
     });
 });
 
@@ -33,6 +30,13 @@ router.post('/add', (req,res)=>{
         else {
             res.redirect("/CVO_Organization");
         }
+    })
+});
+
+router.post('/delete', (req, res)=>{
+    console.log(req.body.id)
+    db.query(`DELETE FROM organization WHERE int_OrganizationId = ${req.body.id}`,(err)=>{
+        console.log(err)
     })
 });
 
@@ -56,4 +60,14 @@ router.post('/update',(req, res) =>{
     })
 });
 
+router.post('/updateStatus', (req, res)=>{
+    db.query('UPDATE organization SET int_Status='+req.body.status+' WHERE int_OrganizationId='+req.body.id,(err)=>{
+        if(err){
+            res.send("ERROR")
+        }
+        else{
+            res.send("SUCCESS")
+        }
+    })
+});
 exports.CVO_Organization= router;

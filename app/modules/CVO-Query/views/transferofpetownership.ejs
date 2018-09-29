@@ -10,11 +10,8 @@
          TRANSFER OF PET OWNERSHIP
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -68,7 +65,7 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
+   <div class="col-sm-12">
       <div class="card" style="min-height: 570px">
          <div class="body">
             <label class="form-label">EXPORT TRANSFER OF PET OWNERSHIP LIST</label>
@@ -82,7 +79,7 @@
                            <th>Receiver</th>
                            <th>Reason</th>
                            <th>Pet Tag number</th>
-                           <th>Pet Name/Alias</th>
+                           <th>Pet Name</th>
                            <th>Species</th>
                            <th>Breed</th>
                            <th>Color Pattern</th>
@@ -92,20 +89,35 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% tr.forEach(function (i) { %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_TransferOfPetOwnershipId%></td>
+                           <td><%=i.PetOwner%></td>
+                           <td><%=i.Receiver%></td>
+                           <td><%=i.str_Reason%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=i.str_PetName%></td>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                            <td>Dog</td>
+                            <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>    
+                            <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>    
+                            <% } %>
+                             <% if (i.int_TransferStatus == 0) { %>
+                            <td>Pet Owner</td>
+                            <% } else if (i.int_TransferStatus == 1) { %>
+                            <td>Non-Citizen</td>    
+                            <% } %>
+                            <% var employee = i.str_FirstName+" "+i.str_MiddleName+" "+i.str_LastName%>
+                            <td><%=employee%></td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

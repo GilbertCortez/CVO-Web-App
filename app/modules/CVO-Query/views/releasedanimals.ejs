@@ -11,11 +11,8 @@
          RELEASED ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -83,7 +80,7 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
+   <div class="col-sm-12">
       <div class="card" style="min-height: 570px">
          <div class="body">
             <label class="form-label">EXPORT RELEASED ANIMALS LIST</label>
@@ -102,23 +99,42 @@
                            <th>Breed</th>
                            <th>Color Pattern</th>
                            <th>Sex</th>
-                           <th>Health Status</th>
+                           <th>Animal Status</th>
                         </tr>
                      </thead>
                      <tbody>
+                         <% released.forEach(function (i) { %>
+                        <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        %>
                         <tr>
                            <td></td>
+                           <td><%=MMMMDDYYYY(i.dtm_DateTimeOfOccurence)%></td>
                            <td></td>
                            <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=i.str_Alias%></td>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                            <td>Dog</td>
+                            <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>
+                            <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>
+                            <% } %>
+                           <td>Released</td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

@@ -11,11 +11,8 @@
          BATCH OF ANIMAL TURN OVER
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -70,8 +67,8 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
-      <div class="card" style="min-height: 570px">
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">
             <label class="form-label">EXPORT BATCH OF ANIMAL TURNOVER LIST</label>
             <div class="body">
@@ -79,8 +76,7 @@
                   <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                      <thead>
                         <tr>
-                           <th>Batch of Animal Turnover ID</th>
-                           <th>Animal ID</th>
+                           <th>Batch of Animal Turnover</th>
                            <th>Date picked up</th>
                            <th>Date of pick up</th>
                            <th>Organization</th>
@@ -88,14 +84,30 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% batch.forEach(function (i) { %>
+                        <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        
+                       }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_BatchOfAnimalTurnOver%></td>
+                           <td><%=MMMMDDYYYY(i.dat_DatePickedUp)%></td>
+                           <td><%=MMMMDDYYYY(i.dat_DateOfPickUp)%></td>
+                           <td><%=i.str_OrganizationName%></td>
+                           <% if (i.int_Staus == 0) { %>
+                            <td>Cancelled</td>
+                           <% } else if (i.int_Status == 1) { %>
+                            <td>Pending</td>
+                            <% } else if (i.int_Status == 2) { %>
+                           <td>Pending</td>
+                           <% } %>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

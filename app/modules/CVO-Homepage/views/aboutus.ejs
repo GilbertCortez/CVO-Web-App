@@ -1,0 +1,102 @@
+<%- include('./header.ejs') -%>
+
+<section class="home-slider owl-carousel">
+        <div class="slider-item"  style="background-image: url('/websitePart/images/bg_34.jpg');" data-stellar-background-ratio="0.5">
+          <div class="overlay"></div>
+          <div class="container">
+            <div class="row slider-text align-items-center">
+              <div class="col-md-7 col-sm-12 ftco-animate">
+                <h1 class="mb-3">About Us</h1>
+                <div class="col-md-12">
+                <p> City Veterinary Office-Marikina is an organization in Marikina City that aims to turn the city to a rabies free city. They are responsible for impounding stray and apprehended animals. The office also manages adoption process that includes people who are willing and with capabilities to adopt animals. Another responsibility of the City Veterinary Office is to educate and make the citizens of Marikina City aware about pet ownership.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ftco-section-2">
+            <div class="container">
+              <div class="row pt-5">
+                <div class="col-md-12 text-center mb-5 pt-5" data-aos="fade-up">
+                  <h4 class="ftco-heading heading-thin mb-5">
+                        City Veterinary Office-Marikina was created by virtue of Ordinance No. 156, Series of 1996. Its main task is to eradicate stray animals in public places which is strictly prohibited according to Ordinance No. 129, Series of 199; to provide protection against the spread of deadly rabies caused by animal bites, particularly dogs; and to control excessive breeding of dogs by irresponsible pet owners, causing animals to become stray which poses a health risk to humans.
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </section>
+          <br>
+          <section class="ftco-section contact-section">
+              <div>
+                        <div class="container">
+                          <div class="row d-flex mb-5 contact-info">
+                            <div class="col-md-12 mb-4">
+                              <h2 class="h4">Office Information</h2>
+                            </div>
+                            <div class="col-md-6">
+                                    <p>Office Name:</p><p> <%=office[0].str_OfficeName%></p>
+                                  </div>
+                            <div class="col-md-6">
+                              <p><span>Address:</span> </p><p><%=office[0].str_Address%></p>
+                            </div>
+                            <div class="col-md-6">
+                              <p><span>Phone:</span></p><p><%=office[0].str_ContactNo%></p>
+                            </div>
+                            <br><br>
+                            <div class="col-md-6">
+                              <p><span>Email:</span> <a href="mailto:cityveterinaryoffice@govt.com"></p>
+                                <p><%=office[0].str_Email%></a></p>
+                            </div>
+                            <div class="col-md-6">
+                              <p><span>Office Days:</p>
+                              <ul style="list-style:none">
+                                    <% var days = office[0].str_DayAvailability.split(",") %>
+                                    <% days.forEach(function (index){ %>
+                                    <% if (index == 'Mon') { %>
+                                        <li style="float:left;padding-left:10px;">Monday</li>
+                                    <% } else if (index == 'Tue') { %>
+                                        <li style="float:left;padding-left:10px;">Tuesday</li>
+                                    <% } else if (index == 'Wed') { %>
+                                        <li style="float:left;padding-left:10px;">Wednesday</li>
+                                    <% } else if (index == 'Thu') { %>
+                                        <li style="float:left;padding-left:10px;">Thursday</li>
+                                    <% } else if (index == 'Fri') { %>
+                                        <li style="float:left;padding-left:10px;">Friday</li>
+                                    <% } else if (index == 'Sat') { %>
+                                        <li style="float:left;padding-left:10px;">Saturday</li>
+                                    <% } else if (index == 'Sun') { %>
+                                        <li style="float:left;padding-left:10px;">Sunday</li>
+                                    <% } %>
+                                    <% }) %>
+                                <ul>
+                            </div>
+                            <br><br><br>
+                            <% 
+                            function PRETTYTIME(i){//HH:SS To HH:SS PM/AM
+                                var splitTime=i.split(":");
+                                var prettytime="";
+                                if(splitTime[0]==12){
+                                    prettytime=("12"+":"+splitTime[1]+" NN");
+                                }
+                                else if(splitTime[0]>12 ){
+                                    prettytime=((splitTime[0]-12)+":"+splitTime[1]+" PM");
+                                }
+                                else{
+                                     prettytime=splitTime[0]+":"+splitTime[1]+" AM";
+                                }
+                                
+                                return prettytime;
+                                    }
+                            %>
+                            <div class="col-md-6">
+                                    <p><span>Office Hours:</span></p>
+                            <div class="col-md-6">
+                            <p><%=(PRETTYTIME(office[0].dtm_OpenHour))+" to "+(PRETTYTIME(office[0].dtm_CloseHour))%></p>
+                            <p></p> 
+                            </div>
+                          </div>
+          </section>
+
+<%- include('./footer.ejs') -%>

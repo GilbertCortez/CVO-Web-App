@@ -1,0 +1,137 @@
+<div class="modal fade" id="assessRedemption" tabindex="-1" role="dialog" >
+   <div class="modal-dialog " role="document" style="width:1400px">
+      <div class="modal-content" >
+         <div class="modal-header bg-blue">
+            <h4>CHOOSE ANIMAL FOR REDEMPTION</h4>
+         </div>
+         <div class="modal-body" style="min-height:220px">
+            <div class="col-sm-2">
+               <label class="form-label">Impounding Site</label>
+               <div class="form-group">
+                  <div class="form-line">
+                     <select class="form-control show-tick" data-live-search="true"  onchange="changeImpoundingSiteRedemption(this.value)"   >
+                        <% als.forEach(function (x) { 
+                           %>
+                        <option value='<%= x.int_ImpoundingSiteId %>' >
+                           <%= x.str_BarangayName %>(ID: <%= x.int_ImpoundingSiteId  %>) 
+                        </option>
+                        <% }); %>
+                     </select>
+                  </div>
+               </div>
+             
+            </div>
+            <div class="col-sm-10" style="min-height:510px" >
+               <div class="col-sm-12"  style="overflow: auto;max-height:400px;min-height:500px;border:dashed #2196F3 5px;padding:10px;" >
+                  <div id="filteredAnimalRedemption">
+                  </div>
+                    <div id="ajxLoaderRedemption" style="display:none"> 
+              <br><br><br><br><br><br>
+               <div style="background-image: url('/images/preloader.gif');background-repeat: no-repeat;background-size: 200px;background-position: center;" >
+               <br><br><br><br><br><br><br><br><br><br>
+             </div>
+
+               </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+    
+            <a class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</a>
+         </div>
+      </div>
+   </div>
+</div>
+
+<input type="hidden" id="redemptionTransactionId">
+<script>
+   changeImpoundingSiteRedemption(1);
+       function assessRedemption(x){
+            $('#redemptionTransactionId').val(x)
+       $('#assessRedemption').modal('toggle');
+    }
+      function changeImpoundingSiteRedemption(x){
+       $('#filteredAnimal').empty();
+        document.getElementById('ajxLoaderRedemption').style.display="block";
+      $.post("/CVO_Impounding/Assess/Redemption",{id: x},function(data){
+
+                  var toAppend="";
+                  var status="";
+                  var stat="";
+                  data.forEach(function(i){
+                      if(i.InAnimalTurnover=="YES"){
+                        status="<font color='red'>FOR ANIMAL TURNOVER</font>";
+                        stat=1;
+                      }
+                      else if(i.InAdoptionTransaction=="YES"){
+                        status="<font color='red'>IN ADOPTION</font>";
+                        stat=2;
+                      }
+                      else if(i.ClaimingPeriod>=i.LodgingDays){
+                        status="<font color='green'>FOR REDEMPTION</font>";
+                        stat=3;
+                      }
+                      else if(i.ClaimingPeriod<=i.LodgingDays){
+                        status="<font color='red'>FOR ADOPTION</font>";
+                        stat=4;
+                      }
+                  toAppend+=`  <div class="col-sm-3" >
+                    <div class="card" style="min-height:379px">
+                       
+                        <div class="body">
+                        <img src="/Animals/`+i.str_AnimalPicturePath+`" width="100%"/><br>
+                          
+                            <h5 align="center">CAGE#`+i.int_CageNumber+`</h5>
+                            <center>
+                            <p>`+(i.int_AnimalSpecies==0? "Dog": "Cat")+` | `+(i.str_BreedName)+` </p>
+                            <p>`+i.str_Description+` | `+(i.int_Sex==0?"Male":"Female")+` </p>
+                            <p> `+(i.int_HealthStatus==0?"Healthy":"Sick")+` </p>
+                            <h6>STATUS: `+status+` </h6>
+                            </center>
+                            <center><a class="btn btn-primary waves-effect" onclick="claimAnimal(`+i.int_AnimalId+`,`+stat+`)">CHOOSE</a></center>
+                        </div>
+                    </div>
+                </div>`;
+              });
+               document.getElementById('ajxLoaderRedemption').style.display="none";
+                  $('#filteredAnimalRedemption').append(toAppend);
+                    
+              });
+      }
+      function claimAnimal(x,y){
+          if(y==1 || y==2){
+            swal({
+      title: "Are you sure this is the Lost Pet?",
+      text: "This impounded animal is not for redemption anymore!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Please inform the Pet Owner that the impounded Pet can no longer be claimed.")
+
+      } else {
+        
+      }
+    });
+          }
+          else{
+            swal({
+      title: "Are you sure this is the Lost Pet?",
+      text: "",
+      icon: "warning",
+      buttons: true,
+     
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Instruct the Pet Owner to return in the Office for the Interview.")
+          window.location.href="/CVO_Impounding/Visitation/Choose/Redemption?TransactionId="+   $('#redemptionTransactionId').val()+"&AnimalId="+x;
+      } else {
+        
+      }
+    });
+          }
+      }
+</script>

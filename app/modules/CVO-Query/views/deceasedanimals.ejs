@@ -11,11 +11,8 @@
          DECEASED ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -69,7 +66,7 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
+   <div class="col-sm-12">
       <div class="card" style="min-height: 570px">
          <div class="body">
             <label class="form-label">EXPORT DECEASED ANIMALS LIST</label>
@@ -79,10 +76,8 @@
                      <thead>
                         <tr>
                            <th>Animal ID</th>
-                           <th>Date & Time of Death</th>
-                           <th>Reason</th>
                            <th>Pet Tag number</th>
-                           <th>Pet Name/Alias</th>
+                           <th>Pet Name</th>
                            <th>Species</th>
                            <th>Breed</th>
                            <th>Color Pattern</th>
@@ -92,19 +87,19 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% deceased.forEach(function (i) { %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_AnimalId%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=i.str_PetName%></td>
+                           <td><%=i.int_AnimalSpecies%></td>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <td><%=i.int_Sex%></td>
+                           <td><%=i.int_HealthStatus%></td>
+                           <td><%=i.int_AnimalStatus%></td>
                         </tr>
+                        <% }) %>
                      </tbody>
                   </table>
                </div>

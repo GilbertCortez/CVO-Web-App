@@ -20,14 +20,24 @@
                                                     </tfoot> -->
                                                     <tbody>
                                                         <% req.forEach(function (i) { %>
-                                                        <tr>
+                                                        <tr id="<%= i.int_RequirementsId%>">
                                                             <td><%= i.int_RequirementsId %></td>
                                                             <td><%= i.str_Description %></td>
                                                             <td><%= i.str_Purpose %></td>
-                                                            <td> <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Yes</span>
-                                                                </div></td>
+                                                            <td> 
+                                                                      <% if (i.int_Status == 1) { %>
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_RequirementsId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_RequirementsId%>">YES</small>
+                                                                </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_RequirementsId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_RequirementsId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+
+                                                            </td>
                                                             <td>
                                                                 <div align="center">
                                                                    
@@ -35,9 +45,8 @@
                                                                      <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');"><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
                                                                             <i class="material-icons">mode_edit</i>
                                                                     </button></a>
-                                                                    <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                                 <button type="button" onclick="deleteRequirements('<%=i.int_RequirementsId %>')" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete" <% usedRequirements.forEach(function(x){  if(i.int_RequirementsId==x.int_RequirementsId){%> disabled <% }})  %>>
                                                                             <i class="material-icons">delete</i></button>
-
                                                                 </div>
                                                             </td>
                                                         </tr>

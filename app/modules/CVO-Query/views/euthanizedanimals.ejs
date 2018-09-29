@@ -11,11 +11,8 @@
          EUTHANIZED ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -69,8 +66,8 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
-      <div class="card" style="min-height: 570px">
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">
             <label class="form-label">EXPORT EUTHANIZED ANIMALS LIST</label>
             <div class="body">
@@ -92,19 +89,37 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% euthanized.forEach(function (i) { %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_EuthanasiaHistoryId%></td>
+                           <td><%=i.dtm_DateTimeOfEuthanasia%></td>
+                           <td><%=i.int_Reason%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <% if (i.int_AnimalStatus == 6) { %>
+                           <td><%=i.str_PetName%></td>
+                           <% } else { %>
+                           <td><%=i.str_Alias%></td>
+                           <% } %>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                           <td>Dog</td>
+                           <% } else if (i.int_AnimalSpecies == 1) { %>
+                           <td>Cat</td>
+                           <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>
+                            <% } %>
+                            <% if (i.int_HealthStatus == 4) { %>
+                                <td>Euthanized</td>
+                            <% } %>
+                            <% if (i.int_AnimalStatus == 4) { %>
+                                <td>Euthanized</td>
+                            <% } %>
                         </tr>
+                        <% }); %>
                      </tbody>
                   </table>
                </div>

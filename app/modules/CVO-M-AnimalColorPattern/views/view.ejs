@@ -46,19 +46,28 @@
                                  </tfoot> -->
                               <tbody>
                                  <% color.forEach(function (i) { %>
-                                 <tr>
+                                 <tr id="<%= i.int_ColorPatternId%>">
                                     <td><%= i.int_ColorPatternId%></td>
                                     <td><%= i.str_Description%></td>
-                                     <td> <div class="switch" align="center">
-                                                                    <label><input type="checkbox" checked ><span class="lever switch-col-blue"></span></label>
-                                                                    <span>Active</span>
-                                                                </div></td>
+                                     <td>
+                                         <% if (i.int_Status == 1) { %>
+                                                        <div class="switch" align="center">
+                                                                    <label><input type="checkbox" checked  onclick="statUpdate('<%= i.int_ColorPatternId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_ColorPatternId%>">YES</small>
+                                                                </div>
+                                                                <% } else { %>
+                                                                <div class="switch" align="center">
+                                                                    <label><input type="checkbox"  onclick="statUpdate('<%= i.int_ColorPatternId%>','breed');" ><span class="lever switch-col-blue"></span></label>
+                                                                    <small id="lever_<%= i.int_ColorPatternId%>">NO</small>
+                                                                </div>
+                                                                <% } %>
+                                     </td>
                                     <td>
                                        <div align="center">
                                           <a data-toggle="modal" data-target="#edit" onclick="modal_iteration('<%= JSON.stringify(i) %>');" ><button type="button" class="edit btn btn-primary waves-effect" data-toggle="tooltip" data-placement="top" title="Edit">
                                           <i class="material-icons">mode_edit</i>
                                           </button></a>
-                                          <button type="button" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
+                                              <button type="button" onclick="deleteColor('<%=i.int_ColorPatternId %>')" class="btn btn-grey  waves-effect" data-toggle="tooltip" data-placement="top" title="Delete" <% usedColor.forEach(function(x){  if(i.int_ColorPatternId==x.int_ColorPatternId){%> disabled <% }})  %>>
                                                                             <i class="material-icons">delete</i></button>
 
                                        </div>
@@ -78,6 +87,29 @@
       </div>
    </div>
 </div>
+<script>
+function statUpdate(x){
+
+
+      if(document.getElementById("lever_"+x).innerHTML=="YES"){
+        document.getElementById("lever_"+x).innerHTML="NO";
+        $.post("/CVO_AnimalColorPattern/updateStatus",{id:x, status:0},function(data){  })
+      }
+      else{
+        document.getElementById("lever_"+x).innerHTML="YES";
+        $.post("/CVO_AnimalColorPattern/updateStatus",{id:x, status:1},function(data){  })
+      }
+       
+      }
+function deleteColor(x){
+   $.post("/CVO_AnimalColorPattern/delete",{id:x},function(data){ 
+    
+  })
+  $('#'+x).remove();
+ 
+}
+
+</script>
 <%- include('./addAnimalColorPattern.ejs') -%>
 <%- include('./updateAnimalColorPattern.ejs') -%>
 <%- include('../../../templates/CVO-Footer-Location.ejs') -%>

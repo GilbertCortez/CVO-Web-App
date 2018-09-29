@@ -1,0 +1,101 @@
+<%- include('../../../templates/CVO-Head-Location.ejs') -%>
+<script>
+    document.getElementById("redemption_list").className="active";
+   document.getElementById("transaction_list").className="active";
+</script>
+<div class="row clearfix">
+  		<div class="col-sm-4">
+	        <div class="card">
+	        	<div class="body" style="min-height:650px">
+	        	 <center><h2>PET REDEMPTION INTERVIEW FORM</h2></center>
+                  <hr>
+                  <br><br><br><br><br>
+                  <a class="btn  btn-block bg-blue btn-lg" onclick="$('#adoptionapplication  ').modal('toggle');"><i class="material-icons">account_box</i><h6> VIEW OWNER INFORMATION</h6></a><br>
+                  <a class="btn  btn-block bg-blue btn-lg" onclick="$('#adoptionapplication  ').modal('toggle');"><i class="material-icons">pets</i><h6> VIEW PET INFORMATION</h6></a><br>
+	        	</div>
+	        </div>
+        </div>
+      	<div class="col-sm-8">
+        <div class="card">
+            <div class="body" style="min-height:570px">
+              <form method="POST" action="/CVO_Redemption/Interview" id="interviewDetails">
+                              <input type="hidden" name="transactionId" value="<%=transId %>" >
+                              <input type="hidden" name="ownerId" value="<%=ownerId %>" >
+                              <input type="hidden" name="ownerType" value="<%=ownerType %>" >
+                          <div class="col-sm-12">
+                         <label class="form-label">Date and Time Lost <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="Datetime-local" class="form-control" name="datetimelost" >
+                                    </div>
+                                </div>
+                                </div>
+
+                                   <div class="col-sm-12">
+                         <label class="form-label">Reason of Pet Lost <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="5" class="form-control" name="reason" ></textarea>
+                                    </div>
+                                </div>
+                                </div>
+                                  <div class="col-sm-12">
+                         <label class="form-label">Interview Remarks <font color="red">*</font></label>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea rows="5" class="form-control" name="interviewremarks" ></textarea>
+                                    </div>
+                                </div>
+                                </div>
+     <div class="col-sm-12">
+                                <label class="form-label">Interview Result <font color="red">*</font></label>
+                          <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                  <input name="interviewresult" type="radio" value=1 id="forYes" checked="">
+                  <label for="forYes">Approved</label>
+                  </span>
+                  <span class="input-group-addon">
+                  <input name="interviewresult" type="radio" id="forNo" value=0  >
+                  <label for="forNo">Disapproved</label>
+                  </span>
+                  
+               </div>
+                </div>
+                </form>
+                <div align='right'>
+ 			<button type="button" class="btn btn-primary waves-effect" onclick="proceedInterview()" >PROCEED</button>
+           <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function proceedInterview(){
+     swal({
+                 title: "SUBMIT INTERVIEW FORM?",
+                 icon: "/images/alert_question.png",
+                 buttons: {
+                   yes: "YES",
+                   cancel: "CANCEL",
+
+  
+                 },
+              closeOnClickOutside: false,
+                  width: '800px',
+               })
+               .then((decision) => {
+                 if (decision==="yes") {
+                     document.getElementById('interviewDetails').submit();
+                 }
+                
+                 else if(decision==="cancel"){
+                swal.close()
+                 }
+               
+               })
+  }
+</script>
+
+<%- include('../../../templates/CVO-Footer-Location.ejs') -%>

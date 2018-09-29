@@ -9,9 +9,11 @@ var db = require('../../lib/database')();
 
 router.get('/',  (req,res)=>{
 
-  db.query(`SELECT * FROM vaccine v JOIN manufacturer m ON v.int_ManufacturerId=m.int_ManufacturerId`,(err, vaccines, field) => {
+  db.query(`SELECT *, v.int_Status AS vacStat FROM vaccine v JOIN manufacturer m ON v.int_ManufacturerId=m.int_ManufacturerId`,(err, vaccines, field) => {
     db.query(`SELECT * FROM manufacturer`,(err, manufacturer, field) => {
-      res.render('CVO-M-Vaccine/views/view',{va:vaccines, ma:manufacturer});
+      db.query(`SELECT DISTINCT int_VaccinationId FROM vaccination`,(err,usedVaccine)=>{ 
+      res.render('CVO-M-Vaccine/views/view',{va:vaccines, ma:manufacturer,usedVaccine});
+    });
       });
   });
 });
@@ -29,6 +31,27 @@ router.post('/add', (req, res) => {
 	});
 
 });
+
+router.post('/updateStatus', (req, res)=>{
+
+  db.query('UPDATE vaccine SET int_Status='+req.body.status+' WHERE int_VaccineId='+req.body.id,(err)=>{
+
+    if(err){
+      res.send("ERROR")
+    }
+    else{
+      res.send("SUCCESS")
+    }
+  })
+});
+
+router.post('/delete', (req, res)=>{
+  console.log(req.body.id)
+  db.query(`DELETE FROM vaccine WHERE int_VaccineId = ${req.body.id}`,(err)=>{
+    console.log(err)
+  })
+});
+
 
 cv.post('/',  (req,res)=>{
 var id=req.sanitize(req.body.id.trim());

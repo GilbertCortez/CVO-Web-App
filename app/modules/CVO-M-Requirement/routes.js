@@ -8,8 +8,10 @@ var db = require('../../lib/database')();
 
 router.get('/', (req, res) => {
     db.query(`SELECT * FROM requirements`, (err, results, fields) => {
-        res.render('CVO-M-Requirement/views/view', {req: results});
+        db.query(`SELECT DISTINCT int_RequirementsId FROM requirementspertransaction`,(err,usedRequirements)=>{ 
+        res.render('CVO-M-Requirement/views/view', {req: results,usedRequirements:usedRequirements});
     }); 
+});
 });
 
 router.post('/add', (req, res) => {
@@ -32,6 +34,15 @@ router.post('/update', (req, res) => {
     });
 
 });
+
+router.post('/delete', (req, res)=>{
+    console.log(req.body.id)
+    db.query(`DELETE FROM requirements WHERE int_RequirementsId = ${req.body.id}`,(err)=>{
+        console.log(err)
+    })
+});
+
+
 
 cr.post('/', (req, res) => {
     var id = req.sanitize(req.body.id.trim());
@@ -59,6 +70,16 @@ cr.post('/update', (req, res) => {
     });
 });
 
+router.post('/updateStatus', (req, res)=>{
+    db.query('UPDATE requirements SET int_Status='+req.body.status+' WHERE int_RequirementsId='+req.body.id,(err)=>{
+        if(err){
+            res.send("ERROR")
+        }
+        else{
+            res.send("SUCCESS")
+        }
+    })
+});
 
 exports.CVO_Requirement = router;
 exports.checkRequirements = cr; 

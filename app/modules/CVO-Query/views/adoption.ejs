@@ -10,11 +10,8 @@
          ADOPTED ANIMALS
       </h2>
    </div>
-   <div class="col-sm-4">
-      <div class="card" style="min-height: 570px">
-      <div class="header bg-blue">
-      <center><h2>QUERY</h2></center>
-      </div>
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">   
 
             <h4>Query Type</h4>
@@ -49,8 +46,9 @@
             <br>
             <h4>Species</h4>
                 <hr>
-                <center>
-                <div class="demo-radio-button" >
+                <div align="center">
+                    <div class="col-sm-3"></div>
+                <div class="demo-radio-button col-sm-9" align="left" >
                     <input name="species_v" type="radio" class="with-gap radio-col-blue" value="1"  id="dogs_v" checked="" >
                     <label for="dogs">Dogs</label>
                     <input name="species_v" type="radio" class="with-gap radio-col-blue" value="2" id="cats_v" >
@@ -58,7 +56,7 @@
                     <input name="species_v" type="radio" class="with-gap radio-col-blue" value="3" id="all_v" >
                     <label for="all">All</label>
                  </div>
-                </center>
+                </div>
             <br>
             <h4>Type of Adopter</h4>
             <hr>
@@ -82,8 +80,8 @@
          <br>
       </div>
    </div>
-   <div class="col-sm-8">
-      <div class="card" style="min-height: 570px">
+   <div class="col-sm-12">
+      <div class="card" style="min-height: 200px">
          <div class="body">
             <label class="form-label">EXPORT ADOPTED ANIMALS LIST</label>
             <div class="body">
@@ -94,8 +92,10 @@
                            <th>Adoption ID</th>
                            <th>Date & Time of Animal Release</th>
                            <th>Adopter Type</th>
+                           <th>Adopter</th>
+                           <th>Animal Id</th>
                            <th>Pet Tag number</th>
-                           <th>Pet Name/Alias</th>
+                           <th>Pet Alias</th>
                            <th>Species</th>
                            <th>Breed</th>
                            <th>Color Pattern</th>
@@ -104,18 +104,38 @@
                         </tr>
                      </thead>
                      <tbody>
+                         <% adoption.forEach(function (i) { %>
+                        <% function MMMMDDYYYY(i){
+
+                         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                         var now = new Date(i);
+                         return months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+                        }
+                        %>
                         <tr>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
-                           <td></td>
+                           <td><%=i.int_AdoptionTransactionId%></td>
+                           <td><%=MMMMDDYYYY(i.dtm_DateTimeAnimalReleased)%></td>
+                           <td><%=i.int_AdopterType%></td>
+                           <td><%=i.Adopter%></td>
+                           <td><%=i.int_AnimalId%></td>
+                           <td><%=i.str_PetTagNo%></td>
+                           <td><%=i.str_Alias%></td>
+                           <% if (i.int_AnimalSpecies == 0) { %>
+                            <td>Dog</td>
+                            <% } else if (i.int_AnimalSpecies == 1) { %>
+                            <td>Cat</td>
+                            <% } %>
+                           <td><%=i.str_BreedName%></td>
+                           <td><%=i.str_Description%></td>
+                           <% if (i.int_Sex == 0) { %>
+                            <td>Male</td>
+                            <% } else if (i.int_Sex == 1) { %>
+                            <td>Female</td>
+                            <% } %>
+                           <td>Adopted</td>
                         </tr>
+                        <% }); %>
                      </tbody>
                   </table>
                </div>
